@@ -13,6 +13,7 @@ doto-badge.json:
 badges: documentation-coverage-badge.json version-badge.json doto-badge.json
 
 clean:
-	make clean -C cpp
+	# make clean -C cpp
+	make clean -C docs
 
 .PHONY: tests clean test serve debug native web tests install-test-dependencies documentation-coverage documentation-coverage-badge.json version-badge.json doto-badge.json
