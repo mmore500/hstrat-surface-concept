@@ -73,6 +73,15 @@ jobs:
           python3 -m pip install -r requirements.txt
       - run: python3 -m pytest test_hsurf
 
+  test-hsurf-heavy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          python3 -m pip install pip --upgrade
+          python3 -m pip install -r requirements.txt
+      - run: python3 -m pytest -m heavy test_hsurf
+
   binder:
     runs-on: ubuntu-latest
     steps:
