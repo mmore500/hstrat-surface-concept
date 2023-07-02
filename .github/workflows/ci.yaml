@@ -80,7 +80,9 @@ jobs:
       - run: |
           python3 -m pip install pip --upgrade
           python3 -m pip install -r requirements.txt
-      - run: python3 -m pytest -m heavy test_hsurf
+      # ignore warnings to reduce memory use
+      # (there are a lot of deprecation warnings)
+      - run: python3 -m pytest -m heavy test_hsurf -W ignore
 
   binder:
     runs-on: ubuntu-latest
