@@ -3,7 +3,9 @@ import typing
 from deprecated.sphinx import deprecated
 
 from ._get_fractional_downgrade_rank import get_fractional_downgrade_rank
-
+from ._get_num_incidence_reservations_at_rank import (
+    get_num_incidence_reservations_at_rank,
+)
 
 @deprecated(
     reason="Needs rename to follow 'site rung' terminology.",
@@ -30,6 +32,11 @@ def get_fractional_downgrade_num_reservations_provided(
 
     state = fractional_downgrade_state
     assert state["next subtrahend"] != state["current subtrahend"], state
+    assert state["tour size"] >= state["next subtrahend"] * 2, state
+    assert state["tour size"] >= get_num_incidence_reservations_at_rank(
+        rank, surface_size,
+    )
+
     if rank >= thresh:
         return state["tour size"] - state["next subtrahend"]
     else:
