@@ -1,4 +1,4 @@
-from .....pylib import fast_pow2_divide, hanoi
+from .....pylib import fast_pow2_divide
 from ._get_num_sites_reserved_per_incidence_at_rank import (
     get_num_sites_reserved_per_incidence_at_rank,
 )

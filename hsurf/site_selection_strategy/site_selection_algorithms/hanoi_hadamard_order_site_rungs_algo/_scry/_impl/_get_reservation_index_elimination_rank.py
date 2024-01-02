@@ -2,7 +2,7 @@ import typing
 
 import interval_search as inch
 
-from ......pylib import bit_ceil, bit_floor, fast_pow2_divide, hanoi
+from ......pylib import bit_floor, fast_pow2_divide, hanoi
 from ..._impl._get_num_reservations_provided import (
     get_num_reservations_provided,
 )
@@ -79,10 +79,13 @@ def get_reservation_index_elimination_rank(
         remaining_index = remaining_reservations - inv_remaining_index - 1
         assert 0 <= remaining_index < remaining_reservations
 
-        hanoi_invader = fast_pow2_divide(
-            surface_size,
-            2 * remaining_reservations,
-        ) + hanoi_value
+        hanoi_invader = (
+            fast_pow2_divide(
+                surface_size,
+                2 * remaining_reservations,
+            )
+            + hanoi_value
+        )
         assert hanoi_invader > hanoi_value
 
         # ansatz will serve as upper bound
@@ -95,14 +98,14 @@ def get_reservation_index_elimination_rank(
         assert ansatz <= upper_bound_inclusive
         assert predicate(ansatz)
 
-        epoch_founding_hanoi_value = fast_pow2_divide(
-            surface_size,
-            4 * bit_ceil(reservation_index),
-        ) + hanoi_value - bool(hanoi_value)
         lower_bound = hanoi.get_index_of_hanoi_value_nth_incidence(
             hanoi_value, 0
         )
         assert lower_bound >= 0
+        # note that this existing lower bound is broken due to #5
+        # so, use most conservative lower bound
+        # also, not very confident in this lower bound above, needs testing
+        lower_bound = first_incidence_rank
         assert not predicate(lower_bound)
 
         res = inch.binary_search(predicate, lower_bound, ansatz)

@@ -1,6 +1,6 @@
 from deprecated.sphinx import deprecated
 
-from .....pylib import fast_pow2_divide, hanoi
+from .....pylib import fast_pow2_divide
 from ._get_regime_num_reservations_available import (
     get_regime_num_reservations_available,
 )
@@ -23,7 +23,7 @@ def get_regime_num_reservations_provided(
 
     Extends `get_regime_num_reservations_available` to time downgrading (i.e.,
     halving the incidence reservation buffer size) so that it occurs "safely"
-    when athe most recent deposition is at the last site that will be retained
+    when the most recent deposition is at the last site that will be retained
     after degradation (so the next deposition will be at semantic incidence
     reseration buffer position zero).
     """
