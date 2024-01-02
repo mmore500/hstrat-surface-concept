@@ -71,7 +71,9 @@ jobs:
       - run: |
           python3 -m pip install pip --upgrade
           python3 -m pip install -r requirements.txt
-      - run: python3 -m pytest -n auto test_hsurf
+      # ignore warnings to reduce memory use
+      # (there are a lot of deprecation warnings)
+      - run: python3 -m pytest -n auto -W ignore test_hsurf
 
   test-hsurf-heavy:
     runs-on: ubuntu-latest
