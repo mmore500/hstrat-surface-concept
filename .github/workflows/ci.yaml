@@ -75,6 +75,18 @@ jobs:
       # (there are a lot of deprecation warnings)
       - run: python3 -m pytest -n auto -W ignore test_hsurf
 
+  test-packaging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          python3 -m pip install pip --upgrade
+          python3 -m pip install '.[testing]'
+          rm -rf hsurf
+      # ignore warnings to reduce memory use
+      # (there are a lot of deprecation warnings)
+      - run: python3 -m pytest -n auto -W ignore test_hsurf
+
   test-hsurf-heavy:
     runs-on: ubuntu-latest
     steps:
