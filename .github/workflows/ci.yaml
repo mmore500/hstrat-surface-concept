@@ -81,7 +81,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python3 -m pip install pip --upgrade
-          python3 -m pip install '.[hsurf]'
+          python3 -m pip install '.[testing]'
           rm -rf hsurf
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
