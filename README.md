@@ -31,8 +31,8 @@ See `binder` for usage examples.
 
 This repository hosts prototype code for algorithm development of a lightweight fixed-length hereditary stratigraphy data structure.
 
-Code here is designed for use in conjunction with the mainline [`hstrat` package](https://github.com/mmore500/hstrat).
-Long-term, code in this repository will migrate to the `hstrat` package and this will remain only to ensure records (and reproducibility) of prototype work.
+Code here is designed for use in conjunction with the mainline [`hstrat`](https://github.com/mmore500/hstrat) and [`downstream`](https://github.com/mmore500/downstream) packages.
+Long-term, code in this repository will migrate to the `hstrat` and `downstream` packages and this will remain only to ensure records (and reproducibility) of prototype work.
 
 ## Citing
 
