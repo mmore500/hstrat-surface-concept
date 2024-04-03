@@ -7,7 +7,6 @@ import typing
 from hstrat import hstrat
 import pandas as pd
 from tqdm import tqdm
-import typing
 
 from hsurf import hsurf
 
