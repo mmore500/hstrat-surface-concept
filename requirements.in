@@ -1,3 +1,4 @@
+backstrip==0.2.4
 black==22.10.0
 Deprecated==1.2.13
 hstrat==1.11.1
@@ -12,6 +13,7 @@ nbmetalog==0.2.6
 numpy==1.23.5
 opytional==0.1.0
 pandas==1.5.2
+pecking==0.2.1
 pytest==7.2.2
 pytest-xdist==3.2.1
 ruff==0.0.260
