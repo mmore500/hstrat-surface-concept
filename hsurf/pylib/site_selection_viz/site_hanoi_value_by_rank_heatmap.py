@@ -55,4 +55,8 @@ def site_hanoi_value_by_rank_heatmap(
     else:
         assert ynorm is None
 
+    ax.set_ylim(*reversed(ax.get_ylim()))
+    ax.set_ylabel("Time")
+    ax.set_xlabel("Buffer Position")
+
     return ax
