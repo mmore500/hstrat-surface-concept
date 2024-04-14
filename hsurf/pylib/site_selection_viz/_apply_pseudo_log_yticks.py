@@ -18,7 +18,7 @@ def apply_pseudo_log_yticks(ax: mpl_axes.Axes) -> mpl_axes.Axes:
     # Create a dictionary from ticks and labels.
     # This will automatically remove duplicates because keys in a dictionary must be unique.
     unique_ticks_and_labels = dict(reversed([*zip(labels, ticks)]))
-    assert len(unique_ticks_and_labels) < len(labels)
+    assert len(unique_ticks_and_labels) <= len(labels)
 
     # Set the ticks and labels
     ax.set_yticks([*reversed([*unique_ticks_and_labels.values()])])
