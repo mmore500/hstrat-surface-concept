@@ -2,6 +2,7 @@ import typing
 
 from matplotlib import axes as mpl_axes
 from matplotlib import pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -58,5 +59,8 @@ def site_hanoi_value_by_rank_heatmap(
     ax.set_ylim(*reversed(ax.get_ylim()))
     ax.set_ylabel("Time")
     ax.set_xlabel("Buffer Position")
+    xticks = np.linspace(*ax.get_xlim(), num=9, dtype=int)
+    ax.set_xticks(xticks, xticks)
+    ax.tick_params(axis="x", rotation=0)
 
     return ax

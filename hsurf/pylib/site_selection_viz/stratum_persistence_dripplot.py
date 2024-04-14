@@ -2,6 +2,7 @@ import typing
 
 from hstrat import hstrat
 from matplotlib import axes as mpl_axes
+import numpy as np
 import pandas as pd
 
 from ._SurfaceHistoryToStratumRetentionPolicyShim import (
@@ -21,4 +22,10 @@ def stratum_persistence_dripplot(
     )
     ax.set_ylabel("Time")
     ax.set_xlabel("Ingestion Time Point")
+    ax.tick_params(axis="x", rotation=0)
+    ax.autoscale(enable=True, axis="x", tight=True)
+    xticks = np.linspace(*ax.get_xlim(), num=9, dtype=int)
+    ax.set_xticks(xticks - xticks.min(), xticks - xticks.min())
+    for spine in ax.spines.values():
+        spine.set_visible(False)
     return ax
