@@ -21,7 +21,7 @@ def site_differentia_by_rank_heatmap(
     surface_history_df: pd.DataFrame,
     ynorm: typing.Optional[Literal["log", "linear"]] = "log",  # noqa: F821
     rank_sample_size: int = 256,
-    figsize: typing.Optional[typing.Tuple[int, int]] = None,
+    figsize: typing.Tuple[int, int] = (12, 7),
 ) -> mpl_axes.Axes:
     # Reshape data
     if ynorm == "log":
@@ -42,8 +42,7 @@ def site_differentia_by_rank_heatmap(
     )
 
     # Create heatmap
-    if figsize is not None:
-        plt.figure(figsize=figsize)
+    plt.figure(figsize=(12, 7))
     ax = sns.heatmap(reshaped_df, cmap="viridis", annot=False)
 
     if ynorm == "log":
