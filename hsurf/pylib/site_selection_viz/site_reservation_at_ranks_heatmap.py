@@ -17,7 +17,7 @@ def site_reservation_at_ranks_heatmap(
     figsize = (surface_history_df["site"].nunique() / 2, len(ranks) / 2)
 
     fig, axs = plt.subplots(nrows=len(ranks), figsize=figsize, ncols=1)
-    for rank, ax in zip(ranks, axs):
+    for rank, ax in zip(ranks, axs[::-1]):
         site_reservation_at_rank_heatmap(
             surface_history_df, rank, ax=ax, zigzag=True
         )

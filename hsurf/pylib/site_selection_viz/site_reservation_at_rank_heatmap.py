@@ -51,7 +51,7 @@ def site_reservation_at_rank_heatmap(
             ):
                 xmax = ax.get_xlim()[1]
                 ax.axhline(
-                    1.5,
+                    -0.5,
                     (last_site) / xmax,
                     (last_site + 1) / xmax,
                     color="black",
