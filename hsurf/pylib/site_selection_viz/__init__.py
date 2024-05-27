@@ -7,7 +7,9 @@ from .site_deposition_rank_by_rank_heatmap import (
 from .site_differentia_by_rank_heatmap import site_differentia_by_rank_heatmap
 from .site_hanoi_value_by_rank_heatmap import site_hanoi_value_by_rank_heatmap
 from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
-from .site_reservation_at_ranks_heatmap import site_reservation_at_ranks_heatmap
+from .site_reservation_at_ranks_heatmap import (
+    site_reservation_at_ranks_heatmap,
+)
 from .site_reservation_by_rank_heatmap import site_reservation_by_rank_heatmap
 from .site_reservation_by_rank_spliced_at_heatmap import (
     site_reservation_by_rank_spliced_at_heatmap,
