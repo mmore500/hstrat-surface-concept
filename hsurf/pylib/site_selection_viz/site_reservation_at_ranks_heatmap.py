@@ -4,9 +4,7 @@ from matplotlib import figure as mpl_figure
 from matplotlib import pyplot as plt
 import pandas as pd
 
-from .site_reservation_at_rank_heatmap import (
-    site_reservation_at_rank_heatmap,
-)
+from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
 
 
 def site_reservation_at_ranks_heatmap(

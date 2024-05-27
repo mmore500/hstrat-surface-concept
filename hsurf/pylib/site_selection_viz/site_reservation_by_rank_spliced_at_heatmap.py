@@ -7,12 +7,8 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-from .site_reservation_at_rank_heatmap import (
-    site_reservation_at_rank_heatmap,
-)
-from .site_reservation_by_rank_heatmap import (
-    site_reservation_by_rank_heatmap,
-)
+from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
+from .site_reservation_by_rank_heatmap import site_reservation_by_rank_heatmap
 
 
 def site_reservation_by_rank_spliced_at_heatmap(
