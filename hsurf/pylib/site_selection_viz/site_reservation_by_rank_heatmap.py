@@ -2,7 +2,6 @@ import typing
 
 import matplotlib as mpl
 from matplotlib import axes as mpl_axes
-from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
