@@ -1,3 +1,5 @@
+import typing
+
 import matplotlib as mpl
 from matplotlib import axes as mpl_axes
 from matplotlib import pyplot as plt
@@ -12,7 +14,9 @@ from ._extract_reservation_indices_at_rank import (
 
 
 def site_reservation_by_rank_heatmap(
-    surface_history_df: pd.DataFrame, cbar: bool = True
+    surface_history_df: pd.DataFrame,
+    ax: typing.Optional[mpl_axes.Axes] = None,
+    cbar: bool = True,
 ) -> mpl_axes.Axes:
     surface_history_df = (
         surface_history_df.replace(-1, np.nan)
@@ -39,7 +43,9 @@ def site_reservation_by_rank_heatmap(
             ),
             fontsize=4,
             color="lightyellow",
+            clip_on=True,
         ),
+        ax=ax,
         cbar=cbar,
         cbar_kws=dict(label="hanoi value"),
         cmap=sns.color_palette(
