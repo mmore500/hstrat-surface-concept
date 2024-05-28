@@ -28,9 +28,9 @@ def site_reservation_at_rank_heatmap(
         data=slice_df.pivot(index="rank", columns="site", values="hanoi value"),
         ax=ax,
         cbar=False,
-        cmap=sns.color_palette("tab10", 10) + sns.color_palette("deep", 10),
-        vmax=20 + 0.5,  # align cbar labels
-        vmin=0 - 0.5,  # align cbar labels
+        cmap=sns.color_palette("tab10", 10) + sns.color_palette("pastel", 10),
+        vmax=19.9,  # align cbar labels
+        vmin=0,  # align cbar labels
     )
 
     ax.axhline(1, color="burlywood", linewidth=12)  # alt: "burlywood"
