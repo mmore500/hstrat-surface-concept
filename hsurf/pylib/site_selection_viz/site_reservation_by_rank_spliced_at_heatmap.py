@@ -15,6 +15,7 @@ def site_reservation_by_rank_spliced_at_heatmap(
     surface_history_df: pd.DataFrame,
     splice_from_ranks: typing.List[int],
     splice_to_ranks: typing.List[int],
+    reservation_mode: str = "tilted",
 ) -> mpl_figure.Figure:
 
     splice_from_ranks = sorted(splice_from_ranks)
@@ -59,12 +60,17 @@ def site_reservation_by_rank_spliced_at_heatmap(
             surface_history_df,
             ax=ax,
             cbar=False,
+            reservation_mode=reservation_mode,
         )
         ax.set_ylim(*panel_lim)
 
     for ax, splice_from_rank in tqdm(zip(splice_axs, splice_from_ranks)):
         ax = site_reservation_at_rank_heatmap(
-            surface_history_df, splice_from_rank, ax=ax, zigzag=False
+            surface_history_df,
+            splice_from_rank,
+            ax=ax,
+            reservation_mode=reservation_mode,
+            zigzag=False,
         )
 
     for ax in axs[1:]:

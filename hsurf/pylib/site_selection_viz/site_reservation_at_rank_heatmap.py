@@ -15,6 +15,7 @@ def site_reservation_at_rank_heatmap(
     surface_history_df: pd.DataFrame,
     rank: int,
     ax: typing.Optional[mpl_axes.Axes] = None,
+    reservation_mode: str = "tilted",
     zigzag: bool = False,
 ) -> mpl_axes.Axes:
 
@@ -36,7 +37,9 @@ def site_reservation_at_rank_heatmap(
     ax.axhline(1, color="burlywood", linewidth=12)  # alt: "burlywood"
 
     # this part is a mess, could be rewritten ...
-    reservation_indices = extract_reservation_indices_at_rank(slice_df, rank)
+    reservation_indices = extract_reservation_indices_at_rank(
+        slice_df, rank, reservation_mode=reservation_mode
+    )
     for last_site, site in it.pairwise((None, *reservation_indices, nsite)):
         ax.axvline(site, color="white", linewidth=12)
         if site == 0:
@@ -65,6 +68,8 @@ def site_reservation_at_rank_heatmap(
     ax.axvline(slice_df["site"].max() + 1, color="white", linewidth=4)
 
     for hv, site in zip(slice_df["hanoi value"], slice_df["site"]):
+        if np.isnan(hv):
+            continue
         ax.text(
             site + 0.5,
             0.4,

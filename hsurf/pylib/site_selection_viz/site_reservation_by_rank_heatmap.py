@@ -16,6 +16,7 @@ def site_reservation_by_rank_heatmap(
     surface_history_df: pd.DataFrame,
     ax: typing.Optional[mpl_axes.Axes] = None,
     cbar: bool = True,
+    reservation_mode: str = "tilted",
 ) -> mpl_axes.Axes:
     surface_history_df = (
         surface_history_df.replace(-1, np.nan)
@@ -67,7 +68,9 @@ def site_reservation_by_rank_heatmap(
     ax.invert_yaxis()
     for rank, group in surface_history_df.groupby("rank"):
         reservation_sites = extract_reservation_indices_at_rank(
-            group.reset_index(), rank
+            group.reset_index(),
+            rank,
+            reservation_mode=reservation_mode,
         )
         ax.vlines(
             reservation_sites,

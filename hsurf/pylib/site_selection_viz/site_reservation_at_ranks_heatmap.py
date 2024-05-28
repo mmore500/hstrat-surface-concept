@@ -10,6 +10,8 @@ from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
 def site_reservation_at_ranks_heatmap(
     surface_history_df: pd.DataFrame,
     ranks: typing.List[int],
+    reservation_mode: str = "tilted",
+    zigzag: bool = True,
 ) -> mpl_figure.Figure:
 
     figsize = (surface_history_df["site"].nunique() / 2, len(ranks) / 2)
@@ -17,7 +19,11 @@ def site_reservation_at_ranks_heatmap(
     fig, axs = plt.subplots(nrows=len(ranks), figsize=figsize, ncols=1)
     for rank, ax in zip(ranks, axs[::-1]):
         site_reservation_at_rank_heatmap(
-            surface_history_df, rank, ax=ax, zigzag=True
+            surface_history_df,
+            rank,
+            ax=ax,
+            reservation_mode=reservation_mode,
+            zigzag=zigzag,
         )
 
     fig.subplots_adjust(hspace=1.0)
