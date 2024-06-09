@@ -42,7 +42,9 @@ ${BUILD_DIR}-manuscript-draft.pdf: ${BUILD_DIR}-draft.pdf
 ${BUILD_DIR}-supplement-draft.pdf: ${BUILD_DIR}-draft.pdf
 	pdftk ${BUILD_DIR}-draft.pdf cat $(DRAFT_SUPPLEMENT_PAGE)-end output ${BUILD_DIR}-supplement-draft.pdf
 
-fresh: cleaner all
+fresh: clean all
+
+fresher: cleaner all
 
 clean:
 	rm -f ${BUILD_DIR}.pdf
@@ -63,4 +65,4 @@ cleaner: clean
 	find . -type f -name ${BUILD_DIR}"*" ! -name '*.tex' ! -name '*.bib' -delete
 	rm -rf *.bbl *.blg *.aux
 
-.PHONY: draft release clean sview cleaner fresh
+.PHONY: draft release clean sview cleaner fresh fresher
