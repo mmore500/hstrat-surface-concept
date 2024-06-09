@@ -44,6 +44,7 @@ Can we bound the our bound on gap size is at most twice the ideal gap size?
 \end{align*}
 
 We will have seen 1 of hv $r - 1$, 2 of hv $r - 2$, 4 of hv $r - 4$, and $2 ^ {s - 1}$ of hv $\max(r - s, 0)$.
+In general, we will have seen $\left\lfloor 2 ^ (r - h) \right\rfloor$ instances of hanoi value $h$ by epoch $r$.
 Recall $\sum_{i = 0}^{q} 2^i = 2 ^ {q + 1} - 1$.
 Do we have enough space?
 \begin{align*}
@@ -56,7 +57,28 @@ Do we have enough space?
 
 Need to prove:
 \begin{itemize}
-\item the number of reservation slots in $j$th reservation equals the number of hanoi value instances observed during any window where  $r = k$.
-\item we will always fill completely and therefore drop hanoi value $r - s - 1$.
-\item that hanoi value $r - s - 1$ is in the $h \mod j$th slot
+\item the number of reservation slots in $j$th reservation equals the number of hanoi value instances observed during any window where $r = k$.
+\item note, because we always fill completely we will therefore drop instances of hanoi value $r - s - 1$.
+\item that hanoi value $r - s - 1$ is in the $h \mod n$th slot
 \end{itemize}
+
+The hanoi value $h = r - j$ is placed in the $j$th reservation during epoch $r$.
+The $j$th reservation has $s - j$ slot size.
+So, at epoch $r$ in reservation $j$ the hanoi value $h(j, r)$ will overwrite hanoi value
+\begin{align*}
+h(j, r) - (s - j) - 1 \\
+&= (r - j) - (s - j) - 1 \\
+&\stackrel{\checkmark}{=} r - s - 1.
+\end{align*}
+
+The $j$th reservation has $\max(1, 2^{j - 1})$ slots.
+The number of new observations of hanoi value during epoch $r$ is $h$ is $\# h(r) -  \# h(r - 1)$.
+This is
+\begin{align*}
+\left\lfloor 2 ^ {r - h} \right\rfloor - \left\lfloor 2 ^ {r - h - 1} \right\rfloor \\
+&= \left\lfloor 2 ^{r - (r - j)} \right\rfloor - \left\lfloor 2 ^ {r - (r - j) - 1} \right\rfloor \\
+&= 2^j - \left\lfloor 2 ^ {j - 1} \right\rfloor \\
+&= \min(2^j - 2^{j - 1}, 1) \\
+&= \min(2 \times 2^{j - 1} - 2^{j - 1}, 1) \\
+&\stackrel{\checkmark}{=} \min(2^{j - 1}, 1).
+\end{align*}
