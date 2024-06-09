@@ -1,1 +1,62 @@
 \section{Results and Discussion} \label{sec:results}
+
+Let binary floor of $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = \exp(2, \left\lfloor \log_2 x \right\rfloor)$
+
+\section{Steady Algorithm}
+
+Suppose surface size $S = 2^s$ at rank $R$, with $r = \left\lceil \log_2 R \right\rceil$.
+Note that $2 \times R \leq 2^r$.
+In order for the steady algorithm to work, we need to have all values with hanoi value greater than or equal to
+\begin{align*}
+\max(r - s, 0)
+\end{align*}
+
+Recall that the distance between hanoi value instances is $2^{h + 1}$ and the distance between a hanoi value and a greater or equal hanoi value is $2^h$.
+If we have $h = \max (r - s, 0)$, then gap size is at most $2^{\max(r - s, 0)}$.
+The ideal gap size would be $\max( \left\lceil R / S \right\rceil, 1)$.
+
+Can we bound the our bound on gap size is at most twice the ideal gap size?
+\begin{align*}
+\frac{
+  2^{\max(r - s, 0)}
+}{
+  \max(\left\lceil R / S \right\rceil, 1)
+}
+&=
+\frac{
+  \max(2^r / 2^s, 1)
+}{
+  \max(\left\lceil R / S \right\rceil, 1)
+} \\
+&=
+\frac{
+  \max(2^r / S, 1)
+}{
+  \max(\left\lceil R / S \right\rceil, 1)
+} \\
+&\leq
+\frac{
+  \max(2R / S, 1)
+}{
+  \max(\left\lceil R / S \right\rceil, 1)
+} \\
+&\stackrel{\checkmark}{\leq} 2.
+\end{align*}
+
+We will have seen 1 of hv $r - 1$, 2 of hv $r - 2$, 4 of hv $r - 4$, and $2 ^ {s - 1}$ of hv $\max(r - s, 0)$.
+Recall $\sum_{i = 0}^{q} 2^i = 2 ^ {q + 1} - 1$.
+Do we have enough space?
+\begin{align*}
+\sum_{i = 0}^{(r - 1) - \max(r - s, 0)} 2 ^ i \\
+&= \sum_{i = 0}^{\min(r - 1, s - 1)} 2 ^ i \\
+&\leq \sum_{i = 0}^{s - 1} 2 ^ i \\
+&\leq 2^s - 1\\
+&\stackrel{\checkmark}{\leq} 2^s
+\end{align*}
+
+Need to prove:
+\begin{itemize}
+\item the number of reservation slots in $j$th reservation equals the number of hanoi value instances observed during any window where  $r = k$.
+\item we will always fill completely and therefore drop hanoi value $r - s - 1$.
+\item that hanoi value $r - s - 1$ is in the $h \mod j$th slot
+\end{itemize}
