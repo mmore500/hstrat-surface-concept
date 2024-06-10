@@ -1,8 +1,8 @@
-\section{Notations and Terminology} \label{sec:notation}
+\section{Preliminaries, Notations, and Terminology} \label{sec:notation}
 
 The core function of proposed algorithms is curating incoming data on a rolling basis to dynamically retain a subset that, according to a desired \textbf{coverage criterion}, provides sufficient coverage over observed history.
 We consider the one-dimensional sequence of \textbf{data items} $v_i$ as a \textbf{data stream}.
-We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
+We refer to the act of reading an item from the data stream as \textbf{ingesting} it.%
 \footnote{%
 In associated materials, the fixed-size buffer used to store curated data items is referred to as a ``surface.''%
 }
@@ -11,8 +11,13 @@ For the purposes of present discussion, we assume data items to be fixed-size (i
 We will notate the \textit{number of available buffer sites} as $S$.
 In their current form, proposed algorithms assume fixed-size memory space, to store $S$ data items.
 They require buffer size to be an even power of two, so that for some $s$, $S = 2^s$.
-On occasion it will become necessary to refer to a specific position within a buffer.
-We will use the variable $k$ to refer to buffer position, and take a zero-indexing convention so $0 \leq k < S$.
+On occasion it will become necessary to refer to a specific position $k$ within a buffer.
+We will take a zero-indexing convention so $0 \leq k < S$.
+
+We consider only one operation on the buffer: storage of an ingested data item.
+Placing a data item from the data stream onto an already-occupied buffer site overwrites it.
+To maintain simplicity, algorithms do not move, swap, or read already-stored data.
+Further, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
 
 We will refer to each \textit{data item's stream sequence index} as its time $T$.
 In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to time $T=0$.
@@ -24,8 +29,12 @@ The \textit{tilted criterion} also seeks to maintain data items with time indice
 Formal definition of each criterion is provided in its corresponding section.
 
 It happens that for the structure of the algorithms, the binary order of magnitude of the time $T$ plays an important structural role.
-We will refer to this value $t = \left\lceil \log_2 T \right\rceil$ as the \textbf{epoch} of $T$.
-We associate time $T=0$ to epoch $t=0$.
+We will refer to this value $t$ as the \textbf{epoch} of $T$.
+We associate time $T=0$ to epoch $t=0$ and treat $T < S$ --- before the buffer fills --- as epoch 0.
+
+For the \textit{steady algorithm}, epoch transition occurs immediately before a new binary order of magnitude (e.g., between $T = 15$ and $T = 16$ or between $T = 31$ and $T = 32$), so $t = \left\lfloor \log_2(T) \right\rfloor - s + 1$ for $T \geq S$.
+For the \textit{tilted algorithm}, epoch transition occurs immediately \textit{after} a new binary order of magnitude (e.g., between $T = 16$ and $T = 17$).
+So, in this context $t = \left\lfloor \log_2(T - 1) \right\rfloor - s + 1$ for $T > S$.
 
 It also happens that for the structure of the algorithms, time values' associated entry in the binary carry sequence is also frequently relevant.
 The first few terms of this sequence are $0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0 \ldots$.
