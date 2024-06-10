@@ -1,3 +1,43 @@
 \section{Notations and Terminology} \label{sec:notation}
 
-Let binary floor of $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = \exp(2, \left\lfloor \log_2 x \right\rfloor)$
+The core function of proposed algorithms is curating incoming data on a rolling basis to dynamically retain a subset that, according to a desired \textbf{coverage criterion}, provides sufficient coverage over observed history.
+We consider the one-dimensional sequence of \textbf{data items} $v_i$ as a \textbf{data stream}.
+We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
+\footnote{%
+In associated materials, the fixed-size buffer used to store curated data items is referred to as a ``surface.''%
+}
+For the purposes of present discussion, we assume data items to be fixed-size (i.e., fitting within an allocated buffer space) and do not consider the actual values of the data items further.
+
+We will notate the \textit{number of available buffer sites} as $S$.
+In their current form, proposed algorithms assume fixed-size memory space, to store $S$ data items.
+They require buffer size to be an even power of two, so that for some $s$, $S = 2^s$.
+On occasion it will become necessary to refer to a specific position within a buffer.
+We will use the variable $k$ to refer to buffer position, and take a zero-indexing convention so $0 \leq k < S$.
+
+We will refer to each \textit{data item's stream sequence index} as its time $T$.
+In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to time $T=0$.
+We assume $T$ to be known exactly, which is simple to accomplish by in practice by maintaining a counter that increments each time a data item is ingested.
+Note that \textit{coverage criteria} considered here are defined solely in terms of time indices $T$ of retained data items --- not their data values.
+Algorithms for two coverage criteria are treated: \textbf{steady} and \textbf{tilted} in Sections \ref{sec:steady} and \ref{sec:tilted}, respectively.
+The \textit{steady criterion} seeks to maintain data items with time indices that evenly cover elapsed history.
+The \textit{tilted criterion} also seeks to maintain data items with time indices spread across elapsed history, but with recency-proportional density such that more more-recent data items are maintained.
+Formal definition of each criterion is provided in its corresponding section.
+
+It happens that for the structure of the algorithms, the binary order of magnitude of the time $T$ plays an important structural role.
+We will refer to this value $t = \left\lceil \log_2 T \right\rceil$ as the \textbf{epoch} of $T$.
+We associate time $T=0$ to epoch $t=0$.
+
+It also happens that for the structure of the algorithms, time values' associated entry in the binary carry sequence is also frequently relevant.
+The first few terms of this sequence are $0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0 \ldots$.
+This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
+We adopt a zero-indexing convention, so $a(0) = 0$, $a(1) = 1$, $a(2) = 0$, etc.
+
+For each time point $T$ we refer to its corresponding entry in the binary carry sequence $a(T)$ as its ``\textbf{hanoi value},'' in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
+On occasion, we abbreviate this term as ``h.v.''
+Some intuition for the structure of this sequence is requisite to later discussions.
+Note that element 0 appears every 2nd entry, element 1 appears every 4th entry, and in the general case element $h$ appears every $2^{h+1}$th entry.
+Finally, it is worth remarking that when hanoi value $h$ appears for the first time, the value $h - 1$ has appeared exactly once.
+So, we have seen exactly one instance of $h$ and also exactly one instance of $h - 1$.
+At this point, the value $h - 2$ has appeared exactly twice, and in general the value $h - n$ has appeared $2^{n - 1}$ times.
+
+As a final piece of minutiae, let binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = \exp(2, \left\lfloor \log_2 x \right\rfloor)$.
