@@ -78,3 +78,18 @@ This is
 &= \min(2 \times 2^{j - 1} - 2^{j - 1}, 1) \\
 &\stackrel{\checkmark}{=} \min(2^{j - 1}, 1).
 \end{align*}
+
+
+\subsection{Criterion Satisfaction}
+
+Take buffer size $\colorS$ at time $\colorT$.
+At any one point in time, the best possible coverage is $\left\lceil \colorT / \colorS \right\rceil$.
+The proposed curation algorithm achieves no worse than this by a constant factor.
+
+\begin{theorem}[Steady Algorithm Worst-case Gap Size]
+\label{thm:steady-gap-size}
+Under the steady curation algorithm, no gap size exceeds $\left\lceil 2 \colorT / \colorS \right\rceil$.  %TODO check this
+\end{theorem}
+\begin{proof}
+TODO
+\end{proof}
