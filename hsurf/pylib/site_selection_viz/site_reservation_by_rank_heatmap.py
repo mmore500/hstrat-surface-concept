@@ -93,4 +93,7 @@ def site_reservation_by_rank_heatmap(
             zorder=10,
         )
 
+    ax.set_xlabel("Buffer Position")
+    ax.set_ylabel("Time")
+
     return ax
