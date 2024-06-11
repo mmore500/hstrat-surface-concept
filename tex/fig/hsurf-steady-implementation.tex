@@ -1,0 +1,55 @@
+\begin{figure*}[h!]
+  \centering
+
+\begin{subfigure}[b]{\linewidth}
+\includegraphics[width=\linewidth]{
+binder/teeplots/10/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
+\caption{
+  Buffer composition across time, split by epoch with data items color coded by hanoi value.
+}
+\end{subfigure}
+
+ \begin{minipage}[]{\textwidth}
+ \vspace{-2pt}
+  \begin{subfigure}[t]{0.7\linewidth}
+    \vspace{0pt}
+    \centering
+  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/10/cnorm=log+num-generations=4096+surface-size=256+viz=site-deposition-depth-by-rank-heatmap+ynorm=linear+ext=}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.3\linewidth}
+  \vspace{-2pt}
+  \caption{%
+    Stored data item age across buffer sites.
+  }
+\end{subfigure}
+\end{minipage}
+
+   \begin{minipage}[]{\textwidth}
+   \vspace{-2pt}
+  \begin{subfigure}[t]{0.7\linewidth}
+  \vspace{0pt}
+    \centering
+    \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/10/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.3\linewidth}
+  \vspace{-2pt}
+  \caption{%
+    Data item retention time spans by ingestion time point.
+  }
+  \end{subfigure}
+  \end{minipage}
+
+\caption{%
+  \textbf{Steady algorithm implementation.}
+  \footnotesize
+  TODO
+  % Visualizations of steady (left) and tilted (right) surface site selection policies.
+  % Top-row heatmaps show evolution of time-since-last-deposition for each site on a 256-bit field over the course of 4,096 time steps.
+  % The bottom row shows retention spans for 3,000 ingested time points.
+  % Vertical lines span durations between ingestion and elimination for differentia appended at successive time points.
+  % Time points previously eliminated are marked in red.
+  % Time elapses from bottom to top in both visualizations.
+  }
+\label{fig:surf-steady-implementation}
+
+\end{figure*}
