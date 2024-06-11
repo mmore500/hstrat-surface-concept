@@ -1,4 +1,31 @@
-\section{Steady Algorithm}
+\section{Steady Algorithm} \label{sec:steady}
+
+The steady criterion seeks to retain data items from time points evenly spread across observed history.
+The criterion can be formulated as minimization of the worst gap size between retained data items.
+This section presents a stream curation algorithm designed to support the steady criterion.
+
+The mechanism of the proposed algorithm revolves around placing and retaining data items according to the hanoi value $\colorh$ of their sequence index $\colorT$.
+For instance, discarding items with $\colorH(\colorT) = 0$ drops every other item, and increases gap size to 1.
+Subsequently, removing items with $\colorH(\colorT) = 1$ again drops every other item and increases gap size to 3.
+Pruning according to hanoi value provides a well-behaved transition to increase gap size.
+
+Given that only $\colorS$ data items can be retained, our goal is to maintain all items $\colorT_y$ with high hanoi value $\colorH(\colorT_y)$ by repeatedly discarding items $\colorT_x$ with lowest hanoi value $\colorH(\colorT_x)$.
+It turns out that, at each epoch $\colort$, we should keep all items with all items $\colorT$ with $\colorH(\colorT) \geq \colort$.
+All items with $\colorH(\colorT) = \colort - 1$ are replaced by new items with higher hanoi value.
+Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
+
+The remainder of the section examines how to arrange data item placement to enact the above hanoi value strategy.
+We first detail the conceptual mechanism of the algorithm in managing buffer layout.
+We subsequently justify the correctness and viability of aspects of the mechanism.
+Then, we prove a lower bound of the performance of the algorithm in upholding the steady criterion.
+
+\subsection{Mechanism}
+
+\subsection{Justification}
+
+Let xj bj be the functions that give position for XXXX at time $T$.
+We do not provide formal, closed-form definitions of them here but they can be computed in $\mathcal{O}(1)$ time with availability of binary operators (e.g., bit mask, bit shift, bitwise logical operators).
+
 
 Suppose surface size $S = 2^s$ at rank $R$, with $r = \left\lceil \log_2 R \right\rceil$.
 Note that $2 \times R \leq 2^r$.
