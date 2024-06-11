@@ -35,4 +35,10 @@ def site_reservation_at_ranks_heatmap(
     axs[-1].set_xticklabels(sorted(surface_history_df["site"].unique()))
     axs[-1].set_xlabel("Buffer Position")
 
+    for epoch, ax in enumerate(reversed(axs)):
+        ax.set_yticks([0.5])
+        ax.set_yticklabels([f"Epoch {epoch}"])
+        for tick in ax.get_yticklabels():
+            tick.set_rotation(0)
+
     return fig

@@ -82,4 +82,14 @@ def site_reservation_by_rank_spliced_at_heatmap(
     axs[0].set_xticklabels(sorted(surface_history_df["site"].unique()))
     axs[0].set_xlabel("Buffer Position")
 
+    for epoch, ax in enumerate(splice_axs):
+        ax.set_yticks([0.5])
+        ax.set_yticklabels([f"↑ Epoch {epoch}"])
+        for tick in ax.get_yticklabels():
+            tick.set_rotation(0)
+
+        line = plt.Line2D(xdata=[-2, 0], ydata=[1, 1], color="k", linewidth=1)
+        line.set_clip_on(False)
+        ax.add_line(line)
+
     return fig
