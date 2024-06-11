@@ -76,4 +76,10 @@ def site_reservation_by_rank_spliced_at_heatmap(
     for ax in axs[1:]:
         ax.xaxis.set_visible(False)
 
+    axs[0].set_xticks(
+        np.array(sorted(surface_history_df["site"].unique())) + 0.5
+    )
+    axs[0].set_xticklabels(sorted(surface_history_df["site"].unique()))
+    axs[0].set_xlabel("Buffer Position")
+
     return fig
