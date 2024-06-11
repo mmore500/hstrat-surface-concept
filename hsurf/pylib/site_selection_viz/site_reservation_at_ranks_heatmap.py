@@ -2,6 +2,7 @@ import typing
 
 from matplotlib import figure as mpl_figure
 from matplotlib import pyplot as plt
+import numpy as np
 import pandas as pd
 
 from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
@@ -27,5 +28,11 @@ def site_reservation_at_ranks_heatmap(
         )
 
     fig.subplots_adjust(hspace=1.0)
+
+    axs[-1].set_xticks(
+        np.array(sorted(surface_history_df["site"].unique())) + 0.5
+    )
+    axs[-1].set_xticklabels(sorted(surface_history_df["site"].unique()))
+    axs[-1].set_xlabel("Buffer Position")
 
     return fig
