@@ -132,4 +132,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: manuscript
-          path: ${{ github.event.repository.name }}-draft.pdf
+          path: tex/${{ github.event.repository.name }}-draft.pdf
