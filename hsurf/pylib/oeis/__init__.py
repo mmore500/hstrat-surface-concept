@@ -10,6 +10,7 @@ from .get_a048881_value_at_index import get_a048881_value_at_index
 from .get_a057716_value_at_index import get_a057716_value_at_index
 from .get_a059893_index_of_value import get_a059893_index_of_value
 from .get_a059893_value_at_index import get_a059893_value_at_index
+from .get_a062289_value_at_index import get_a062289_value_at_index
 from .get_a083058_index_of_value import get_a083058_index_of_value
 from .get_a083058_value_at_index import get_a083058_value_at_index
 from .get_a130654_value_at_index import get_a130654_value_at_index
@@ -29,6 +30,7 @@ __all__ = [
     "get_a057716_value_at_index",
     "get_a059893_index_of_value",
     "get_a059893_value_at_index",
+    "get_a062289_value_at_index",
     "get_a083058_index_of_value",
     "get_a083058_value_at_index",
     "get_a341916_index_of_value",
