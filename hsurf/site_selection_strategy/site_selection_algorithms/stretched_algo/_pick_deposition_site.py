@@ -32,10 +32,11 @@ def pick_deposition_site(
     incidence = hanoi.get_hanoi_value_incidence_at_index(rank)
 
     if incidence >= num_reservations:
-        invasion_rank = calc_next_invasion_rank(rank, surface_size)
-        res = pick_deposition_site(invasion_rank, surface_size)
-    else:
-        res = impl_pick_deposition_site(rank, surface_size)
+        rank = calc_next_invasion_rank(rank, surface_size)
+        assert hanoi.get_hanoi_value_incidence_at_index(
+            rank,
+        ) < get_hanoi_num_reservations(rank, surface_size)
 
+    res = impl_pick_deposition_site(rank, surface_size)
     assert 0 <= res < surface_size
     return res
