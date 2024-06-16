@@ -2,7 +2,7 @@ from .....pylib import hanoi, oeis
 from ...tilted_algo._impl import get_global_epoch
 
 
-def get_next_invasion_rank(rank: int, surface_size: int) -> int:
+def calc_next_invasion_rank(rank: int, surface_size: int) -> int:
     """Calculate the next rank where deposited hanoi value will overwrite a
     smaller hanoi value."""
     epoch = get_global_epoch(rank, surface_size)
