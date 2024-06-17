@@ -3,8 +3,8 @@ import itertools as it
 import pytest
 
 from pylib.hanoi import (
-    get_index_of_next_hanoi_value_geq_to,
     get_hanoi_value_at_index,
+    get_index_of_next_hanoi_value_geq_to,
 )
 
 
