@@ -73,7 +73,7 @@ def test_layering(surface_size: int, num_generations: int):
             "rank",
         ],
     ):
-        hanoi_value, rank = int(hanoi_value), int(rank)  # native python ints
+        hanoi_value, rank = int(hanoi_value), int(rank)  # pure python ints
         if rank == -1:
             continue
         if hanoi_value == -1:
