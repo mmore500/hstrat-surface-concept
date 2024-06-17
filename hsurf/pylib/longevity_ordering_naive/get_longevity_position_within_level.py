@@ -14,7 +14,7 @@ def get_longevity_position_within_level(
     )
 
     offset = get_longevity_offset_of_level(longevity_level, num_positions)
-    spacing = offset * 2
+    spacing = offset << 1  # * 2
 
     assert spacing == 0 or (mapped_position - offset) % spacing == 0
     position_within_level = (

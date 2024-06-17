@@ -3,9 +3,9 @@ import typing
 from .....pylib import fast_pow2_mod, hanoi
 from ._get_epoch_rank import get_epoch_rank
 from ._get_global_epoch import get_global_epoch
-from ._get_global_num_reservations import get_global_num_reservations
+from ._get_global_num_reservations import get_global_num_reservations_at_epoch
 from ._get_grip_reservation_index_logical import (
-    get_grip_reservation_index_logical,
+    get_grip_reservation_index_logical_at_epoch,
 )
 from ._get_site_genesis_reservation_index_physical import (
     get_site_genesis_reservation_index_physical,
@@ -42,9 +42,13 @@ def calc_resident_hanoi_value(
     epoch = get_global_epoch(rank, surface_size)
     epoch_rank = get_epoch_rank(epoch, surface_size)
 
-    num_reservations = get_global_num_reservations(rank, surface_size)
-    reservation = get_grip_reservation_index_logical(grip, rank, surface_size)
-    ansatz_hanoi = get_site_hanoi_value_assigned(site, rank, surface_size)
+    num_reservations = get_global_num_reservations_at_epoch(epoch, surface_size)
+    reservation = get_grip_reservation_index_logical_at_epoch(
+        grip, epoch, surface_size
+    )
+    ansatz_hanoi = get_site_hanoi_value_assigned(
+        site, rank, surface_size, grip=grip
+    )
     num_seen = hanoi.get_incidence_count_of_hanoi_value_through_index(
         ansatz_hanoi, rank
     )
@@ -68,6 +72,7 @@ def calc_resident_hanoi_value(
                 site,
                 surface_size,
                 epoch_rank,
+                grip=grip,
                 _recursion_depth=_recursion_depth + 1,
             )
             if epoch_rank  # special-case zeroth epoch

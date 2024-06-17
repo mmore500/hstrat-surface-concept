@@ -13,6 +13,9 @@ from .get_index_of_hanoi_value_next_incidence import (
 from .get_index_of_hanoi_value_nth_incidence import (
     get_index_of_hanoi_value_nth_incidence,
 )
+from .get_index_of_next_hanoi_value_geq_to import (
+    get_index_of_next_hanoi_value_geq_to,
+)
 from .get_max_hanoi_value_through_index import (
     get_max_hanoi_value_through_index,
 )
@@ -28,6 +31,7 @@ __all__ = [
     "get_incidence_count_of_hanoi_value_through_index",
     "get_index_of_hanoi_value_next_incidence",
     "get_index_of_hanoi_value_nth_incidence",
+    "get_index_of_next_hanoi_value_geq_to",
     "get_max_hanoi_value_through_index",
     "get_min_hanoi_value_with_incidence_at_least",
 ]

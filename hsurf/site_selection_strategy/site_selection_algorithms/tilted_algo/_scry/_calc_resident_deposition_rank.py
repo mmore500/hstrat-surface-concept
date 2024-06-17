@@ -138,7 +138,7 @@ def _get_cur_epoch_hanoi_count(
 def _calc_resident_rank_nonstale_case(
     grip: int, rank: int, surface_size: int, hanoi_value: int
 ) -> int:
-    """Implementation detial for case where ranks with this epoch's hanoi value
+    """Implementation detail for case where ranks with this epoch's hanoi value
     are in place at site."""
     reservation = get_grip_reservation_index_logical(grip, rank, surface_size)
     num_reservations = get_hanoi_num_reservations(
@@ -170,7 +170,7 @@ def _calc_resident_rank_stale_case(
     grip: int,
     _recursion_depth: int,  # just for debugging
 ) -> int:
-    """Implementation detial for case where ranks with this epoch's hanoi value
+    """Implementation detail for case where ranks with this epoch's hanoi value
     are not yet in place at site."""
     assert _recursion_depth < 2
 
