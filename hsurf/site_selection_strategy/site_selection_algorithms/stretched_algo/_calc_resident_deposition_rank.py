@@ -6,7 +6,7 @@ from ..tilted_algo._impl import (
     get_epoch_rank,
     get_global_epoch,
     calc_resident_hanoi_value,
-    get_grip_reservation_index_logical,
+    get_grip_reservation_index_logical_at_epoch,
     get_site_genesis_reservation_index_physical,
     get_site_hanoi_value_assigned,
 )
@@ -33,15 +33,18 @@ def impl_calc_resident_deposition_rank(
     assigned_hanoi_value = get_site_hanoi_value_assigned(
         site, rank, surface_size, grip=grip
     )
+    epoch = get_global_epoch(rank, surface_size)
     if hanoi_value != assigned_hanoi_value:
-        epoch = get_global_epoch(rank, surface_size)
         assert epoch
-        rank = get_epoch_rank(epoch - 1, surface_size)
+        epoch -= 1
+        rank = get_epoch_rank(epoch, surface_size)
         assert hanoi_value == get_site_hanoi_value_assigned(
             site, rank, surface_size, grip=grip
         )
 
-    reservation = get_grip_reservation_index_logical(grip, rank, surface_size)
+    reservation = get_grip_reservation_index_logical_at_epoch(
+        grip, epoch, surface_size
+    )
     res = hanoi.get_index_of_hanoi_value_nth_incidence(
         hanoi_value,
         reservation,
