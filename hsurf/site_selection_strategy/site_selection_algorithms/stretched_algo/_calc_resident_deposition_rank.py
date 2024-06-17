@@ -23,6 +23,7 @@ def impl_calc_resident_deposition_rank(
         site,
         surface_size,
         num_depositions,
+        grip=grip,
     )
     root_site = site - hanoi_value
     grip = get_site_genesis_reservation_index_physical(root_site, surface_size)
