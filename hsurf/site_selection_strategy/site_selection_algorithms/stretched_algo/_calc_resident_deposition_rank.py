@@ -3,9 +3,9 @@ import typing
 from ....pylib import hanoi
 from ..tilted_algo import calc_resident_deposition_rank as tilted_crdr
 from ..tilted_algo._impl import (
+    calc_resident_hanoi_value,
     get_epoch_rank,
     get_global_epoch,
-    calc_resident_hanoi_value,
     get_grip_reservation_index_logical_at_epoch,
     get_site_genesis_reservation_index_physical,
     get_site_hanoi_value_assigned,
