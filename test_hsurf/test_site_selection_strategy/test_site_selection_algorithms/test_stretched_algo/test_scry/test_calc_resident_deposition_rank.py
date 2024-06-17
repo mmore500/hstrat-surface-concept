@@ -35,12 +35,12 @@ def test_calc_resident_deposition_rank_integration(
     get_grip: typing.Callable,
 ):
     num_generations = min(
-        num_generations_bidder(surface_size), 2**surface_size - 2
+        num_generations_bidder(surface_size), 2 ** (surface_size - 1) - 1
     )
     hanoi_values = [0] * surface_size
     surface_deposition_ranks = [0] * surface_size
 
-    for rank in range(128):
+    for rank in range(num_generations):
         for site, actual_deposition_rank in enumerate(surface_deposition_ranks):
             calculated_deposition_rank = algo.calc_resident_deposition_rank(
                 site,
