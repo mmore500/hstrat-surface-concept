@@ -1,79 +1,92 @@
 \begin{figure*}[h!]
+  \setlength{\fboxrule}{0pt}
   \centering
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{gray!3}{gray!3}{%
+\begin{minipage}[c][1.35in]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$\colorT = 100$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!4}{orange!4}{%
+\begin{minipage}[]{0.34\textwidth}
+\includegraphics[trim={0.2cm 1.2cm 0 0},clip,height=1.36in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!6}{pink!6}{%
+\begin{minipage}[]{0.31\textwidth}
+\includegraphics[trim={1cm 1.2cm 0 0},clip,height=1.36in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!5}{teal!5}{%
+\begin{minipage}[]{0.31\textwidth}
+\includegraphics[trim={1cm 1.2cm 0 0},clip,height=1.36in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\hspace{-2ex}%
+\end{minipage}}%
+\end{minipage}\vspace{-1ex}
 
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{gray!11}{gray!11}{%
+\begin{minipage}[c][1.62in]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$\colorT = 100$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!10}{orange!10}{%
+\begin{minipage}[c]{0.34\textwidth}
+\includegraphics[trim={0.2cm 0 0 0},clip,height=1.62in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!15}{pink!15}{%
+\begin{minipage}[c]{0.31\textwidth}
+\includegraphics[trim={1cm 0 0 0},clip,height=1.62in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-after-alt+x=index+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!11}{teal!11}{%
+\begin{minipage}[]{0.31\textwidth}
+\includegraphics[trim={1cm 0 0 0},clip,height=1.62in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-after-alt+x=index+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-2ex}%
+\end{minipage}\vspace{-1ex}
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{white!100}{white!100}{%
+\begin{minipage}[b][0.2cm]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$~$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!2}{orange!2}{%
+\begin{minipage}[]{0.34\textwidth}
 \begin{subfigure}[b]{\linewidth}
-\begin{minipage}[]{0.08\textwidth}
-~
-\end{minipage}%
-\begin{minipage}[]{0.25\textwidth}
-\centering
-$\colorT = 50$
-\end{minipage}%
-\begin{minipage}[]{0.05\textwidth}
-~
-\end{minipage}%
-\begin{minipage}[]{0.61\textwidth}
-\centering
-$\colorT = 100$
-\end{minipage}
-\includegraphics[height=2in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+y=hanoi-value+ext=}%
-\includegraphics[height=2in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=}
-\caption{
-  steady hanoi
-}
-\end{subfigure}
-
+\caption{steady strategy}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!3}{pink!3}{%
+\begin{minipage}[]{0.31\textwidth}
 \begin{subfigure}[b]{\linewidth}
-\begin{minipage}[]{0.08\textwidth}
-~
-\end{minipage}%
-\begin{minipage}[]{0.25\textwidth}
-\centering
-$\colorT = 50$
-\end{minipage}%
-\begin{minipage}[]{0.05\textwidth}
-~
-\end{minipage}%
-\begin{minipage}[]{0.61\textwidth}
-\centering
-$\colorT = 100$
+\caption{tilted strategy}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!3}{teal!3}{%
+\begin{minipage}[]{0.31\textwidth}
+\begin{subfigure}[b]{\linewidth}
+\caption{stretched strategy}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-2ex}%
 \end{minipage}
-\includegraphics[height=2in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+y=hanoi-value+ext=}%
-\includegraphics[height=2in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-after+x=index+y=hanoi-value+ext=}
-\caption{
-  steady hanoi
-}
-\end{subfigure}
-
-%  \begin{minipage}[]{\textwidth}
-%  \vspace{-2pt}
-%   \begin{subfigure}[t]{0.7\linewidth}
-%     \vspace{0pt}
-%     \centering
-%   \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/10/cnorm=log+num-generations=4096+surface-size=256+viz=site-deposition-depth-by-rank-heatmap+ynorm=linear+ext=}
-%   \end{subfigure}%
-%   \begin{subfigure}[t]{0.3\linewidth}
-%   \vspace{-2pt}
-%   \caption{%
-%     tilted hanoi
-%   }
-% \end{subfigure}
-% \end{minipage}
-
-%    \begin{minipage}[]{\textwidth}
-%    \vspace{-2pt}
-%   \begin{subfigure}[t]{0.7\linewidth}
-%   \vspace{0pt}
-%     \centering
-%     \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/10/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=}
-%   \end{subfigure}%
-%   \begin{subfigure}[t]{0.3\linewidth}
-%   \vspace{-2pt}
-%   \caption{%
-%     Data item retention time spans by ingestion time point.
-%   }
-%   \end{subfigure}
-%   \end{minipage}
 
 \caption{%
   \textbf{Hanoi sequence for tilted and steady algorithms.}
