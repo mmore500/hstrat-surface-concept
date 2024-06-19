@@ -65,7 +65,8 @@
 \noindent\fcolorbox{orange!2}{orange!2}{%
 \begin{minipage}[]{0.34\textwidth}
 \begin{subfigure}[b]{\linewidth}
-\caption{steady strategy}
+\caption{steady criterion}
+\label{fig:criteria-intuition-steady}
 \end{subfigure}%
 \end{minipage}}%
 \hspace{-1ex}%
@@ -73,7 +74,8 @@
 \noindent\fcolorbox{pink!3}{pink!3}{%
 \begin{minipage}[]{0.31\textwidth}
 \begin{subfigure}[b]{\linewidth}
-\caption{stretched strategy}
+\caption{stretched criterion}
+\label{fig:criteria-intuition-stretched}
 \end{subfigure}%
 \end{minipage}}%
 \hspace{-1ex}%
@@ -81,15 +83,23 @@
 \noindent\fcolorbox{teal!3}{teal!3}{%
 \begin{minipage}[]{0.31\textwidth}
 \begin{subfigure}[b]{\linewidth}
-\caption{tilted strategy}
+\caption{tilted criterion}
+\label{fig:criteria-intuition-tilted}
 \end{subfigure}%
 \end{minipage}\hspace{-1ex}}%
 \end{minipage}
 
 \caption{%
-  \textbf{Target distributions of retained time points for tilted, stretched, and steady criteria.}
+  \textbf{Surveyed target coverage criteria.}
   \footnotesize
-  TODO
+  Ideal distributions of ingestion time points for retained data items under each criterion are shown at $\colorT=50$ (top) and $\colorT=100$ (bottom).
+  Vertical bars represent a retained data item.
+  In this illustration, collection size is 12 retained items.
+  All other ingested data items have been discarded.
+  The steady criterion (\ref{fig:criteria-intuition-steady}) seeks to minimize largest absolute gap size.
+  So, ideal retention maintains items spread evenly across data stream history.
+  The stretched criterion (\ref{fig:criteria-intuition-stretched}) calls for greater retention of early data items to minimize gap size proportional to data item ingestion time $\colorT$.
+  In contrast, under the tilted criterion (\ref{fig:criteria-intuition-tilted}) recency-proportional gap size is to be minimized, necessitating over-retention of recent data items.
   }
 \label{fig:criteria-intuition}
 
