@@ -2,17 +2,17 @@
 
 The core function of proposed algorithms is curating incoming data on a rolling basis to dynamically retain a subset that, according to a desired \textbf{coverage criterion}, provides sufficient coverage over observed history.
 We consider the one-dimensional sequence of \textbf{data items} $v_i$ as a \textbf{data stream}.
-We refer to the act of reading an item from the data stream as \textbf{ingesting} it.%
-\footnote{%
-In associated materials, the fixed-size buffer used to store curated data items is referred to as a ``surface.''%
-}
+We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
 For the purposes of present discussion, we assume data items to be fixed-size (i.e., fitting within an allocated buffer space) and do not consider the actual values of the data items further.
 
 We will notate the \textit{number of available buffer sites} as $\colorS$.
-In their current form, proposed algorithms assume fixed-size memory space, to store $S$ data items.
-They require buffer size to be an even power of two, so that for some $s$, $\colorS = 2^{\colors}$.
+In their current form, proposed algorithms assume fixed-size buffer space, sufficient to store $\colorS$ data items.%
+\footnote{%
+In associated materials, the fixed-size buffer used to store curated data items is referred to as a ``surface.''%
+}
+They require buffer size to be an even power of two, so that for some $\colors$, $\colorS = 2^{\colors}$.
 On occasion it will become necessary to refer to a specific position $k$ within a buffer.
-We will take a zero-indexing convention so $0 \leq k < \colorS$.
+We will take a zero-indexing convention so $0 \leq \colork < \colorS$.
 
 We consider only one operation on the buffer: storage of an ingested data item.
 Placing a data item from the data stream onto an already-occupied buffer site overwrites it.
