@@ -42,7 +42,7 @@ binder/teeplots/40/num-generations=128+surface-size=32+viz=site-reservation-by-r
 \vspace{-2ex}\caption{%
   \textbf{Stretched algorithm implementation.}
   \footnotesize
-  Top panel \ref{fig:hsurf-steady-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' conceptual ingestion order hanoi values $\colorH(\colorT)$.
+  Top panel \ref{fig:hsurf-stretched-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' conceptual ingestion order hanoi values $\colorH(\colorT)$.
   Between $\colorT=0$ and $\colorT=127$, time is segmented into conceptual epochs $\colort=0$, $\colort=1$, and $\colort=2$.
   Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into conceptual ``reservation'' segments by vertical black lines.
   Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
@@ -51,12 +51,12 @@ binder/teeplots/40/num-generations=128+surface-size=32+viz=site-reservation-by-r
   At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high h.v. sites added to other segments.
   When data items are placed, they remain retained until invaded by a higher-h.v. data item.
   This process continues until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
-  Heatmap panel \ref{fig:hsurf-steady-implementation-dripplot} shows evolution of data item age at each sites on a 256-bit field over the course of 4,096 time steps.
-  Bottom panel \ref{fig:hsurf-steady-implementation-heatmap} shows retention spans for 3,000 ingested time points.
+  Heatmap panel \ref{fig:hsurf-stretched-implementation-dripplot} shows evolution of data item age at each sites on a 256-bit field over the course of 4,096 time steps.
+  Bottom panel \ref{fig:hsurf-stretched-implementation-heatmap} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
   Time points previously eliminated are marked in red.
   Note that time elapses from bottom to top in all visualizations.
   }
-\label{fig:hsurf-tilted-implementation}
+\label{fig:hsurf-stretched-implementation}
 
 \end{figure*}
