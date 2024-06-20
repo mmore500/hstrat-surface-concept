@@ -43,27 +43,32 @@ Under this criterion, recency-proportional gap size is to be minimized.
 Figure \ref{fig:criteria-intuition} commpares example ideal retention distributions under each criterion.
 Formal definitions are provided in its criterion's corresponding section.
 
-It happens that for the structure of the algorithms, the binary order of magnitude of the time $\colorT$ plays an important structural role.
-We will refer to this value $\colort$ as the \textbf{epoch} of $\colorT$.
+It happens that for proposed stream curation algorithms algorithms, the binary order of magnitude of the time $\colorT$ plays an important conceptual role.
+We will refer to this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ as the \textbf{epoch} of $\colorT$.
 We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
 
 For the \textit{steady algorithm}, epoch transition occurs immediately before a new binary order of magnitude (e.g., between $\colorT = 15$ and $\colorT = 16$ or between $\colorT = 31$ and $\colorT = 32$), so $\colort = \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1$ for $\colorT \geq \colorS$.
-For the \textit{tilted algorithm}, epoch transition occurs immediately \textit{after} a new binary order of magnitude (e.g., between $\colorT = 16$ and $\colorT = 17$).
+For the \textit{stretched} and \textit{tilted algorithms}, epoch transition occurs immediately \textit{after} a new binary order of magnitude (e.g., between $\colorT = 16$ and $\colorT = 17$).
 So, in this context $\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1$ for $\colorT > \colorS$.
 
 \input{fig/hanoi-intuition.tex}
 
-It also happens that for the structure of the algorithms, time values' associated entry in the binary carry sequence is also frequently relevant.
-The first few terms of this sequence are $0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, \ldots$ \, .
+It also happens that for the structure of the algorithms, time values' associated entry in the the integer sequence $\colorH(\colorT) = \max \{ n \in \mathbb{Z} \mid 2^n \mid \colorT \}$.%
+\footnote{%
+Note that, in practice, $\colorH(\colorT)$ can be calculated fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~n \& n-1).bit\_length()} \citep{oeis}.
+}
+The first few terms of this sequence are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \ldots$ \, .
 This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
 We adopt a zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
 
-For each time point $\colorT$ we refer to its corresponding entry in the binary carry sequence $\colorH(\colorT) = \colorh$ as its ``\textbf{hanoi value},'' in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
+For each time point $\colorT$ we refer to its corresponding entry in OEIS Sequence A007814 $\colorH(\colorT) = \colorh$ as its ``\textbf{hanoi value},'' in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
 On occasion, we abbreviate this term as ``h.v.''
-Some intuition for the structure of this sequence is requisite to later discussions.
-Note that element 0 appears every 2nd entry, element 1 appears every 4th entry, and in the general case element $\colorh$ appears every $2^{\colorh+1}$th entry.
-Finally, it is worth remarking that when hanoi value $\colorh$ appears for the first time, the value $\colorh - 1$ has appeared exactly once.
+Some intuition for the structure of this sequence will be condusive to later discussions.
+As depicted in Figure \ref{fig:hanoi-intuition}, the hanoi sequence exhibits recursively-nested fractal structure.
+Element 0 appears every 2nd entry, element 1 appears every 4th entry, and in the general case element $\colorh$ appears every $2^{\colorh+1}$th entry.
+So, a hanoi value $\colorh$ appears roughly twice as often as value $\colorh + 1$.
+Remark, though, that when hanoi value $\colorh$ appears for the first time, the value $\colorh - 1$ has appeared exactly once.
 So, we have seen exactly one instance of $\colorh$ and also exactly one instance of $\colorh - 1$.
-At this point, the value $\colorh - 2$ has appeared exactly twice, and in general the value $\colorh - n$ has appeared $2^{n - 1}$ times.
+At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times for $n > 0$.
 
-As a final piece of minutiae, let binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = \exp(2, \left\lfloor \log_2 x \right\rfloor)$.
+As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = \exp(2, \left\lfloor \log_2 x \right\rfloor)$.
