@@ -5,7 +5,7 @@
 \includegraphics[width=\linewidth]{
 binder/teeplots/10/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
 \vspace{-4ex}\caption{
-  Buffer composition across time, split by epoch with data items color coded by hanoi value.
+  Buffer composition across time, split by epoch with data items color coded by hanoi value of ingestion time $\colorH(\colorT)$.
 }
 \label{fig:hsurf-steady-implementation-schematic}
 \end{subfigure}
@@ -47,11 +47,11 @@ binder/teeplots/10/num-generations=128+reservation-mode=steady+surface-size=32+v
   \footnotesize
   Top panel \ref{fig:hsurf-steady-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' conceptual ingestion order hanoi values $\colorH(\colorT)$.
   Between $\colorT=0$ and $\colorT=127$, time is segmented into conceptual epochs $\colort=0$, $\colort=1$, and $\colort=2$.
-  Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into conceptual ``reservation'' groups by vertical black lines.
-  Reservation groups occur in five ``bunches'' --- (1) one 5-site reservation group, (2) one 4-site reservation group, (3) two 3-site groups, (4) four 2-site groups, and (5) eight 1-site groups.
+  Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into conceptual ``reservation'' segments by vertical black lines.
+  Reservation segments occur in five ``bunches'' --- (1) one 5-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
   At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
   In epoch 0, all sites are filled with a first data item.
-  At subsequent epochs, successive hanoi values are assigned one site per group in each bunch, with each hanoi value filling into one bunch per epoch.
+  At subsequent epochs, successive hanoi values are assigned one site per segment in each bunch, with each hanoi value filling into one bunch per epoch.
   All newly-assigned sites were previously assigned to the overall now-lowest hanoi value.
   In this way, all instances of the overall lowest hanoi value are overwritten each epoch.
   Heatmap panel \ref{fig:hsurf-steady-implementation-dripplot} shows evolution of data item age at each sites on a 256-bit field over the course of 4,096 time steps.
