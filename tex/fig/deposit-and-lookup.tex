@@ -17,7 +17,7 @@
   \footnotesize
   The ingestion site selection operation (\ref{fig:surface-site-deposit}) takes the current time $\colorT$ and determines the buffer site $\colork$ to store the ingested data item.
   This operation is performed when storing data into a curated buffer, once for each data item received from the data stream.
-  The ingested time calculation operation (\ref{fig:deposit-rank-calculation}) provides the previous time $\colorT'$ when the data item present at buffer site $\colork$ was ingested, given the current time $\colorT$.
+  The ingested time calculation operation (\ref{fig:deposit-rank-calculation}) provides the previous time $\colorTbar$ when the data item present at buffer site $\colork$ was ingested, given the current time $\colorT$.
   This operation is performed when reading data from a curated buffer, in order to identify the provenance of stored data.
   Note that the ingestion time of stored data at a buffer site $\colork$ is determined by the sequence of sites that were selected by the ingestion site selection operation --- in a loose sense this calculation operation can be considered as ``decoding'' or ``inverse'' to the selection operation.
   }

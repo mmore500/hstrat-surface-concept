@@ -13,10 +13,10 @@
   \caption{
     \textbf{Stretched algorithm strategy.}
     \footnotesize
-    First panel \ref{fig:hsurf-stretched-intuition-site-selection} shows placement strategy for data items with hanoi value $\colorH(\colorT) = 0$ on a buffer of size $\colorS=8$.
+    First panel \ref{fig:hsurf-stretched-intuition-site-selection} shows placement strategy for data items with hanoi value $\colorH(\colorTbar) = 0$ on a buffer of size $\colorS=8$.
     Four sites, shown in dark blue, are reserved for hanoi value 0 during epoch 0.
     Reservation segment bunches are nested recursively, with successive bunches having shorter segments.
-    The first data item instance with hanoi value $\colorH(\colorT) = 0$ is placed in segment bunch 0, which only contains one segment: segment 0.
+    The first data item instance with hanoi value $\colorH(\colorTbar) = 0$ is placed in segment bunch 0, which only contains one segment: segment 0.
     The second h.v. 0 data item is placed in segment bunch 1, which comprises just segment 1.
     The third and fourth h.v. 0 items are placed in segment bunch 2, which comprises segments 2 and 3 --- both containing only one buffer site.
     During epoch 1, h.v. 0 sites in segment bunch 2 are ceded, leaving two sites reserved for h.v. 0.

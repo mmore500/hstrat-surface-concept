@@ -3,7 +3,7 @@
 \input{fig/deposit-and-lookup.tex}
 
 The core function of proposed algorithms is curation of incoming data on a rolling basis to dynamically filter out a subset that, according to a desired \textbf{coverage criterion}, minimizes \textbf{time gaps} between retained data items.
-Incoming data is considered as a \textbf{data stream}, comprised of  one-dimensional sequence of \textbf{data items} $v_i$.
+Incoming data is considered as a \textbf{data stream}, comprised of a one-dimensional sequence of \textbf{data items} $v_i$.
 As such, we term this problem as the \textbf{data stream curation problem}.
 We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
 For the purposes of present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
@@ -18,9 +18,10 @@ They require buffer size to be an even power of two, so that for some $\colors$,
 On occasion it will become necessary to refer to a specific position $\colork$ within a buffer.
 We will take a zero-indexing convention so $0 \leq \colork < \colorS$.
 
-We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorT$.
-In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorT=0$.
-We assume $\colorT$ to be known exactly for each ingested time point, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
+We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$.
+In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
+We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
+Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ to refer to $v_{\colorTbar}$, the data item ingested at that time.
 
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
 As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data.
@@ -33,8 +34,16 @@ As a space-saving optimization, we store only the data items themselves in buffe
 Note, though, that, without metadata, identifying stored data items requires capability deduce ingestion time solely from buffer position.
 Figure \ref{fig:deposit-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
 
-\textit{Coverage criteria} for retained data items considered here are defined solely in terms of items' time indices $\colorT$ --- not their data values.
+\textit{Coverage criteria} for retained data items considered here are defined solely in terms of items' time indices $\colorTbar$ --- not their data values.
 We define coverage criteria in terms of \textbf{gap size} between retained data items, taken as the number of temporally sequential data items discarded (i.e., overwritten) between when two retained items were ingested.
+Let $\colorB_{\colorT}$ denote the set of data items retained at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to the set of data items discarded at that time.
+With these formalisms established, we can now explicitly define gap size at record index $\colorTbar$, $\colorg = \colorG_{\colorT}(\colorTbar)$.
+For any $0 \leq \colorTbar \leq \colorT$,
+\begin{align*}
+\colorG_{\colorT}(\colorTbar) = \left| \{\colorTbar - m, \ldots, \colorTbar, \ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
+\end{align*}
+Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$
+
 Algorithms for three primary coverage criteria are treated: \textbf{steady} (Section \ref{sec:steady}), \textbf{stretched} (Section \ref{sec:stretched}), and \textbf{tilted} (Section \ref{sec:tilted}).
 The \textit{steady criterion} seeks to maintain data items with time indices that evenly cover elapsed history.
 The \textit{stretched criterion} also seeks to maintain data items with time indices spread across elapsed history, but with exponentially-decaying density such that more early data items are maintained.
