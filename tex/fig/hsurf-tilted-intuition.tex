@@ -4,24 +4,23 @@
 \includegraphics[width=\textwidth]{img/hsurf-tilted-intuition}
 \end{minipage}%
 \begin{minipage}{0.57\textwidth}
+\centering
+\begin{minipage}{0.95\linewidth}
   \caption{
     \textbf{Tilted algorithm strategy.}
     \footnotesize
-    TODO
-    % Overview of placement strategy for data item instances of hanoi value $\colorh$.
-    % Data items are shown in yellow, spanning across the epoch timeline from when they are stored to when they are overwritten.
-    % Available memory buffer sites, broken into conceptual segments, are shown across the top of the schematic.
-    % The first data item with $\colorH(\colorT) = \colorh$ is placed in segment 0.
-    % The next data item with h.v. $\colorh$ is encountered in the following epoch, and it is placed in segment 1.
-    % In epoch 3, two data items with h.v. $\colorh$ are encountered, and placed in segment 2.
-    % In the epoch 4, four h.v. $\colorh$ data items (twice as many) are encountered.
-    % We place them in segment 3.
-    % If working with a larger memory buffer, this pattern would continue in subsequent epochs.
-    % During the epoch after the last segment is written to, all h.v. $\colorh$ data items are overwritten.
-    % In segment 0 they are overwritten by h.v. $\colorh - 4$, in segment 1, h.v. $\colorh - 3$, and so forth.
-    % In this manner, data items with highest hanoi value are retained on a rolling basis.
-    % This approach ensures equal gap sizes across history, with gap sizes gracefully doubling in size as intermediate values are overwritten.
+    Schematic shows placement strategy for data items with hanoi value $\colorH(\colorT) = 0$ on a buffer of size $\colorS=8$.
+    During epoch 0, an initial data item is placed at each buffer site juast as under the stretched algorithm strategy (Figure \ref{fig:hsurf-stretched-intuition}).
+    The tilted strategy differs from stretched in that during epoch 1, subsequent h.v. 0 data items continue to be placed in available h.v. 0 reservation sites.
+    In this way, the last --- as opposed to first --- data items corresponding to each hanoi value are kept.
+  % Because the distribution of segment lengths mirrors the hanoi sequence, buffer space becomes available for the first-seen instances of high hanoi values as they are encountered.
+    Each epoch, all invaded sites share the same hanoi value, causing the available reservation sites for that h.v. to instantaneously halve.
+    So, placements for a particular h.v. cycle around available reservation sites, and then continue cycling around remaining sites after the h.v. is invaded and half of reservation sites for that h.v. are ceded.
+    Invasion is sequenced to correspond cleanly with the cycle returning to segment 0 after filling to-be-eliminated sites.
+    Subsequent overwrites of data items at ceded reservation sites occur slowly enough to ensure that, with $n$ remaining reservation sites, the $n$ most recent h.v. data items are retained as remaining sites are refilled.
+  In this manner, this layout strategy approximates the last-$n$ h.v. strategy depicted in Figure \ref{fig:hanoi-intuition-tilted}, with $n$ decreasing to respect available buffer space as segments are invaded and lost (just as for the stretched algorithm, Figure \ref{fig:hsurf-stretched-intuition-reservations}).
   }
   \label{fig:hsurf-tilted-intuition}
+\end{minipage}
 \end{minipage}
 \end{figure*}
