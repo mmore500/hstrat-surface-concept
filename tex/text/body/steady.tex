@@ -1,17 +1,52 @@
 \section{Steady Algorithm} \label{sec:steady}
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
-The criterion can be formulated as minimization of the worst gap size between retained data items.
-This section presents a stream curation algorithm designed to support the steady criterion.
+The criterion can be formulated as minimization of the largest gap size between retained data items.
+For a buffer size $\colorS$ and time elapsed $\colorT$, maximum gap size can be bounded at best $\left\lceil \colorT / \colorS \right\rceil$.
+This section presents a stream curation algorithm designed to support the steady criterion, achieving maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
 
-The mechanism of the proposed algorithm revolves around placing and retaining data items according to the hanoi value $\colorh$ of their sequence index $\colorT$.
-For instance, discarding items with $\colorH(\colorT) = 0$ drops every other item, and increases gap size to 1.
-Subsequently, removing items with $\colorH(\colorT) = 1$ again drops every other item and increases gap size to 3.
-Pruning according to hanoi value provides a well-behaved transition to increase gap size.
+Figure \ref{fig:hanoi-intuition-steady} shows the proposed algorithm's core mechanism, which revolves around placing and retaining data items according to the hanoi value of their sequence index $\colorH(\colorTbar)$.
+Keeping data items with hanoi value $\colorh > n$ produces gap sizes at most $\colorg \leq 2^n - 1$.
+For intuition, imagine discarding items with $\colorH(\colorTbar) = 0$.
+This drops every other item, and results in gap size to $\colorg \leq 1$.
+Imagine subsequently removing items with $\colorH(\colorTbar) = 1$.
+This again drops every other item, and increases gap size to $\colorg \leq 3$.
+Pruning according to hanoi value thus provides a well-behaved transition to gracefully increase gap size while keeping even spacing.
 
-Given that only $\colorS$ data items can be retained, our goal is to maintain all items $\colorT_y$ with high hanoi value $\colorH(\colorT_y)$ by repeatedly discarding items $\colorT_x$ with lowest hanoi value $\colorH(\colorT_x)$.
-It turns out that, at each epoch $\colort$, we should keep all items with all items $\colorT$ with $\colorH(\colorT) \geq \colort$.
-All items with $\colorH(\colorT) = \colort - 1$ are replaced by new items with higher hanoi value.
+Our goal is thus to maintain all items $\colorTbar_y$ with hanoi value $\colorH(\colorTbar_y)$ above some threshold $n(\colorT)$ by repeatedly discarding items $\colorTbar_x$ with lowest hanoi value $\colorH(\colorTbar_x) = n(\colorT)$.
+To fill available buffer space $\colorS$, it turns out that, at each epoch $\colort$, we should keep all items with all items $\colorTbar$ with h.v. equal to or greater than the current epoch, $\colorH(\colorT) \geq \colort$.
+
+\begin{lemma}[Data items with h.v. greater than or equal to current epoch.]
+At any time $\colorT$ in epoch $\colort$, sufficient buffer space exists to store all data items with h.v. $\colorh \geq \colort$.
+That is, $\left| \{\colorTbar \in \{0, \ldots, \colorT \} \ni \colorH(\colorTbar) \geq \colort \} \right| \leq \colorS$.
+\end{lemma}
+
+\begin{proof}
+Because counts of encountered h.v.'s increase with time, it is sufficient to consider just $\max\{\colorT \in \colort\} = 2^{\colors} - 2$.
+Recall that h.v. $\colorh $is encountered for the first time at time $\colorT = 2^{\colorh} - 1$.
+So, h.v. $\colorh = \colors + \colort$ is encountered at $\colorT = 2^{\colors + \colort} - 1$.
+At that time, there are $\colors$ distinct hanoi values $\colorh$ such that $\colort \leq \colorh \leq \colors + \colort$.
+Summing h.v. data item counts and subtracting away $\colorh = \colors + \colort$ (which lies one time point beyond epoch $\colort$) gives
+\begin{align*}
+\left| \{\colorTbar \in \{0, \ldots, 2^{\colors} - 2 \} \ni \colorH(\colorTbar) \geq \colort \} \right|
+&= \left| \{\colorTbar \in \{0, \ldots, 2^{\colors} - 1 \} \ni \colorH(\colorTbar) \geq \colort \} \right| - 1\\
+&= 1 + \sum_{i=1}^{\colors} 2^{i - 1} - 1 = 2^{\colors} - 1 = \colorS - 1\\
+&\stackrel{\checkmark}{\leq} S.
+\end{align*}
+\end{proof}
+
+Although we, in fact, have one extra buffer site left over, in practice it is often useful to use this site to permanently retain the very first or the very most recent data item.
+
+
+% $t = \left\lfloor x \right\rfloor_\mathrm{bin} - s + 1$
+
+
+% Recall that at epoch $t$, the greatest encountered h.v. is $t + s$
+% \begin{align*}
+% 1 + \sum_{i=1}^{s} 2^{i - 1} = 2^s = S.
+% \end{align*}
+
+So, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be replaced by new items with higher hanoi value.
 Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
 
 The remainder of the section examines how to arrange data item placement to enact the above hanoi value strategy.
