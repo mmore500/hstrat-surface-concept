@@ -13,7 +13,6 @@ def _make_surface_history_df_impl(
     surface_size: int,
     num_generations: int,
     progress_wrap: typing.Callable = lambda x: x,
-    random_seed: int = 1,
 ) -> pd.DataFrame:
 
     surface_hanoi_values = [-1] * surface_size
