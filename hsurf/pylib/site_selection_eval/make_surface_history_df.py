@@ -26,9 +26,10 @@ def _make_surface_history_df_impl(
         )
         hanoi_value = get_hanoi_value_at_index(generation)
 
-        surface_differentia[target_site] = random.choice([0, 1])
-        surface_hanoi_values[target_site] = hanoi_value
-        surface_deposition_ranks[target_site] = generation
+        if target_site != surface_size:
+            surface_differentia[target_site] = random.choice([0, 1])
+            surface_hanoi_values[target_site] = hanoi_value
+            surface_deposition_ranks[target_site] = generation
 
         for site, deposition_rank, differentia, hanoi_value in zip(
             it.count(),
