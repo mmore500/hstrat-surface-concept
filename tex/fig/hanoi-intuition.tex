@@ -202,7 +202,7 @@
   \textbf{Hanoi value retention strategies.}
   \footnotesize
   Data item retention can be prioritized based on ``hanoi value'' of ingestion time $\colorT$.
-  Here, ``lollipop'' bars show hanoi values of data item ingestion time, $\colorH(\colorTbar)$. 
+  Here, ``lollipop'' bars show hanoi values of data item ingestion time, $\colorH(\colorTbar)$.
   To satisfy the steady criterion, our proposed strategy discards data items with hanoi value above a threshold $n$ (\ref{fig:hanoi-intuition-steady}).
   As time elapses, the threshold $n$ increases and excludes more low hanoi value data items to respect available buffer space --- shown by red arrows above.
   Our proposed strategy for the stretched criterion retains the first $n$ data item instances of all observed hanoi values.
