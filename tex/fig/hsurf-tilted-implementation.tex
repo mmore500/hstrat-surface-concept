@@ -54,8 +54,8 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high h.v. sites added to other segments.
   Low h.v. data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that h.v., ensuring the most recent data items corresponding to that hanoi value are retained.
   The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
-  Heatmap panel \ref{fig:hsurf-tilted-implementation-dripplot} shows evolution of data item age at each sites on a 256-bit field over the course of 4,096 time steps.
-  Bottom panel \ref{fig:hsurf-tilted-implementation-heatmap} shows retention spans for 3,000 ingested time points.
+  Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
+  Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
   Time points previously eliminated are marked in red.
   Note that time elapses from bottom to top in all visualizations.
