@@ -1,6 +1,5 @@
 import typing
 
-from .._enact import pick_deposition_site
 from ...steady_algo._impl import (
     calc_resident_deposition_rank_wrt_bin,
     iter_bin_coords,

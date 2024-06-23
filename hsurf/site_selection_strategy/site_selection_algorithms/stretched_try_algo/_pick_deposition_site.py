@@ -1,7 +1,6 @@
 from ....pylib import hanoi
 from ..tilted_algo import pick_deposition_site as impl_pick_deposition_site
 from ..tilted_algo._impl import get_hanoi_num_reservations
-from ._impl import calc_next_invasion_rank
 
 
 def pick_deposition_site(

@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from hsurf.pylib import hanoi

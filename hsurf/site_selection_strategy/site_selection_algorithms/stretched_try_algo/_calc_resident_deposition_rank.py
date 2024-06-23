@@ -10,7 +10,6 @@ from ..tilted_algo._impl import (
     get_site_genesis_reservation_index_physical,
     get_site_hanoi_value_assigned,
 )
-from ._pick_deposition_site import pick_deposition_site
 
 
 def impl_calc_resident_deposition_rank(
