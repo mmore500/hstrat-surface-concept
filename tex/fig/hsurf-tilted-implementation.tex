@@ -42,6 +42,22 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   \end{subfigure}
   \end{minipage}
 
+ \begin{minipage}[]{\textwidth}
+ \vspace{-2pt}
+\begin{subfigure}[t]{0.7\linewidth}
+\vspace{0pt}
+  \centering
+  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/hue=kind+surface-size=16+viz=lineplot+x=time+y=tilted-criterion+ext=}
+\end{subfigure}%
+\begin{subfigure}[t]{0.3\linewidth}
+\vspace{-2pt}
+\caption{%
+  Tilted criterion satisfaction across time points for buffer size $\colorS=16$.
+}
+\label{fig:hsurf-tilted-implementation-satisfaction}
+\end{subfigure}
+\end{minipage}
+
 \vspace{-2ex}\caption{%
   \textbf{Tilted algorithm implementation.}
   \footnotesize
@@ -58,7 +74,7 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
   Time points previously eliminated are marked in red.
-  Note that time elapses from bottom to top in all visualizations.
+  Bottom panel \ref{fig:hsurf-tilted-implementation-satisfaction} shows tilted criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
 }
 \label{fig:hsurf-tilted-implementation}
 
