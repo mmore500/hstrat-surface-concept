@@ -1,0 +1,18 @@
+\begin{lemma}[Data items with h.v. greater than or equal to current epoch.] \item{thm:steady-hv-geq-epoch}
+At any time $\colorT$ in epoch $\colort$, sufficient buffer space exists to store all data items with h.v. $\colorh \geq \colort$.
+That is, $\left| \{\colorTbar \in \{0, \ldots, \colorT \} \ni \colorH(\colorTbar) \geq \colort \} \right| \leq \colorS$.
+\end{lemma}
+
+\begin{proof}
+Because counts of encountered h.v.'s increase with time, it is sufficient to consider just $\max\{\colorT \in \colort\} = 2^{\colors} - 2$.
+Recall that h.v. $\colorh $is encountered for the first time at time $\colorT = 2^{\colorh} - 1$.
+So, h.v. $\colorh = \colors + \colort$ is encountered at $\colorT = 2^{\colors + \colort} - 1$.
+At that time, there are $\colors$ distinct hanoi values $\colorh$ such that $\colort \leq \colorh \leq \colors + \colort$.
+Summing h.v. data item counts and subtracting away $\colorh = \colors + \colort$ (which lies one time point beyond epoch $\colort$) gives
+\begin{align*}
+\left| \{\colorTbar \in \{0, \ldots, 2^{\colors} - 2 \} \ni \colorH(\colorTbar) \geq \colort \} \right|
+&= \left| \{\colorTbar \in \{0, \ldots, 2^{\colors} - 1 \} \ni \colorH(\colorTbar) \geq \colort \} \right| - 1\\
+&= 1 + \sum_{i=1}^{\colors} 2^{i - 1} - 1 = 2^{\colors} - 1 = \colorS - 1\\
+&\stackrel{\checkmark}{\leq} \colorS.
+\end{align*}
+\end{proof}

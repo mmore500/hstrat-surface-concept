@@ -1,0 +1,64 @@
+\begin{theorem}[Steady Algorithm Worst-case Gap Size]
+\label{thm:steady-gap-size}
+Under the steady curation algorithm, no gap size $\colorg$ exceeds $\left\lceil 2 \colorT / \colorS \right\rceil$.
+\end{theorem}
+\begin{proof}
+Recall that the time between instances of a h.v. $\colorh$ is $2^{\colorh + 1}$ data items.
+Consider also that the time between a h.v. $\colorh$ and a data item with h.v. $>\colorh$ is is $2^{\colorh}$ data items.
+
+Under the proposed algorithm, we retain all data items for hanoi values $\colorh = \max (\colort - \colors, 0)$ and greater.
+So, then retained data items occur at most $2^{\max(\colort - \colors, 0)}$ time steps apart.
+This corresponds to gap size at most $2^{\max(\colort - \colors, 0)} - 1$.
+Now, we test
+\begin{align*}
+\left\lceil 2 \colorT / \colorS \right\rceil
+&\stackrel{?}{\geq}
+2^{\max(\colort - \colors, 0)} - 1\\
+&\stackrel{?}{\geq}
+\max(2^{\colort} / 2^{\colors}, 1) - 1\\
+&\stackrel{?}{\geq}
+\max(2^{\colort} / \colorS - 1, 0)\\
+&\stackrel{\checkmark}{\geq}
+\max(2\colorT / \colorS - 1, 0).
+\end{align*}
+\end{proof}
+
+% Suppose surface size $S = 2^s$ at rank $R$, with $r = \left\lceil \log_2 R \right\rceil$.
+% Note that $2 \times R \leq 2^r$.
+% In order for the steady algorithm to work, we need to have all values with hanoi value greater than or equal to
+% \begin{align*}
+% \max(r - s, 0)
+% \end{align*}
+
+
+% We will have seen 1 of hv $r - 1$, 2 of hv $r - 2$, 4 of hv $r - 4$, and $2 ^ {s - 1}$ of hv $\max(r - s, 0)$.
+% In general, we will have seen $\left\lfloor 2 ^ (r - h) \right\rfloor$ instances of hanoi value $h$ by epoch $r$.
+% Recall $\sum_{i = 0}^{q} 2^i = 2 ^ {q + 1} - 1$.
+% Do we have enough space?
+% \begin{align*}
+% \sum_{i = 0}^{(r - 1) - \max(r - s, 0)} 2 ^ i \\
+% &= \sum_{i = 0}^{\min(r - 1, s - 1)} 2 ^ i \\
+% &\leq \sum_{i = 0}^{s - 1} 2 ^ i \\
+% &\leq 2^s - 1\\
+% &\stackrel{\checkmark}{\leq} 2^s
+% \end{align*}
+
+% Need to prove:
+% \begin{itemize}
+% \item the number of reservation slots in $j$th reservation equals the number of hanoi value instances observed during any window where $r = k$.
+% \item note, because we always fill completely we will therefore drop instances of hanoi value $r - s - 1$.
+% \item that hanoi value $r - s - 1$ is in the $h \mod n$th slot
+% \end{itemize}
+
+
+% The $j$th reservation has $\max(1, 2^{j - 1})$ slots.
+% The number of new observations of hanoi value during epoch $r$ is $h$ is $\# h(r) -  \# h(r - 1)$.
+% This is
+% \begin{align*}
+% \left\lfloor 2 ^ {r - h} \right\rfloor - \left\lfloor 2 ^ {r - h - 1} \right\rfloor \\
+% &= \left\lfloor 2 ^{r - (r - j)} \right\rfloor - \left\lfloor 2 ^ {r - (r - j) - 1} \right\rfloor \\
+% &= 2^j - \left\lfloor 2 ^ {j - 1} \right\rfloor \\
+% &= \min(2^j - 2^{j - 1}, 1) \\
+% &= \min(2 \times 2^{j - 1} - 2^{j - 1}, 1) \\
+% &\stackrel{\checkmark}{=} \min(2^{j - 1}, 1).
+% \end{align*}

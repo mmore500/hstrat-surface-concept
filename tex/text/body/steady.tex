@@ -18,24 +18,7 @@ Pruning according to hanoi value thus provides a well-behaved transition to grac
 Our goal is thus to maintain all items $\colorTbar_y$ with hanoi value $\colorH(\colorTbar_y)$ above some threshold $n(\colorT)$ by repeatedly discarding items $\colorTbar_x$ with lowest hanoi value $\colorH(\colorTbar_x) = n(\colorT)$.
 To fill available buffer space $\colorS$, it turns out that, at each epoch $\colort$, we should keep all items with all items $\colorTbar$ with h.v. equal to or greater than the current epoch, $\colorH(\colorT) \geq \colort$.
 
-\begin{lemma}[Data items with h.v. greater than or equal to current epoch.]
-At any time $\colorT$ in epoch $\colort$, sufficient buffer space exists to store all data items with h.v. $\colorh \geq \colort$.
-That is, $\left| \{\colorTbar \in \{0, \ldots, \colorT \} \ni \colorH(\colorTbar) \geq \colort \} \right| \leq \colorS$.
-\end{lemma}
-
-\begin{proof}
-Because counts of encountered h.v.'s increase with time, it is sufficient to consider just $\max\{\colorT \in \colort\} = 2^{\colors} - 2$.
-Recall that h.v. $\colorh $is encountered for the first time at time $\colorT = 2^{\colorh} - 1$.
-So, h.v. $\colorh = \colors + \colort$ is encountered at $\colorT = 2^{\colors + \colort} - 1$.
-At that time, there are $\colors$ distinct hanoi values $\colorh$ such that $\colort \leq \colorh \leq \colors + \colort$.
-Summing h.v. data item counts and subtracting away $\colorh = \colors + \colort$ (which lies one time point beyond epoch $\colort$) gives
-\begin{align*}
-\left| \{\colorTbar \in \{0, \ldots, 2^{\colors} - 2 \} \ni \colorH(\colorTbar) \geq \colort \} \right|
-&= \left| \{\colorTbar \in \{0, \ldots, 2^{\colors} - 1 \} \ni \colorH(\colorTbar) \geq \colort \} \right| - 1\\
-&= 1 + \sum_{i=1}^{\colors} 2^{i - 1} - 1 = 2^{\colors} - 1 = \colorS - 1\\
-&\stackrel{\checkmark}{\leq} \colorS.
-\end{align*}
-\end{proof}
+\input{thm/steady-hv-geq-epoch}
 
 \subsection{Mechanism}
 
@@ -72,30 +55,7 @@ The same holds for all bunches, with data items left by h.v. $\colorh$ equivalen
 As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one between incoming data items and data items of h.v. $\colorh=\colort-1$ to choreograph a clean elimination of that h.v. by replacement each epoch.
 We refer the reader to our supplemental Python-language implementation for full detail, but essentially we can map incoming data items with h.v. $\colorh \geq \colort$ over items slated for elimination by determining their position within each segment as $\colorh$ modulus segment size.
 
-\begin{lemma}
-Placing data items within segments modulo h.v. ensures elimination of h.v. $\colorh = \colort - 1$ from each segment every epoch.
-\end{lemma}
-\begin{proof}
-Recall that h.v. $\colorh = \colort + \colors - n - 1$ is placed in the $n$th bunch during epoch $\colort$.
-By construction, segments in the $n$th bunch have $\colors - n$ sites.
-We must verify that
-\begin{align*}
-\colort - 1
-&\stackrel{?}{=}
-\text{invading h.v.} - \text{segment length}\\
-&\stackrel{?}{=}
-(\colort + \colors - n - 1) - (\colors - n)
- \\
-&\stackrel{\checkmark}{=} \colort - 1.
-\end{align*}
-\end{proof}
-
-% So, at epoch $\colort$ in reservation $n$ the hanoi value $h(j, r)$ will overwrite hanoi value
-% \begin{align*}
-% h(j, r) - (s - j) - 1 \\
-% &= (r - j) - (s - j) - 1 \\
-% &\stackrel{\checkmark}{=} r - s - 1.
-% \end{align*}
+\input{thm/steady-hv-elimination}
 
 Likewise, identifying the ingestion time $\colorTbar$ of a data item located in buffer site $\colork$ at time $\colorT$ essentially boils down to decoding its semantic bunch and segment indices, then determining whether (if slated) it has yet been replaced during the current epoch.
 With availability of binary operators (e.g., bit mask, bit shift, bitwise logical operators), data item placement can be computed in fast $\mathcal{O}(1)$ and, for a buffer of size $\colorS$, all data item ingestion times can be determined in ideal $\mathcal{O}(\colorS)$ time.
@@ -104,67 +64,4 @@ With availability of binary operators (e.g., bit mask, bit shift, bitwise logica
 
 In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed steady curation algorithm.
 
-\begin{theorem}[Steady Algorithm Worst-case Gap Size]
-\label{thm:steady-gap-size}
-Under the steady curation algorithm, no gap size $\colorg$ exceeds $\left\lceil 2 \colorT / \colorS \right\rceil$.
-\end{theorem}
-\begin{proof}
-Recall that the time between instances of a h.v. $\colorh$ is $2^{\colorh + 1}$ data items.
-Consider also that the time between a h.v. $\colorh$ and a data item with h.v. $>\colorh$ is is $2^{\colorh}$ data items.
-
-Under the proposed algorithm, we retain all data items for hanoi values $\colorh = \max (\colort - \colors, 0)$ and greater.
-So, then retained data items occur at most $2^{\max(\colort - \colors, 0)}$ time steps apart.
-This corresponds to gap size at most $2^{\max(\colort - \colors, 0)} - 1$.
-Now, we test
-\begin{align*}
-\left\lceil 2 \colorT / \colorS \right\rceil
-&\stackrel{?}{\geq}
-2^{\max(\colort - \colors, 0)} - 1\\
-&\stackrel{?}{\geq}
-\max(2^{\colort} / 2^{\colors}, 1) - 1\\
-&\stackrel{?}{\geq}
-\max(2^{\colort} / \colorS - 1, 0)\\
-&\stackrel{\checkmark}{\geq}
-\max(2\colorT / \colorS - 1, 0).
-\end{align*}
-\end{proof}
-
-% Suppose surface size $S = 2^s$ at rank $R$, with $r = \left\lceil \log_2 R \right\rceil$.
-% Note that $2 \times R \leq 2^r$.
-% In order for the steady algorithm to work, we need to have all values with hanoi value greater than or equal to
-% \begin{align*}
-% \max(r - s, 0)
-% \end{align*}
-
-
-% We will have seen 1 of hv $r - 1$, 2 of hv $r - 2$, 4 of hv $r - 4$, and $2 ^ {s - 1}$ of hv $\max(r - s, 0)$.
-% In general, we will have seen $\left\lfloor 2 ^ (r - h) \right\rfloor$ instances of hanoi value $h$ by epoch $r$.
-% Recall $\sum_{i = 0}^{q} 2^i = 2 ^ {q + 1} - 1$.
-% Do we have enough space?
-% \begin{align*}
-% \sum_{i = 0}^{(r - 1) - \max(r - s, 0)} 2 ^ i \\
-% &= \sum_{i = 0}^{\min(r - 1, s - 1)} 2 ^ i \\
-% &\leq \sum_{i = 0}^{s - 1} 2 ^ i \\
-% &\leq 2^s - 1\\
-% &\stackrel{\checkmark}{\leq} 2^s
-% \end{align*}
-
-% Need to prove:
-% \begin{itemize}
-% \item the number of reservation slots in $j$th reservation equals the number of hanoi value instances observed during any window where $r = k$.
-% \item note, because we always fill completely we will therefore drop instances of hanoi value $r - s - 1$.
-% \item that hanoi value $r - s - 1$ is in the $h \mod n$th slot
-% \end{itemize}
-
-
-% The $j$th reservation has $\max(1, 2^{j - 1})$ slots.
-% The number of new observations of hanoi value during epoch $r$ is $h$ is $\# h(r) -  \# h(r - 1)$.
-% This is
-% \begin{align*}
-% \left\lfloor 2 ^ {r - h} \right\rfloor - \left\lfloor 2 ^ {r - h - 1} \right\rfloor \\
-% &= \left\lfloor 2 ^{r - (r - j)} \right\rfloor - \left\lfloor 2 ^ {r - (r - j) - 1} \right\rfloor \\
-% &= 2^j - \left\lfloor 2 ^ {j - 1} \right\rfloor \\
-% &= \min(2^j - 2^{j - 1}, 1) \\
-% &= \min(2 \times 2^{j - 1} - 2^{j - 1}, 1) \\
-% &\stackrel{\checkmark}{=} \min(2^{j - 1}, 1).
-% \end{align*}
+\input{thm/steady-gap-size}

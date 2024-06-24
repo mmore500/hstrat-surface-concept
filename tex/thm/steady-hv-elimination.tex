@@ -1,0 +1,24 @@
+\begin{lemma}
+Placing data items within segments modulo h.v. ensures elimination of h.v. $\colorh = \colort - 1$ from each segment every epoch.
+\end{lemma} \label{thm:steady-hv-elimination}
+\begin{proof}
+Recall that h.v. $\colorh = \colort + \colors - n - 1$ is placed in the $n$th bunch during epoch $\colort$.
+By construction, segments in the $n$th bunch have $\colors - n$ sites.
+We must verify that
+\begin{align*}
+\colort - 1
+&\stackrel{?}{=}
+\text{invading h.v.} - \text{segment length}\\
+&\stackrel{?}{=}
+(\colort + \colors - n - 1) - (\colors - n)
+ \\
+&\stackrel{\checkmark}{=} \colort - 1.
+\end{align*}
+\end{proof}
+
+% So, at epoch $\colort$ in reservation $n$ the hanoi value $h(j, r)$ will overwrite hanoi value
+% \begin{align*}
+% h(j, r) - (s - j) - 1 \\
+% &= (r - j) - (s - j) - 1 \\
+% &\stackrel{\checkmark}{=} r - s - 1.
+% \end{align*}
