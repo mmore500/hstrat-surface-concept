@@ -28,8 +28,6 @@ def calc_surface_history_criteria(
         gap_highest_ranks = gap_bounds[1:] - 1
         gap_tilted_ratios = gap_sizes / np.maximum(rank - gap_highest_ranks, 1)
 
-        # TODO add assertions for consistency
-        # between ideal, worst, and upper bound
         records.append(
             {
                 "rank": rank,
@@ -53,20 +51,57 @@ def calc_surface_history_criteria(
                 "kind": "mean",
             },
         )
-        gap_ratio_ideal = max(
-            np.floor(rank ** (1 / (surface_size - 1)) - 1),
-            0,
+
+        if rank > surface_size:
+            num_discarded = rank - surface_size
+            num_gaps = (
+                surface_size
+                * (
+                    np.log(num_discarded * (rank ** (1 / surface_size) - 1) + 1)
+                    / np.log(rank)
+                )
+                - 1
+            )
+
+            # doesn't work
+            # last_gap_size = np.floor(rank ** (num_gaps / surface_size))
+            # gap_ratio_ideal = last_gap_size / (rank - last_gap_size + 1)
+            # works
+            # note that smallest gap size will always be 0 or 1
+            gap_ratio_ideal = 1 / (rank - num_gaps - num_discarded)
+        else:
+            gap_ratio_ideal = 0
+
+        assert gap_ratio_ideal <= gap_stretched_ratios.max() or np.isclose(
+            gap_ratio_ideal, gap_stretched_ratios.max()
         )
+        assert gap_ratio_ideal <= gap_tilted_ratios.max() or np.isclose(
+            gap_ratio_ideal, gap_tilted_ratios.max()
+        )
+
         records.append(
             {
                 "rank": rank,
                 "steady criterion": rank // surface_size,
                 "stretched criterion": gap_ratio_ideal,
                 "tilted criterion": gap_ratio_ideal,
-                "kind": "ideal",
+                "kind": "strict ideal",
             },
         )
-        gap_ratio_upper_bound = np.nan
+
+        gap_ratio_naive = max(rank ** (1 / surface_size) - 1, 0)
+        records.append(
+            {
+                "rank": rank,
+                "steady criterion": rank / surface_size,
+                "stretched criterion": gap_ratio_naive,
+                "tilted criterion": gap_ratio_naive,
+                "kind": "naive ideal",
+            },
+        )
+
+        gap_ratio_upper_bound = np.nan  # TODO
+        # ... add consistency assertions
         records.append(
             {
                 "rank": rank,
