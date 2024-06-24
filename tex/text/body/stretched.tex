@@ -2,3 +2,22 @@
 
 \input{fig/hsurf-stretched-intuition.tex}
 \input{fig/hsurf-stretched-implementation.tex}
+
+The stretched criterion seeks to retain data items spaced out across observed history proportionally to data item age $\colorTbar$.
+The criterion can be formulated as minimization of the largest gap size ratio,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
+\end{align*}
+For a buffer size $\colorS$ and time elapsed $\colorT$, the ideal retention would space retained data items at the geometric ratio $\colorT^{1/\colorS}$ so that, counting from zero, the $n$th retained data item has ingestion time $\colorT^{n/(\colorS - 1)}$.
+Neglecting discretization, best-case largest gap size can be approximated
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\stackrel{\sim}{\geq}
+\colorT^{1/\colorS} - 1.
+\end{align*}
+
+Accounting for discretization effects provides a strict bound, presented in Lemma \ref{thm:stretched-ideal-strict}.
+
+\input{thm/stretched-ideal-strict}
+
+This section presents a stream curation algorithm designed to support the stretched criterion, achieving maximum gap size no worse than TODO.
