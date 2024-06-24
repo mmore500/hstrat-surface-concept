@@ -6,15 +6,17 @@ import pandas as pd
 
 def calc_surface_history_criteria(
     surface_history_df: pd.DataFrame,
-    progress_wrap: typing.Callable,
+    progress_wrap: typing.Callable = lambda x: x,
 ) -> pd.DataFrame:
 
     surface_size = surface_history_df["site"].max() + 1
 
     records = []
-    for rank, group_df in surface_history_df[
-        surface_history_df["deposition rank"] != -1
-    ].groupby("rank"):
+    for rank, group_df in progress_wrap(
+        surface_history_df[surface_history_df["deposition rank"] != -1].groupby(
+            "rank"
+        ),
+    ):
         deposition_ranks = sorted(group_df["deposition rank"])
         gap_bounds = np.array([-1, *deposition_ranks, rank + 1])
         gap_sizes = np.diff(gap_bounds) - 1
