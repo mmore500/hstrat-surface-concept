@@ -20,4 +20,50 @@ Accounting for discretization effects provides a strict bound, presented in Lemm
 
 \input{thm/stretched-ideal-strict}
 
-This section presents a stream curation algorithm designed to support the stretched criterion, achieving maximum gap size no worse than TODO.
+This section presents a stream curation algorithm designed to support the stretched criterion, achieving maximum gap size no worse than,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\leq
+\min\Big(
+  \frac{2(\colort + \colors)}{\colorS},
+  \frac{4\colort}{\colorS}
+\Big).
+\end{align*}
+
+Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indevinitely many data ingestions $\colorT$, our proposed stretched algorithm only supports $2^{\colorS}$ ingestions.
+Note that for even modestly sized buffers, this limitation is unlikely to arise in practice.
+A 64-site buffer, for instance, could ingest data items at a rate of 4GHz for before reaching this data item cap.
+Extension of the stretched algorithm beyond epoch $\colort = \colorS - \colors$ remains for future work.
+
+\subsection{Strategy}
+
+TODO
+
+\subsection{Mechanism}
+
+\input{fig/hsurf-steady-intuition}
+
+TODO
+
+\subsection{Criterion Satisfaction}
+
+In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed stretched curation algorithm.
+
+\input{thm/stretched-reservation-count}
+
+\input{thm/stretched-gap-size}
+
+Consideration of the gap size bound result found in Theorem \ref{thm:stretched-gap-size} at small and large $\colort$ is instructive.
+During the first epoch where $\colort = 1$,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\leq
+\frac{4}{\colorS}.
+\end{align*}
+
+Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\leq
+2.
+\end{align*}
