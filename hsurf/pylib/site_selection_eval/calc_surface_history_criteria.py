@@ -104,30 +104,36 @@ def calc_surface_history_criteria(
 
         if rank >= surface_size:
             epoch = rank.bit_length() - surface_size.bit_length() + 1
-            gap_ratio_upper_bound = min(
+            stretched_gap_ratio_upper_bound = min(
                 2 * (epoch + surface_size.bit_length() - 1) / surface_size,
                 4 * epoch / surface_size,
             )
+            tilted_gap_ratio_upper_bound = 2
         else:
-            gap_ratio_upper_bound = 0
+            stretched_gap_ratio_upper_bound = 0
+            tilted_gap_ratio_upper_bound = 0
 
         if enforce_stretched_bound:
             assert (
-                gap_ratio_upper_bound >= gap_stretched_ratios.max()
-                or np.isclose(gap_ratio_upper_bound, gap_stretched_ratios.max())
+                stretched_gap_ratio_upper_bound >= gap_stretched_ratios.max()
+                or np.isclose(
+                    stretched_gap_ratio_upper_bound, gap_stretched_ratios.max()
+                )
             )
         if enforce_tilted_bound:
             assert (
-                gap_ratio_upper_bound >= gap_tilted_ratios.max()
-                or np.isclose(gap_ratio_upper_bound, gap_tilted_ratios.max())
+                tilted_gap_ratio_upper_bound >= gap_tilted_ratios.max()
+                or np.isclose(
+                    tilted_gap_ratio_upper_bound, gap_tilted_ratios.max()
+                )
             )
 
         records.append(
             {
                 "rank": rank,
                 "steady criterion": 2 * np.ceil(rank / surface_size),
-                "stretched criterion": gap_ratio_upper_bound,
-                "tilted criterion": gap_ratio_upper_bound,
+                "stretched criterion": stretched_gap_ratio_upper_bound,
+                "tilted criterion": tilted_gap_ratio_upper_bound,
                 "kind": "upper bound",
             },
         )
