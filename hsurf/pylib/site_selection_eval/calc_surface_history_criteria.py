@@ -3,6 +3,8 @@ import typing
 import numpy as np
 import pandas as pd
 
+from .. import oeis
+
 
 def calc_surface_history_criteria(
     surface_history_df: pd.DataFrame,
@@ -104,12 +106,16 @@ def calc_surface_history_criteria(
 
         if rank >= surface_size:
             epoch = rank.bit_length() - surface_size.bit_length() + 1
+            exp = (
+                oeis.get_a000295_index_of_value(epoch - 1)
+                - surface_size.bit_length()
+                + 3
+            )
             stretched_gap_ratio_upper_bound = min(
-                2 * (epoch + surface_size.bit_length() - 1) / surface_size,
-                4 * epoch / surface_size,
+                2**exp,
                 1,
             )
-            tilted_gap_ratio_upper_bound = 2
+            tilted_gap_ratio_upper_bound = stretched_gap_ratio_upper_bound * 2
         else:
             stretched_gap_ratio_upper_bound = 0
             tilted_gap_ratio_upper_bound = 0
