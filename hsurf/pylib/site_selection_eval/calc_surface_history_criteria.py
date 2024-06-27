@@ -105,7 +105,7 @@ def calc_surface_history_criteria(
         if rank >= surface_size:
             epoch = rank.bit_length() - surface_size.bit_length() + 1
             gap_ratio_upper_bound = min(
-                2 * (epoch + surface_size.bit_length()) / surface_size,
+                2 * (epoch + surface_size.bit_length() - 1) / surface_size,
                 4 * epoch / surface_size,
             )
         else:
