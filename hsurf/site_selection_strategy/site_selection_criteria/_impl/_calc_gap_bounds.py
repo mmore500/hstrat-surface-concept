@@ -7,7 +7,7 @@ def calc_gap_bounds(retained_ranks: np.array, current_rank: int) -> np.array:
     Parameters
     ----------
     retained_ranks : np.ndarray
-        1D array of integer ranks to be retained, must be non-negative and
+        1D array of integer ranks that are retained, must be non-negative and
         less than or equal to current_rank.
     current_rank : int
         The current rank, must be non-negative.

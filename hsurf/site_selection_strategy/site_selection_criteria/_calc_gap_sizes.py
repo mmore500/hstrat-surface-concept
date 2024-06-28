@@ -11,7 +11,7 @@ def calc_gap_sizes(retained_ranks: np.array, current_rank: int) -> np.array:
     Parameters
     ----------
     retained_ranks : np.ndarray
-        1D array of integer ranks to be retained. Must be non-negative and
+        1D array of integer ranks that are retained. Must be non-negative and
         less than or equal to current_rank.
     current_rank : int
         The current rank. Must be non-negative.
