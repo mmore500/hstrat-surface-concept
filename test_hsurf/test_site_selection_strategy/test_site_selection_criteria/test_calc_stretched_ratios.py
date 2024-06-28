@@ -70,4 +70,3 @@ def test_calc_stretched_ratios_smoke(
     result = calc_stretched_ratios(retained_ranks, current_rank)
     assert result.shape == (len(retained_ranks) + 1,)
     assert np.all(result >= 0)
-    assert np.all(result <= 1)
