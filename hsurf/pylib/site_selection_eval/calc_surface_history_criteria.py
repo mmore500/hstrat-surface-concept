@@ -114,6 +114,8 @@ def calc_surface_history_criteria(
             stretched_gap_ratio_upper_bound = min(
                 2**exp,
                 1,
+                2 * (epoch + surface_size.bit_length()) / surface_size,
+                4 * epoch / surface_size,
             )
             tilted_gap_ratio_upper_bound = stretched_gap_ratio_upper_bound * 2
         else:
