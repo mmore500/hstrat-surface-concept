@@ -1,6 +1,6 @@
 import pytest
 
-from hsurf.hsurf import steady_try_algo as algo
+from hsurf.hsurf import steady_algo as algo
 
 
 @pytest.mark.parametrize(
@@ -10,10 +10,10 @@ from hsurf.hsurf import steady_try_algo as algo
         (8, 1, 0),
         (8, 8, 0),
         (8, 9, 1),
-        (8, 500, 63),
-        (8, 15, 1),
+        (8, 500, 126),
+        (8, 15, 2),
         (8, 16, 2),
-        (8, 17, 2),
+        (8, 17, 3),
         (64, 0, 0),
         (64, 1, 0),
         (64, 8, 0),
@@ -24,12 +24,12 @@ from hsurf.hsurf import steady_try_algo as algo
         (64, 4000, 63),
     ],
 )
-def test_calc_criterion_exact(
+def test_calc_steady_criterion_exact(
     surface_size: int,
     num_depositions: int,
     expected_criterion_value: int,
 ):
     assert (
-        algo.calc_criterion_exact(surface_size, num_depositions)
+        algo.calc_steady_criterion_exact(surface_size, num_depositions)
         == expected_criterion_value
     )

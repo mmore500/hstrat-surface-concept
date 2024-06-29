@@ -2,7 +2,9 @@ from ....site_selection_criteria import calc_gap_sizes
 from .._scry import iter_retained_deposition_ranks
 
 
-def calc_criterion_exact(surface_size: int, num_depositions: int) -> float:
+def calc_steady_criterion_exact(
+    surface_size: int, num_depositions: int
+) -> float:
     assert surface_size > 0
     assert num_depositions >= 0
 

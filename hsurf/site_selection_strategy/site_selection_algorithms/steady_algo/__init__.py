@@ -23,9 +23,13 @@ pass on sites that haven't been filled yet once the end of the waterfall is
 reached. That bookkeeping is not implemented in this version.
 """
 
-from ._criterion._calc_criterion_exact import calc_criterion_exact
-from ._criterion._calc_criterion_lower_bound import calc_criterion_lower_bound
-from ._criterion._calc_criterion_upper_bound import calc_criterion_upper_bound
+from ._criteria._calc_steady_criterion_exact import calc_steady_criterion_exact
+from ._criteria._calc_steady_criterion_lower_bound import (
+    calc_steady_criterion_lower_bound,
+)
+from ._criteria._calc_steady_criterion_upper_bound import (
+    calc_steady_criterion_upper_bound,
+)
 from ._enact._pick_deposition_site import pick_deposition_site
 from ._scry._calc_resident_deposition_rank import calc_resident_deposition_rank
 from ._scry._iter_resident_deposition_ranks import (
@@ -36,10 +40,10 @@ from ._scry._iter_retained_deposition_ranks import (
 )
 
 __all__ = [
-    "calc_criterion_exact",
-    "calc_criterion_lower_bound",
-    "calc_criterion_upper_bound",
     "calc_resident_deposition_rank",
+    "calc_steady_criterion_exact",
+    "calc_steady_criterion_lower_bound",
+    "calc_steady_criterion_upper_bound",
     "iter_resident_deposition_ranks",
     "iter_retained_deposition_ranks",
     "pick_deposition_site",
