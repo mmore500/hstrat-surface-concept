@@ -1,10 +1,6 @@
-import numpy as np
 import pytest
 
 from hsurf.hsurf import steady_try_algo as algo
-from hsurf.site_selection_strategy.site_selection_bounds import (
-    calc_gap_size_lower_bound as ideal_lb,
-)
 
 
 @pytest.mark.parametrize(
@@ -20,7 +16,7 @@ def test_calc_steady_criterion_lower_bound(
     num_depositions: int,
 ):
     assert (
-        ideal_lb(surface_size, num_depositions)
-        <= algo.calc_steady_criterion_lower_bound(surface_size, num_depositions)
-        <= algo.calc_steady_criterion_exact(surface_size, num_depositions)
+        algo.calc_steady_criterion_exact(surface_size, num_depositions)
+        <= algo.calc_steady_criterion_upper_bound(surface_size, num_depositions)
+        <= num_depositions
     )
