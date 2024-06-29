@@ -9,7 +9,8 @@ from hsurf.hsurf import steady_try_algo as algo
         (8, 0, 0),
         (8, 1, 0),
         (8, 8, 0),
-        (8, 9, 0.25),
+        (8, 9, 0.125),
+        (8, 10, 0.25),
     ],
 )
 def test_calc_stretched_criterion_exact(
