@@ -23,15 +23,18 @@ pass on sites that haven't been filled yet once the end of the waterfall is
 reached. That bookkeeping is not implemented in this version.
 """
 
-
 from ._enact._pick_deposition_site import pick_deposition_site
 from ._scry._calc_resident_deposition_rank import calc_resident_deposition_rank
 from ._scry._iter_resident_deposition_ranks import (
     iter_resident_deposition_ranks,
 )
+from ._scry._iter_retained_deposition_ranks import (
+    iter_retained_deposition_ranks,
+)
 
 __all__ = [
     "calc_resident_deposition_rank",
     "iter_resident_deposition_ranks",
+    "iter_retained_deposition_ranks",
     "pick_deposition_site",
 ]
