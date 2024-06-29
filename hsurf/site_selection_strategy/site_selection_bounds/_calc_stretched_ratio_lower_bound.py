@@ -25,4 +25,4 @@ def calc_stretched_ratio_lower_bound(
     --------
     calc_gap_ratio_lower_bound : Implementation, shared with tilted criterion.
     """
-    return calc_gap_ratio_lower_bound(rank, surface_size)
+    return calc_gap_ratio_lower_bound(surface_size, num_depositions)

@@ -16,15 +16,17 @@ def _stretched_criterion(a: int, b: int) -> float:
 
 
 @pytest.mark.parametrize("surface_size", range(1, 10))
-@pytest.mark.parametrize("rank", range(100))
-def test_against_optimized_criterion_small(surface_size: int, rank: int):
-    if rank >= 2**surface_size:
+@pytest.mark.parametrize("num_depositions", range(100))
+def test_against_optimized_criterion_small(
+    surface_size: int, num_depositions: int
+):
+    if num_depositions > 2**surface_size:
         return
 
     optimized_value = optimize_criterion(
-        rank, surface_size, _stretched_criterion
+        surface_size, num_depositions, _stretched_criterion
     )
-    calculated_value = calc_gap_ratio_lower_bound(rank, surface_size)
+    calculated_value = calc_gap_ratio_lower_bound(surface_size, num_depositions)
     assert np.isfinite(calculated_value)
     assert calculated_value >= 0.0
 
@@ -36,12 +38,14 @@ def test_against_optimized_criterion_small(surface_size: int, rank: int):
 
 @pytest.mark.heavy
 @pytest.mark.parametrize("surface_size", [100, 127, 128])
-@pytest.mark.parametrize("rank", [0, 1, 1023, 1024, 400, 511, 512])
-def test_against_optimized_criterion_large(surface_size: int, rank: int):
+@pytest.mark.parametrize("num_depositions", [0, 1, 1023, 1024, 400, 511, 512])
+def test_against_optimized_criterion_large(
+    surface_size: int, num_depositions: int
+):
     optimized_value = optimize_criterion(
-        rank, surface_size, _stretched_criterion
+        surface_size, num_depositions, _stretched_criterion
     )
-    calculated_value = calc_gap_ratio_lower_bound(rank, surface_size)
+    calculated_value = calc_gap_ratio_lower_bound(surface_size, num_depositions)
     assert np.isfinite(calculated_value)
     assert calculated_value >= 0.0
 

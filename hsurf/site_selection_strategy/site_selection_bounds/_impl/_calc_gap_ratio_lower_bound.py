@@ -1,17 +1,19 @@
 import numpy as np
 
 
-def calc_gap_ratio_lower_bound(rank: int, surface_size: int) -> float:
+def calc_gap_ratio_lower_bound(
+    surface_size: int, num_depositions: int
+) -> float:
     """Calculate the lower bound on ratio of gap size to dropped data item rank.
 
     Parameters
     ----------
-    rank : int
-        The current position or time step.
-
-        Must be non-negative and less than `2**surface_size`.
     surface_size : int
         The maximum number of items that can be retained.
+    num_depositions : int
+        The current position or time step.
+
+        Must be non-negative and less than or equal to `2**surface_size`.
 
     Returns
     -------
@@ -22,15 +24,16 @@ def calc_gap_ratio_lower_bound(rank: int, surface_size: int) -> float:
     -----
     - Rank 0 is corrected as rank 1, to prevent division by zero.
     """
-    assert rank < 2**surface_size
+    assert num_depositions <= 2**surface_size
     assert surface_size
 
-    if rank < surface_size or rank == 1:
-        return 0
-
-    num_discarded = (rank + 1) - surface_size
+    num_discarded = max(num_depositions - surface_size, 0)
     if num_discarded == 0:
         return 0
+
+    rank = num_depositions - 1
+    if rank == 1:
+        return 1
 
     num_gaps = np.floor(
         surface_size
@@ -47,4 +50,4 @@ def calc_gap_ratio_lower_bound(rank: int, surface_size: int) -> float:
 
     # ... but this works
     # note that smallest gap size will always be 0 or 1
-    return 1 / (rank - num_gaps - num_discarded + 1)
+    return 1 / (num_depositions - num_gaps - num_discarded)

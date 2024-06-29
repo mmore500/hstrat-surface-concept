@@ -37,9 +37,9 @@ def optimize_criterion(
     # |
     # |
     # V keep number
-    num_keeps = min(rank + 1, surface_size)
+    num_keeps = min(num_depositions, surface_size)
     nrow = num_keeps
-    ncol = rank + 1
+    ncol = num_depositions
     dp_array = np.zeros((nrow, ncol), dtype=float)
     for row in range(nrow):
         for col in range(ncol):
@@ -56,7 +56,7 @@ def optimize_criterion(
 
     return min(
         (
-            max(criterion(from_, rank + 1), dp_array[-1, from_])
+            max(criterion(from_, num_depositions), dp_array[-1, from_])
             for from_ in range(ncol)
         ),
         default=0,

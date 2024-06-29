@@ -7,8 +7,8 @@ from hsurf.site_selection_strategy.site_selection_bounds import (
 
 
 @pytest.mark.parametrize("surface_size", range(1, 10))
-@pytest.mark.parametrize("rank", range(100))
-def test_optimize_criterion(surface_size: int, rank: int):
+@pytest.mark.parametrize("num_depositions", range(100))
+def test_optimize_criterion(surface_size: int, num_depositions: int):
     assert optimize_criterion(
-        rank, surface_size, lambda a, b: b - a - 1
-    ) == calc_gap_size_lower_bound(rank, surface_size)
+        surface_size, num_depositions, lambda a, b: b - a - 1
+    ) == calc_gap_size_lower_bound(surface_size, num_depositions)
