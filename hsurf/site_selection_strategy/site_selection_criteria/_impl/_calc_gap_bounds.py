@@ -18,11 +18,9 @@ def calc_gap_bounds(retained_ranks: np.array, num_depositions: int) -> np.array:
         1D array of integer gap bounds, including -1 at the start and
         `num_depositions` at the end.
     """
-    if retained_ranks.size == 0:
-        return np.array([-1, num_depositions], dtype=int)
-
+    retained_ranks = np.asarray(retained_ranks)
     assert (retained_ranks >= 0).all()
     assert (retained_ranks < num_depositions).all()
 
     sorted_ranks = np.sort(retained_ranks)
-    return np.array([-1, *sorted_ranks, num_depositions])
+    return np.array([-1, *sorted_ranks, num_depositions], dtype=int)
