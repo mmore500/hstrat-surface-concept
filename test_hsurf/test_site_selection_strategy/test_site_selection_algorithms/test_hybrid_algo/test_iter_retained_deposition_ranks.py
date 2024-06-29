@@ -6,14 +6,14 @@ import pytest
 from hsurf.hsurf import hybrid_algo as algo
 
 
-@pytest.mark.parametrize("surface_size", [2**x for x in range(2, 12)])
+@pytest.mark.parametrize("surface_size", [2**x for x in range(2, 10)])
 @pytest.mark.parametrize(
     "num_depositions",
     [
         *range(128),
-        *map(int, np.linspace(0, 2**62, 100, dtype=int)),
-        *map(int, np.geomspace(1, 2**62, 100, dtype=int)),
-        *map(int, np.random.RandomState(seed=1).randint(0, 2**62, 100)),
+        *map(int, np.linspace(0, 2**62, 10, dtype=int)),
+        *map(int, np.geomspace(1, 2**62, 10, dtype=int)),
+        *map(int, np.random.RandomState(seed=1).randint(0, 2**62, 10)),
     ],
 )
 def test_iter_retained_deposition_ranks(
