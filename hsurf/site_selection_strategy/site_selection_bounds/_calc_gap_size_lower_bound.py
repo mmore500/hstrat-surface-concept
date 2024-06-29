@@ -1,12 +1,12 @@
-def calc_gap_size_lower_bound(rank: int, surface_size: int) -> int:
+def calc_gap_size_lower_bound(surface_size: int, num_depositions: int) -> int:
     """Calculate the lower bound of gap size at time step `rank`.
 
     Parameters
     ----------
-    rank : int
-        The current time step.
     surface_size : int
         The maximum number of items that can be retained.
+    num_depositions : int
+        The number of data items that have been ingested.
 
     Returns
     -------

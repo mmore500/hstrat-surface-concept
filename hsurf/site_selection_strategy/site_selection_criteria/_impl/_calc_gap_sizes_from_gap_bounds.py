@@ -17,7 +17,8 @@ def calc_gap_sizes_from_gap_bounds(gap_bounds: np.array) -> np.array:
 
     See Also
     --------
-    calc_gap_bounds : Calculate gap bounds for retained ranks and current rank.
+    calc_gap_bounds : Calculate gap bounds for retained ranks and num
+    depositions.
     """
     if gap_bounds.size == 0:
         return np.array([], dtype=int)

@@ -4,8 +4,8 @@ import numpy as np
 
 
 def optimize_criterion(
-    rank: int,
     surface_size: int,
+    num_depositions: int,
     criterion: typing.Callable[[int, int], float],
 ) -> float:
     """Calculate the smallest-possible maximal value of a criterion function
@@ -13,10 +13,10 @@ def optimize_criterion(
 
     Parameters
     ----------
-    rank : int
-        The current time step.
     surface_size : int
         The maximum number of items that can be retained.
+    num_depositions : int
+        The number of data items that have been ingested.
     criterion : callable
         A function that takes two item indices on either side of a gap, and
         returns a float.
