@@ -11,6 +11,7 @@ from hsurf import hsurf
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -43,6 +44,7 @@ def test_GenDropRanks(interop_algo: types.ModuleType, surface_size: int):
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -67,6 +69,7 @@ def test_CalcNumStrataRetainedExact(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -100,6 +103,7 @@ def test_CalcRankAtColumnIndex(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -124,6 +128,7 @@ def test_CalcNumStrataRetainedUpperBound(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -152,6 +157,7 @@ def test_IterRetainedRanks(interop_algo: types.ModuleType, surface_size: int):
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -195,6 +201,7 @@ def test_hstrat_test_drive_integration(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
