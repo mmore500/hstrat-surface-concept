@@ -1,4 +1,5 @@
 import pytest
+
 from hsurf.site_selection_strategy.site_selection_bounds import (
     calc_gap_size_lower_bound,
 )
