@@ -35,6 +35,7 @@ def calc_tilted_ratios(
     calc_gap_bounds : Calculate gap bounds for retained ranks and num
     depositions.
     """
+    retained_ranks = np.asarray(retained_ranks)
     gap_bounds = calc_gap_bounds(retained_ranks, num_depositions)
     gap_sizes = calc_gap_sizes_from_gap_bounds(gap_bounds)
     gap_highest_ranks = gap_bounds[1:] - 1
