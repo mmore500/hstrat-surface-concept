@@ -6,7 +6,7 @@ from ._make_stratum_retention_policy_from_site_selection_algo import (
 )
 
 Policy = make_stratum_retention_policy_from_site_selection_algo(
-    _site_selection_algo
+    _site_selection_algo,
 )
 PolicySpec = Policy.policy_spec_t
 
