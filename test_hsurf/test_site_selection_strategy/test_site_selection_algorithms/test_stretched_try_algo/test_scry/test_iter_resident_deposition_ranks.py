@@ -19,7 +19,7 @@ from hsurf.hsurf import stretched_try_algo as algo
 def test_iter_resident_deposition_ranks(
     surface_size: int, num_depositions: int
 ) -> int:
-    if num_depositions >= 2 ** surface_size.bit_length():
+    if num_depositions >= 2**surface_size:
         return
     expected = (
         algo.calc_resident_deposition_rank(site, surface_size, num_depositions)

@@ -35,6 +35,7 @@ def calc_resident_deposition_rank(
     the surface prior to any algorithm-determined stratum depositions.
     """
     assert _recursion_depth < 2
+    assert num_depositions < 2**surface_size
 
     if num_depositions == 0:
         return 0

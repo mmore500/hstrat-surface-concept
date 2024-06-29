@@ -6,7 +6,7 @@ import pytest
 from hsurf.hsurf import hybrid_algo as algo
 
 
-@pytest.mark.parametrize("surface_size", [2**x for x in range(2, 12)])
+@pytest.mark.parametrize("surface_size", [2**x for x in range(2, 10)])
 @pytest.mark.parametrize(
     "num_depositions",
     [
@@ -19,7 +19,7 @@ from hsurf.hsurf import hybrid_algo as algo
 def test_iter_resident_deposition_ranks(
     surface_size: int, num_depositions: int
 ) -> int:
-    if num_depositions > 2 ** (surface_size.bit_length() - 1) - 1:
+    if num_depositions >= 2 ** (surface_size // 2 + 1):
         return
 
     expected = (

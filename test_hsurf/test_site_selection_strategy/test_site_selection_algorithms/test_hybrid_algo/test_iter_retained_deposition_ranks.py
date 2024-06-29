@@ -19,7 +19,7 @@ from hsurf.hsurf import hybrid_algo as algo
 def test_iter_retained_deposition_ranks(
     surface_size: int, num_depositions: int
 ) -> int:
-    if num_depositions > 2 ** (surface_size.bit_length() - 1) - 1:
+    if num_depositions >= 2 ** (surface_size // 2 + 1):
         return
 
     expected = (
