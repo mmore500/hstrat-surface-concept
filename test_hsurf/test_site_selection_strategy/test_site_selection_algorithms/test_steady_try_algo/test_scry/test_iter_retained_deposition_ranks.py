@@ -16,7 +16,7 @@ from hsurf.hsurf import steady_try_algo as algo
         *map(int, np.random.RandomState(seed=1).randint(0, 2**62, 100)),
     ],
 )
-def test_iter_resident_deposition_ranks(
+def test_iter_retained_deposition_ranks(
     surface_size: int, num_depositions: int
 ) -> int:
     expected = (
