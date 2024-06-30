@@ -14,18 +14,14 @@ from hsurf.hsurf import stretched_algo as algo
         *map(int, np.random.RandomState(seed=1).randint(0, 2**62, 10)),
     ],
 )
-def test_iter_retained_ingest_ranks(
-    surface_size: int, num_ingests: int
-) -> int:
-    if num_ingests >= 2 ** (surface_size - 1) - 1:
+def test_iter_retained_ingest_ranks(surface_size: int, num_ingests: int) -> int:
+    if num_ingests > algo.get_ingest_capacity(surface_size):
         return
     expected = (
         set(algo.iter_resident_ingest_ranks(surface_size, num_ingests))
         if num_ingests
         else set()
     )
-    actual = [
-        *algo.iter_retained_ingest_ranks(surface_size, num_ingests)
-    ]
+    actual = [*algo.iter_retained_ingest_ranks(surface_size, num_ingests)]
     len(actual) == len(expected)
     assert expected == set(actual)
