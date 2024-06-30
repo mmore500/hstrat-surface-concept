@@ -1,0 +1,22 @@
+\begin{figure*}
+  \centering
+  \includegraphics[width=\textwidth]{img/hsurf-steady-intuition}
+  \caption{
+    \textbf{Steady algorithm strategy.}
+    \footnotesize
+    Overview of placement strategy for data item instances of hanoi value $\colorh$.
+    Data items are shown in yellow, spanning across the epoch timeline from when they are stored to when they are overwritten.
+    Available memory buffer sites, broken into conceptual segments, are shown across the top of the schematic.
+    The first data item with $\colorH(\colorTbar) = \colorh$ is placed in segment 0.
+    The next data item with h.v. $\colorh$ is encountered in the following epoch, and it is placed in segment 1.
+    In epoch 3, two data items with h.v. $\colorh$ are encountered, and placed in segment 2.
+    In the epoch 4, four h.v. $\colorh$ data items (twice as many) are encountered.
+    We place them in segment 3.
+    If working with a larger memory buffer, this pattern would continue in subsequent epochs.
+    During the epoch after the last segment is written to, all h.v. $\colorh$ data items are overwritten.
+    In segment 0 they are overwritten by h.v. $\colorh - 4$, in segment 1, h.v. $\colorh - 3$, and so forth.
+    In this manner, data items with highest hanoi value are retained on a rolling basis.
+    This approach ensures equal gap sizes across history, with gap sizes gracefully doubling in size as intermediate values are overwritten.
+  }
+  \label{fig:hsurf-steady-intuition}
+\end{figure*}

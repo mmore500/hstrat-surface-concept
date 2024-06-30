@@ -1,0 +1,81 @@
+\begin{figure*}[h!]
+  \centering
+
+\begin{subfigure}[b]{\linewidth}
+\includegraphics[width=\linewidth]{
+binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
+\vspace{-4ex}\caption{
+  Buffer composition across time, split by epoch with data items color coded by hanoi value of ingestion time $\colorH(\colorT)$.
+}
+\label{fig:hsurf-steady-implementation-schematic}
+\end{subfigure}
+
+\vspace{1ex}\begin{minipage}[]{\textwidth}
+ \vspace{-2pt}
+  \begin{subfigure}[t]{0.7\linewidth}
+    \vspace{0pt}
+    \centering
+  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/11/cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.3\linewidth}
+  \vspace{-2pt}
+  \caption{%
+    Stored data item age across buffer sites for buffer size $\colorS=256$ from $\colorT=0$ to 4,096.
+  }
+  \label{fig:hsurf-steady-implementation-heatmap}
+\end{subfigure}
+\end{minipage}
+
+   \begin{minipage}[]{\textwidth}
+   \vspace{-2pt}
+  \begin{subfigure}[t]{0.7\linewidth}
+  \vspace{0pt}
+    \centering
+    \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/11/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.3\linewidth}
+  \vspace{-2pt}
+  \caption{%
+    Data item retention time spans by ingestion time point for buffer size $\colorS=64$ from $\colorT=0$ to 3,000.
+  }
+  \label{fig:hsurf-steady-implementation-dripplot}
+  \end{subfigure}
+  \end{minipage}
+
+ \begin{minipage}[]{\textwidth}
+ \vspace{-2pt}
+\begin{subfigure}[t]{0.7\linewidth}
+\vspace{0pt}
+  \centering
+  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/11/hue=kind+surface-size=16+viz=lineplot+x=time+y=steady-criterion+ext=}
+\end{subfigure}%
+\begin{subfigure}[t]{0.3\linewidth}
+\vspace{-2pt}
+\caption{%
+  Steady criterion satisfaction across time points for buffer size $\colorS=16$.
+}
+\label{fig:hsurf-steady-implementation-satisfaction}
+\end{subfigure}
+\end{minipage}
+
+\vspace{-2ex}\caption{%
+  \textbf{Steady algorithm implementation.}
+  \footnotesize
+  Top panel \ref{fig:hsurf-steady-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' conceptual ingestion order hanoi values $\colorH(\colorT)$.
+  Between $\colorT=0$ and $\colorT=127$, time is segmented into conceptual epochs $\colort=0$, $\colort=1$, and $\colort=2$.
+  Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into conceptual ``reservation'' segments by vertical black lines.
+  Reservation segments occur in five ``bunches'' --- (1) one 5-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
+  At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
+  In epoch 0, all sites are filled with a first data item.
+  At subsequent epochs, successive hanoi values are assigned one site per segment in each bunch, with each hanoi value filling into one bunch per epoch.
+  All newly-assigned sites were previously assigned to the overall now-lowest hanoi value.
+  In this way, all instances of the overall lowest hanoi value are overwritten each epoch.
+  Heatmap panel \ref{fig:hsurf-steady-implementation-heatmap} shows evolution of data item age at each sites on a 256-bit field over the course of 4,096 time steps.
+  Dripplot panel \ref{fig:hsurf-steady-implementation-dripplot} shows retention spans for 3,000 ingested time points.
+  Vertical lines span durations between ingestion and elimination for data items from successive time points.
+  Time points previously eliminated are marked in red.
+  Bottom panel \ref{fig:hsurf-steady-implementation-satisfaction} shows steady criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
+  }
+\label{fig:hsurf-steady-implementation}
+
+\end{figure*}

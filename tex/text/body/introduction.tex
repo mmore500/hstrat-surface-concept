@@ -1,0 +1,42 @@
+\section{Introduction} \label{sec:introduction}
+
+Hereditary Stratigraphic Surface Project Notes:
+
+\begin{enumerate}
+\item goal:
+\begin{itemize}
+  \item fixed-length bitstring that starts out randomly generated
+  \item algorithm to determine one site to re-draw a single bit at a particular site (``ingest'' at that site) each generation (Figure \ref{fig:surface-site-ingest})
+  \item second algorithm to calculate the generation at which a site was last re-drawn (Figure \ref{fig:ingest-rank-calculation}; allows surface to be converted to a hereditary stratigraphic column
+\end{itemize}
+\item approach:
+\begin{itemize}
+  \item toggle bits according to Hanoi sequence (0, 1, 0, 2, 0, 1, 0, 3, etc.)
+  \item once Hanoi value equal to bitstring size is reached, we're out of space
+  \item but before then, we have extra space
+  \item use extra space to keep more values instead of just re-toggling the same site every time we draw a value $v$ from the Hanoi sequence (Figure \ref{fig:incidence-reservation-layout-bad})
+  \item organize the first incidence, second incidence, third incidence etc. of Hanoi values together (as an ``incidence reservation'')
+  \item when incidence reservations fill up, we double the size of reservations so that bottom reservations take over the space occupied by their upper neighbor (Figure \ref{fig:longevity-ordering})
+  \item note that the reservation growth process affects the order in which we want to lay out the incidence reservations (although the best way to actually lay them out isn't totally certain) (Figure \ref{fig:longevity-ordering} gives the current approach)
+  \item this ordering of reservation subsumption is referred to as the ``longevity ordering''
+  \item doing this naively gives the ``doubling'' instance reservation approach (Figure \ref{fig:doubling-instance-reservation})
+  \item we can be more clever and treat hanoi values that would occupy sites in the invaded reservation that haven't yet been reached by the maximum hanoi value as still having access to that reservation, giving the ``incrementing'' reservation approach (Figure \ref{fig:incrementing-instance-reservation})
+  \item prototypes are in notebooks
+\end{itemize}
+\item status:
+\begin{itemize}
+  \item site selection rule prototyped, but there are some remaining questions/optimizations
+  \item last ingest rank for site at generation calculation algorithm prototyped, but there is some slow recursion that needs to be rewritten (ideally to $O(1)$)
+\end{itemize}
+\item needs work
+\begin{itemize}
+  \item slow algorithm to calculate ingest rank for site at generation (recursion that only decrements generation one at a time in \texttt{get\_ingest\_rank\_at\_site})
+  \item don't understand the consequences/know
+  \item ideally, the oldest incidences would be eliminated first
+  \item but if the incidences complete a first cycle, all the newest incidences will be placed in the incidence reservations that are subsumed
+  \item but values aren't subsumed all at once; they will be subsumed at least half as slow (sometimes possibly many many times slower e.g., if hanoi value 4 is replacing hanoi value 0 at beginning of subsumed reservation) as the incidences in remaining reservations are overwritten
+  \item how (if is possible) to lay out reservations so that oldest instances are subsumed first?
+  \item should we even be grouping instances together of different hanoi values?
+  \item what if hanoi values were grouped together so that instances for a particular hanoi vlaue would be sequential?
+\end{itemize}
+\end{enumerate}

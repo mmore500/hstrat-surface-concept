@@ -1,0 +1,62 @@
+\begin{lemma}[Lower bound on stretched criterion]
+\label{thm:stretched-ideal-strict}
+The ``worst'' stretched criterion (gap size ratio) for a buffer of size $\colorS$ at time $\colorT$ is best-case
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\geq
+\frac{
+  1
+}{
+  1 + \colorS
+  - \colorS \log_{\colorT}\Big(
+    (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
+  \Big)
+}.
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+Assume $\colorT > \colorS$.
+Then, we have $\colorT - \colorS$ discarded data items in our record.
+As a consequence of discretization, the smallest possible gap size is 1 data item.
+
+In an optimal, successive gap sizes will grow by a factor $\colorT^{1/\colorS}$.
+Equating the total gap space,
+\begin{align*}
+\colorT - \colorS
+&=
+\sum_{i = 0}^{j} \colorT^{i/\colorS} % +1?
+\\
+&=
+\frac{
+  \colorT^{(j + 1)/\colorS} - 1
+}{
+  \colorT^{1/\colorS} - 1
+}.
+\end{align*}
+
+Solving for the number of discrete gaps instantiated $j$,
+\begin{align*}
+j
+&=
+\colorS \log_{\colorT}\Big(
+  (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
+\Big) - 1.
+\end{align*}
+
+The smallest gap will be located $\mathrm{num\_gaps} + \mathrm{gap\_space}$ time steps back from the most recent observed time $\colorT$.
+The $\mathrm{num\_gaps}$ term arises from the time steps occupied by retained data between gaps.
+So, the first gap will occur at time $\colorTbar = \colorT - \mathrm{num\_gaps} - \mathrm{gap\_space}$ and the gap size ratio will be
+\begin{align*}
+\frac{1}{
+\colorT
+- \Big[
+\colorS \log_{\colorT}\Big(
+  (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
+\Big) - 1
+\Big] - (\colorT - \colorS)
+}.
+\end{align*}
+
+Simplifying terms gives the result.
+\end{proof}

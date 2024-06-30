@@ -1,0 +1,34 @@
+\begin{figure*}
+  \centering
+\begin{subfigure}{0.43\textwidth}
+\includegraphics[width=\textwidth]{img/hsurf-stretched-intuition}
+\caption{site selection for hanoi value 0}
+\label{fig:hsurf-stretched-intuition-site-selection}
+\end{subfigure}%
+\begin{subfigure}{0.57\textwidth}
+\includegraphics[width=\textwidth]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+\caption{hanoi value reservations across epochs}
+\label{fig:hsurf-stretched-intuition-reservations}
+\end{subfigure}
+  \caption{
+    \textbf{Stretched algorithm strategy.}
+    \footnotesize
+    First panel \ref{fig:hsurf-stretched-intuition-site-selection} shows placement strategy for data items with hanoi value $\colorH(\colorTbar) = 0$ on a buffer of size $\colorS=8$.
+    Four sites, shown in dark blue, are reserved for hanoi value 0 during epoch 0.
+    Reservation segment bunches are nested recursively, with successive bunches having shorter segments.
+    The first data item instance with hanoi value $\colorH(\colorTbar) = 0$ is placed in segment bunch 0, which only contains one segment: segment 0.
+    The second h.v. 0 data item is placed in segment bunch 1, which comprises just segment 1.
+    The third and fourth h.v. 0 items are placed in segment bunch 2, which comprises segments 2 and 3 --- both containing only one buffer site.
+    During epoch 1, h.v. 0 sites in segment bunch 2 are ceded, leaving two sites reserved for h.v. 0.
+    Note how these first-overwritten sites contain the most recent, as opposed to most ancient, h.v. 0 data items.
+    Subsequently, during epoch 2, reserved space for h.v. 0 contracts to just segment 0 and the second h.v. 0 data item is overwritten.
+    Second panel \ref{fig:hsurf-stretched-intuition-reservations} shows h.v. reservation layout across epochs for a 32-site buffer.
+    Reservation segments are separated by black lines.
+    As epochs elapse, inner-nested segments are invaded as outer-nested segments extend by one hanoi value.
+    Recursive nesting ensures that the shortest --- and last-filled --- segments are lost first.
+    % Each epoch, all invaded sites share the same hanoi value, causing the available reservation sites for that h.v. to instantaneously halve.
+    Because the distribution of segment lengths mirrors the hanoi sequence, buffer space becomes available for the first-seen instances of high hanoi values as they are encountered.
+  In this manner, this layout strategy approximates the first-$n$ h.v. strategy depicted in Figure \ref{fig:hanoi-intuition-stretched}, with $n$ decreasing to respect available buffer space as segments are invaded and lost.
+  }
+  \label{fig:hsurf-stretched-intuition}
+\end{figure*}

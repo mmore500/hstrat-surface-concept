@@ -1,0 +1,216 @@
+\begin{figure*}[h!]
+  \setlength{\fboxrule}{0pt}
+  \centering
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{gray!3}{gray!3}{%
+\begin{minipage}[c][0.55in]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$\colorT = 50$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!4}{orange!4}{%
+\begin{minipage}[c][0.55in]{0.34\textwidth}
+\includegraphics[trim={0 1.2cm 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=steady+stop=50+viz=rugplot+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!6}{pink!6}{%
+\begin{minipage}[c][0.55in]{0.31\textwidth}
+\includegraphics[trim={0 1.2cm 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=stretched+stop=51+viz=rugplot+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!5}{teal!5}{%
+\begin{minipage}[c][0.55in]{0.31\textwidth}
+\includegraphics[trim={0 1.2cm 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=tilted+stop=51+viz=rugplot+ext=}%
+\end{minipage}\hspace{-1ex}}%
+\end{minipage}\vspace{-1ex}
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{gray!11}{gray!11}{%
+\begin{minipage}[c][0.55in]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$\colorT = 100$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!10}{orange!10}{%
+\begin{minipage}[c][0.55in]{0.34\textwidth}
+\includegraphics[trim={0 0 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=steady+stop=100+viz=rugplot+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!15}{pink!15}{%
+\begin{minipage}[c][0.55in]{0.31\textwidth}
+\includegraphics[trim={0 0 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=stretched+stop=100+viz=rugplot+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!11}{teal!11}{%
+\begin{minipage}[c][0.55in]{0.31\textwidth}
+\includegraphics[trim={0 0 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=tilted+stop=100+viz=rugplot+ext=}%
+\end{minipage}\hspace{-1ex}}%
+\end{minipage}\vspace{-1ex}
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{white!100}{white!100}{%
+\begin{minipage}[b][0.2cm]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$~$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!2}{orange!2}{%
+\begin{minipage}[]{0.34\textwidth}
+\hspace{-1ex}\begin{subfigure}[b]{\linewidth}
+\caption{steady criterion}
+\label{fig:criteria-intuition-steady}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!3}{pink!3}{%
+\begin{minipage}[]{0.31\textwidth}
+\hspace{-1ex}\begin{subfigure}[b]{\linewidth}
+\caption{stretched criterion}
+\label{fig:criteria-intuition-stretched}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!3}{teal!3}{%
+\begin{minipage}[]{0.31\textwidth}
+\hspace{-1ex}\begin{subfigure}[b]{\linewidth}
+\caption{tilted criterion}
+\label{fig:criteria-intuition-tilted}
+\end{subfigure}%
+\end{minipage}\hspace{-1ex}}%
+\end{minipage}
+
+\caption{%
+  \textbf{Surveyed target coverage criteria.}
+  \footnotesize
+  Ideal distributions of ingestion time points for retained data items under each criterion are shown at $\colorT=50$ (top) and $\colorT=100$ (bottom).
+  Vertical bars represent a retained data item.
+  In this illustration, collection size is 12 retained items.
+  All other ingested data items have been discarded.
+  The steady criterion (\ref{fig:criteria-intuition-steady}) seeks to minimize largest absolute gap size.
+  So, ideal retention maintains items spread evenly across data stream history.
+  The stretched criterion (\ref{fig:criteria-intuition-stretched}) calls for greater retention of early data items to minimize gap size proportional to data item ingestion time $\colorTbar$.
+  In contrast, under the tilted criterion (\ref{fig:criteria-intuition-tilted}) recency-proportional gap size is to be minimized, necessitating over-retention of recent data items.
+  }
+\label{fig:criteria-intuition}
+
+\vspace{0.2in}
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{gray!3}{gray!3}{%
+\begin{minipage}[c][1.35in]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$\colorT = 50$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!4}{orange!4}{%
+\begin{minipage}[]{0.34\textwidth}
+\includegraphics[trim={0.2cm 1.2cm 0 0},clip,height=1.36in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!6}{pink!6}{%
+\begin{minipage}[]{0.31\textwidth}
+\includegraphics[trim={1cm 1.2cm 0 0},clip,height=1.36in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!5}{teal!5}{%
+\begin{minipage}[]{0.31\textwidth}
+\includegraphics[trim={1cm 1.2cm 0 0},clip,height=1.36in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\end{minipage}\hspace{-1ex}}%
+\end{minipage}\vspace{-1ex}
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{gray!11}{gray!11}{%
+\begin{minipage}[c][1.62in]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$\colorT = 100$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!10}{orange!10}{%
+\begin{minipage}[c]{0.34\textwidth}
+\includegraphics[trim={0.2cm 0 0 0},clip,height=1.62in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!15}{pink!15}{%
+\begin{minipage}[c]{0.31\textwidth}
+\includegraphics[trim={1cm 0 0 0},clip,height=1.62in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-after-alt+x=index+y=hanoi-value+ext=}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!11}{teal!11}{%
+\begin{minipage}[]{0.31\textwidth}
+\includegraphics[trim={1cm 0 0 0},clip,height=1.62in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-after-alt+x=index+y=hanoi-value+ext=}%
+\end{minipage}\hspace{-1ex}}%
+\end{minipage}\vspace{-1ex}
+
+\begin{minipage}[]{\textwidth}
+\noindent\fcolorbox{white!100}{white!100}{%
+\begin{minipage}[b][0.2cm]{0.02\textwidth}
+\hspace{-0.5ex}%
+\rotatebox{90}{$~$}
+\end{minipage}}%
+\hspace{-1.5ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{orange!2}{orange!2}{%
+\begin{minipage}[]{0.34\textwidth}
+\centering
+\hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
+\captionsetup{justification=centering}
+\caption{steady strategy\\ \footnotesize all data items of top $n$ hanoi values}
+\label{fig:hanoi-intuition-steady}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{pink!3}{pink!3}{%
+\begin{minipage}[]{0.31\textwidth}
+\centering
+\hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
+\captionsetup{justification=centering}
+\caption{stretched strategy\\ \footnotesize first $n$ data items of all hanoi values}
+\label{fig:hanoi-intuition-stretched}
+\end{subfigure}%
+\end{minipage}}%
+\hspace{-1ex}%
+{\vrule width 1pt}%
+\noindent\fcolorbox{teal!3}{teal!3}{%
+\begin{minipage}[]{0.31\textwidth}
+\centering
+\hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
+\captionsetup{justification=centering}
+\caption{tilted strategy\\ \footnotesize last $n$ data items of all hanoi values}
+\label{fig:hanoi-intuition-tilted}
+\end{subfigure}%
+\end{minipage}\hspace{-1ex}}%
+\end{minipage}
+
+\caption{%
+  \textbf{Hanoi value retention strategies.}
+  \footnotesize
+  Data item retention can be prioritized based on ``hanoi value'' of ingestion time $\colorT$.
+  Here, ``lollipop'' bars show hanoi values of data item ingestion time, $\colorH(\colorTbar)$.
+  To satisfy the steady criterion, our proposed strategy discards data items with hanoi value above a threshold $n$ (\ref{fig:hanoi-intuition-steady}).
+  As time elapses, the threshold $n$ increases and excludes more low hanoi value data items to respect available buffer space --- shown by red arrows above.
+  Our proposed strategy for the stretched criterion retains the first $n$ data item instances of all observed hanoi values.
+  As time elapses, $n$ is halved across hanoi values in a rolling fashion --- also shown by red arrows above.
+  Our strategy for to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n$ data item instances of each hanoi value are retained.
+  Top and bottom panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
+  Red hatched boxes indicate discarded data items.
+  Green boxes indicate retained data items.
+  }
+\label{fig:hanoi-intuition}
+\end{figure*}

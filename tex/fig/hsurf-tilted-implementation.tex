@@ -1,0 +1,81 @@
+\begin{figure*}[h!]
+  \centering
+
+\begin{subfigure}[b]{\linewidth}
+\includegraphics[width=\linewidth]{
+binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
+\vspace{-4ex}\caption{
+  Buffer composition across time, split by epoch with data items color coded by hanoi value.
+}
+\label{fig:hsurf-tilted-implementation-schematic}
+\end{subfigure}
+
+\vspace{1ex}\begin{minipage}[]{\textwidth}
+ \vspace{-2pt}
+  \begin{subfigure}[t]{0.7\linewidth}
+    \vspace{0pt}
+    \centering
+  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.3\linewidth}
+  \vspace{-2pt}
+  \caption{%
+    Stored data item age across buffer sites for buffer size $\colorS=256$ from $\colorT=0$ to 4,096.
+  }
+  \label{fig:hsurf-tilted-implementation-heatmap}
+\end{subfigure}
+\end{minipage}
+
+   \begin{minipage}[]{\textwidth}
+   \vspace{-2pt}
+  \begin{subfigure}[t]{0.7\linewidth}
+  \vspace{0pt}
+    \centering
+    \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.3\linewidth}
+  \vspace{-2pt}
+  \caption{%
+    Data item retention time spans by ingestion time point for buffer size $\colorS=64$ from $\colorT=0$ to 3,000.
+  }
+  \label{fig:hsurf-tilted-implementation-dripplot}
+  \end{subfigure}
+  \end{minipage}
+
+ \begin{minipage}[]{\textwidth}
+ \vspace{-2pt}
+\begin{subfigure}[t]{0.7\linewidth}
+\vspace{0pt}
+  \centering
+  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/hue=kind+surface-size=16+viz=lineplot+x=time+y=tilted-criterion+ext=}
+\end{subfigure}%
+\begin{subfigure}[t]{0.3\linewidth}
+\vspace{-2pt}
+\caption{%
+  Tilted criterion satisfaction across time points for buffer size $\colorS=16$.
+}
+\label{fig:hsurf-tilted-implementation-satisfaction}
+\end{subfigure}
+\end{minipage}
+
+\vspace{-2ex}\caption{%
+  \textbf{Tilted algorithm implementation.}
+  \footnotesize
+  Top panel \ref{fig:hsurf-tilted-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' conceptual ingestion order hanoi values $\colorH(\colorTbar)$.
+  Between $\colorT=0$ and $\colorT=127$, time is segmented into conceptual epochs $\colort=0$, $\colort=1$, and $\colort=2$.
+  Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into conceptual ``reservation'' segments by vertical black lines.
+  Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
+  At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
+  In epoch 0, all sites are filled with a first data item.
+  At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high h.v. sites added to other segments.
+  Low h.v. data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that h.v., ensuring the most recent data items corresponding to that hanoi value are retained.
+  The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
+  Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
+  Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
+  Vertical lines span durations between ingestion and elimination for data items from successive time points.
+  Time points previously eliminated are marked in red.
+  Bottom panel \ref{fig:hsurf-tilted-implementation-satisfaction} shows tilted criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
+}
+\label{fig:hsurf-tilted-implementation}
+
+\end{figure*}

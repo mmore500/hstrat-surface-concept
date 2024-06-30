@@ -1,0 +1,25 @@
+\begin{figure*}
+  \centering
+  \begin{subfigure}{0.55\textwidth}
+  \includegraphics[width=\textwidth]{img/surface-site-ingest}
+  \caption{ingestion site selection}
+  \label{fig:surface-site-ingest}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{img/ingest-rank-calculation}
+  \caption{ingested time calculation}
+  \label{fig:ingest-rank-calculation}
+  \end{subfigure}
+  \caption{%
+  \textbf{Core stream curation algorithm operations.}
+  \footnotesize
+  The ingestion site selection operation (\ref{fig:surface-site-ingest}) takes the current time $\colorT$ and determines the buffer site $\colork$ to store the ingested data item.
+  This operation is performed when storing data into a curated buffer, once for each data item received from the data stream.
+  The ingested time calculation operation (\ref{fig:ingest-rank-calculation}) provides the previous time $\colorTbar$ when the data item present at buffer site $\colork$ was ingested, given the current time $\colorT$.
+  This operation is performed when reading data from a curated buffer, in order to identify the provenance of stored data.
+  Note that the ingestion time of stored data at a buffer site $\colork$ is determined by the sequence of sites that were selected by the ingestion site selection operation --- in a loose sense this calculation operation can be considered as ``decoding'' or ``inverse'' to the selection operation.
+  }
+  \label{fig:ingest-and-lookup}
+\end{figure*}
