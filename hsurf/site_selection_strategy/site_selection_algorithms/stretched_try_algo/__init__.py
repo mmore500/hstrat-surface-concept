@@ -12,6 +12,10 @@ from ._criteria import (
 )
 from ._iter_resident_ingest_ranks import iter_resident_ingest_ranks
 from ._iter_retained_ingest_ranks import iter_retained_ingest_ranks
+from ._meta import (
+    get_ingest_capacity,
+    has_ingest_capacity,
+)
 from ._pick_ingest_site import pick_ingest_site
 
 __all__ = [
@@ -27,5 +31,7 @@ __all__ = [
     "calc_tilted_criterion_upper_bound",
     "iter_resident_ingest_ranks",
     "iter_retained_ingest_ranks",
+    "get_ingest_capacity",
+    "has_ingest_capacity",
     "pick_ingest_site",
 ]
