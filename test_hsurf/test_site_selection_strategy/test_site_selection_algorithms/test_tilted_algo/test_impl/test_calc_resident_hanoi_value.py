@@ -29,7 +29,7 @@ from hsurf.site_selection_strategy.site_selection_algorithms.tilted_algo._impl i
     "get_grip",
     [get_site_genesis_reservation_index_physical, lambda site, size: None],
 )
-def test_calc_resident_deposition_rank_integration(
+def test_calc_resident_ingest_rank_integration(
     surface_size: int,
     num_generations_bidder: typing.Callable,
     get_grip: typing.Callable,
@@ -38,7 +38,7 @@ def test_calc_resident_deposition_rank_integration(
         num_generations_bidder(surface_size), 2**surface_size - 1
     )
     surface_hanoi_values = [0] * surface_size
-    surface_deposition_ranks = [0] * surface_size
+    surface_ingest_ranks = [0] * surface_size
 
     for rank in range(num_generations):
         for site, actual_hanoi_value in enumerate(surface_hanoi_values):
@@ -54,12 +54,12 @@ def test_calc_resident_deposition_rank_integration(
                     "site": site,
                     "actual": actual_hanoi_value,
                     "calculated": calculated_hanoi_value,
-                    "deposition ranks": surface_deposition_ranks,
+                    "ingest ranks": surface_ingest_ranks,
                     "hanoi values": surface_hanoi_values,
                 },
             )
 
         # update surface
-        target_site = algo.pick_deposition_site(rank, surface_size)
-        surface_deposition_ranks[target_site] = rank
+        target_site = algo.pick_ingest_site(rank, surface_size)
+        surface_ingest_ranks[target_site] = rank
         surface_hanoi_values[target_site] = hanoi.get_hanoi_value_at_index(rank)

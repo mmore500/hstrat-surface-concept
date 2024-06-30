@@ -9,19 +9,19 @@ from ..hanoi import get_hanoi_value_at_index
 
 
 def _make_surface_history_df_impl(
-    get_deposition_site_at_rank_impl: typing.Callable,
+    get_ingest_site_at_rank_impl: typing.Callable,
     surface_size: int,
     num_generations: int,
     progress_wrap: typing.Callable = lambda x: x,
 ) -> pd.DataFrame:
 
     surface_hanoi_values = [-1] * surface_size
-    surface_deposition_ranks = [-1] * surface_size
+    surface_ingest_ranks = [-1] * surface_size
     surface_differentia = [random.choice([0, 1]) for __ in range(surface_size)]
 
     surface_history_records = []
     for generation in progress_wrap(range(num_generations)):
-        target_site = get_deposition_site_at_rank_impl(
+        target_site = get_ingest_site_at_rank_impl(
             generation, surface_size
         )
         hanoi_value = get_hanoi_value_at_index(generation)
@@ -29,23 +29,23 @@ def _make_surface_history_df_impl(
         if target_site != surface_size:
             surface_differentia[target_site] = random.choice([0, 1])
             surface_hanoi_values[target_site] = hanoi_value
-            surface_deposition_ranks[target_site] = generation
+            surface_ingest_ranks[target_site] = generation
 
-        for site, deposition_rank, differentia, hanoi_value in zip(
+        for site, ingest_rank, differentia, hanoi_value in zip(
             it.count(),
-            surface_deposition_ranks,
+            surface_ingest_ranks,
             surface_differentia,
             surface_hanoi_values,
         ):
-            assert deposition_rank <= generation
+            assert ingest_rank <= generation
             surface_history_records.append(
                 {
                     "differentia": differentia,
                     "hanoi value": hanoi_value,
                     "rank": generation,
                     "site": site,
-                    "deposition depth": generation - deposition_rank,
-                    "deposition rank": deposition_rank,
+                    "ingest depth": generation - ingest_rank,
+                    "ingest rank": ingest_rank,
                 }
             )
 
@@ -54,7 +54,7 @@ def _make_surface_history_df_impl(
 
 
 def make_surface_history_df(
-    get_deposition_site_at_rank_impl: typing.Callable,
+    get_ingest_site_at_rank_impl: typing.Callable,
     surface_size: int,
     num_generations: int,
     progress_wrap: typing.Callable = lambda x: x,
@@ -63,7 +63,7 @@ def make_surface_history_df(
 
     with hstrat_auxlib.RngStateContext(seed=random_seed):
         return _make_surface_history_df_impl(
-            get_deposition_site_at_rank_impl,
+            get_ingest_site_at_rank_impl,
             surface_size,
             num_generations,
             progress_wrap,

@@ -6,7 +6,7 @@ from hsurf.site_selection_strategy.site_selection_bounds import (
 
 
 @pytest.mark.parametrize(
-    "surface_size, num_depositions, expected",
+    "surface_size, num_ingests, expected",
     [
         (1, 0, 0),
         (10, 0, 0),
@@ -22,9 +22,9 @@ from hsurf.site_selection_strategy.site_selection_bounds import (
     ],
 )
 def test_calc_stretched_ratio_upper_bound(
-    surface_size, num_depositions, expected
+    surface_size, num_ingests, expected
 ):
     assert (
-        calc_stretched_ratio_upper_bound(surface_size, num_depositions)
+        calc_stretched_ratio_upper_bound(surface_size, num_ingests)
         == expected
     )

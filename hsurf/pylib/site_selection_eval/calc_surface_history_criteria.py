@@ -17,12 +17,12 @@ def calc_surface_history_criteria(
 
     records = []
     for rank, group_df in progress_wrap(
-        surface_history_df[surface_history_df["deposition rank"] != -1].groupby(
+        surface_history_df[surface_history_df["ingest rank"] != -1].groupby(
             "rank"
         ),
     ):
-        deposition_ranks = sorted(group_df["deposition rank"])
-        gap_bounds = np.array([-1, *deposition_ranks, rank + 1])
+        ingest_ranks = sorted(group_df["ingest rank"])
+        gap_bounds = np.array([-1, *ingest_ranks, rank + 1])
         gap_sizes = np.diff(gap_bounds) - 1
         assert (gap_sizes >= 0).all()
 

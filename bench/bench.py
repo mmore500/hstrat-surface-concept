@@ -19,11 +19,11 @@ num_replicates = 20
 
 
 def iter_surface_update(
-    pick_deposition_site: typing.Callable,
+    pick_ingest_site: typing.Callable,
 ) -> typing.Iterable:
     surface = [None] * surface_size
     for rank in it.count():
-        site = pick_deposition_site(rank, surface_size)
+        site = pick_ingest_site(rank, surface_size)
         if site < surface_size:
             surface[site] = hstrat.HereditaryStratum()
         yield
@@ -40,7 +40,7 @@ def make_hsurf_records() -> typing.List[typing.Dict]:
     return [
         {
             "Nanoseconds": benchmark_one(
-                iter_surface_update(pick_deposition_site).__next__,
+                iter_surface_update(pick_ingest_site).__next__,
             ),
             "Implementation": "surface",
             "Language": "Python",
@@ -49,20 +49,20 @@ def make_hsurf_records() -> typing.List[typing.Dict]:
             "Replicate": replicate,
             "Surface Size": surface_size,
         }
-        for (policy, pick_deposition_site), replicate in tqdm(
+        for (policy, pick_ingest_site), replicate in tqdm(
             it.product(
                 [
-                    ("steady", hsurf.steady_algo.pick_deposition_site),
-                    ("steady-try", hsurf.steady_try_algo.pick_deposition_site),
-                    ("stretched", hsurf.stretched_algo.pick_deposition_site),
+                    ("steady", hsurf.steady_algo.pick_ingest_site),
+                    ("steady-try", hsurf.steady_try_algo.pick_ingest_site),
+                    ("stretched", hsurf.stretched_algo.pick_ingest_site),
                     (
                         "stretched-try",
-                        hsurf.stretched_try_algo.pick_deposition_site,
+                        hsurf.stretched_try_algo.pick_ingest_site,
                     ),
-                    ("tilted", hsurf.tilted_algo.pick_deposition_site),
+                    ("tilted", hsurf.tilted_algo.pick_ingest_site),
                     (
                         "tilted-sticky",
-                        hsurf.tilted_sticky_algo.pick_deposition_site,
+                        hsurf.tilted_sticky_algo.pick_ingest_site,
                     ),
                     ("trivial", lambda rank, surface_size: 0),
                 ],

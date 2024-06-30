@@ -1,5 +1,5 @@
-from ._pick_deposition_site import pick_deposition_site
+from ._pick_ingest_site import pick_ingest_site
 
 __all__ = [
-    "pick_deposition_site",
+    "pick_ingest_site",
 ]

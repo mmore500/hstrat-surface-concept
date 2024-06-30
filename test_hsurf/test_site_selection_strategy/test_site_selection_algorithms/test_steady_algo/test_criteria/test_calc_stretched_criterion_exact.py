@@ -4,7 +4,7 @@ from hsurf.hsurf import steady_algo as algo
 
 
 @pytest.mark.parametrize(
-    "surface_size, num_depositions, expected_criterion_value",
+    "surface_size, num_ingests, expected_criterion_value",
     [
         (8, 0, 0),
         (8, 1, 0),
@@ -15,10 +15,10 @@ from hsurf.hsurf import steady_algo as algo
 )
 def test_calc_stretched_criterion_exact(
     surface_size: int,
-    num_depositions: int,
+    num_ingests: int,
     expected_criterion_value: int,
 ):
     assert (
-        algo.calc_stretched_criterion_exact(surface_size, num_depositions)
+        algo.calc_stretched_criterion_exact(surface_size, num_ingests)
         == expected_criterion_value
     )

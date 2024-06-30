@@ -29,11 +29,11 @@ def test_GenDropRanks(interop_algo: types.ModuleType, surface_size: int):
     # hybrid algo needs tighter bound than others
     nrank = min(100, 2 ** (surface_size // 2 - 1) - 1)
     for rank in range(surface_size, nrank):
-        site = interop_algo._site_selection_algo.pick_deposition_site(
+        site = interop_algo._site_selection_algo.pick_ingest_site(
             rank, surface_size
         )
         assert [*policy.GenDropRanks(rank)] == [
-            interop_algo._site_selection_algo.calc_resident_deposition_rank(
+            interop_algo._site_selection_algo.calc_resident_ingest_rank(
                 site, surface_size, rank
             )
         ]
@@ -91,7 +91,7 @@ def test_CalcRankAtColumnIndex(
         ]
         assert column_ranks == sorted(
             set(  # have to deduplicate rank 0 entries
-                interop_algo._site_selection_algo.iter_resident_deposition_ranks(
+                interop_algo._site_selection_algo.iter_resident_ingest_ranks(
                     surface_size, rank
                 ),
             ),
@@ -145,7 +145,7 @@ def test_IterRetainedRanks(interop_algo: types.ModuleType, surface_size: int):
         column_ranks = [*policy.IterRetainedRanks(rank)]
         assert column_ranks == sorted(
             set(  # have to deduplicate rank 0 entries
-                interop_algo._site_selection_algo.iter_resident_deposition_ranks(
+                interop_algo._site_selection_algo.iter_resident_ingest_ranks(
                     surface_size, rank
                 ),
             ),
@@ -225,7 +225,7 @@ def test_hstrat_column_integration(
     nrank = min(100, 2 ** (surface_size // 2 - 1) - 1)
     for g in range(nrank - 1):
         assert set(column.IterRetainedRanks()) == set(
-            ssa.iter_resident_deposition_ranks(surface_size, g + 1),
+            ssa.iter_resident_ingest_ranks(surface_size, g + 1),
         )
         column.DepositStratum()
 

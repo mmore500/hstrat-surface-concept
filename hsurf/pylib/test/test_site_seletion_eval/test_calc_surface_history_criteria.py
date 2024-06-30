@@ -35,7 +35,7 @@ def test_calc_surface_history_criteria_invariants(
     site_selection_algo: typing.Callable,
 ):
     surface_history_df = site_selection_eval.make_surface_history_df(
-        site_selection_algo.pick_deposition_site,
+        site_selection_algo.pick_ingest_site,
         surface_size=surface_size,
         num_generations=min(
             2**surface_size - 1, opyt.or_value(generation_cap, np.inf)

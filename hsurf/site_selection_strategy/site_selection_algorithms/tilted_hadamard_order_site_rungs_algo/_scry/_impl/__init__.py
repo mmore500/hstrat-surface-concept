@@ -1,8 +1,8 @@
-from ._calc_incidence_of_deposited_hanoi_value import (
-    calc_incidence_of_deposited_hanoi_value,
+from ._calc_incidence_of_ingested_hanoi_value import (
+    calc_incidence_of_ingested_hanoi_value,
 )
-from ._calc_rank_of_deposited_hanoi_value import (
-    calc_rank_of_deposited_hanoi_value,
+from ._calc_rank_of_ingested_hanoi_value import (
+    calc_rank_of_ingested_hanoi_value,
 )
 from ._calc_reservation_reference_incidence import (
     calc_reservation_reference_incidence,
@@ -18,8 +18,8 @@ from ._iter_candidate_reservation_indices import (
 from ._iter_candidate_reservation_sizes import iter_candidate_reservation_sizes
 
 __all__ = [
-    "calc_incidence_of_deposited_hanoi_value",
-    "calc_rank_of_deposited_hanoi_value",
+    "calc_incidence_of_ingested_hanoi_value",
+    "calc_rank_of_ingested_hanoi_value",
     "calc_reservation_reference_incidence",
     "calc_resident_hanoi_context",
     "get_reservation_index_elimination_rank",

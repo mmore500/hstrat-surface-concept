@@ -6,7 +6,7 @@ from hsurf.site_selection_strategy.site_selection_bounds import (
 
 
 @pytest.mark.parametrize(
-    "surface_size, num_depositions, expected",
+    "surface_size, num_ingests, expected",
     [
         (1, 0, 0),
         (10, 0, 0),
@@ -21,5 +21,5 @@ from hsurf.site_selection_strategy.site_selection_bounds import (
         (20, 101, 4),
     ],
 )
-def test_calc_gap_size_lower_bound(surface_size, num_depositions, expected):
-    assert calc_gap_size_lower_bound(surface_size, num_depositions) == expected
+def test_calc_gap_size_lower_bound(surface_size, num_ingests, expected):
+    assert calc_gap_size_lower_bound(surface_size, num_ingests) == expected

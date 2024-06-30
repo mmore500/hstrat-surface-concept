@@ -2,7 +2,7 @@ for now, organized as
 
 ```
 *_algo
-├── _select_deposit_site
+├── _select_ingest_site
 ├── _calc_rank_at_surface_index.py
 └── _iter_resident_ranks.py
 ```

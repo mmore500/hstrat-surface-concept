@@ -2,7 +2,7 @@ from .....pylib import hanoi
 
 
 def get_surface_rank_capacity(surface_size: int) -> int:
-    """For how many depositions is the site selection algorithm defined for a
+    """For how many ingests is the site selection algorithm defined for a
     surface with `surface_size`?
 
     At the returned rank, calls to this site selection algorithm are invalid

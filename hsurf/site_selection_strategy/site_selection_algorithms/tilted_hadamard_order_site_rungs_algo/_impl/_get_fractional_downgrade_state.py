@@ -35,9 +35,9 @@ def get_fractional_downgrade_state(
     ## Part I
     Determines whether fractional downgrade can be performed safely. If there
     is not enough time to traverse sufficient ring buffer positions to ensure
-    safe alignment before the first invader deposit or between invader
-    depositions, returns None. Note that safe alignment must not only position
-    the most recently deposited value at the correct ring buffer slot but must
+    safe alignment before the first invader ingest or between invader
+    ingests, returns None. Note that safe alignment must not only position
+    the most recently ingested value at the correct ring buffer slot but must
     also simultaneously align on a "virtual" clock face of the original buffer
     size to enable stateless bookkeeping.
 
@@ -62,7 +62,7 @@ def get_fractional_downgrade_state(
 
     Note that if the final downgrade has been dispatched within the current
     invasion cycle, this function will plan for the first downgrade of the next
-    invasion cycle during the period before the first deposit of the invader
+    invasion cycle during the period before the first ingest of the invader
     hanoi value.
 
     Returns
@@ -145,7 +145,7 @@ def get_fractional_downgrade_state(
             * tour_size
         ):
             # success!
-            # we have enough time between invader depositions to perform
+            # we have enough time between invader ingests to perform
             # safe alignment at *some* granularity (i.e., at least 1/2 of "to-
             # be-dropped" slots from current invasion)
             break
@@ -167,7 +167,7 @@ def get_fractional_downgrade_state(
             # case: needs cleanup
     else:
         # if for loop does not reach break condition, report ineligible for
-        # fractional deposition
+        # fractional ingest
         return None
 
     # PART II: DETERMINE FRACTIONAL DOWNGRADE PROVIDED GRANULARITY
@@ -217,7 +217,7 @@ def get_fractional_downgrade_state(
     # raw/granularized subtrahend: in some cases, if incidence reservation
     # buffer slots were dropped one-by-one there would not be sufficient time
     # to reach "safe" downgrade positions between invader hanoi value
-    # depositions. We can reach "safe" downgrade positions more frequenty by
+    # ingests. We can reach "safe" downgrade positions more frequenty by
     # dropping chunks of slots sized as a dyadic fraction (1/2, 1/4, 1/8, etc.)
     # of eligible-to-drop (i.e., being-invaded) slots. (Note that the number of
     # eligible-to-drop is a power of 2.) (Safe downgrade positions are reached

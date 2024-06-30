@@ -16,19 +16,19 @@ from ._get_site_hanoi_value_assigned import get_site_hanoi_value_assigned
 def calc_resident_hanoi_value(
     site: int,
     surface_size: int,
-    num_depositions: int,
+    num_ingests: int,
     grip: typing.Optional[int] = None,
     _recursion_depth: int = 0,  # only for debugging/validation
 ) -> int:
-    """When `num_depositions` deposition cycles have elapsed, what is the
+    """When `num_ingests` ingest cycles have elapsed, what is the
     hanoi value of the stratum resident at site `site`?
 
     "grip" stands for genesis reservation index physical of a site.
 
-    Implementation detail for `calc_resident_deposition_rank`.
+    Implementation detail for `calc_resident_ingest_rank`.
 
     Returns 0 if the resident stratum traces back to original randomization of
-    the surface prior to any algorithm-determined stratum depositions.
+    the surface prior to any algorithm-determined stratum ingests.
     """
 
     assert _recursion_depth <= 1  # should recurse at most once
@@ -36,9 +36,9 @@ def calc_resident_hanoi_value(
     if grip is None:
         grip = get_site_genesis_reservation_index_physical(site, surface_size)
 
-    if num_depositions == 0:
+    if num_ingests == 0:
         return 0
-    rank = num_depositions - 1
+    rank = num_ingests - 1
     epoch = get_global_epoch(rank, surface_size)
     epoch_rank = get_epoch_rank(epoch, surface_size)
 
@@ -66,7 +66,7 @@ def calc_resident_hanoi_value(
     assert num_seen_this_epoch >= 0
 
     if reservation >= epoch_offset + num_seen_this_epoch:
-        # handle case where the assigned hanoi value has not yet been deposited
+        # handle case where the assigned hanoi value has not yet been ingested
         return (
             calc_resident_hanoi_value(
                 site,

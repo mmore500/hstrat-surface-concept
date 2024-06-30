@@ -1,5 +1,5 @@
-from ._calc_resident_deposition_rank_wrt_bin import (
-    calc_resident_deposition_rank_wrt_bin,
+from ._calc_resident_ingest_rank_wrt_bin import (
+    calc_resident_ingest_rank_wrt_bin,
 )
 from ._get_bin_number_of_position import get_bin_number_of_position
 from ._get_bin_offset_at_position import get_bin_offset_at_position
@@ -16,7 +16,7 @@ from ._get_num_segments import get_num_segments
 from ._iter_bin_coords import iter_bin_coords
 
 __all__ = [
-    "calc_resident_deposition_rank_wrt_bin",
+    "calc_resident_ingest_rank_wrt_bin",
     "get_bin_number_of_position",
     "get_bin_offset_at_position",
     "get_bin_width_at_position",

@@ -2,14 +2,14 @@ from .....pylib import oeis
 
 
 def calc_stretched_criterion_upper_bound(
-    surface_size: int, num_depositions: int
+    surface_size: int, num_ingests: int
 ) -> float:
     assert surface_size > 0
-    assert num_depositions >= 0
-    if num_depositions <= surface_size:
+    assert num_ingests >= 0
+    if num_ingests <= surface_size:
         return 0
 
-    rank = num_depositions - 1
+    rank = num_ingests - 1
     epoch = rank.bit_length() - surface_size.bit_length() + 1
     exp = (
         oeis.get_a000295_index_of_value(epoch - 1)

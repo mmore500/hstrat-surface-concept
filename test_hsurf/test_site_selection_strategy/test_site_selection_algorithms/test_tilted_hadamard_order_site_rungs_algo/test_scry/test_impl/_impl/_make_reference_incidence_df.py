@@ -19,48 +19,48 @@ def make_reference_incidence_df(
         max_generations,
         get_surface_rank_capacity(surface_size) - 1,
     )
-    surface_deposition_ranks = [-1] * surface_size
-    surface_deposition_incidences = [-1] * surface_size
+    surface_ingest_ranks = [-1] * surface_size
+    surface_ingest_incidences = [-1] * surface_size
     surface_hanoi_values = [-1] * surface_size
-    surface_deposition_reference_incidences = [-1] * surface_size
-    surface_deposition_reference_ranks = [-1] * surface_size
+    surface_ingest_reference_incidences = [-1] * surface_size
+    surface_ingest_reference_ranks = [-1] * surface_size
 
     records = []
     for rank in range(num_generations):
-        deposition_hanoi_value = hanoi.get_hanoi_value_at_index(rank)
-        target_rank = algo.pick_deposition_site(rank, surface_size)
-        surface_hanoi_values[target_rank] = deposition_hanoi_value
-        surface_deposition_ranks[target_rank] = rank
-        surface_deposition_incidences[
+        ingest_hanoi_value = hanoi.get_hanoi_value_at_index(rank)
+        target_rank = algo.pick_ingest_site(rank, surface_size)
+        surface_hanoi_values[target_rank] = ingest_hanoi_value
+        surface_ingest_ranks[target_rank] = rank
+        surface_ingest_incidences[
             target_rank
         ] = hanoi.get_hanoi_value_incidence_at_index(rank)
-        surface_deposition_reference_ranks[
+        surface_ingest_reference_ranks[
             target_rank
-        ] = surface_deposition_ranks[deposition_hanoi_value]
-        surface_deposition_reference_incidences[
+        ] = surface_ingest_ranks[ingest_hanoi_value]
+        surface_ingest_reference_incidences[
             target_rank
-        ] = surface_deposition_incidences[deposition_hanoi_value]
+        ] = surface_ingest_incidences[ingest_hanoi_value]
 
         # one row for every site at every rank
         for (
             site,
             site_hanoi_value,
-            site_deposition_incidence,
-            site_deposition_rank,
-            site_deposition_reference_incidence,
-            site_deposition_reference_rank,
+            site_ingest_incidence,
+            site_ingest_rank,
+            site_ingest_reference_incidence,
+            site_ingest_reference_rank,
         ) in zip(
             it.count(),
             surface_hanoi_values,
-            surface_deposition_incidences,
-            surface_deposition_ranks,
-            surface_deposition_reference_incidences,
-            surface_deposition_reference_ranks,
+            surface_ingest_incidences,
+            surface_ingest_ranks,
+            surface_ingest_reference_incidences,
+            surface_ingest_reference_ranks,
         ):
             if site_hanoi_value == -1:
-                assert site_deposition_incidence == -1
-                assert site_deposition_rank == -1
-                assert site_deposition_reference_rank == -1
+                assert site_ingest_incidence == -1
+                assert site_ingest_rank == -1
+                assert site_ingest_reference_rank == -1
                 continue
 
             num_reservations_provided = get_num_reservations_provided(
@@ -91,10 +91,10 @@ def make_reference_incidence_df(
                 "rank": rank,
                 "site": site,
                 "hanoi value": site_hanoi_value,
-                "deposition incidence": site_deposition_incidence,
-                "deposition rank": site_deposition_rank,
-                "deposition reference incidence": site_deposition_reference_incidence,
-                "deposition reference rank": site_deposition_reference_rank,
+                "ingest incidence": site_ingest_incidence,
+                "ingest rank": site_ingest_rank,
+                "ingest reference incidence": site_ingest_reference_incidence,
+                "ingest reference rank": site_ingest_reference_rank,
                 "num reservations provided": num_reservations_provided,
                 "reservation index": reservation_index,
                 "chunk size": chunk_size,

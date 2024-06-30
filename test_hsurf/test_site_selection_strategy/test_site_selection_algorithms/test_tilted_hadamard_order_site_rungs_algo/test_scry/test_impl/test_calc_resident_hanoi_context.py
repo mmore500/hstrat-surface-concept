@@ -24,13 +24,13 @@ def test_calc_resident_hanoi_context_smoke():
 def test_calc_resident_hanoi_context_unit():
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(0, 16, num_depositions),
+            calc_resident_hanoi_context(0, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-            # deposition site
+            # ingest site
             #     # num_reservations
             #     #     # hanoi sequence (0-based):
             #     #     #     rank
@@ -62,13 +62,13 @@ def test_calc_resident_hanoi_context_unit():
     ]
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(1, 16, num_depositions),
+            calc_resident_hanoi_context(1, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-               # deposition site
+               # ingest site
                #     # num_reservations
                #     #     # hanoi sequence (0-based):
                #     #     #     rank
@@ -100,13 +100,13 @@ def test_calc_resident_hanoi_context_unit():
     ]
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(2, 16, num_depositions),
+            calc_resident_hanoi_context(2, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-               # deposition site
+               # ingest site
                #     # num_reservations
                #     #     # hanoi sequence (0-based):
                #     #     #     rank
@@ -138,13 +138,13 @@ def test_calc_resident_hanoi_context_unit():
     ]
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(15, 16, num_depositions),
+            calc_resident_hanoi_context(15, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-               # deposition site
+               # ingest site
                #     # num_reservations
                #     #     # hanoi sequence (0-based):
                #     #     #     rank
@@ -176,13 +176,13 @@ def test_calc_resident_hanoi_context_unit():
     ]
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(8, 16, num_depositions),
+            calc_resident_hanoi_context(8, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-               # deposition site
+               # ingest site
                #     # num_reservations
                #     #     # hanoi sequence (0-based):
                #     #     #     rank
@@ -214,13 +214,13 @@ def test_calc_resident_hanoi_context_unit():
     ]
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(9, 16, num_depositions),
+            calc_resident_hanoi_context(9, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-               # deposition site
+               # ingest site
                #     # num_reservations
                #     #     # hanoi sequence (0-based):
                #     #     #     rank
@@ -252,13 +252,13 @@ def test_calc_resident_hanoi_context_unit():
     ]
     assert [
         opyt.apply_if(
-            calc_resident_hanoi_context(4, 16, num_depositions),
+            calc_resident_hanoi_context(4, 16, num_ingests),
             lambda x: x["hanoi value"],
         )
-        for num_depositions in range(23)
+        for num_ingests in range(23)
     ] == [
         # fmt: off
-               # deposition site
+               # ingest site
                #     # num_reservations
                #     #     # hanoi sequence (0-based):
                #     #     #     rank
@@ -313,10 +313,10 @@ def test_calc_resident_hanoi_context_integration(
         num_generations_bidder(surface_size),
         get_surface_rank_capacity(surface_size),
     )
-    surface_deposition_hanoi_values = [None] * surface_size
+    surface_ingest_hanoi_values = [None] * surface_size
     for rank in range(num_generations):
         for site, actual_hanoi_value in enumerate(
-            surface_deposition_hanoi_values
+            surface_ingest_hanoi_values
         ):
             calculated_hanoi_context = calc_resident_hanoi_context(
                 site, surface_size, rank
@@ -329,7 +329,7 @@ def test_calc_resident_hanoi_context_integration(
                 == actual_hanoi_value
             )
 
-        target_site = algo.pick_deposition_site(rank, surface_size)
-        surface_deposition_hanoi_values[
+        target_site = algo.pick_ingest_site(rank, surface_size)
+        surface_ingest_hanoi_values[
             target_site
         ] = hanoi.get_hanoi_value_at_index(rank)

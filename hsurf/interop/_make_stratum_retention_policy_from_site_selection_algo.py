@@ -188,16 +188,16 @@ def make_stratum_retention_policy_from_site_selection_algo(
             algo = site_selection_algo
             surface_size = policy.GetSpec().GetSurfaceSize()
 
-            target_site = algo.pick_deposition_site(
+            target_site = algo.pick_ingest_site(
                 num_stratum_depositions_completed, surface_size
             )
-            target_rank = algo.calc_resident_deposition_rank(
+            target_rank = algo.calc_resident_ingest_rank(
                 target_site, surface_size, num_stratum_depositions_completed
             )
             if target_rank != 0:
                 yield target_rank
                 return
-            elif 0 not in algo.iter_resident_deposition_ranks(
+            elif 0 not in algo.iter_resident_ingest_ranks(
                 surface_size,
                 num_stratum_depositions_completed + 1,
             ):
@@ -231,7 +231,7 @@ def make_stratum_retention_policy_from_site_selection_algo(
             algo = site_selection_algo
             surface_size = policy.GetSpec().GetSurfaceSize()
             ranks = sorted(
-                algo.iter_resident_deposition_ranks(
+                algo.iter_resident_ingest_ranks(
                     surface_size,
                     num_strata_deposited,
                 )

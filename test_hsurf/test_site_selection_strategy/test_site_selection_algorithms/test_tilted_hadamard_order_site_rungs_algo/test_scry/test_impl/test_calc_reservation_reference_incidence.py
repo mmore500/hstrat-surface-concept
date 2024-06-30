@@ -35,7 +35,7 @@ def test_calc_reservation_reference_incidence(
             surface_size,
             int(row["rank"]),
         )
-        expected = row["deposition reference incidence"]
+        expected = row["ingest reference incidence"]
         assert actual == expected, {
             "actual": actual,
             "expected": expected,

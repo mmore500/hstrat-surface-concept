@@ -5,7 +5,7 @@ from ._impl import calc_gap_bounds
 
 
 def calc_tilted_ratios(
-    retained_ranks: np.array, num_depositions: int
+    retained_ranks: np.array, num_ingests: int
 ) -> np.array:
     """Calculate statistic for tilted retention criterion.
 
@@ -14,7 +14,7 @@ def calc_tilted_ratios(
     retained_ranks : np.ndarray
         1D array of integer ranks that are retained. Must be non-negative and
         less than or equal to current_rank.
-    num_depositions : int
+    num_ingests : int
         The number of data items that have been ingested, must be non-negative.
 
     Returns
@@ -33,13 +33,13 @@ def calc_tilted_ratios(
     See Also
     --------
     calc_gap_bounds : Calculate gap bounds for retained ranks and num
-    depositions.
+    ingests.
     """
     retained_ranks = np.asarray(retained_ranks)
-    gap_bounds = calc_gap_bounds(retained_ranks, num_depositions)
+    gap_bounds = calc_gap_bounds(retained_ranks, num_ingests)
     gap_sizes = calc_gap_sizes_from_gap_bounds(gap_bounds)
     gap_highest_ranks = gap_bounds[1:] - 1
 
-    assert (retained_ranks < num_depositions).all()
+    assert (retained_ranks < num_ingests).all()
 
-    return gap_sizes / np.maximum(num_depositions - 1 - gap_highest_ranks, 1)
+    return gap_sizes / np.maximum(num_ingests - 1 - gap_highest_ranks, 1)

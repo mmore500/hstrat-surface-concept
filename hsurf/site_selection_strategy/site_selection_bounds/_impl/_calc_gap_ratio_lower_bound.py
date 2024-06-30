@@ -2,7 +2,7 @@ import numpy as np
 
 
 def calc_gap_ratio_lower_bound(
-    surface_size: int, num_depositions: int
+    surface_size: int, num_ingests: int
 ) -> float:
     """Calculate the lower bound on ratio of gap size to dropped data item rank.
 
@@ -10,7 +10,7 @@ def calc_gap_ratio_lower_bound(
     ----------
     surface_size : int
         The maximum number of items that can be retained.
-    num_depositions : int
+    num_ingests : int
         The current position or time step.
 
         Must be non-negative and less than or equal to `2**surface_size`.
@@ -24,14 +24,14 @@ def calc_gap_ratio_lower_bound(
     -----
     - Rank 0 is corrected as rank 1, to prevent division by zero.
     """
-    assert num_depositions <= 2**surface_size
+    assert num_ingests <= 2**surface_size
     assert surface_size
 
-    num_discarded = max(num_depositions - surface_size, 0)
+    num_discarded = max(num_ingests - surface_size, 0)
     if num_discarded == 0:
         return 0
 
-    rank = num_depositions - 1
+    rank = num_ingests - 1
     if rank == 1:
         return 1
 
@@ -50,4 +50,4 @@ def calc_gap_ratio_lower_bound(
 
     # ... but this works
     # note that smallest gap size will always be 0 or 1
-    return 1 / (num_depositions - num_gaps - num_discarded)
+    return 1 / (num_ingests - num_gaps - num_discarded)

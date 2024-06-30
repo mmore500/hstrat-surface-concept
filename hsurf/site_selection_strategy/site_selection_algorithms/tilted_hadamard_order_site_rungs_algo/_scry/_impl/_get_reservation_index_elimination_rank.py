@@ -21,7 +21,7 @@ def get_reservation_index_elimination_rank(
     to having size less than or equal to `reservation_index`.
 
     Used to determine the very last possible rank where `hanoi_value` could be
-    deposited at a site. (This is the rank before the elimination rank.)
+    ingested at a site. (This is the rank before the elimination rank.)
     """
 
     first_incidence_rank = hanoi.get_index_of_hanoi_value_nth_incidence(
@@ -42,7 +42,7 @@ def get_reservation_index_elimination_rank(
     elif reservation_index >= max_reservations_provided:
         # reservation_index is out of bounds of the largest-possible incidence
         # reservation buffer that ever provided for hanoi_value (i.e., the
-        # incidence reservation buffer size provided at the first deposition of
+        # incidence reservation buffer size provided at the first ingest of
         # hanoi_value)
         # so, this reservation index is never eliminated because it never
         # exists

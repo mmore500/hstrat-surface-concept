@@ -15,8 +15,8 @@ def col_from_surf_int(
     differentia_bit_width: int,
     site_selection_algo: types.ModuleType,
     differentiae_byte_bit_order: typing.Literal["big", "little"] = "big",
-    num_strata_deposited_byte_order: typing.Literal["big", "little"] = "big",
-    num_strata_deposited_byte_width: int = (
+    num_strata_ingested_byte_order: typing.Literal["big", "little"] = "big",
+    num_strata_ingested_byte_width: int = (
         DEFAULT_PACKET_NUM_STRATA_DEPOSITED_BYTE_WIDTH
     ),
     value_byte_width: typing.Optional[int] = None,
@@ -24,7 +24,7 @@ def col_from_surf_int(
     """Deserialize a `HereditaryStratigraphicColumn` from an integer
     representation of packed hsurf data.
 
-    Packet should contain (1) a stratum deposition count followed by (2)
+    Packet should contain (1) a stratum ingest count followed by (2)
     binary-packed differentia values. Each component must align evenly with
     byte boundaries.
 
@@ -55,6 +55,6 @@ def col_from_surf_int(
         differentia_bit_width=differentia_bit_width,
         site_selection_algo=site_selection_algo,
         differentiae_byte_bit_order=differentiae_byte_bit_order,
-        num_strata_deposited_byte_order=num_strata_deposited_byte_order,
-        num_strata_deposited_byte_width=num_strata_deposited_byte_width,
+        num_strata_ingested_byte_order=num_strata_ingested_byte_order,
+        num_strata_ingested_byte_width=num_strata_ingested_byte_width,
     )
