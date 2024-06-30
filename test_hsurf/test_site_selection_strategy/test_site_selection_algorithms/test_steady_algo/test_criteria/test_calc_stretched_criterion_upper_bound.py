@@ -11,7 +11,7 @@ from hsurf.hsurf import steady_algo as algo
     "num_depositions",
     [0, 1, 63, 64, 65, 80, 100, 1000, 1023, 1024, 1025],
 )
-def test_calc_stretched_criterion_lower_bound(
+def test_calc_stretched_criterion_upper_bound(
     surface_size: int,
     num_depositions: int,
 ):
