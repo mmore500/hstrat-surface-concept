@@ -8,9 +8,7 @@ from hstrat.serialization._impl._DEFAULT_PACKET_NUM_STRATA_DEPOSITED_BYTE_WIDTH 
 import typing_extensions
 
 from ..interop import make_stratum_retention_policy_from_site_selection_algo
-from ._sort_differentiae_by_ingest_rank import (
-    sort_differentiae_by_ingest_rank,
-)
+from ._sort_differentiae_by_ingest_rank import sort_differentiae_by_ingest_rank
 
 
 def col_from_surf_packet(

@@ -48,12 +48,8 @@ from ._criteria._calc_tilted_criterion_upper_bound import (
 )
 from ._enact._pick_ingest_site import pick_ingest_site
 from ._scry._calc_resident_ingest_rank import calc_resident_ingest_rank
-from ._scry._iter_resident_ingest_ranks import (
-    iter_resident_ingest_ranks,
-)
-from ._scry._iter_retained_ingest_ranks import (
-    iter_retained_ingest_ranks,
-)
+from ._scry._iter_resident_ingest_ranks import iter_resident_ingest_ranks
+from ._scry._iter_retained_ingest_ranks import iter_retained_ingest_ranks
 
 __all__ = [
     "calc_resident_ingest_rank",
