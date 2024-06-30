@@ -1,6 +1,9 @@
+import warnings
+
 from ....pylib import fast_pow2_mod
 from ..steady_algo import pick_ingest_site as steady_impl
 from ..tilted_algo import pick_ingest_site as tilted_mpl
+from ._meta import has_ingest_capacity
 
 
 def pick_ingest_site(
@@ -26,7 +29,13 @@ def pick_ingest_site(
     int
         Ingest site within surface.
     """
+    if not has_ingest_capacity(surface_size, rank + 1):
+        warnings.warn(
+            "Rank exceeds ingest capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
     assert surface_size.bit_count() == 1
+    assert surface_size >= 4  # need 2 per side
 
     if rank == 0:
         return 0

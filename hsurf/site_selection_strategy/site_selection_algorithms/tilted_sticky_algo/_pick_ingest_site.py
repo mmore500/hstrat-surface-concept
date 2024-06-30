@@ -1,4 +1,7 @@
+import warnings
+
 from ..tilted_algo import pick_ingest_site as impl_pick_ingest_site
+from ._meta import has_ingest_capacity
 
 
 def pick_ingest_site(
@@ -24,6 +27,12 @@ def pick_ingest_site(
     int
         Ingest site within surface.
     """
+    if not has_ingest_capacity(surface_size, rank + 1):
+        warnings.warn(
+            "Rank exceeds ingest capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
+
     res = impl_pick_ingest_site(
         rank, surface_size
     ) or impl_pick_ingest_site(rank + 1, surface_size)

@@ -1,5 +1,7 @@
 import typing
+import warnings
 
+from .._meta import has_ingest_capacity
 from ._iter_resident_ingest_ranks import iter_resident_ingest_ranks
 
 
@@ -23,6 +25,11 @@ def iter_retained_ingest_ranks(
     int
         The next retained ingest rank.
     """
+    if not has_ingest_capacity(surface_size, num_ingests):
+        warnings.warn(
+            "Num ingests exceed capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
     yield from (
         iter_resident_ingest_ranks(surface_size, num_ingests)
         if num_ingests > surface_size

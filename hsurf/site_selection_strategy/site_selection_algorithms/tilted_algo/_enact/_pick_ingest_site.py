@@ -1,8 +1,11 @@
+import warnings
+
 from .....pylib import fast_pow2_mod, hanoi
 from .._impl import (
     get_hanoi_num_reservations,
     get_reservation_position_logical,
 )
+from .._meta import has_ingest_capacity
 
 
 def pick_ingest_site(
@@ -28,6 +31,12 @@ def pick_ingest_site(
     int
         Ingest site within surface.
     """
+    if not has_ingest_capacity(surface_size, rank + 1):
+        warnings.warn(
+            "Rank exceeds ingest capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
+
     num_reservations = get_hanoi_num_reservations(rank, surface_size)
 
     incidence = hanoi.get_hanoi_value_incidence_at_index(rank)

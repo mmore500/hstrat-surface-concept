@@ -35,7 +35,7 @@ def test_calc_resident_ingest_rank_integration(
 ):
     num_generations = min(
         num_generations_bidder(surface_size),
-        2 ** (surface_size.bit_length() - 1) - 1,
+        algo.get_ingest_capacity(surface_size),
     )
     surface_ingest_ranks = [0] * surface_size
     for rank in range(num_generations):

@@ -35,7 +35,8 @@ def test_calc_resident_ingest_rank_integration(
     get_grip: typing.Callable,
 ):
     num_generations = min(
-        num_generations_bidder(surface_size), 2**surface_size - 1
+        num_generations_bidder(surface_size),
+        algo.get_ingest_capacity(surface_size),
     )
     hanoi_values = [0] * surface_size
     surface_ingest_ranks = [0] * surface_size

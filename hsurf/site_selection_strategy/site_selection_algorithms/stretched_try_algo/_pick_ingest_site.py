@@ -1,6 +1,9 @@
+import warnings
+
 from ....pylib import hanoi
 from ..tilted_algo import pick_ingest_site as impl_pick_ingest_site
 from ..tilted_algo._impl import get_hanoi_num_reservations
+from ._meta import has_ingest_capacity
 
 
 def pick_ingest_site(
@@ -26,6 +29,12 @@ def pick_ingest_site(
     int
         Ingest site within surface.
     """
+    if not has_ingest_capacity(surface_size, rank + 1):
+        warnings.warn(
+            "Rank exceeds ingest capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
+
     num_reservations = get_hanoi_num_reservations(rank, surface_size)
 
     incidence = hanoi.get_hanoi_value_incidence_at_index(rank)

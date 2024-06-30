@@ -1,8 +1,10 @@
 import typing
+import warnings
 
 from ..tilted_algo import (
     calc_resident_ingest_rank as impl_calc_resident_ingest_rank,
 )
+from ._meta import has_ingest_capacity
 from ._pick_ingest_site import pick_ingest_site
 
 
@@ -24,10 +26,17 @@ def calc_resident_ingest_rank(
     Returns 0 if the resident stratum traces back to original randomization of
     the surface prior to any algorithm-determined stratum ingests.
     """
-    assert surface_size.bit_count() == 1
+    if not has_ingest_capacity(surface_size, num_ingests):
+        warnings.warn(
+            "Num ingests exceed capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
 
     if num_ingests == 0:
         return 0
+
+    assert surface_size.bit_count() == 1
+
     rank = num_ingests - 1
 
     if site == 0:
