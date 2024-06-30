@@ -6,7 +6,7 @@ def calc_steady_criterion_upper_bound(
 ) -> float:
     assert surface_size > 0
     assert num_ingests >= 0
-    if num_ingests <= surface_size:
+    if num_ingests < surface_size:
         return 0
 
     rank = num_ingests - 1

@@ -10,9 +10,9 @@ def calc_surface_history_criteria(
     site_selection_algo: types.ModuleType,
     site_selection_bounds: types.ModuleType,  # workaround for levelization
     site_selection_criteria: types.ModuleType,  # workaround for levelization
-    enforce_tilted_bound: bool = False,
-    enforce_steady_bound: bool = False,
-    enforce_stretched_bound: bool = False,
+    enforce_tilted_bound: bool = True,
+    enforce_steady_bound: bool = True,
+    enforce_stretched_bound: bool = True,
     progress_wrap: typing.Callable = lambda x: x,
 ) -> pd.DataFrame:
 
