@@ -4,9 +4,15 @@ from ._calc_gap_sizes import calc_gap_sizes_from_gap_bounds
 from ._impl import calc_gap_bounds
 
 
-def calc_tilted_ratios(
-    retained_ranks: np.array, num_ingests: int
+def _calc_tilted_ratios_from_gaps(
+    gap_bounds: np.array, gap_sizes: np.array, num_ingests: int
 ) -> np.array:
+    """Helper for calc_tilted_ratios."""
+    gap_highest_ranks = gap_bounds[1:] - 1
+    return gap_sizes / np.maximum(num_ingests - 1 - gap_highest_ranks, 1)
+
+
+def calc_tilted_ratios(retained_ranks: np.array, num_ingests: int) -> np.array:
     """Calculate statistic for tilted retention criterion.
 
     Parameters
@@ -36,10 +42,8 @@ def calc_tilted_ratios(
     ingests.
     """
     retained_ranks = np.asarray(retained_ranks)
-    gap_bounds = calc_gap_bounds(retained_ranks, num_ingests)
-    gap_sizes = calc_gap_sizes_from_gap_bounds(gap_bounds)
-    gap_highest_ranks = gap_bounds[1:] - 1
-
     assert (retained_ranks < num_ingests).all()
 
-    return gap_sizes / np.maximum(num_ingests - 1 - gap_highest_ranks, 1)
+    gap_bounds = calc_gap_bounds(retained_ranks, num_ingests)
+    gap_sizes = calc_gap_sizes_from_gap_bounds(gap_bounds)
+    return _calc_tilted_ratios_from_gaps(gap_bounds, gap_sizes, num_ingests)
