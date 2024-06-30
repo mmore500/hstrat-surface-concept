@@ -1,7 +1,5 @@
 import typing
 
-import numpy as np
-import opytional as opyt
 import pandas as pd
 import pytest
 
