@@ -35,7 +35,6 @@ def calc_resident_ingest_rank(
     the surface prior to any algorithm-determined stratum ingests.
     """
     assert _recursion_depth < 2
-    assert num_ingests < 2**surface_size
 
     if num_ingests == 0:
         return 0
