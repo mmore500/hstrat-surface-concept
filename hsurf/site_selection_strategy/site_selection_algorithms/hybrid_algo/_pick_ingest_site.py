@@ -27,6 +27,7 @@ def pick_ingest_site(
         Ingest site within surface.
     """
     assert surface_size.bit_count() == 1
+    assert surface_size >= 4  # need 2 per side
 
     if rank == 0:
         return 0

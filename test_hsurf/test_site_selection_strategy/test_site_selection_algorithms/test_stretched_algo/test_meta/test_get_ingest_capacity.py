@@ -11,12 +11,12 @@ def test_get_ingest_capacity(surface_size: int):
 
     if res != 0:
         algo.pick_ingest_site(0, surface_size)
-        algo.pick_ingest_site(opyt.or_value(res, 2**100), surface_size)
+        algo.pick_ingest_site(opyt.or_value(res, 2**100) - 1, surface_size)
         algo.calc_resident_ingest_rank(0, surface_size, 0)
         algo.calc_resident_ingest_rank(
-            0, surface_size, opyt.or_value(res, 2**100)
+            0, surface_size, opyt.or_value(res, 2**100) - 1
         )
 
     if res is not None:
         with pytest.raises(Exception):
-            algo.pick_ingest_site(res + 1, surface_size)
+            algo.pick_ingest_site(res, surface_size)

@@ -9,11 +9,10 @@ def test_get_ingest_capacity(surface_size: int):
 
     capacity = algo.get_ingest_capacity(surface_size)
 
-    if capacity:
-        assert algo.has_ingest_capacity(surface_size, 0)
-        assert algo.has_ingest_capacity(
-            surface_size, opyt.or_value(capacity, 2**100)
-        )
+    assert algo.has_ingest_capacity(surface_size, 0)
+    assert algo.has_ingest_capacity(
+        surface_size, opyt.or_value(capacity, 2**100)
+    )
 
     if capacity is not None:
         assert not algo.has_ingest_capacity(surface_size, capacity + 1)
