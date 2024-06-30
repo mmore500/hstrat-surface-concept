@@ -24,7 +24,8 @@ def iter_surface_update(
     surface = [None] * surface_size
     for rank in it.count():
         site = pick_deposition_site(rank, surface_size)
-        surface[site] = hstrat.HereditaryStratum()
+        if site < surface_size:
+            surface[site] = hstrat.HereditaryStratum()
         yield
 
 
@@ -52,7 +53,12 @@ def make_hsurf_records() -> typing.List[typing.Dict]:
             it.product(
                 [
                     ("steady", hsurf.steady_algo.pick_deposition_site),
+                    ("steady-try", hsurf.steady_try_algo.pick_deposition_site),
                     ("stretched", hsurf.stretched_algo.pick_deposition_site),
+                    (
+                        "stretched-try",
+                        hsurf.stretched_try_algo.pick_deposition_site,
+                    ),
                     ("tilted", hsurf.tilted_algo.pick_deposition_site),
                     (
                         "tilted-sticky",

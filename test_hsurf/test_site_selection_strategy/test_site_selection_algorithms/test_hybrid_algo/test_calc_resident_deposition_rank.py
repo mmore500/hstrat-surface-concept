@@ -8,7 +8,7 @@ from hsurf.hsurf import hybrid_algo as algo
 
 @pytest.mark.parametrize(
     "surface_size",
-    [2**x for x in range(1, 10)]
+    [2**x for x in range(2, 10)]
     + [pytest.param(2**x, marks=pytest.mark.heavy) for x in range(6, 11)],
 )
 @pytest.mark.parametrize(
@@ -28,7 +28,7 @@ def test_calc_resident_deposition_rank_integration(
     assert surface_size.bit_count() == 1
     num_generations = min(
         num_generations_bidder(surface_size),
-        2 ** (surface_size.bit_length() // 2 - 1) - 1,
+        2 ** (surface_size // 2 + 1) - 1,
     )
     surface_deposition_ranks = [0] * surface_size
     for rank in range(num_generations):

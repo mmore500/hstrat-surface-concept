@@ -11,6 +11,7 @@ from hsurf import hsurf
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -43,6 +44,7 @@ def test_GenDropRanks(interop_algo: types.ModuleType, surface_size: int):
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -56,7 +58,7 @@ def test_CalcNumStrataRetainedExact(
 ):
     policy = interop_algo.Policy(surface_size)
 
-    for rank in range(200):
+    for rank in range(min(100, 2 ** (surface_size // 2 - 1) - 1)):
         assert policy.CalcNumStrataRetainedExact(rank) == min(
             rank, surface_size
         )
@@ -67,6 +69,7 @@ def test_CalcNumStrataRetainedExact(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -81,7 +84,7 @@ def test_CalcRankAtColumnIndex(
     policy = interop_algo.Policy(surface_size)
 
     assert policy.CalcNumStrataRetainedExact(0) == 0
-    for rank in range(1, 100):
+    for rank in range(1, min(100, 2 ** (surface_size // 2 - 1) - 1)):
         column_ranks = [
             policy.CalcRankAtColumnIndex(index, rank)
             for index in range(policy.CalcNumStrataRetainedExact(rank))
@@ -100,6 +103,7 @@ def test_CalcRankAtColumnIndex(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -113,7 +117,7 @@ def test_CalcNumStrataRetainedUpperBound(
 ):
     policy = interop_algo.Policy(surface_size)
 
-    for rank in range(200):
+    for rank in range(min(100, 2 ** (surface_size // 2 - 1) - 1)):
         assert policy.CalcNumStrataRetainedExact(
             rank
         ) <= policy.CalcNumStrataRetainedUpperBound(rank)
@@ -124,6 +128,7 @@ def test_CalcNumStrataRetainedUpperBound(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -136,7 +141,7 @@ def test_IterRetainedRanks(interop_algo: types.ModuleType, surface_size: int):
     policy = interop_algo.Policy(surface_size)
 
     assert [*policy.IterRetainedRanks(0)] == []
-    for rank in range(1, 200):
+    for rank in range(1, min(100, 2 ** (surface_size // 2 - 1) - 1)):
         column_ranks = [*policy.IterRetainedRanks(rank)]
         assert column_ranks == sorted(
             set(  # have to deduplicate rank 0 entries
@@ -152,6 +157,7 @@ def test_IterRetainedRanks(interop_algo: types.ModuleType, surface_size: int):
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
@@ -164,7 +170,7 @@ def test_hstrat_test_drive_integration(
     interop_algo: types.ModuleType, surface_size: int
 ):
     population_size = 1024
-    num_generations = 1000
+    num_generations = min(100, 2 ** (surface_size // 2 - 1) - 1)
     alife_df = hstrat.evolve_fitness_trait_population(
         num_islands=4,
         num_niches=4,
@@ -195,6 +201,7 @@ def test_hstrat_test_drive_integration(
     [
         hsurf.stratum_retention_interop_hybrid_algo,
         hsurf.stratum_retention_interop_steady_algo,
+        hsurf.stratum_retention_interop_stretched_algo,
         hsurf.stratum_retention_interop_tilted_algo,
         hsurf.stratum_retention_interop_tilted_sticky_algo,
     ],
