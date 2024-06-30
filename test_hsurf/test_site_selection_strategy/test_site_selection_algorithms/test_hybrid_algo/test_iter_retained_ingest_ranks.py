@@ -14,10 +14,8 @@ from hsurf.hsurf import hybrid_algo as algo
         *map(int, np.random.RandomState(seed=1).randint(0, 2**62, 10)),
     ],
 )
-def test_iter_retained_ingest_ranks(
-    surface_size: int, num_ingests: int
-) -> int:
-    if num_ingests >= 2 ** (surface_size // 2 + 1):
+def test_iter_retained_ingest_ranks(surface_size: int, num_ingests: int) -> int:
+    if num_ingests > algo.get_ingest_capacity(surface_size):
         return
 
     expected = (

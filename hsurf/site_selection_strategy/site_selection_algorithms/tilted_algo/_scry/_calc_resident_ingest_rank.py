@@ -1,4 +1,5 @@
 import typing
+import warnings
 
 from .....pylib import fast_pow2_mod, hanoi
 from .._impl import (
@@ -13,6 +14,7 @@ from .._impl import (
     get_site_genesis_reservation_index_physical,
     get_site_hanoi_value_assigned,
 )
+from .._meta import has_ingest_capacity
 
 
 def calc_resident_ingest_rank(
@@ -34,8 +36,12 @@ def calc_resident_ingest_rank(
     Returns 0 if the resident stratum traces back to original randomization of
     the surface prior to any algorithm-determined stratum ingests.
     """
+    if not has_ingest_capacity(surface_size, num_ingests):
+        warnings.warn(
+            "Num ingests exceed capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
     assert _recursion_depth < 2
-    assert num_ingests < 2**surface_size
 
     if num_ingests == 0:
         return 0

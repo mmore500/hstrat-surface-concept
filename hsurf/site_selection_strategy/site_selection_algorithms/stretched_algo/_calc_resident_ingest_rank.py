@@ -1,4 +1,5 @@
 import typing
+import warnings
 
 from ....pylib import hanoi
 from ..tilted_algo import calc_resident_ingest_rank as tilted_crdr
@@ -10,6 +11,7 @@ from ..tilted_algo._impl import (
     get_site_genesis_reservation_index_physical,
     get_site_hanoi_value_assigned,
 )
+from ._meta import has_ingest_capacity
 from ._pick_ingest_site import pick_ingest_site
 
 
@@ -19,6 +21,12 @@ def impl_calc_resident_ingest_rank(
     num_ingests: int,
     grip: typing.Optional[int] = None,
 ) -> int:
+    if not has_ingest_capacity(surface_size, num_ingests):
+        warnings.warn(
+            "Num ingests exceed capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
+
     if grip is None:
         grip = get_site_genesis_reservation_index_physical(site, surface_size)
 

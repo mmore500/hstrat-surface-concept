@@ -1,9 +1,12 @@
+import warnings
+
 from .._enact import pick_ingest_site
 from .._impl import (
     calc_resident_ingest_rank_wrt_bin,
     get_bin_number_of_position,
     get_nth_bin_position,
 )
+from .._meta import has_ingest_capacity
 
 
 def calc_resident_ingest_rank(
@@ -17,6 +20,12 @@ def calc_resident_ingest_rank(
     Returns 0 if the resident stratum traces back to original randomization of
     the surface prior to any algorithm-determined stratum ingests.
     """
+    if not has_ingest_capacity(surface_size, num_ingests):
+        warnings.warn(
+            "Num ingests exceed capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
+
     if num_ingests == 0:
         return 0
 

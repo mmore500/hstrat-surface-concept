@@ -1,12 +1,20 @@
+import warnings
+
 from .....pylib.hanoi import (
     get_hanoi_value_at_index,
     get_hanoi_value_incidence_at_index,
 )
 from ...steady_algo._impl import get_nth_bin_position, get_nth_bin_width
+from ...steady_algo._meta import has_ingest_capacity
 
 
 def pick_ingest_site(rank: int, surface_size: int) -> int:
     """Returns surface_size if the item is to be discarded."""
+    if not has_ingest_capacity(surface_size, rank + 1):
+        warnings.warn(
+            "Rank exceeds ingest capacity. Either surface size is not "
+            "supported or too many ingestions have elapsed.",
+        )
     assert surface_size.bit_count() == 1  # assume power of 2 surface size
     # because 0 is special-cased for preservation...
     assert surface_size > 1  # ... need at least somewhere to put ingests
