@@ -24,7 +24,8 @@ def iter_surface_update(
     surface = [None] * surface_size
     for rank in it.count():
         site = pick_deposition_site(rank, surface_size)
-        surface[site] = hstrat.HereditaryStratum()
+        if site < surface_size:
+            surface[site] = hstrat.HereditaryStratum()
         yield
 
 
