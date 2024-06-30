@@ -1,6 +1,6 @@
 import pytest
 
-from hsurf.hsurf import steady_algo as algo
+from hsurf.hsurf import stretched_algo as algo
 from hsurf.site_selection_strategy.site_selection_bounds import (
     calc_tilted_ratio_lower_bound as ideal_lb,
 )

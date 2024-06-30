@@ -1,6 +1,6 @@
 import pytest
 
-from hsurf.hsurf import steady_algo as algo
+from hsurf.hsurf import stretched_algo as algo
 
 
 @pytest.mark.parametrize(
@@ -9,7 +9,7 @@ from hsurf.hsurf import steady_algo as algo
         (8, 0, 0),
         (8, 1, 0),
         (8, 8, 0),
-        (8, 9, 0.25),
+        (8, 9, 0.5),
     ],
 )
 def test_calc_tilted_criterion_exact(

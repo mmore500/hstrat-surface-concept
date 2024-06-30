@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from hsurf.hsurf import steady_algo as algo
+from hsurf.hsurf import stretched_algo as algo
 
 
 @pytest.mark.parametrize(
