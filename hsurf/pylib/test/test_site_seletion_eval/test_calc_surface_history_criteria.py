@@ -1,5 +1,7 @@
+import math
 import typing
 
+import opytional as opyt
 import pandas as pd
 import pytest
 
@@ -36,7 +38,10 @@ def test_calc_surface_history_criteria_invariants(
         site_selection_algo.pick_ingest_site,
         surface_size=surface_size,
         num_generations=min(
-            site_selection_algo.get_ingest_capacity(surface_size),
+            opyt.or_value(
+                site_selection_algo.get_ingest_capacity(surface_size),
+                math.inf,
+            ),
             generation_cap,
         ),
     )
