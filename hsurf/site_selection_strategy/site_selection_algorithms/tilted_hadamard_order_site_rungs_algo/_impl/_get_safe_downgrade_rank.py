@@ -24,16 +24,16 @@ def get_safe_downgrade_rank(
     ----------
     cycle_num_ranks : int
         The modulus (size of the modular arithmetic "clock face"), measured as
-        the number of deposition ranks required to make a full trip around the
+        the number of ingest ranks required to make a full trip around the
         reservation instance ring buffer.
     required_cycle_rank_position : int
-        At which absolute position on the clock face do we need to stop? Measured as deposition ranks relative to alignment at the zeroth
+        At which absolute position on the clock face do we need to stop? Measured as ingest ranks relative to alignment at the zeroth
         incidence reservation.
     required_lag : int
         How long before the deadline do we need to stop, at minimum? Time unit
-        is in deposition ranks.
+        is in ingest ranks.
     end_rank : int
-        What is the deadline we must stop before? Time unit is in deposition
+        What is the deadline we must stop before? Time unit is in ingest
         ranks. In practice, this will be related to (equal to?) the time that
         the available reservation slots is invaded by high hanoi values from
         the spatially-preceding reservation slot.
@@ -43,7 +43,7 @@ def get_safe_downgrade_rank(
     Returns
     -------
     int
-        The deposition rank satisfying parameter criteria, e.g., when the
+        The ingest rank satisfying parameter criteria, e.g., when the
         incidence reservation ring buffer size can be safely reduced.
 
     Notes
@@ -51,7 +51,7 @@ def get_safe_downgrade_rank(
     The distribution of occurence the focal hanoi value over the hanoi sequence
     moderates the relationship between clock face ring buffer position and
     ranks. Each occurence of the focal hanoi value advances the ring buffer one
-    position around the clock face. The first deposition aligns with position
+    position around the clock face. The first ingest aligns with position
     zero on the clock face. Each hanoi value occurs after a known rank offset,
     and then occurs at a steady rank tempo (which is larger than the offset).
 

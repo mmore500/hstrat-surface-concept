@@ -6,8 +6,8 @@ Hereditary Stratigraphic Surface Project Notes:
 \item goal:
 \begin{itemize}
   \item fixed-length bitstring that starts out randomly generated
-  \item algorithm to determine one site to re-draw a single bit at a particular site (``deposit'' at that site) each generation (Figure \ref{fig:surface-site-deposit})
-  \item second algorithm to calculate the generation at which a site was last re-drawn (Figure \ref{fig:deposit-rank-calculation}; allows surface to be converted to a hereditary stratigraphic column
+  \item algorithm to determine one site to re-draw a single bit at a particular site (``ingest'' at that site) each generation (Figure \ref{fig:surface-site-ingest})
+  \item second algorithm to calculate the generation at which a site was last re-drawn (Figure \ref{fig:ingest-rank-calculation}; allows surface to be converted to a hereditary stratigraphic column
 \end{itemize}
 \item approach:
 \begin{itemize}
@@ -26,11 +26,11 @@ Hereditary Stratigraphic Surface Project Notes:
 \item status:
 \begin{itemize}
   \item site selection rule prototyped, but there are some remaining questions/optimizations
-  \item last deposit rank for site at generation calculation algorithm prototyped, but there is some slow recursion that needs to be rewritten (ideally to $O(1)$)
+  \item last ingest rank for site at generation calculation algorithm prototyped, but there is some slow recursion that needs to be rewritten (ideally to $O(1)$)
 \end{itemize}
 \item needs work
 \begin{itemize}
-  \item slow algorithm to calculate deposit rank for site at generation (recursion that only decrements generation one at a time in \texttt{get\_deposition\_rank\_at\_site})
+  \item slow algorithm to calculate ingest rank for site at generation (recursion that only decrements generation one at a time in \texttt{get\_ingest\_rank\_at\_site})
   \item don't understand the consequences/know
   \item ideally, the oldest incidences would be eliminated first
   \item but if the incidences complete a first cycle, all the newest incidences will be placed in the incidence reservations that are subsumed

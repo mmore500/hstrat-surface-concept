@@ -10,7 +10,7 @@ def calc_reservation_reference_incidence(
     surface_size: int,
     focal_rank: int,
 ) -> int:
-    """What is the most recent hanoi value incidence preceding the deposition
+    """What is the most recent hanoi value incidence preceding the ingest
     at the `reservation_index`'th incidence reservation ring buffer position to
     align to the zeroth incidence reservation ring buffer position?
 
@@ -25,14 +25,14 @@ def calc_reservation_reference_incidence(
     surface_size : int
         Number of sites on surface. A power of 2 is assumed.
     focal_rank : int
-        Zero-indexed deposition count (across all hanoi values) on the surface
+        Zero-indexed ingest count (across all hanoi values) on the surface
         at the current point in time.
 
     Returns
     -------
     int
-        The number of `hanoi_value` depositions that occured prior to the
-        deposition of the stratum at `reservation_index`.
+        The number of `hanoi_value` ingests that occured prior to the
+        ingest of the stratum at `reservation_index`.
     """
     num_reservations_provided = get_num_reservations_provided(
         hanoi_value=hanoi_value,

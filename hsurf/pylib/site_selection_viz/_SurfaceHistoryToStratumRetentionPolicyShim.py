@@ -27,12 +27,12 @@ class SurfaceHistoryToStratumRetentionPolicyShim:
 
     def IterRetainedRanks(
         self: "SurfaceHistoryToStratumRetentionPolicyShim",
-        num_strata_deposited: int,
+        num_strata_ingested: int,
     ) -> typing.Iterator[int]:
         at_rank_df = self._surface_history_df[
-            self._surface_history_df["rank"] == num_strata_deposited
+            self._surface_history_df["rank"] == num_strata_ingested
         ]
         return (
             rank if rank != -1 else 0
-            for rank in at_rank_df["deposition rank"].unique()
+            for rank in at_rank_df["ingest rank"].unique()
         )

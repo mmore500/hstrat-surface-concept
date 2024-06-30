@@ -24,10 +24,10 @@ def site_reservation_by_rank_heatmap(
         .copy()
     )
     surface_history_df["ago"] = (
-        surface_history_df["rank"] - surface_history_df["deposition rank"]
+        surface_history_df["rank"] - surface_history_df["ingest rank"]
     )
     surface_history_df["new"] = (
-        surface_history_df["rank"] == surface_history_df["deposition rank"]
+        surface_history_df["rank"] == surface_history_df["ingest rank"]
     ).map({True: "⬬", False: ""})
 
     ax = sns.heatmap(

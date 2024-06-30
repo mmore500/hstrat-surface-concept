@@ -16,7 +16,7 @@ def get_fractional_downgrade_num_reservations_provided(
     fractional_downgrade_state: typing.Dict,
 ) -> int:
     """How many incidence reservation buffer positions are provided for
-    depositions associated with `hanoi_value` at rank `rank` under fractional
+    ingests associated with `hanoi_value` at rank `rank` under fractional
     reservation incrementing mode (i.e., a hanoi value's reservations aren't
     simply halved all at once upon invasion)?
 

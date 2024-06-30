@@ -3,7 +3,7 @@ from ...tilted_algo._impl import get_global_epoch
 
 
 def calc_next_invasion_rank(rank: int, surface_size: int) -> int:
-    """Calculate the next rank where deposited hanoi value will overwrite a
+    """Calculate the next rank where ingested hanoi value will overwrite a
     smaller hanoi value."""
     miniepoch_duration = bit_floor(rank + 1)
 

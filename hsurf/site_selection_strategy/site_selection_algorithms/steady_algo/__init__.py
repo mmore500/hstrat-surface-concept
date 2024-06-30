@@ -1,4 +1,4 @@
-"""A steady time stratum deposition algorithm.
+"""A steady time stratum ingest algorithm.
 
 Categorizes ranks by hanoi values. Divides the surface into bins and waterfalls
 successive instances of each hanoi values into each bin from left to right.
@@ -46,17 +46,17 @@ from ._criteria._calc_tilted_criterion_lower_bound import (
 from ._criteria._calc_tilted_criterion_upper_bound import (
     calc_tilted_criterion_upper_bound,
 )
-from ._enact._pick_deposition_site import pick_deposition_site
-from ._scry._calc_resident_deposition_rank import calc_resident_deposition_rank
-from ._scry._iter_resident_deposition_ranks import (
-    iter_resident_deposition_ranks,
+from ._enact._pick_ingest_site import pick_ingest_site
+from ._scry._calc_resident_ingest_rank import calc_resident_ingest_rank
+from ._scry._iter_resident_ingest_ranks import (
+    iter_resident_ingest_ranks,
 )
-from ._scry._iter_retained_deposition_ranks import (
-    iter_retained_deposition_ranks,
+from ._scry._iter_retained_ingest_ranks import (
+    iter_retained_ingest_ranks,
 )
 
 __all__ = [
-    "calc_resident_deposition_rank",
+    "calc_resident_ingest_rank",
     "calc_steady_criterion_exact",
     "calc_steady_criterion_lower_bound",
     "calc_steady_criterion_upper_bound",
@@ -66,7 +66,7 @@ __all__ = [
     "calc_tilted_criterion_exact",
     "calc_tilted_criterion_lower_bound",
     "calc_tilted_criterion_upper_bound",
-    "iter_resident_deposition_ranks",
-    "iter_retained_deposition_ranks",
-    "pick_deposition_site",
+    "iter_resident_ingest_ranks",
+    "iter_retained_ingest_ranks",
+    "pick_ingest_site",
 ]

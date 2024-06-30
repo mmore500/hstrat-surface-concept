@@ -20,7 +20,7 @@ from hsurf import hsurf
     ],
 )
 @pytest.mark.parametrize(
-    "num_strata_deposited",
+    "num_strata_ingested",
     [1, 19, 31, 32, 33, 182],
 )
 @pytest.mark.parametrize(
@@ -34,7 +34,7 @@ from hsurf import hsurf
 def test_col_from_surf_packet_bytes(
     site_selection_algo: types.ModuleType,
     interop_algo: types.ModuleType,
-    num_strata_deposited: int,
+    num_strata_ingested: int,
     sentry: bool,
     surface_size: int,
 ):
@@ -47,13 +47,13 @@ def test_col_from_surf_packet_bytes(
     founding_differentia = column.GetStratumAtColumnIndex(-1).GetDifferentia()
     surface = np.full(surface_size, founding_differentia, dtype=np.uint8)
 
-    for rank in range(1, num_strata_deposited):
+    for rank in range(1, num_strata_ingested):
         column.DepositStratum()
-        site = site_selection_algo.pick_deposition_site(rank, surface_size)
+        site = site_selection_algo.pick_ingest_site(rank, surface_size)
         surface[site] = column.GetStratumAtColumnIndex(-1).GetDifferentia()
 
     packet = (
-        num_strata_deposited.to_bytes(4, byteorder="big", signed=False)
+        num_strata_ingested.to_bytes(4, byteorder="big", signed=False)
         + surface.tobytes()
     )
     packet_value = int.from_bytes(

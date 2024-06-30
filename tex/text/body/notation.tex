@@ -1,6 +1,6 @@
 \section{Preliminaries, Notations, and Terminology} \label{sec:notation}
 
-\input{fig/deposit-and-lookup.tex}
+\input{fig/ingest-and-lookup.tex}
 
 The core function of proposed algorithms is curation of incoming data on a rolling basis to dynamically filter out a subset that, according to a desired \textbf{coverage criterion}, minimizes \textbf{time gaps} between retained data items.
 Incoming data is considered as a \textbf{data stream}, comprised of a one-dimensional sequence of \textbf{data items} $v_i$.
@@ -27,12 +27,12 @@ We consider only one update operation on the buffer: storage of an ingested data
 As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data.
 As such, the only way to discard a stored data item is to overwrite it by placing a new data item at that site.
 Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection}.
-The site selection operation, schematized in Figure \ref{fig:surface-site-deposit}), therefore comprises the primary algorithmic focus of this work.
+The site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), therefore comprises the primary algorithmic focus of this work.
 
 As a space-saving optimization, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
 (This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.)
 Note, though, that, without metadata, identifying stored data items requires capability deduce ingestion time solely from buffer position.
-Figure \ref{fig:deposit-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
+Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
 
 \textit{Coverage criteria} for retained data items considered here are defined solely in terms of items' time indices $\colorTbar$ --- not their data values.
 We define coverage criteria in terms of \textbf{gap size} between retained data items, taken as the number of temporally sequential data items discarded (i.e., overwritten) between when two retained items were ingested.

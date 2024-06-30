@@ -8,7 +8,7 @@ from .....pylib import bit_ceil
 
 @deprecated(reason="Uses generator. Should refactor to functional form.")
 def iter_hanoi_invader_values(hanoi_value: int) -> typing.Iterator[int]:
-    """What hanoi values will deposit over sites that had last been reserved
+    """What hanoi values will ingest over sites that had last been reserved
     for `hanoi_value`?
 
     Note that this sequence is independent of `surface_size`.

@@ -16,9 +16,9 @@ def iter_candidate_hanoi_occupants(
     naive size back in time through the minimum, starting reservation size
     (i.e., one site).
 
-    Note that yielded candidate hanoi values may not have yet been deposited
-    at the site (or ever be deposited at the site) due to insufficient
-    depositoins of that hanoi value to actually reach the candidate semantic
+    Note that yielded candidate hanoi values may not have yet been ingested
+    at the site (or ever be ingested at the site) due to insufficient
+    ingestoins of that hanoi value to actually reach the candidate semantic
     incidence reservation ring buffer position that would be associated with
     `site` at `rank` given the candidate reservation size. (See
     `iter_candidate_reservation_indices`.)

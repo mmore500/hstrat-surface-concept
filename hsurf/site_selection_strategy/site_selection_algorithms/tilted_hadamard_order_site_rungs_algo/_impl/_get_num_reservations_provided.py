@@ -20,7 +20,7 @@ def get_num_reservations_provided(
     hanoi_value: int, surface_size: int, rank: int
 ) -> int:
     """Determine incidence reservation buffer positions provided for
-    depositions associated with `hanoi_value` at rank `rank`, under fractional
+    ingests associated with `hanoi_value` at rank `rank`, under fractional
     incrementaiton if eligible and otherwise falling back to coarser non-
     fractional incrementation."""
     fractional_downgrade_state = get_fractional_downgrade_state(
