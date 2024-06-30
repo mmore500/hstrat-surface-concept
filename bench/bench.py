@@ -76,7 +76,7 @@ def make_hstrat_records() -> typing.List[typing.Dict]:
     parameterizer = hstrat.PropertyAtMostParameterizer(
         target_value=surface_size,
         policy_evaluator=hstrat.NumStrataRetainedUpperBoundEvaluator(
-            at_num_strata_ingested=int(1e6),
+            at_num_strata_deposited=int(1e6),
         ),
         param_lower_bound=1,
         param_upper_bound=1024,
