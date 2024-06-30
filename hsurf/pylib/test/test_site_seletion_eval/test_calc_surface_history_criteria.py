@@ -12,8 +12,8 @@ from pylib import site_selection_eval
 @pytest.mark.parametrize(
     "surface_size, generation_cap",
     [
-        (8, None),
-        (16, None),
+        (8, 2**16),
+        (16, 2**16),
         (32, 2**16),
         (64, 2**14),
         (128, 2**12),
@@ -38,7 +38,8 @@ def test_calc_surface_history_criteria_invariants(
         site_selection_algo.pick_ingest_site,
         surface_size=surface_size,
         num_generations=min(
-            2**surface_size - 1, opyt.or_value(generation_cap, np.inf)
+            site_selection_algo.get_ingest_capacity(surface_size),
+            generation_cap,
         ),
     )
     criteria_df = site_selection_eval.calc_surface_history_criteria(
