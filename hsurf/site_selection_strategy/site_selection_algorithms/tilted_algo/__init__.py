@@ -27,7 +27,7 @@ __all__ = [
     "calc_tilted_criterion_exact",
     "calc_tilted_criterion_lower_bound",
     "calc_tilted_criterion_upper_bound",
-    "pick_ingest_site",
     "iter_resident_ingest_ranks",
     "iter_retained_ingest_ranks",
+    "pick_ingest_site",
 ]
