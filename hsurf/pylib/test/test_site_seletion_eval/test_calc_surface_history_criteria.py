@@ -5,7 +5,11 @@ import opytional as opyt
 import pandas as pd
 import pytest
 
-from hsurf.site_selection_strategy import site_selection_algorithms
+from hsurf.site_selection_strategy import (
+    site_selection_algorithms,
+    site_selection_bounds,
+    site_selection_criteria,
+)
 from pylib import site_selection_eval
 
 
@@ -47,5 +51,8 @@ def test_calc_surface_history_criteria_invariants(
     )
     criteria_df = site_selection_eval.calc_surface_history_criteria(
         surface_history_df,
+        site_selection_algo,
+        site_selection_bounds,
+        site_selection_criteria,
     )
     assert isinstance(criteria_df, pd.DataFrame)
