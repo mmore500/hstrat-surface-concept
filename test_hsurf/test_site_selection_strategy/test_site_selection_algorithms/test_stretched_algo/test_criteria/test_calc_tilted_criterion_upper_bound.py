@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from hsurf.hsurf import stretched_algo as algo
@@ -15,6 +16,21 @@ def test_calc_tilted_criterion_upper_bound(
     surface_size: int,
     num_depositions: int,
 ):
+    if num_depositions >= surface_size**2:
+        return
+    assert (
+        algo.calc_tilted_criterion_exact(surface_size, num_depositions)
+        <= algo.calc_tilted_criterion_upper_bound(surface_size, num_depositions)
+        <= num_depositions
+    )
+
+
+@pytest.mark.parametrize(
+    "num_depositions",
+    np.random.RandomState(seed=1).randint(0, 2**32, 1000),
+)
+def test_calc_tilted_criterion_upper_bound_large(num_depositions: int):
+    surface_size = 32
     if num_depositions >= surface_size**2:
         return
     assert (
