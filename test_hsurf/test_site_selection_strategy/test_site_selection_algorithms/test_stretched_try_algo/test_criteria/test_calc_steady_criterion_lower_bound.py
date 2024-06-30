@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from hsurf.hsurf import stretched_try_algo as algo

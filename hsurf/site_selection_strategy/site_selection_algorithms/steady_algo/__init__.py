@@ -39,9 +39,7 @@ from ._criteria._calc_stretched_criterion_lower_bound import (
 from ._criteria._calc_stretched_criterion_upper_bound import (
     calc_stretched_criterion_upper_bound,
 )
-from ._criteria._calc_tilted_criterion_exact import (
-    calc_tilted_criterion_exact,
-)
+from ._criteria._calc_tilted_criterion_exact import calc_tilted_criterion_exact
 from ._criteria._calc_tilted_criterion_lower_bound import (
     calc_tilted_criterion_lower_bound,
 )

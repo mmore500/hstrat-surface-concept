@@ -1,5 +1,4 @@
 from ._calc_resident_deposition_rank import calc_resident_deposition_rank
-
 from ._criteria import (
     calc_steady_criterion_exact,
     calc_steady_criterion_lower_bound,

@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from hsurf.hsurf import steady_algo as algo
