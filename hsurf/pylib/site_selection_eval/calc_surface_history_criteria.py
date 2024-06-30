@@ -38,7 +38,7 @@ def calc_surface_history_criteria(
                 "steady criterion": gap_sizes.max(),
                 "stretched criterion": gap_stretched_ratios.max(),
                 "tilted criterion": gap_tilted_ratios.max(),
-                "kind": "worst",
+                "kind": "maximum",
             },
         )
         weights = gap_sizes if gap_sizes.any() else None
@@ -89,7 +89,7 @@ def calc_surface_history_criteria(
                 "steady criterion": rank // surface_size,
                 "stretched criterion": gap_ratio_ideal,
                 "tilted criterion": gap_ratio_ideal,
-                "kind": "strict ideal",
+                "kind": "lower bound",
             },
         )
 
@@ -100,7 +100,7 @@ def calc_surface_history_criteria(
                 "steady criterion": rank / surface_size,
                 "stretched criterion": gap_ratio_naive,
                 "tilted criterion": gap_ratio_naive,
-                "kind": "naive ideal",
+                "kind": "naive lower bound",
             },
         )
 
