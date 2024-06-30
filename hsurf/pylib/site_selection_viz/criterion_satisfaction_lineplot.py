@@ -42,6 +42,8 @@ def criterion_satisfaction_lineplot(
         "dimgray",
         *sns.color_palette("husl", len(hue_order) - 1)[:-1],
     ]
+
+    # LINEPLOT ################################################################
     ax = sns.lineplot(
         data=data[~data[hue].isin([lower_bound, upper_bound])],
         x=x,
@@ -55,9 +57,7 @@ def criterion_satisfaction_lineplot(
     )
     frozen_ylim = ax.get_ylim()
 
-    ax.set_xscale(xscale)
-    ax.set_yscale(yscale)
-
+    # FILLED BOUNDS ###########################################################
     filtered = data[data[hue] == upper_bound]
     # sns err needs at least two observations...
     duplicated = pd.concat([filtered] * 2, ignore_index=True)
@@ -92,16 +92,20 @@ def criterion_satisfaction_lineplot(
         zorder=-10,
     )
 
+    # AXES TWEAKS #############################################################
     ax.set_xlabel("time")
-    ax.set_ylabel(y.replace(" ", "\n"))
+    ax.set_ylabel("criterion\nvalue")
     ax.spines[["top", "right"]].set_visible(False)
 
+    ax.set_xscale(xscale)
+    ax.set_yscale(yscale)
     if yscale == "symlog":  # force non-scientific notation
         ax.yaxis.set_major_formatter(mpl_StrMethodFormatter("{x:.0f}"))
 
     for x in range(surface_size.bit_length() - 1, surface_size):
         ax.axvline(2**x, color="black", linestyle="--", linewidth=0.5)
 
+    # LEGEND ##################################################################
     handles, labels = ax.get_legend_handles_labels()
 
     # Setting the legend with the new compound handles
@@ -118,6 +122,7 @@ def criterion_satisfaction_lineplot(
 
     sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
 
+    # RESTORE YLIM ############################################################
     ax.set_ylim(-0.1, frozen_ylim[1])  # restoring low ylim is wonky, hardcode
 
     return ax
