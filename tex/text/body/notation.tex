@@ -8,13 +8,6 @@ As such, we term this problem as the \textbf{data stream curation problem}.
 We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
 For the purposes of present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
-\subsection{Time $\colorTbar$}
-
-We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$, and the existing number of ingested items as \textit{current time} $\colorT$.
-In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
-We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
-Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ to refer to $v_{\colorTbar}$, the data item ingested at that time.
-
 \subsection{Buffer Storage $\colorS$}
 
 We will notate the \textit{number of available buffer sites} to store retained data items as $\colorS$.
@@ -37,6 +30,20 @@ As a space-saving optimization, we store only the data items themselves in buffe
 (This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.)
 Note, though, that, without metadata, identifying stored data items requires capability deduce ingestion time solely from buffer position.
 Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
+
+\subsection{Time $\colorTbar$}
+
+We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$, and the existing number of ingested items as the \textit{current time} $\colorT$.
+In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
+We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
+Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ to refer to $v_{\colorTbar}$, the data item ingested at that time.
+
+In principle, data stream curation would support indefinite ingestions, $\colorT \in 0, 1, \ldots$.
+Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
+However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS}$ ingestions, $\colorT \in 0, 1, \ldots 2^{\colorS} - 1$.
+We expect this capacity to suffice for many applications, even with only moderately-sized buffers.
+For instance, capacity for a 64-site buffer suffices to ingest items continuously at 5GHz for well over 100 years.
+As such, we leave behavior for stretched and tilted curation past $2^{\colorS}$ ingests to future work.
 
 \subsection{Gap Size $\colorg$}
 
