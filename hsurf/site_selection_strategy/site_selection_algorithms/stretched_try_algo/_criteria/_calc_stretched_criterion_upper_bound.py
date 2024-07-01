@@ -1,4 +1,7 @@
-from .....pylib import oeis
+from ...tilted_algo._impl._get_global_epoch import (
+    _get_global_shifted_epoch,
+    _get_global_shifted_mini_epoch,
+)
 
 
 def calc_stretched_criterion_upper_bound(
@@ -9,23 +12,18 @@ def calc_stretched_criterion_upper_bound(
     if num_ingests <= surface_size:
         return 0
 
+    assert num_ingests
     rank = num_ingests - 1
-    epoch = rank.bit_length() - surface_size.bit_length() + 1
-    assert epoch
-    metaepoch = oeis.get_a000325_index_of_value(epoch)
-    assert (epoch == 1) == (metaepoch == 1)
-    assert (2 <= epoch < 5) == (metaepoch == 2)
+    mini_epoch = _get_global_shifted_mini_epoch(rank, surface_size)
+    meta_epoch = _get_global_shifted_epoch(rank, surface_size)
 
-    exp = metaepoch - surface_size.bit_length() + 2
-    assert exp == (  # previous implementation
-        oeis.get_a000295_index_of_value(epoch - 1)
-        - surface_size.bit_length()
-        + 3
+    exp = min(
+        meta_epoch - (surface_size.bit_length() - 1) + 1,
+        0,  # correction for last epoch of tight bound
     )
     return min(
         2**exp,  # tight bound
-        1,  # correction for last epoch of tight bound
         # ... approximate bounds
-        2 * (epoch + surface_size.bit_length()) / surface_size,
-        4 * epoch / surface_size,
+        2 * (mini_epoch + surface_size.bit_length()) / surface_size,
+        4 * mini_epoch / surface_size,
     )

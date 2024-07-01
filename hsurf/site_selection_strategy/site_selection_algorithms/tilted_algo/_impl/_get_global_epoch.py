@@ -1,12 +1,17 @@
 from .....pylib import hanoi, oeis
 
 
-def _get_global_shifted_epoch(rank: int, surface_size: int) -> int:
-    """A.k.a., "meta-epoch"."""
-    mini_epoch = max(
+def _get_global_shifted_mini_epoch(rank: int, surface_size: int) -> int:
+    """A.k.a., "epoch" in writeup."""
+    return max(
         rank.bit_length() - surface_size.bit_length() + 1,
         0,
     )
+
+
+def _get_global_shifted_epoch(rank: int, surface_size: int) -> int:
+    """A.k.a., "meta-epoch" in writeup."""
+    mini_epoch = _get_global_shifted_mini_epoch(rank, surface_size)
     # 0 if mini_epoch == 0, else oeis index
     meta_epoch = mini_epoch and oeis.get_a000325_index_of_value(mini_epoch)
     assert (mini_epoch == 0) == (meta_epoch == 0)
