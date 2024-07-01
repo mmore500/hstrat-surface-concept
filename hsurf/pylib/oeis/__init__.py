@@ -1,6 +1,7 @@
 from .get_a000295_index_of_value import get_a000295_index_of_value
 from .get_a000295_value_at_index import get_a000295_value_at_index
 from .get_a000325_value_at_index import get_a000325_value_at_index
+from .get_a000325_index_of_value import get_a000325_index_of_value
 from .get_a005187_index_of_value import get_a005187_index_of_value
 from .get_a005187_value_at_index import get_a005187_value_at_index
 from .get_a025480_value_at_index import get_a025480_value_at_index
@@ -22,6 +23,7 @@ __all__ = [
     "get_a000295_index_of_value",
     "get_a000295_value_at_index",
     "get_a000325_value_at_index",
+    "get_a000325_index_of_value",
     "get_a005187_index_of_value",
     "get_a005187_value_at_index",
     "get_a025480_value_at_index",

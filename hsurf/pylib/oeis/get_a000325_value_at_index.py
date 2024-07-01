@@ -2,7 +2,6 @@
 def get_a000325_value_at_index(n: int) -> int:
     """Return the value of A000325 at the given index.
 
-    Note: uses -1 as the first index, i.e., skips zeroth element.
+    A000325(n) = 2^n - n.
     """
-    n += 1
     return (1 << n) - n  # Chai Wah Wu, https://oeis.org/A000325
