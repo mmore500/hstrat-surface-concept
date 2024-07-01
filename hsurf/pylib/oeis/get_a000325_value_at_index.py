@@ -1,4 +1,8 @@
 # see https://oeis.org/A000295
 def get_a000325_value_at_index(n: int) -> int:
-    """Return the value of A000325 at the given index."""
+    """Return the value of A000325 at the given index.
+
+    Note: uses -1 as the first index, i.e., skips zeroth element.
+    """
+    n += 1
     return (1 << n) - n  # Chai Wah Wu, https://oeis.org/A000325
