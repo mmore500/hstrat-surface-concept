@@ -3,7 +3,7 @@ import pylib
 
 def test_get_a000325_value_at_index():
     expected = [
-        # note: skips zeroth element
+        1,
         1,
         2,
         5,
