@@ -1,4 +1,4 @@
-from .....pylib import oeis
+from .._impl._get_global_epoch import _get_global_shifted_epoch
 
 
 def calc_tilted_criterion_upper_bound(
@@ -9,14 +9,12 @@ def calc_tilted_criterion_upper_bound(
     if num_ingests <= surface_size:
         return 0
 
+    assert num_ingests
     rank = num_ingests - 1
-    epoch = rank.bit_length() - surface_size.bit_length() + 1
-    exp = (
-        oeis.get_a000295_index_of_value(epoch - 1)
-        - surface_size.bit_length()
-        + 3
+    meta_epoch = _get_global_shifted_epoch(rank, surface_size)
+
+    exp = -min(
+        meta_epoch - (surface_size.bit_length() - 1) + 1,
+        0,
     )
-    return min(
-        1 / (2 ** (-min(exp, 0)) - 0.5),
-        2 / 1,
-    )
+    return 1 / (2**exp - 0.5)
