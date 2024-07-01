@@ -25,9 +25,6 @@ def test_get_a000295_value_at_index():
 
 for i in range(400):
     n = pylib.oeis.get_a000295_index_of_value(i)
-    lb, ub = pylib.oeis.get_a000295_value_at_index(
-        n
-    ), pylib.oeis.get_a000295_value_at_index(n + 1)
     assert (
         pylib.oeis.get_a000295_value_at_index(n)
         <= i
