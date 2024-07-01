@@ -4,6 +4,14 @@ from ._calc_gap_sizes import calc_gap_sizes_from_gap_bounds
 from ._impl import calc_gap_bounds
 
 
+def _calc_stretched_ratios_from_gaps(
+    gap_bounds: np.array, gap_sizes: np.array
+) -> np.array:
+    """Helper for calc_stretched_ratios."""
+    gap_lowest_ranks = gap_bounds[:-1] + 1
+    return gap_sizes / np.maximum(gap_lowest_ranks, 1)
+
+
 def calc_stretched_ratios(
     retained_ranks: np.array, num_ingests: int
 ) -> np.array:
@@ -36,4 +44,4 @@ def calc_stretched_ratios(
     gap_bounds = calc_gap_bounds(retained_ranks, num_ingests)
     gap_sizes = calc_gap_sizes_from_gap_bounds(gap_bounds)
 
-    return gap_sizes / np.maximum(gap_bounds[:-1] + 1, 1)
+    return _calc_stretched_ratios_from_gaps(gap_bounds, gap_sizes)
