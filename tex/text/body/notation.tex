@@ -14,7 +14,7 @@ We will notate the \textit{number of available buffer sites} to store retained d
 Proposed algorithms assume a fixed budget of buffer space, sufficient to store $\colorS$ data items.%
 \footnote{%
 In associated materials, the fixed-size buffer used to store curated data items is referred to as a ``surface.''
-Other related work has considered the stream curation problem with extensible memory capacity \citep{moreno2024algorithms}.%
+Space-efficient solutions for the stream curation problem under extensible memory capacity have been considered in other work \citep{moreno2024algorithms}.%
 }
 They require buffer size to be an even power of two, so that for some $\colors$, $\colorS = 2^{\colors}$.
 On occasion it will become necessary to refer to a specific position $\colork$ within a buffer.
@@ -62,8 +62,8 @@ Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorT
 Algorithms for three primary coverage criteria are treated:
 \begin{enumerate}
 \item \textbf{steady criterion}: calls to maintain data items \textit{evenly covering} elapsed history (Section \ref{sec:steady}),
-\item \textbf{stretched criterion}: favors \textit{older data items} proportionally to time index $\colorTbar$ (Section \ref{sec:stretched}), and
-\item \textbf{tilted criteiron}: favors \textit{newer data items} proportionally to time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
+\item \textbf{stretched criterion}: favors \textit{older} data items proportionally to time index $\colorTbar$ (Section \ref{sec:stretched}), and
+\item \textbf{tilted criteiron}: favors \textit{newer} data items proportionally to time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
 \end{enumerate}
 Figure \ref{fig:criteria-intuition} commpares example ideal retention distributions under each criterion.
 Formal definitions are provided in its criterion's corresponding section.
