@@ -13,4 +13,5 @@ def get_ingest_capacity(surface_size: int) -> typing.Optional[int]:
     data items?
     """
     surface_size_ok = surface_size.bit_count() == 1 and surface_size > 1
+    # -1 is due to current implementation w/ unshifted epoch definition
     return 2**surface_size - 1 if surface_size_ok else 0
