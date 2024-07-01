@@ -8,6 +8,15 @@ As such, we term this problem as the \textbf{data stream curation problem}.
 We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
 For the purposes of present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
+\subsection{Time $\colorTbar$}
+
+We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$, and the existing number of ingested items as \textit{current time} $\colorT$.
+In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
+We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
+Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ to refer to $v_{\colorTbar}$, the data item ingested at that time.
+
+\subsection{Buffer Storage $\colorS$}
+
 We will notate the \textit{number of available buffer sites} to store retained data items as $\colorS$.
 Proposed algorithms assume a fixed budget of buffer space, sufficient to store $\colorS$ data items.%
 \footnote{%
@@ -17,11 +26,6 @@ Other related work has considered the stream curation problem with extensible me
 They require buffer size to be an even power of two, so that for some $\colors$, $\colorS = 2^{\colors}$.
 On occasion it will become necessary to refer to a specific position $\colork$ within a buffer.
 We will take a zero-indexing convention so $0 \leq \colork < \colorS$.
-
-We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$.
-In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
-We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
-Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ to refer to $v_{\colorTbar}$, the data item ingested at that time.
 
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
 As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data.
@@ -34,6 +38,8 @@ As a space-saving optimization, we store only the data items themselves in buffe
 Note, though, that, without metadata, identifying stored data items requires capability deduce ingestion time solely from buffer position.
 Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
 
+\subsection{Gap Size $\colorg$}
+
 \textit{Coverage criteria} for retained data items considered here are defined solely in terms of items' time indices $\colorTbar$ --- not their data values.
 We define coverage criteria in terms of \textbf{gap size} between retained data items, taken as the number of temporally sequential data items discarded (i.e., overwritten) between when two retained items were ingested.
 Let $\colorB_{\colorT}$ denote the set of data items retained in buffer at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to the set of data items discarded at that time.
@@ -42,23 +48,20 @@ For any $0 \leq \colorTbar \leq \colorT$,
 \begin{align*}
 \colorG_{\colorT}(\colorTbar) = \left| \{\colorTbar - m, \ldots, \colorTbar, \ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
 \end{align*}
-Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$
+Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
 
-Algorithms for three primary coverage criteria are treated: \textbf{steady} (Section \ref{sec:steady}), \textbf{stretched} (Section \ref{sec:stretched}), and \textbf{tilted} (Section \ref{sec:tilted}).
-The \textit{steady criterion} seeks to maintain data items with time indices that evenly cover elapsed history.
-The \textit{stretched criterion} also seeks to maintain data items with time indices spread across elapsed history, but with proportionally-decaying density such that more early data items are maintained.
-The third coverage criterion, \textit{tilted coverage}, mirrors the stretched criterion, except that more-recent data items are prioritized.
-Under this criterion, recency-proportional gap size is to be minimized.
+\subsection{Coverage Criteria}
+
+Algorithms for three primary coverage criteria are treated:
+\begin{enumerate}
+\item \textbf{steady criterion}: calls to maintain data items \textit{evenly covering} elapsed history (Section \ref{sec:steady}),
+\item \textbf{stretched criterion}: favors \textit{older data items} proportionally to time index $\colorTbar$ (Section \ref{sec:stretched}), and
+\item \textbf{tilted criteiron}: favors \textit{newer data items} proportionally to time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
+\end{enumerate}
 Figure \ref{fig:criteria-intuition} commpares example ideal retention distributions under each criterion.
 Formal definitions are provided in its criterion's corresponding section.
 
-It happens that for proposed stream curation algorithms algorithms, the binary order of magnitude of the time $\colorT$ plays an important conceptual role.
-We will refer to this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ as the \textbf{epoch} of $\colorT$.
-We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
-
-For the \textit{steady algorithm}, epoch transition occurs immediately before a new binary order of magnitude (e.g., between $\colorT = 15$ and $\colorT = 16$ or between $\colorT = 31$ and $\colorT = 32$), so $\colort = \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1$ for $\colorT \geq \colorS$.
-For the \textit{stretched} and \textit{tilted algorithms}, epoch transition occurs immediately \textit{after} a new binary order of magnitude (e.g., between $\colorT = 16$ and $\colorT = 17$).
-So, in this context $\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1$ for $\colorT > \colorS$.
+\subsection{Time Hanoi Value $\colorh$}
 
 \input{fig/hanoi-intuition.tex}
 
@@ -68,7 +71,7 @@ Note that, in practice, $\colorH(\colorTbar)$ can be calculated fast $\mathcal{O
 }
 The first few terms of this sequence are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \ldots$ \, .
 This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
-We adopt a zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
+We adopt a zero-indexing convention for $\colorTbar$, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
 
 For each time point $\colorT$ we refer to its corresponding entry in OEIS Sequence A007814 $\colorH(\colorT) = \colorh$ as its ``\textbf{hanoi value},'' in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
 On occasion, we abbreviate this term as ``h.v.''
@@ -80,4 +83,16 @@ Remark, though, that when hanoi value $\colorh$ appears for the first time, the 
 So, we have seen exactly one instance of $\colorh$ and also exactly one instance of $\colorh - 1$.
 At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times for $n > 0$.
 
-As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = \exp(2, \left\lfloor \log_2 x \right\rfloor)$.
+\subsection{Time Epoch $\colort$}
+
+Owing to h.v.-based structure, the binary order of magnitude of the time $\colorT$ plays an important conceptual role.
+We will refer to this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ as the \textbf{epoch} of $\colorT$.
+We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
+
+For the \textit{steady algorithm}, epoch transition occurs immediately before a new binary order of magnitude (e.g., between $\colorT = 15$ and $\colorT = 16$ or between $\colorT = 31$ and $\colorT = 32$), so $\colort = \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1$ for $\colorT \geq \colorS$.
+For the \textit{stretched} and \textit{tilted algorithms}, epoch transition occurs immediately \textit{after} a new binary order of magnitude (e.g., between $\colorT = 16$ and $\colorT = 17$).
+So, in this context $\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1$ for $\colorT > \colorS$.
+
+\subsection{Miscellania}
+
+As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.

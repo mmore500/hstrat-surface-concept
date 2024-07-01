@@ -41,7 +41,7 @@ With $\colors$ bunches, available buffer space $\colorS$ is nearly filled,
 
 If, for a hanoi value $\colorh$, we place one data item instance per segment, this organizational scheme happens to naturally segregate data items with that h.v. by ingestion epoch across bunches.
 Bunch zero will contain the first data item with h.v. $\colorh$, which is encountered in epoch $\colorh - \colors + 1$.
-Bunch zero contains the data item with that h.v. from epoch $\colorh - colors + 2$, and so forth.
+Bunch zero contains the data item with that h.v. from epoch $\colorh - \colors + 2$, and so forth.
 Because only one new h.v. surfaces each epoch, during any one epoch we will be taking data item instances from each of the top $\colors$ h.v.'s into storage.
 Note that segment size is arranged so that instances from all $\colors - n$ h.v.'s that have ``made it'' to bunch $n$ can be stored without conflicts.
 

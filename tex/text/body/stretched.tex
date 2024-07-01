@@ -6,14 +6,14 @@ The criterion can be formulated as minimization of the largest gap size ratio,
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
 For a buffer size $\colorS$ and time elapsed $\colorT$, the ideal retention would space retained data items at the geometric ratio $\colorT^{1/\colorS}$ so that, counting from zero, the $n$th retained data item has ingestion time $\colorT^{n/(\colorS - 1)}$.
-Neglecting discretization, best-case largest gap size can be approximated
+Neglecting discretization, gap size ratio can be minimized at best approximately
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\stackrel{\sim}{\geq}
 \colorT^{1/\colorS} - 1.
 \end{align*}
 
-Accounting for discretization effects provides a strict bound, presented in Lemma \ref{thm:stretched-ideal-strict}.
+Accounting for discretization effects provides a strict lower bound on gap size ratio, presented in Lemma \ref{thm:stretched-ideal-strict}.
 
 \input{thm/stretched-ideal-strict}
 

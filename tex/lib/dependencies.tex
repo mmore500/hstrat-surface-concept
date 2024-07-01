@@ -1,3 +1,5 @@
+\usepackage[dvipsnames]{xcolor}
+
 \usepackage{adjustbox}
 \usepackage{algorithmic}
 \usepackage{amsmath,amssymb,amsthm,amsfonts}
@@ -20,7 +22,6 @@
 \usepackage{siunitx}
 \usepackage{subcaption}
 \usepackage{textcomp}
-\usepackage{xcolor}
 
 % adapted from https://tex.stackexchange.com/a/332653/316176
 \makeatletter
@@ -34,19 +35,19 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 
-\newcommand{\colort}{\mathcolor{orange}{t}}
+\newcommand{\colort}{\mathcolor{VioletRed}{\mathrm{t}}}
 \newcommand{\colorT}{\mathcolor{red}{T}}
 \newcommand{\colorTbar}{\mathcolor{red}{\overline{T}}}
 
-\newcommand{\colork}{\mathcolor{olive}{k}}
-\newcommand{\colors}{\mathcolor{blue}{s}}
-\newcommand{\colorS}{\mathcolor{blue}{S}}
+\newcommand{\colork}{\mathcolor{purple}{k}}
+\newcommand{\colors}{\mathcolor{blue}{\mathrm{s}}}
+\newcommand{\colorS}{\mathcolor{BlueViolet}{\mathit{S}}}
 
 \newcommand{\colorh}{\mathcolor{violet}{h}}
 \newcommand{\colorH}{\mathcolor{violet}{H}}
 
-\newcommand{\colorB}{\mathcolor{brown}{\mathcal{B}}}
-\newcommand{\colorBnot}{\mathcolor{pink}{\cancel{\mathcal{B}}}}
+\newcommand{\colorB}{\mathcolor{olive}{\mathcal{B}}}
+\newcommand{\colorBnot}{\mathcolor{olive}{\cancel{\mathcal{B}}}}
 
 \newcommand{\colorg}{\mathcolor{teal}{g}}
 \newcommand{\colorG}{\mathcolor{teal}{G}}
