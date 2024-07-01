@@ -11,7 +11,13 @@ def calc_stretched_criterion_upper_bound(
 
     rank = num_ingests - 1
     epoch = rank.bit_length() - surface_size.bit_length() + 1
-    exp = (
+    assert epoch
+    metaepoch = oeis.get_a000325_index_of_value(epoch)
+    assert (epoch == 1) == (metaepoch == 1)
+    assert (2 <= epoch < 5) == (metaepoch == 2)
+
+    exp = metaepoch - surface_size.bit_length() + 2
+    assert exp == (  # previous implementation
         oeis.get_a000295_index_of_value(epoch - 1)
         - surface_size.bit_length()
         + 3
