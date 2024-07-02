@@ -27,16 +27,37 @@ This section presents a stream curation algorithm designed to support the stretc
 \Big).
 \end{align*}
 
-Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indevinitely many data ingestions $\colorT$, our proposed stretched algorithm only supports $2^{\colorS}$ ingestions.
-Note that for even modestly sized buffers, this limitation is unlikely to arise in practice.
-A 64-site buffer, for instance, could ingest data items at a rate of 4GHz for before reaching this data item cap.
-Extension of the stretched algorithm beyond epoch $\colort = \colorS - \colors$ remains for future work.
+Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indevinitely many data ingestions $\colorT$, we define our proposed stretched algorithm only up to $2^{\colorS}$ ingestions.
+Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ remains to future work.
 
 \subsection{Strategy}
 
 \input{fig/hsurf-stretched-intuition.tex}
-TODO
 
+Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
+At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
+In epoch 0, all sites are filled with a first data item.
+At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high h.v. sites added to other segments.
+When data items are placed, they remain retained until invaded by a higher-h.v. data item.
+
+% The zeroth h.v. is $s = \log_2(S)$.
+% The h.v. s appears for the first time at index 2^s - 1 = S - 1.
+Note the correspondence between the recursively nested reservation sizes and the hanoi sequence.
+In fact, reservation sizes correspond to $\colors + 1, \colorH(0) + 1, \colorH(1) + 1, \ldots, \colorH(\colorS/2 - 2) + 1$.
+The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
+Note that these reservations fill available space, as
+\begin{align*}
+\colorS
+&\stackrel{?}{=}
+\colors + 1
++  \sum_{\colorh = 0}^{\colors - 2}
+2^{\colors - 2 - \colorh} \times (\colorh + 1)\\
+&\stackrel{?}{=}
+\colors + 1 +
+2^{\colors} - \colors - 1\\
+&\stackrel{\checkmark}{=}
+\colorS.
+\end{align*}
 
 \subsection{Mechanism}
 

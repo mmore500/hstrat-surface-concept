@@ -1,58 +1,22 @@
-\begin{theorem}[Stretched Algorithm Worst-case h.v. Reservation Size]
+\begin{lemma}[Stretched Algorithm Worst-case h.v. Reservation Size]
 \label{thm:stretched-reservation-count}
-Under the stretched curation algorithm, at least the first $n=\max\Big(
+Under the stretched curation algorithm, at least the first
+\begin{align*}
+2^{\colors - 1 - \colortau}
+\geq
+\max\Big(
   \frac{\colorS}{2(\colort + \colors)},
   \frac{\colorS}{4\colort}
-\Big)$ data items of all h.v. are retained.
-\end{theorem}
+\Big)
+\end{align*}
+data items of each h.v. are retained.
+\end{lemma}
 \begin{proof}
 
-At any point in time $\colorT$, no hanoi value discards values until it has filled at least as many reservations as allocated to hanoi value 0 at that time.
-Thus, and because hanoi value is always first to be invaded when halving its allocated reservation count, a lower bound on reservations allocated to hanoi value 0 will provide a lower bound on the number of recent data items retained for any h.v. that has discarded values.
+By Theorem \ref{thm:discarded-incidence-count}, the number of reservations allocated to hanoi value 0 will provide a lower bound on the number of recent data items retained for any h.v. that has discarded values.
+From Theorem \ref{thm:thm:num-hv0-reservations}, the number of buffer sites $n$ reserved to h.v. 0 is $2^{\colors-1-\colortau}$, giving the first part of the result.
 
-It happens that the $n$th invasion of hanoi value 0 occurs at epochs $\colort = 2^n - n$.
-Although deriving an analytical expression for $n$ in terms of $\colort$ is not possible, we can show an expression $f(\colort)$ as an upper bound on $n$ by demonstrating $2^{f(\colort)} - f(\colort) \geq \colort$.
-As follows, we demonstrate two such expressions --- one that provides a tighter upper bound on $n$ for small $\colort$ and the other as a tighter bound for large $\colort$.
-
-At epoch $\colort \geq 1$, $n \leq \log_2(\colort) + 1$ because
-\begin{align*}
-2^{\log_{2}(\colort) + 1} - \log_2(\colort) - 1
-&= 2\colort - \log_2(\colort) - 1\\
-&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in 1, 2, \ldots \, .
-\end{align*}
-
-Before the supported final epoch for the stretched algorithm $\colort = S - s$, the upper bound $n \leq \log_2(\colort + \colors)$ can also be established,
-\begin{align*}
-2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
-&=
-\colort + \colors - \log_2(\colort + \colors)
-&\stackrel{?}{\geq} \colort\\
-\colors - \log_2(\colort + \colors)
-&\stackrel{?}{\geq} 0\\
-\log_2\frac{2^{\colors}}{\colort + \colors}
-&\stackrel{?}{\geq} 0\\
-\frac{2^{\colors}}{\colort + \colors}
-&\stackrel{?}{\geq} 1,
-\end{align*}
-and then letting $\colort \in 1, 2, \ldots \, \colorS - \colors$,
-\begin{align*}
-\frac{\colorS}{\colorS - \colors + \colors}
-&\stackrel{\checkmark}{\geq} 1.
-\end{align*}
-
-Combining these two bounds on $n$,
-\begin{align*}
-n \leq
-\min\Big(
-  \log_2(\colort + \colors),
-  \log_2(\colort) + 1
-\Big)
-\text{ for } \colort \in 1, 2, \ldots \, \colorS - \colors.
-\end{align*}
-
-At epoch 0, $2^{\colors - 1}$ reservations are allocated to h.v. 0.
-Each invasion halves the number of reservations, making the number of h.v. 0 reservations remaining at epoch $\colort$ equal to $2^{\colors - 1 - n}$.
-Thus, at any epoch $1 \leq \colort \leq \colorS - \colors$, the number of h.v. 0 instances retained is at least
+Applying Theorem \ref{thm:meta-epoch-bound} gives the rest of the result --- at any epoch $1 \leq \colort \leq \colorS - \colors$, the number of h.v. 0 instances retained is at least
 \begin{align*}
 2^{\colors - 1 - \min\Big(
   \log_2(\colort + \colors),
@@ -62,11 +26,10 @@ Thus, at any epoch $1 \leq \colort \leq \colorS - \colors$, the number of h.v. 0
   2^{\colors - 1 - \log_2(\colort + \colors)},
   2^{\colors - 1 - \log_2(\colort) - 1}
 \Big)\\
-&= \max\Big(
+&\stackrel{=}{\checkmark} \max\Big(
   \frac{\colorS}{2(\colort + \colors)},
   \frac{\colorS}{4\colort}
 \Big).
 \end{align*}
 
-% Recall that $\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1$ for $\colorT > \colorS$.
 \end{proof}

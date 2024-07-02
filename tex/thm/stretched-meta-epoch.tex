@@ -1,0 +1,108 @@
+\begin{lemma}[Meta-epoch Semantics]
+\label{thm:stretched-meta-epoch}
+
+The duration of meta-epochs $\colortau$, defined in Section \ref{sec:notation-metaepoch} as lasting $2^{\colortau} - 1$ epochs for $\colortau\geq1$, corresponds to the succesive epoch durations of ``invasion'' reservation-removal events.
+\end{lemma}
+
+\begin{proof}
+
+Recall that under the stretched algorithm's proposed layout strategy, buffer space is filled without any overwrites during epoch 0.
+Then, during subsequent epochs, reservations are repeatedly eliminated.
+Half of reservations, designated ``invading'' reservations, grow by addition of new high-h.v. sites.
+The other half of reservations are subsumed, successively losing low-h.v. sites to their invading neighbors.
+Note that ``invaded'' reservations do not add high-h.v. sites --- during the invasion process, they are frozen while being eliminated.
+By construction, ``invaded'' reservations are always those of smallest remaining size.
+Note that, owing to the recursively nested structure of reservation layout, smallest-remaining-size reservations are always interspersed every-other position and always constitutes half of active reservations.
+
+Because invading reservations grow by exactly one site per epoch, the number of epochs comprising a ``meta-epoch'' during which a reservation set is invaded to eliminations corresponds exactly to their reservation size at invasion outset.
+So, our proof objective can be recast as determining the final, frozen-for-elimination size $R$ of reservations that took initial size $r$ at epoch $\colort=0$.
+Supposing $\colortau = r$, we would have $R = |\{\colort \in \colortau\}|$.
+Our goal is therefore to show $R = 2^{r} - 1$.
+
+As already mentioned, initially-singleton $r=1$ reservations are always invaded first, at epoch $\colort=1$.
+Trivially, these reservations also have $R = 1 \stackrel{\checkmark}{=} 2^1 - 1$ on account of never having the opportunity to act as invader.
+Initially $r=2$ reservations are invaded next.
+These reservations acted as invader during epoch $\colort=1$ so grew to $R = 3 \stackrel{\checkmark}{=} 2^2 - 1$.
+Subsequent reservations $r>2$, however, grow exponentially --- owing to having invaded reservations that themselves already grew by invasion.
+For instance, reservations $r=3$ begin by invading their singleton neighbors $r=1$ during .
+Thus, for $r=3$,
+\begin{align*}
+R
+&= 3 + 1 + 2 + 1\\
+&\stackrel{\checkmark}{=} 2^3 - 1.
+\end{align*}
+
+This pattern generalizes as
+\begin{align*}
+r + \sum_{i=1}^{r-1} (r - i - 1) \times 2^{i}
+&\stackrel{\checkmark}{=} 2^{r} - 1. TODO cleanup
+\end{align*}
+
+\end{proof}
+
+\begin{corollary}[Number h.v. 0 Reservations]
+\label{thm:num-hv0-reservations}
+The number of buffer sites $n$ reserved to h.v. 0 is $2^{\colors-1-\colortau}$.
+\end{corollary}
+
+\begin{proof}
+By construction, the number of buffer sites reserved to h.v. 0 at epoch 0 is $2^{\colors - 1}$.
+Lemma \ref{thm:stretched-meta-epoch} demonstrates that meta-epoch $\colortau$ corresponds to the total number of active/completed invasion cycles.
+By construction, the number of available buffer sites for a hanoi value halve when that hanoi value is invaded.
+With h.v. 0 always first to be invaded, occuring at the opening epoch of each meta-epoch,
+\begin{align*}
+n
+&= 2^{\colors - 1} \times \frac{1}{2}^{\colortau}\\
+&\stackrel{\checkmark}{=} 2^{\colors - \colortau - 1}.
+\end{align*}
+\end{proof}
+
+\begin{corollary}[Discarded item h.v. incidence count]
+\label{thm:discarded-incidence-count}
+No data item is discarded unless its h.v. incidence is greater than number of buffer sites reserved to h.v. 0.
+\end{corollary}
+
+\begin{proof}
+By construction, this proposition is trivially true for hanoi values with reservation site counts greater than or equal to that for h.v. 0.
+Corollary \ref{thm:num-hv0-reservations} gives this as $2^{\colors-1-\colortau}$.
+However, we must consider h.v.'s fewer than $2^{\colors-1-\colortau}$ sites reserved TODO and show that the number of incidences of that h.v. encountered is less than or equal to that h.v.'s number of sites reserved.
+
+For our next step, begin by noting that at the outset of each epoch $\colortau$, eall reservations provide a site for all h.v. $\colorh < R$, where $R$ is number of sites in the to-be-invaded reservation when frozen for elimination.
+From Lemma \ref{thm:stretched-meta-epoch}, we have $R = 2^{\colortau} - 1$.
+So, we can restrict consideration to $\colorh > 2^{\colortau} - 1$ or, equivalently, $\colorh \geq 2^{\colortau}$.
+
+Recall that as a propoerty of the hanoi sequence during epoch $\colort$, we have encountered one of the highest-value reserved h.v., one of the second highest-value reserved h.v., two of the third-highest reserved h.v., etc.
+Also recall that highest-value encountered h.v. increases by one per epoch.
+
+Initial reservation sizes are laid out with sizes corresponding to hanoi values.
+By construction, retained reservations grow exactly one site per epoch.
+Because reservations are eliminated in increasing order of initial size $r$, we will always have the largest (position 0) reservation with a site for the single encountered instance of both the highest-value hanoi values.
+We can store the two instances of the the next-smallest h.v. in the largest and second-largest reservations.
+Proceeding into deeper uninvaded reservation nesting layers, reservation count doubles in sync with the number of encountered h.v. instances.
+So, we can safely store all encountered h.v. instances for the top $\colors - \colortau$ encountered hanoi values.
+
+During epoch $\colort$, the highest-encountered h.v. is $\colors + \colort$.
+So, we can safely store all encountered h.v. instances for
+\begin{align*}
+\colorh
+&\geq
+\colors + \colort - (\colors - \colortau)\\
+&\geq
+\colort - \colortau.
+\end{align*}
+
+Combining the above, our question boils down to
+\begin{align*}
+2^{\colortau}
+\stackrel{?}{\leq} \colort - \colortau.
+\end{align*}
+
+With $\colort \geq 2^{\colortau} - \colortau$, TODO THIS INEQUALITY IS WRONG
+\begin{align*}
+2^{\colortau}
+\stackrel{?}{\leq} \colort - \colortau \\
+\stackrel{?}{\leq} 2^{\colortau} - \colortau - \colortau \\
+\stackrel{?}{\leq} 2^{\colortau} - 2\colortau.
+\end{align*}
+
+\end{proof}

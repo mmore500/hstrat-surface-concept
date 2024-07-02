@@ -1,0 +1,69 @@
+\begin{theorem}[Meta-epoch Upper Bound]
+\label{thm:meta-epoch-bound}
+The current meta-epoch at epoch $\colort$ is bounded,
+\begin{align*}
+\colortau \leq
+\min\Big(
+  \log_2(\colort + \colors),
+  \log_2(\colort) + 1
+\Big)
+\text{ for } \colort \in 1, 2, \ldots, \colorS - \colors.
+\end{align*}
+\end{theorem}
+\begin{proof}
+
+By definition,
+\begin{align*}
+\colort \geq 2^{\colortau} - \colortau \quad \forall \colort \in \colortau.
+\end{align*}
+Although, given $\colort$ it is not possible to derive an analytical expression $f(\colort) = \colortau$ such that $\colortau \ni \colort$, we can show an expression $f(\colort)$ as an inclusive upper bound on $\colortau \ni \colort$ by demonstrating,
+\begin{align*}
+\colort \leq 2^{f(\colort)} - f(\colort).
+\end{align*}
+The following demonstrates two such expressions $f(\colort)$ --- one that provides a tighter upper bound on $n$ for small $\colort$ and the other as a tighter bound for large $\colort$.
+The result comprises the tightest of bounds \ref{eqn:meta-epoch-bound-small} and \ref{eqn:meta-epoch-bound-large} at each epoch $\colort$.
+
+\begin{proofpart}
+First, we show
+\begin{align}
+\colortau \leq \log_2(\colort) + 1 \text{ for } \colort \geq 1.
+\label{eqn:meta-epoch-bound-small}
+\end{align}
+This bound follows from,
+\begin{align*}
+2^{\log_{2}(\colort) + 1} - \log_2(\colort) - 1
+&= 2\colort - \log_2(\colort) - 1 \\
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in 1, 2, \ldots \, .
+\end{align*}
+\end{proofpart}
+
+\begin{proofpart}
+Before the supported final epoch for the stretched algorithm $\colort = S - s$, the upper bound
+\begin{align}
+\tau \leq \log_2(\colort + \colors) \label{eqn:meta-epoch-bound-large}
+\end{align}
+can also be established.
+Consider,
+\begin{align*}
+2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} \colort\\
+\colort + \colors - \log_2(\colort + \colors)
+\colors - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} \colort\\
+\log_2\frac{2^{\colors}}{\colort + \colors}
+&\stackrel{?}{\geq} 0\\
+\frac{2^{\colors}}{\colort + \colors}
+&\stackrel{?}{\geq} 1\\
+\frac{\colorS}{\colort + \colors}
+&\stackrel{?}{\geq} 1\\
+\colorS
+&\stackrel{?}{\geq} \colort + \colors\\
+\colorS - \colors &\stackrel{?}{\geq} \colort.
+\end{align*}
+Restriction on $\colort$ can satisfy this condition, so
+\begin{align*}
+2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in 1, 2, \ldots, \colorS - \colors.
+\end{align*}
+\end{proofpart}
+\end{proof}

@@ -32,10 +32,8 @@
 }
 \makeatother
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-
 \newcommand{\colort}{\mathcolor{VioletRed}{\mathrm{t}}}
+\newcommand{\colortau}{\mathcolor{orange}{\tau}}
 \newcommand{\colorT}{\mathcolor{red}{T}}
 \newcommand{\colorTbar}{\mathcolor{red}{\overline{T}}}
 
@@ -51,3 +49,12 @@
 
 \newcommand{\colorg}{\mathcolor{teal}{g}}
 \newcommand{\colorG}{\mathcolor{teal}{G}}
+
+\theoremstyle{definition}
+\newtheorem{proofpart}{Part}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\makeatletter
+\@addtoreset{proofpart}{theorem}
+\makeatother
