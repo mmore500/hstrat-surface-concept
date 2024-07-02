@@ -2,10 +2,14 @@
 
 \input{fig/ingest-and-lookup.tex}
 
-The core function of proposed algorithms is curation of incoming data on a rolling basis to dynamically filter out a subset that, according to a desired \textbf{coverage criterion}, minimizes \textbf{time gaps} between retained data items.
-Incoming data is considered as a \textbf{data stream}, comprised of a one-dimensional sequence of \textbf{data items} $v_i$.
-As such, we term this problem as the \textbf{data stream curation problem}.
-We refer to the act of reading an item from the data stream as \textbf{ingesting} it.
+The core function of proposed algorithms is to dynamically filter out a bounded-size subset of incoming data that, according to a desired \textbf{coverage criterion}, minimizes \textbf{time gaps} between retained data items.
+Incoming data is assumed to arrive on a rolling basis, as a \textbf{data stream} comprised of sequential \textbf{data items} $v_i$.
+We assume the data stream to be ephemeral (i.e., ``read once''), and refer to the act of reading an item from the data stream as \textbf{ingesting} it.
+We call this scenario the \textbf{data stream curation problem}.
+Pertinent examples might include rolling downsample operations on sensor readings occuring at a regular frequency, managing checkpoint stores in a rollback-enabled algorithm, or storing telemetry on a production server.
+
+As defined, the objective of stream curation considers data items according only to their \textit{temporal context} (i.e., sequence position), and not actual contained values.
+We assume data item values to be fixed size, so as to fit interchangeably in memory buffer slots, but do not consider or discuss semantic values of data items further.
 For the purposes of present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
 \subsection{Buffer Storage $\colorS$}
