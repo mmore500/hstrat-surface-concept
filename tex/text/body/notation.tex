@@ -9,6 +9,7 @@ We refer to the act of reading an item from the data stream as \textbf{ingesting
 For the purposes of present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
 \subsection{Buffer Storage $\colorS$}
+\label{sec:notation-buffer}
 
 We will notate the \textit{number of available buffer sites} to store retained data items as $\colorS$.
 Proposed algorithms assume a fixed budget of buffer space, sufficient to store $\colorS$ data items.%
@@ -32,6 +33,7 @@ Note, though, that, without metadata, identifying stored data items requires cap
 Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
 
 \subsection{Time $\colorTbar$}
+\label{sec:notation-time}
 
 We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$, and the existing number of ingested items as the \textit{current time} $\colorT$.
 In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
@@ -46,6 +48,7 @@ For instance, capacity for a 64-site buffer suffices to ingest items continuousl
 As such, we leave behavior for stretched and tilted curation past $2^{\colorS}$ ingests to future work.
 
 \subsection{Gap Size $\colorg$}
+\label{sec:notation-gapsize}
 
 \textit{Coverage criteria} for retained data items considered here are defined solely in terms of items' time indices $\colorTbar$ --- not their data values.
 We define coverage criteria in terms of \textbf{gap size} between retained data items, taken as the number of temporally sequential data items discarded (i.e., overwritten) between when two retained items were ingested.
@@ -58,6 +61,7 @@ For any $0 \leq \colorTbar \leq \colorT$,
 Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
 
 \subsection{Coverage Criteria}
+\label{sec:notation-coverage}
 
 Algorithms for three primary coverage criteria are treated:
 \begin{enumerate}
@@ -69,6 +73,7 @@ Figure \ref{fig:criteria-intuition} commpares example ideal retention distributi
 Formal definitions are provided in its criterion's corresponding section.
 
 \subsection{Time Hanoi Value $\colorh$}
+\label{sec:notation-hanoi}
 
 \input{fig/hanoi-intuition.tex}
 
@@ -91,6 +96,7 @@ So, we have seen exactly one instance of $\colorh$ and also exactly one instance
 At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times for $n > 0$.
 
 \subsection{Time Epoch $\colort$}
+\label{sec:notation-epoch}
 
 Owing to h.v.-based structure, the binary order of magnitude of the time $\colorT$ plays an important conceptual role.
 We will refer to this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ as the \textbf{epoch} of $\colorT$.
