@@ -1,23 +1,24 @@
 \section{Stretched Algorithm} \label{sec:stretched}
 
-The stretched criterion seeks to retain data items spaced out across observed history proportionally to data item age $\colorTbar$.
-The criterion can be formulated as minimization of the largest gap size ratio,
+The stretched criterion favors recent data items, enjoining a record spaced proportionally to data item ingest time $\colorTbar$.
+The criterion can be formulated as minimization of the largest ratio of gap size to ingest time,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
-For a buffer size $\colorS$ and time elapsed $\colorT$, the ideal retention would space retained data items at the geometric ratio $\colorT^{1/\colorS}$ so that, counting from zero, the $n$th retained data item has ingestion time $\colorT^{n/(\colorS - 1)}$.
-Neglecting discretization, gap size ratio can be minimized at best approximately
+For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items geometrically by ratio $\colorT^{1/\colorS}$.
+Counting from zero, under such a layout the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
+Neglecting discretization effects, gap size ratio can be minimized at best approximately
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\stackrel{\sim}{\geq}
 \colorT^{1/\colorS} - 1.
 \end{align*}
 
-Accounting for discretization effects provides a strict lower bound on gap size ratio, presented in Lemma \ref{thm:stretched-ideal-strict}.
+Accounting for discretization provides a strict lower bound on gap size ratio, presented next.
 
 \input{thm/stretched-ideal-strict}
 
-This section presents a stream curation algorithm designed to support the stretched criterion, achieving maximum gap size no worse than,
+Next, we propose a stream curation algorithm tailored to the stretched criterion, achieving maximum gap size no worse than,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
@@ -27,7 +28,7 @@ This section presents a stream curation algorithm designed to support the stretc
 \Big).
 \end{align*}
 
-Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indevinitely many data ingestions $\colorT$, we define our proposed stretched algorithm only up to $2^{\colorS}$ ingestions.
+Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indevinitely many data ingestions $\colorT$, thewe define our proposed stretched algorithm defines ingest site selection only up to $2^{\colorS}$ data items.
 Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ remains to future work.
 
 \subsection{Strategy}
@@ -47,12 +48,10 @@ In fact, reservation sizes correspond to $\colors + 1, \colorH(0) + 1, \colorH(1
 The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
 Note that these reservations fill available space, as
 \begin{align*}
-\colorS
-&\stackrel{?}{=}
 \colors + 1
 +  \sum_{\colorh = 0}^{\colors - 2}
-2^{\colors - 2 - \colorh} \times (\colorh + 1)\\
-&\stackrel{?}{=}
+2^{\colors - 2 - \colorh} \times (\colorh + 1)
+&=
 \colors + 1 +
 2^{\colors} - \colors - 1\\
 &\stackrel{\checkmark}{=}
