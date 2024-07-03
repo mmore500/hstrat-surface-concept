@@ -89,7 +89,7 @@ The first few terms of this sequence are $0,\allowbreak 1,\allowbreak 0,\allowbr
 This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
 We maintain our zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
 
-We refer to $\colorH(\colorT) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorT$ in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
+We refer to $\colorH(\colorTbar) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorTbar$ in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
 On occasion, we abbreviate this term as ``h.v.''
 
 Some intuition for the structure of the Hanoi sequence will benefit the reader.
@@ -104,7 +104,7 @@ At this point, the value $\colorh - 2$ has appeared exactly twice and, in genera
 \label{sec:notation-epoch}
 
 Owing to h.v.-based structure, the binary order of magnitude of the elapsed time $\colorT$ plays a useful conceptual role.
-We call this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ the \textbf{epoch} of $\colorT$, correcting to begin epoch 1 at $\colorT = \colorS$ and taking $\colorT < \colorS$ (before the buffer fills) as epoch 0.
+We call this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ the \textbf{epoch} of $\colorT$, correcting to begin epoch $\colort=1$ at $\colorT = \colorS$ and taking $\colorT < \colorS$ (before the buffer fills) as epoch $\colort=0$.
 
 We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
 
