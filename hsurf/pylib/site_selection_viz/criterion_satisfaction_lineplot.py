@@ -1,3 +1,5 @@
+import string
+
 from matplotlib import axes as mpl_axes
 from matplotlib.ticker import StrMethodFormatter as mpl_StrMethodFormatter
 import more_itertools as mit
@@ -93,8 +95,8 @@ def criterion_satisfaction_lineplot(
     )
 
     # AXES TWEAKS #############################################################
-    ax.set_xlabel("time")
-    ax.set_ylabel("criterion\nvalue")
+    ax.set_xlabel("Time")
+    ax.set_ylabel("Criterion\nValue")
     ax.spines[["top", "right"]].set_visible(False)
 
     ax.set_xscale(xscale)
@@ -117,7 +119,7 @@ def criterion_satisfaction_lineplot(
             handles[hue_order.index(lower_bound)]: LegendPatchHandler(),
         },
         frameon=False,
-        title=y,
+        title=string.capwords(y),
     )
 
     sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
