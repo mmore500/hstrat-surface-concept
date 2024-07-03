@@ -66,11 +66,11 @@ Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorT
 \subsection{Coverage Criteria}
 \label{sec:notation-coverage}
 
-Algorithms for three primary coverage criteria are treated:
+Algorithms cover three main coverage criteria:
 \begin{enumerate}
 \item \textbf{steady criterion}: seeks to maintain data items \textit{evenly covering} elapsed history (Section \ref{sec:steady}),
 \item \textbf{stretched criterion}: favors \textit{older} data items proportionally to their time index $\colorTbar$ (Section \ref{sec:stretched}), and
-\item \textbf{tilted criteiron}: favors \textit{newer} data items proportionally to their time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
+\item \textbf{tilted criteiron}: favors \textit{newer} items proportionally to their time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
 \end{enumerate}
 Figure \ref{fig:criteria-intuition} commpares example ideal retention distributions under each criterion.
 Formal definitions are provided in its criterion's corresponding section.
@@ -112,9 +112,9 @@ For the \textit{steady algorithm}, epoch transition occur exactly at each binary
 For the \textit{stretched} and \textit{tilted algorithms}, epoch transition instead occurs immediately \textit{after} a new binary order of magnitude (e.g.,  $\colorT = 17$).
 Formally, for $\colorT > \colorS$,
 \begin{align*}
-\colort = \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1 \tag{steady}\\
-\text{or}\\
-\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1 \tag{stretched/tilted}.
+\colort &= \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1 \tag{steady criterion algorithm}\\
+&\text{or}\\
+\colort &= \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1 \tag{stretched/tilted criterion algorithms}.
 \end{align*}
 
 As noted above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
