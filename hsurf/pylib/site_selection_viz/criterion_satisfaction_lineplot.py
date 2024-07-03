@@ -32,8 +32,8 @@ def criterion_satisfaction_lineplot(
         .replace("upper bound", "bound: extremum")
         .replace("lower bound", "ideal: extremum")
     )
-    lower_bound = "ideal: extrema"
-    upper_bound = "bound: extrema"
+    lower_bound = "ideal: extremum"
+    upper_bound = "bound: extremum"
     hue_order = sorted(
         data[hue].unique(),
         key=lambda x: (-(x == lower_bound), -(x == upper_bound), x),
