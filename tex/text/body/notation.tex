@@ -108,8 +108,8 @@ We call this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ the
 
 We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
 
-For the \textit{steady algorithm}, epoch transition occur exactly at each binary orders of magnitude (e.g., $\colorT = 16$ or $\colorT = 32$) for $\colorT \geq \colorS$.
-For the \textit{stretched} and \textit{tilted algorithms}, epoch transition instead occurs immediately \textit{after} a new binary order of magnitude (e.g.,  $\colorT = 17$).
+For the \textit{steady algorithm}, epoch transition occur immediately \textit{before} each binary order of magnitude $\colorT \geq \colorS - 1$ (e.g.,  $\colorT = 15$).
+For the \textit{stretched} and \textit{tilted algorithms}, epoch transition instead occurs exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 Formally, for $\colorT > \colorS$,
 \begin{align*}
 \colort &= \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1 \tag{steady criterion algorithm}\\

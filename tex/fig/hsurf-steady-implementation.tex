@@ -5,7 +5,7 @@
 \includegraphics[width=\linewidth]{
 binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
 \vspace{-4ex}\caption{
-  Buffer composition across time, split by epoch with data items color coded by hanoi value of ingestion time $\colorH(\colorT)$.
+  Buffer composition across time, split by epoch with data items color coded by hanoi value of ingestion time $\colorH(\colorTbar)$.
 }
 \label{fig:hsurf-steady-implementation-schematic}
 \end{subfigure}
@@ -74,7 +74,7 @@ binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+v
   Dripplot panel \ref{fig:hsurf-steady-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
   Time points previously eliminated are marked in red.
-  Bottom panel \ref{fig:hsurf-steady-implementation-satisfaction} shows steady criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
+  Lineplot panel \ref{fig:hsurf-steady-implementation-satisfaction} shows steady criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
   }
 \label{fig:hsurf-steady-implementation}
 

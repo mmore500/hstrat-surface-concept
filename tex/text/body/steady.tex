@@ -2,21 +2,21 @@
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
 The criterion can be formulated as minimization of the largest gap size between retained data items.
-For a buffer size $\colorS$ and time elapsed $\colorT$, maximum gap size can be bounded at best $\left\lceil \colorT / \colorS \right\rceil$.
-This section presents a stream curation algorithm designed to support the steady criterion, achieving maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
+For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized at best $\left\lceil \colorT / \colorS \right\rceil$.
+This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
 
 \subsection{Strategy}
 
-Figure \ref{fig:hanoi-intuition-steady} shows the proposed algorithm's core strategy, which revolves around placing and retaining data items according to the hanoi value of their sequence index $\colorH(\colorTbar)$.
-Keeping data items with hanoi value $\colorh > n$ produces gap sizes at most $\colorg \leq 2^n - 1$.
-For intuition, imagine discarding items with $\colorH(\colorTbar) = 0$.
-This drops every other item, and results in gap size to $\colorg \leq 1$.
-Imagine subsequently removing items with $\colorH(\colorTbar) = 1$.
-This again drops every other item, and increases gap size to $\colorg \leq 3$.
-Pruning according to hanoi value thus provides a well-behaved transition to gracefully increase gap size while keeping even spacing.
+Figure \ref{fig:hanoi-intuition-steady} overviews the proposed algorithm's core strategy, which revolves around prioritizing data item retention according to their sequence index hanoi value $\colorH(\colorTbar)$.
+Specifically, we aim to keep data items with the largest hanoi values.
+It turs out that with all data items $\colorH(\colorTbar) > n$ retained, gap size is at most $\colorg \leq 2^n - 1$.
+To understand, imagine discarding items with $\colorH(\colorTbar) = 0$.
+This action would drop every other item, and increase gap size from 0 to $\colorg \leq 1$.
+Then, removing items with $\colorH(\colorTbar) = 1$ would again drop every other item, and increase gap size to $\colorg \leq 3$.
+Continuing this pattern to prune successive hanoi values provides well-behaved transitions gradually increasing gap size, while maintaining even spacing.
 
-Our goal is thus to maintain all items $\colorTbar_y$ with hanoi value $\colorH(\colorTbar_y)$ above some threshold $n(\colorT)$ by repeatedly discarding items $\colorTbar_x$ with lowest hanoi value $\colorH(\colorTbar_x) = n(\colorT)$.
-To fill available buffer space $\colorS$, it turns out that, at each epoch $\colort$, we should keep all items with all items $\colorTbar$ with h.v. equal to or greater than the current epoch, $\colorH(\colorT) \geq \colort$.
+We thus define our algorithmic goal as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ above some threshold $n(\colorT)$ by repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$.
+To fill available buffer space $\colorS$, we will show that $n(\colorT) = \colort - 1$.
 
 \input{thm/steady-hv-geq-epoch}
 
@@ -24,44 +24,50 @@ To fill available buffer space $\colorS$, it turns out that, at each epoch $\col
 
 \input{fig/hsurf-steady-intuition}
 
-Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, we have shown, requires nearly all buffer space $\colorS$.
-(Although we, in fact, have one extra buffer site left over, in practice it is often useful to use this site to permanently retain the very first or the very most recent data item.)
+Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, Leffa \ref{thm:steady-hv-geq-epoch} shown, uses nearly all buffer space $\colorS$.%
+\footnote{%
+Although we, in fact, have one extra buffer site left over, in practice it is often convenient to use this site to permanently retain the very first or the very most recent data item.%
+}
 % Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
-Thus, under our scheme, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with higher hanoi value.
+Thus, under our scheme, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with h.v. $\colorh \geq \colort$.
 
-Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to sequence the replacement of data items with h.v. $\colort - 1$ replacement each epoch.
+Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with h.v. $\colort - 1$ each epoch.
 This procedure divides buffer space into ``bunches,'' themselves divided into ``segments.''
-Bunch 0 contains 1 segment.
-Then, for $n > 0$ bunch $n$ contains $2^{n-1}$ segments.
-Although segment count increases across bunch, segment length decreases by 1 each bunch, with segments in the last bunch containing only one site.
+Bunch 0 contains one segment of length $\colors$ sites.
+Then, for $n > 0$, bunch $n$ contains $2^{n-1}$ segments.
+Although segment count increases across bunch, we define segment length to decrease by 1 each bunch.
+So, segments in the last bunch containing only one site.
 With $\colors$ bunches, available buffer space $\colorS$ is nearly filled,
 \begin{align*}
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.
 \end{align*}
 
-If, for a hanoi value $\colorh$, we place one data item instance per segment, this organizational scheme happens to naturally segregate data items with that h.v. by ingestion epoch across bunches.
-Bunch zero will contain the first data item with h.v. $\colorh$, which is encountered in epoch $\colorh - \colors + 1$.
-Bunch zero contains the data item with that h.v. from epoch $\colorh - \colors + 2$, and so forth.
-Because only one new h.v. surfaces each epoch, during any one epoch we will be taking data item instances from each of the top $\colors$ h.v.'s into storage.
-Note that segment size is arranged so that instances from all $\colors - n$ h.v.'s that have ``made it'' to bunch $n$ can be stored without conflicts.
+If, for a hanoi value $\colorh$, we place one data item $\colorH(\colorTbar) = \colorh$ per segment, the proposed layout scheme happens to naturally segregate data items with that h.v. by ingestion epoch across bunches.
+Bunch 0 will contain the first data item with h.v. $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
+Bunch 1 contains the data item with that h.v. $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \colort - \colors + 2 : \colorH(\colorTbar) \}$, and so forth.
+Because only one not-yet-encountered h.v. surfaces each epoch, during any one epoch we will be taking data item instances from only the top $\colors$ h.v.'s $\colorh \geq \colort$ into storage.
+Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - n$ h.v.'s $\colorh$ that have ``progressed'' to bunch $n$ can be stored within each segment in that bunch.
 
 \input{fig/hsurf-steady-implementation}
 
-The properties of this arrangement become useful in managing the sequential eliminations of data items with h.v. $\colorh$ during epoch $\colort=\colorh + 1$.
+The properties of this arrangement become useful in managing elimination of data items with h.v. $\colorh$ during epoch $\colort=\colorh + 1$.
 We have that h.v. $\colorh + \colors$ will place one data item in bunch 0 during epoch $\colort=\colorh + 1$.
 This is the same number of data items left by h.v. $\colorh$ in bunch 0.
-The same holds for all bunches, with data items left by h.v. $\colorh$ equivalent in number to those to be placed in bunch $n$ from h.v. $\colorh + \colors - n$ during epoch $\colorh + 1$.
+The same holds for all bunches, with data items left by h.v. $\colorh$ equivalent in number to those to be placed in bunch $n$ from h.v. $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
 
-As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one between incoming data items and data items of h.v. $\colorh=\colort-1$ to choreograph a clean elimination of that h.v. by replacement each epoch.
-We refer the reader to our supplemental Python-language implementation for full detail, but essentially we can map incoming data items with h.v. $\colorh \geq \colort$ over items slated for elimination by determining their position within each segment as $\colorh$ modulus segment size.
+As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one between incoming data items and data items of h.v. $\colorh=\colort-1$ to choreograph clean elimination of h.v. $\colorh$ by overwrites each epoch.
+In determining placement site $\colork$ for ingest $\colorTbar$, we map incoming data items with h.v. $\colorh \geq \colort$ over items $\colorh = colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
+Calculating the number of h.v. instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be placed.
+We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of this procedure, which comprises a handful of fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
 
 \input{thm/steady-hv-elimination}
 
-Likewise, identifying the ingestion time $\colorTbar$ of a data item located in buffer site $\colork$ at time $\colorT$ essentially boils down to decoding its semantic bunch and segment indices, then determining whether (if slated) it has yet been replaced during the current epoch.
-With availability of binary operators (e.g., bit mask, bit shift, bitwise logical operators), data item placement can be computed in fast $\mathcal{O}(1)$ and, for a buffer of size $\colorS$, all data item ingestion times can be determined in ideal $\mathcal{O}(\colorS)$ time.
+Also implemented fully in accompanying materials, ingestion time calculation or lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+For buffer size $\colorS$, ingestion times for all data items can calculated with ideal time complexity $\mathcal{O}(\colorS)$.
 
 \subsection{Criterion Satisfaction}
 
 In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed steady curation algorithm.
+Figure \ref{fig:hsurf-steady-implementation-satisfaction} plots an example of actual worst gap size over time under this algorithm.
 
 \input{thm/steady-gap-size}
