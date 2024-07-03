@@ -15,52 +15,51 @@ For the purposes of present discussion, we assume data items to be fixed-size an
 \subsection{Buffer Storage $\colorS$}
 \label{sec:notation-buffer}
 
-We will notate the \textit{number of available buffer sites} to store retained data items as $\colorS$.
-Proposed algorithms assume a fixed budget of buffer space, sufficient to store $\colorS$ data items.%
+We assume a fixed \textit{number of available buffer sites}, sufficient to store $\colorS$ data items.%
 \footnote{%
 In associated materials, the fixed-size buffer used to store curated data items is referred to as a ``surface.''
 Space-efficient solutions for the stream curation problem under extensible memory capacity have been considered in other work \citep{moreno2024algorithms}.%
 }
-They require buffer size to be an even power of two, so that for some $\colors$, $\colorS = 2^{\colors}$.
-On occasion it will become necessary to refer to a specific position $\colork$ within a buffer.
-We will take a zero-indexing convention so $0 \leq \colork < \colorS$.
+Proposed algorithms require minimal capacity $\colorS\geq4$ and for buffer size to be an even power of two, $\colorS = 2^{\colors}$ for some integer $\colors$.
+On occasion it will become necessary to refer to a specific buffer position $\colork$.
+We will take a zero-indexing convention, so $0 \leq \colork < \colorS$.
 
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
 As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data.
-As such, the only way to discard a stored data item is to overwrite it by placing a new data item at that site.
-Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection}.
-The site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), therefore comprises the primary algorithmic focus of this work.
+As such, the only way to discard a stored data item is by overwriting it.
+Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection} --- picking where (and if) to store incoming data items.
+The site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), takes primary focus herein.
 
 As a space-saving optimization, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
-(This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.)
+This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.
 Note, though, that, without metadata, identifying stored data items requires capability deduce ingestion time solely from buffer position.
-Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation.
+Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation for data retrieval.
 
 \subsection{Time $\colorTbar$}
 \label{sec:notation-time}
 
-We will refer to each \textit{data item's stream sequence index} as its ingestion time $\colorTbar$, and the existing number of ingested items as the \textit{current time} $\colorT$.
-In referring to time, we will also take a zero-indexing convention, describing that the first element of the data stream associates to ingestion time $\colorTbar=0$.
-We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish by maintaining a counter that increments each time a data item is ingested.
-Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ to refer to $v_{\colorTbar}$, the data item ingested at that time.
+We will refer to each data item's stream sequence index as its \textbf{ingestion time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
+In referring to time, we will also take a zero-indexing convention, so that the first element of the data stream has ingestion time $\colorTbar=0$.
+We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish in practice by simply incrementing a counter each time a data item is ingested.
+Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
 
-In principle, data stream curation would support indefinite ingestions, $\colorT \in 0, 1, \ldots$.
+In principle, data stream curation would support indefinite ingestions, $\colorT \in 0, 1, \ldots \,$.
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
-However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS}$ ingestions, $\colorT \in 0, 1, \ldots 2^{\colorS} - 1$.
-We expect this capacity to suffice for many applications, even with only moderately-sized buffers.
-For instance, capacity for a 64-site buffer suffices to ingest items continuously at 5GHz for well over 100 years.
+However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS}$ ingestions, $\colorT \in 0, 1, \ldots, 2^{\colorS} - 1$.
+We expect this capacity to suffice for many applications using even moderately-sized buffers.
+For instance, a 64-site buffer suffices to ingest items continuously at 5GHz for well over 100 years.
 As such, we leave behavior for stretched and tilted curation past $2^{\colorS}$ ingests to future work.
 
 \subsection{Gap Size $\colorg$}
 \label{sec:notation-gapsize}
 
-\textit{Coverage criteria} for retained data items considered here are defined solely in terms of items' time indices $\colorTbar$ --- not their data values.
-We define coverage criteria in terms of \textbf{gap size} between retained data items, taken as the number of temporally sequential data items discarded (i.e., overwritten) between when two retained items were ingested.
-Let $\colorB_{\colorT}$ denote the set of data items retained in buffer at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to the set of data items discarded at that time.
-With these formalisms established, we can now explicitly define gap size at record index $\colorTbar$, $\colorg = \colorG_{\colorT}(\colorTbar)$.
-For any $0 \leq \colorTbar \leq \colorT$,
+Be reminded that \textit{coverage criteria} for retained data items considered here operate solely in terms of items' time indices $\colorTbar$ --- not their data values.
+We define coverage criteria in terms of \textbf{gap sizes} in the retained record.
+Formally, we define gap size as a count of consecutive data items discarded (i.e., overwritten).
+Let $\colorB_{\colorT}$ denote data items retained in buffer at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to data items discarded (i.e., overwritten) up to that point.
+So established, gap size at record index $\colorTbar$. $0 \leq \colorTbar \leq \colorT$ follows as
 \begin{align*}
-\colorG_{\colorT}(\colorTbar) = \left| \{\colorTbar - m, \ldots, \colorTbar, \ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
+\colorG_{\colorT}(\colorTbar) = \left| \{\colorTbar - m, \,\ldots, \colorTbar, \,\ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
 \end{align*}
 Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
 
@@ -69,9 +68,9 @@ Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorT
 
 Algorithms for three primary coverage criteria are treated:
 \begin{enumerate}
-\item \textbf{steady criterion}: calls to maintain data items \textit{evenly covering} elapsed history (Section \ref{sec:steady}),
-\item \textbf{stretched criterion}: favors \textit{older} data items proportionally to time index $\colorTbar$ (Section \ref{sec:stretched}), and
-\item \textbf{tilted criteiron}: favors \textit{newer} data items proportionally to time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
+\item \textbf{steady criterion}: seeks to maintain data items \textit{evenly covering} elapsed history (Section \ref{sec:steady}),
+\item \textbf{stretched criterion}: favors \textit{older} data items proportionally to their time index $\colorTbar$ (Section \ref{sec:stretched}), and
+\item \textbf{tilted criteiron}: favors \textit{newer} data items proportionally to their time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
 \end{enumerate}
 Figure \ref{fig:criteria-intuition} commpares example ideal retention distributions under each criterion.
 Formal definitions are provided in its criterion's corresponding section.
@@ -81,56 +80,64 @@ Formal definitions are provided in its criterion's corresponding section.
 
 \input{fig/hanoi-intuition.tex}
 
-As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms heavily rely on abstractions based around data items' ingestion time $\colorTbar$'s position in the integer sequence $\colorH(\colorTbar) = \max \{ n \ni 2^n \mid \colorTbar \}$.%
+As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms heavily rely on abstractions based around data items' ingestion time $\colorTbar$.
+One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) = \max \{ n \in \mathbb{Z}_{\geq0} : \colorTbar \bmod 2^n = 0 \}$.%
 \footnote{%
-Note that, in practice, $\colorH(\colorTbar)$ can be calculated fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
+Note that, in implementation, $\colorH(\colorTbar)$ can be calculated fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
 }
-The first few terms of this sequence are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \ldots$ \, .
+The first few terms of this sequence are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots$ \quad .
 This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
-We adopt a zero-indexing convention for $\colorTbar$, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
+We maintain our zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
 
-For each time point $\colorT$ we refer to its corresponding entry in OEIS Sequence A007814 $\colorH(\colorT) = \colorh$ as its ``\textbf{hanoi value},'' in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
+We refer to $\colorH(\colorT) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorT$ in reference to the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
 On occasion, we abbreviate this term as ``h.v.''
-Some intuition for the structure of this sequence will be condusive to later discussions.
+
+Some intuition for the structure of the Hanoi sequence will benefit the reader.
 As depicted in Figure \ref{fig:hanoi-intuition}, the hanoi sequence exhibits recursively-nested fractal structure.
 Element 0 appears every 2nd entry, element 1 appears every 4th entry, and in the general case element $\colorh$ appears every $2^{\colorh+1}$th entry.
-So, a hanoi value $\colorh$ appears roughly twice as often as value $\colorh + 1$.
+So, a hanoi value $\colorh$ appears twice as often as value $\colorh + 1$.
 Remark, though, that when hanoi value $\colorh$ appears for the first time, the value $\colorh - 1$ has appeared exactly once.
 So, we have seen exactly one instance of $\colorh$ and also exactly one instance of $\colorh - 1$.
-At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times for $n > 0$.
+At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ tim.
 
 \subsection{Time Epoch $\colort$}
 \label{sec:notation-epoch}
 
-Owing to h.v.-based structure, the binary order of magnitude of the time $\colorT$ plays an important conceptual role.
-We will refer to this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ as the \textbf{epoch} of $\colorT$.
+Owing to h.v.-based structure, the binary order of magnitude of the elapsed time $\colorT$ plays a useful conceptual role.
+We call this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ the \textbf{epoch} of $\colorT$, correcting to begin epoch 1 at $\colorT = \colorS$ and taking $\colorT < \colorS$ (before the buffer fills) as epoch 0.
+
 We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
 
-For the \textit{steady algorithm}, epoch transition occurs immediately before a new binary order of magnitude (e.g., between $\colorT = 15$ and $\colorT = 16$ or between $\colorT = 31$ and $\colorT = 32$), so $\colort = \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1$ for $\colorT \geq \colorS$.
-For the \textit{stretched} and \textit{tilted algorithms}, epoch transition occurs immediately \textit{after} a new binary order of magnitude (e.g., between $\colorT = 16$ and $\colorT = 17$).
-So, in this context $\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1$ for $\colorT > \colorS$.
+For the \textit{steady algorithm}, epoch transition occur exactly at each binary orders of magnitude (e.g., $\colorT = 16$ or $\colorT = 32$) for $\colorT \geq \colorS$.
+For the \textit{stretched} and \textit{tilted algorithms}, epoch transition instead occurs immediately \textit{after} a new binary order of magnitude (e.g.,  $\colorT = 17$).
+Formally, for $\colorT > \colorS$,
+\begin{align*}
+\colort = \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1 \tag{steady}\\
+\text{or}\\
+\colort = \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1 \tag{stretched/tilted}.
+\end{align*}
+
 As noted above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
-From $\colorT = 2^{\colorS} - 1$,
+Thus, for these algorithms,
 \begin{align*}
 \colort &\leq \left\lfloor\log_2(2^{\colorS} - 2)\right\rfloor - \colors + 1 \\
-&\leq \colorS - \colors
+&\leq \colorS - \colors,
 \end{align*}
-for $\colorS \geq 2$ under these algorithms.
+assuming $\colorS \geq 2$.
 
 \subsection{Time Meta-epoch $\colortau$}
 \label{sec:notation-metaepoch}
 
-In the case of the \textit{stretched} and \textit{tilted} algorithms, it is additionally useful organize a further abstraction from time epoch $\colort$, \textbf{meta-epoch} $\colortau$.
+In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes useful to organize a further abstraction on top of time epoch $\colort$: \textbf{meta-epoch} $\colortau$.
 We define $\colortau=1$ as beginning at $\colort = 1$, with $\colortau=0$ for $\colort=0$.
 As later motivated in Lemma \ref{thm:stretched-meta-epoch}, we define meta-epochs $\colortau\geq1$ as lasting $2^{\colortau} - 1$ epochs.
-Summation gives $\colortau\geq1$ as beginning at epoch
+Under this definition, we have $\colortau\geq1$ as beginning at epoch
 \begin{align*}
 \min\{\colort \in \colortau\}
 &= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \\
 &= 2^{\colortau} - \colortau.
 \end{align*}
-
-The meta-epoch $\colortau$ of epoch $\colort$ is therefore
+For epoch $\colort$, we can therefore calculate the current meta-epoch $\colortau$ as
 \begin{align*}
 \colortau
 =
@@ -139,7 +146,8 @@ The meta-epoch $\colortau$ of epoch $\colort$ is therefore
 \left\lfloor \log_2(\colort) \right\rfloor - 1 & \text{otherwise.}
 \end{cases}
 \end{align*}
-Recalling that stretched and tilted algorithms limit consideration to $\colort \leq \colorS - \colors$, Supplementary Lemma \ref{thm:meta-epoch-bound} establishes the following analytical upper bounds on $\colortau$,
+
+Recalling that stretched and tilted algorithms limit $\colort \leq \colorS - \colors$, Supplementary Lemma \ref{thm:meta-epoch-bound} establishes the following upper bounds on $\colortau$,
 \begin{align*}
 \colortau
 &\leq
@@ -149,11 +157,11 @@ Recalling that stretched and tilted algorithms limit consideration to $\colort \
 \Big)
 \text{ for } \colort \in 1, 2, \ldots, \colorS - \colors.
 \end{align*}
-Additionally, by consideration of $\colort = \colorS - \colors$,
+Taking $\colort = \colorS - \colors$, we can also bound $\colortau$ over the stretched and tilted algorithms' domains by
 \begin{align*}
 \colortau \leq \colors.
 \end{align*}
 
-\subsection{Miscellania}
+% \subsection{Miscellania}
 
-As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
+% As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
