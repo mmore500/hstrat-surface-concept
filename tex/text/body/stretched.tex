@@ -53,7 +53,16 @@ Demonstrated next, setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ respects a
 
 \input{thm/stretched-first-n-space.tex}
 
-Note that this requires more clever work than reserving $2^{\colors - 1 - \colortau}$ sites per encountered h.v., as we will discuss next.
+
+% Note that, by the nature of the hanoi sequence, the distinct h.v.'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $\{0, 1, \,\ldots \left\lfloor \log_2\colorT + 1 \right\rfloor \}$.
+
+\subsection{Mechanism}
+
+\input{fig/hsurf-stretched-implementation.tex}
+
+Recall that we wish to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+A naive mechanism might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ encountered through epoch $\colort$, $\colorT \in \colort$.
+However, this approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
 \begin{align*}
 2^{\colors - 1 - \colortau} \times 2^{\colors + \colort}
@@ -64,21 +73,17 @@ For example, at $\colortau=\colort=0$,
 &\stackrel{\checkmark}{\cancel{\leq}} \colorS \text{ for } \colorS > 1.
 \end{align*}
 
-
-% Note that, by the nature of the hanoi sequence, the distinct h.v.'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $\{0, 1, \,\ldots \left\lfloor \log_2\colorT + 1 \right\rfloor \}$.
-
-Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
-At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
-In epoch 0, all sites are filled with a first data item.
-At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high h.v. sites added to other segments.
-When data items are placed, they remain retained until invaded by a higher-h.v. data item.
-
-% The zeroth h.v. is $s = \log_2(S)$.
-% The h.v. s appears for the first time at index 2^s - 1 = S - 1.
-Note the correspondence between the recursively nested reservation sizes and the hanoi sequence.
-In fact, reservation sizes correspond to $\colors + 1, \colorH(0) + 1, \colorH(1) + 1, \ldots, \colorH(\colorS/2 - 2) + 1$.
-The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
-Note that these reservations fill available space, as
+In motivating a more apt strategy, let's begin by restricting our focus to $\colort=\colortau=0$.
+Assume that we reserve one site per h.v. instance $\colorH(\colorT)$ encountered for $\colorT < \colorS$.
+Further assume organization of reserved sites into segments, with each segment contianing at most one instance of each hanoi value.
+We will have at least $S/2$ segments, one per h.v. $\colorh=0$ instance encountered.
+Half of these segments could be extended by one site, each accomodating one of the $S/4$ encountered h.v. $\colorh=1$ instances.
+Continuing to accomodate all encountered h.v. $\colorh\leq\colors$, segment sizes turn out to recapitulate the hanoi sequence.
+Special-casing the largest segment, we can construct our segment collection as sizes
+\begin{align*}
+\colors + 1, \colorH(0) + 1, \colorH(1) + 1, \ldots, \colorH(\colorS/2 - 2) + 1.
+\end{align*}
+Note that these segments exactly fill available buffer space $\colorS$,
 \begin{align*}
 \colors + 1
 +  \sum_{\colorh = 0}^{\colors - 2}
@@ -90,11 +95,27 @@ Note that these reservations fill available space, as
 \colorS.
 \end{align*}
 
-\subsection{Mechanism}
+Thus far, we have only discussed segment sizes --- and not the order of segment arrangement onto physical buffer space $\colorS$.
+One approach might lay segments in descending order by length, as we did for steady retention in Section \ref{sec:steady}.
+However, adopting the hanoi sewuence's innate recursively nested ordering will turn out to serve our objectives.
+The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer.
 
-\input{fig/hsurf-stretched-implementation.tex}
+What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
+At epoch $\colort=\colortau=0$, we are successfully guaranteeing $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per h.v.
+At $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many.
+So, half of our $S/2$ h.v. $\colorh=0$ reserved sites may be reallocated.
+We can do this by freeing up the length-one segments containing just h.v. $\colorh=0$.
 
-TODO
+Under our recursively-nested segment layout, subsumption of these eliminated singleton segments allows all remaining segments to ``invade'' by extendeding one site.
+Sticking with our convention of at most one site for each h.v. $\colorh$ per reservation segment, the remaining segments may accrue space for an additional high hanoi value.
+For instance, the largest segment will grow a site for h.v. $\colors +1$.
+Two reservation sites will be added for h.v. $\colors - 1$, four for h.v., $\colors - 2$, etc. --- mirroring the distribution of new incidence counts for these h.v.'s during epoch $\colort=1$.
+
+In subsequent epochs $\colort>1$, we can continue dissolving the smallest, innermost-nested reservation segments by one site per epoch to add capacity for new high-h.v. data items.
+Figure \ref{fig:hsurf-stretched-intuition-reservations} shows several steps through this process on a 32-site buffer.
+At final epoch $\colort=\colorS-\colors$ ($\colorT \approx 2^{colorS}$), this progressive nested subsimption culminates to a single reservation segment containing the first instance of all h.v.'s $0 \leq \colorh < \colorS$.
+
+\input{thm/stretched-meta-epoch.tex}
 
 \subsection{Criterion Satisfaction}
 
@@ -117,4 +138,13 @@ Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 \leq
 2.
+\end{align*}
+
+However, we can use the exact expression (rather than a bound) to establish a tighter bound at $\colort = \colorS - \colors$, where $\colortau = \colors$,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\leq
+2^{\colors - 1 - \colortau}\\
+&\leq
+2^{- 1}. TODO FIXME should be 1 not 1/2
 \end{align*}
