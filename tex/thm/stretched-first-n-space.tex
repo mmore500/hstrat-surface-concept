@@ -1,0 +1,95 @@
+\begin{lemma}[Buffer Space for First-$n$ Retention]
+\label{thm:stretched-first-n-space}
+
+\begin{align*}
+|\bigcup_{\colorh \geq 0}
+\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}| \leq \colorS
+\end{align*}
+for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
+\end{lemma}
+\begin{proof}
+
+Because each time point $\colorTbar$ has only one h.v. $\colorH(\colorTbar)$, we can rewrite our set cardinality as
+\begin{align*}
+\sum_{\colorh} \min\Big(2^{\colors - 1 - \colortau}, |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)
+&=
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau}, 2^{\colors + \colort - 1 - \colorh}\Big).
+\end{align*}
+Solving
+\begin{align*}
+\colors + \colort - 1 - \colorh &= \colors - 1 - \colortau\\
+\colorh &= \colort + \colortau.
+\end{align*}
+So,
+\begin{align*}
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau}, 2^{\colors + \colort - 1 - \colorh}\Big)
+&=
+1 + \sum_{\colorh=0}^{\colort + \colortau} 2^{\colors - 1 - \colortau} + \sum_{\colorh=\colort + \colortau + 1}^{\colors + \colort - 1} 2^{\colors + \colort - 1 - \colorh}\\
+&=
+1 + (\colort + \colortau + 1) 2^{\colors - 1 - \colortau} + 2^{\colors - 1 - \colortau} - 1\\
+&=
+(\colort + \colortau + 2) 2^{\colors - 1 - \colortau}\\
+% &=
+% \begin{cases}
+% (2) 2^{\colors - 1} \text{ if } \colortau = \colort = 0\\
+% (2^{\colortau} - \colortau + \colortau + 2) 2^{\colors - 1 - \colortau} \text{ otherwise}
+% \end{cases}\\
+% &=
+% \begin{cases}
+% 2^{\colors} \text{ if } \colortau = \colort = 0\\
+% (2^{\colortau} + 2) 2^{\colors - 1 - \colortau} \text{ otherwise}
+% \end{cases}\\
+% &=
+% \begin{cases}
+% \colorS \text{ if } \colortau = \colort = 0\\
+% 2^{\colors - 1} + 2^{\colors - \colortau} \text{ otherwise}
+% \end{cases}\\
+% &=
+% \begin{cases}
+% \colorS \text{ if } \colortau = 0\\
+% \frac{\colorS}{2} + \frac{\colorS}{2^{\colortau}} \text{ otherwise}
+% \end{cases}\\
+% &\stackrel{\checkmark}\leq
+% \colorS.
+% \\
+% &\leq
+% \begin{cases}
+% (2) 2^{\colors - 1} \text{ if } \colortau = \colort = 0\\
+% (2^{\colortau + 1} - (\colortau + 1) - 1 + \colortau + 2) 2^{\colors - 1 - \colortau} \text{ otherwise}
+% \end{cases}\\
+% &\leq
+% \begin{cases}
+% 2^{\colors} \text{ if } \colortau = \colort = 0\\
+% (2^{\colortau + 1}) 2^{\colors - 1 - \colortau} \text{ otherwise}
+% \end{cases}\\
+% &\leq
+% \begin{cases}
+% \colorS \text{ if } \colortau = \colort = 0\\
+% 2^{\colors} \text{ otherwise}
+% \end{cases}\\
+% &\stackrel{\checkmark}\leq
+% \colorS.
+&\leq
+(2^{\colortau + 1} - (\colortau + 1) - 1 + \colortau + 2) 2^{\colors - 1 - \colortau}\\
+&\leq
+(2^{\colortau + 1}) 2^{\colors - 1 - \colortau}\\
+&\leq
+2^{\colors}\\
+&\stackrel{\checkmark}\leq
+\colorS.
+\end{align*}
+% for $\colort$ such that $\colorTbar \in \colort$.
+
+
+% Recalling that $\colorH(\colorTbar) \leq \left\lfloor \log_2\colorT + 1 \right\rfloor$ for $\colorTbar \leq \colorT$, we can formulate our cardinality in terms of \textit{not-yet-encountered} h.v. instances,
+
+% \begin{align*}
+% \left\lfloor \log_2\colorT + 1 \right\rfloor
+% \times (\colors - 1 - \colortau)
+% -
+% \sum_{\colorh=0}^{\left\lfloor \log_2\colorT + 1 \right\rfloor
+% } |
+% \{ \colorTbar \in \colorT, \colorT + 1, \, \ldots, 2^{\colorh + 1}(\colors - 1 - \colortau) - 1 : \colorH(\colorTbar) = \colorh \}
+% |.
+% \end{align*}
+\end{proof}

@@ -35,6 +35,38 @@ Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ rem
 
 \input{fig/hsurf-stretched-intuition.tex}
 
+As with the steady algorithm, abstracting data items $\colorTbar$ according to their hanoi value $\colorH(\colorTbar)$ provides the backbone of our stretched approach.
+However, instead of keeping all instances of the $n$ highest encountered h.v.'s, we instead keep the first $n$ instances of all encountered h.v.'s in order to achieve a stretched distribution.
+To accomodate storing instances of new h.v.'s as we first encounter them, $n$ must degrade as time progresses.
+Figure \ref{fig:hanoi-intuition-stretched} depicts this core strategy.
+
+Take $\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n - 1) : \colorH(\colorTbar) = \colorh \}$ as denoting the first $n$ encountered instances $\colorTbar$ of hanoi value $\colorh$.
+We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
+\begin{align*}
+\bigcup_{\colorh \geq 0}
+\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}.
+% \quad
+% \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
+\end{align*}
+By construction, $\subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
+Demonstrated next, setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ respects available buffer capacity $\colorS$.
+
+\input{thm/stretched-first-n-space.tex}
+
+Note that this requires more clever work than reserving $2^{\colors - 1 - \colortau}$ sites per encountered h.v., as we will discuss next.
+For example, at $\colortau=\colort=0$,
+\begin{align*}
+2^{\colors - 1 - \colortau} \times 2^{\colors + \colort}
+&=
+2^{2\colors - 1}\\
+&=
+\frac{\colorS^{2}}{2}\\
+&\stackrel{\checkmark}{\cancel{\leq}} \colorS \text{ for } \colorS > 1.
+\end{align*}
+
+
+% Note that, by the nature of the hanoi sequence, the distinct h.v.'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $\{0, 1, \,\ldots \left\lfloor \log_2\colorT + 1 \right\rfloor \}$.
+
 Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
 At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
 In epoch 0, all sites are filled with a first data item.
