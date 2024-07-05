@@ -136,12 +136,11 @@ As we encounter data items $\colorH(\colorTbar) = \colorh$, we fill reserved sit
 Within same-segment-size classes, we can simply fill from left to right.
 As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items $\colorH(\colorTbar) = \colorh$.
 Once sites reserved to h.v. $\colorh$ fill, further instances $\colorH(\colorTbar) = \colorh$ are discarded without storage.
-
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
 
-Ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ is accomplished by decoding its segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
-We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations.
+We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the stretched algorithm.
 
 \subsection{Criterion Satisfaction}
 
@@ -175,6 +174,6 @@ However, we can use the exact expression (rather than a bound) to establish a ti
 2^{- 1}. TODO FIXME should be 1 not 1/2
 \end{align*}
 
-Figure \ref{hsurf-stretched-implementation-satisfaction} shows algorithm performance under the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
+Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
 
 %The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
