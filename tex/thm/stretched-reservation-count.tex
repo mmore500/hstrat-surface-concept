@@ -1,9 +1,9 @@
-\begin{lemma}[Stretched Algorithm Worst-case h.v. Reservation Size]
+\begin{lemma}[Stretched Algorithm h.v. Reserved Sites Lower Bound]
 \label{thm:stretched-reservation-count}
 Under the stretched curation algorithm, at least the first
 \begin{align*}
-2^{\colors - 1 - \colortau}
-\geq
+% 2^{\colors - 1 - \colortau}
+% \geq
 \max\Big(
   \frac{\colorS}{2(\colort + \colors)},
   \frac{\colorS}{4\colort}
@@ -13,7 +13,7 @@ data items of each h.v. are retained.
 \end{lemma}
 \begin{proof}
 
-By Theorem \ref{thm:discarded-incidence-count}, the number of reservations allocated to hanoi value 0 will provide a lower bound on the number of recent data items retained for any h.v. that has discarded values.
+By Lemma \ref{thm:discarded-incidence-count}, the number of reservations allocated to hanoi value 0 will provide a lower bound on the number of recent data items retained for any h.v. that has discarded values.
 From Theorem \ref{thm:thm:num-hv0-reservations}, the number of buffer sites $n$ reserved to h.v. 0 is $2^{\colors-1-\colortau}$, giving the first part of the result.
 
 Applying Theorem \ref{thm:meta-epoch-bound} gives the rest of the result --- at any epoch $1 \leq \colort \leq \colorS - \colors$, the number of h.v. 0 instances retained is at least

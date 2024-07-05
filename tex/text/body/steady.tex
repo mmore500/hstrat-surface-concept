@@ -9,13 +9,24 @@ This section presents a stream curation algorithm designed to support the steady
 
 Figure \ref{fig:hanoi-intuition-steady} overviews the proposed algorithm's core strategy, which revolves around prioritizing data item retention according to their sequence index hanoi value $\colorH(\colorTbar)$.
 Specifically, we aim to keep data items with the largest hanoi values.
-It turs out that with all data items $\colorH(\colorTbar) > n$ retained, gap size is at most $\colorg \leq 2^n - 1$.
+
+It turns out that with all data items $\colorH(\colorTbar) > n$ retained, gap size is at most $\colorg \leq 2^n - 1$.
 To understand, imagine discarding items with $\colorH(\colorTbar) = 0$.
 This action would drop every other item, and increase gap size from 0 to $\colorg \leq 1$.
 Then, removing items with $\colorH(\colorTbar) = 1$ would again drop every other item, and increase gap size to $\colorg \leq 3$.
 Continuing this pattern to prune successive hanoi values provides well-behaved transitions gradually increasing gap size, while maintaining even spacing.
 
-We thus define our algorithmic goal as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ above some threshold $n(\colorT)$ by repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$.
+We thus define our algorithmic goal as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ for some threshold $n(\colorT)$.
+Formally,
+\begin{align*}
+\textsf{goal\_steady}
+= \{
+\colorTbar \in 0, 1, \ldots,\colorTbar
+: \colorH(\colorTbar) > n(\colorT)
+\}.
+\end{align*}
+In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as ingests elapse.
+
 To fill available buffer space $\colorS$, we will show that $n(\colorT) = \colort - 1$.
 
 \input{thm/steady-hv-geq-epoch}
@@ -24,7 +35,7 @@ To fill available buffer space $\colorS$, we will show that $n(\colorT) = \color
 
 \input{fig/hsurf-steady-intuition}
 
-Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, Leffa \ref{thm:steady-hv-geq-epoch} shown, uses nearly all buffer space $\colorS$.%
+Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, Lemma \ref{thm:steady-hv-geq-epoch} shown, uses nearly all buffer space $\colorS$.%
 \footnote{%
 Although we, in fact, have one extra buffer site left over, in practice it is often convenient to use this site to permanently retain the very first or the very most recent data item.%
 }

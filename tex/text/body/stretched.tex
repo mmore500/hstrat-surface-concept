@@ -35,21 +35,24 @@ Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ rem
 
 \input{fig/hsurf-stretched-intuition.tex}
 
-As with the steady algorithm, abstracting data items $\colorTbar$ according to their hanoi value $\colorH(\colorTbar)$ provides the backbone of our stretched approach.
-However, instead of keeping all instances of the $n$ highest encountered h.v.'s, we instead keep the first $n$ instances of all encountered h.v.'s in order to achieve a stretched distribution.
-To accomodate storing instances of new h.v.'s as we first encounter them, $n$ must degrade as time progresses.
-Figure \ref{fig:hanoi-intuition-stretched} depicts this core strategy.
+As with the steady algorithm, abstracting data items $\colorTbar$ according to their hanoi value $\colorH(\colorTbar)$ provides the backbone of our approach to stretched curation.
+However, instead of keeping just the $n$ highest encountered h.v.'s, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered h.v.'s.
+Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each h.v. approximates stretched distribution.
 
+To respect fixed buffer capacity, per-h.v. capacity $n$ must degrade as we encounter new h.v.'s.
 Take $\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n - 1) : \colorH(\colorTbar) = \colorh \}$ as denoting the first $n$ encountered instances $\colorTbar$ of hanoi value $\colorh$.
 We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
+\textsf{goal\_stretched}
+&=
 \bigcup_{\colorh \geq 0}
 \{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}.
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
-By construction, $\subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
-Demonstrated next, setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ respects available buffer capacity $\colorS$.
+By construction, $\textsf{goal\_stretched} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
+
+We next show setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 \input{thm/stretched-first-n-space.tex}
 
@@ -60,8 +63,8 @@ Demonstrated next, setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ respects a
 
 \input{fig/hsurf-stretched-implementation.tex}
 
-Recall that we wish to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
-A naive mechanism might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ encountered through epoch $\colort$, $\colorT \in \colort$.
+Be reninded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+A naive mechanism might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ h.v.'s $\colorh$ encountered through epoch $\colort$, $\colorT \in \colort$.
 However, this approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
 \begin{align*}
@@ -73,17 +76,22 @@ For example, at $\colortau=\colort=0$,
 &\stackrel{\checkmark}{\cancel{\leq}} \colorS \text{ for } \colorS > 1.
 \end{align*}
 
-In motivating a more apt strategy, let's begin by restricting our focus to $\colort=\colortau=0$.
-Assume that we reserve one site per h.v. instance $\colorH(\colorT)$ encountered for $\colorT < \colorS$.
-Further assume organization of reserved sites into segments, with each segment contianing at most one instance of each hanoi value.
-We will have at least $S/2$ segments, one per h.v. $\colorh=0$ instance encountered.
-Half of these segments could be extended by one site, each accomodating one of the $S/4$ encountered h.v. $\colorh=1$ instances.
-Continuing to accomodate all encountered h.v. $\colorh\leq\colors$, segment sizes turn out to recapitulate the hanoi sequence.
-Special-casing the largest segment, we can construct our segment collection as sizes
-\begin{align*}
+\subsubsection{Layout at $\colort,\colortau=0$}
+
+In motivating a more apt strategy, begin by restricting focus to epoch $\colort=\colortau=0$.
+Assume that we reserve sites by h.v. $\colorH(\colorTbar)$, and provide capacity for all data items $0\leq \colorTbar < \colorS$.
+Suppose organization of reserved sites into segments, each with at most one site reserved per hanoi value.
+
+Under this scheme, we will have at least $\colorS/2$ segments, one per h.v. $\colorh=0$ instance encountered.
+In constructing segments, half of these $\colorh=0$ segments can be augmented with one of the $\colorS/4$ h.v. $\colorh=1$ reservations.
+We can continue, and further augment $\colorS/8$ segments with h.v. $\colorh=2$, etc.
+Placing all encountered h.v. $\colorh\leq\colors$ yields segment sizes that turn out to recapitulate the hanoi sequence.
+Special-casing the largest segment, constructed segment sizes can be enumerated as
+\begin{align}
 \colors + 1, \colorH(0) + 1, \colorH(1) + 1, \ldots, \colorH(\colorS/2 - 2) + 1.
-\end{align*}
-Note that these segments exactly fill available buffer space $\colorS$,
+\label{eqn:stretched-segment-sizes}
+\end{align}
+These segment sizes can be shown to exactly fill available buffer space $\colorS$,
 \begin{align*}
 \colors + 1
 +  \sum_{\colorh = 0}^{\colors - 2}
@@ -95,25 +103,29 @@ Note that these segments exactly fill available buffer space $\colorS$,
 \colorS.
 \end{align*}
 
-Thus far, we have only discussed segment sizes --- and not the order of segment arrangement onto physical buffer space $\colorS$.
-One approach might lay segments in descending order by length, as we did for steady retention in Section \ref{sec:steady}.
-However, adopting the hanoi sewuence's innate recursively nested ordering will turn out to serve our objectives.
-The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer.
+Thus far, we have only considered segment sizes --- and not discussed arrangement of segment order onto physical buffer space $\colorS$.
+One naive approach would lay segments in descending order by length, as for steady retention in Section \ref{sec:steady}.
+However, keeping the hanoi sequence's innate recursive nesting will turn out to serve our objectives.
+The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer, where segment ordering matches that of Formula \ref{eqn:stretched-segment-sizes}.
+
+\subsubsection{Layout at $\colort,\colortau\geq1$}
 
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
-At epoch $\colort=\colortau=0$, we are successfully guaranteeing $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per h.v.
-At $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many.
-So, half of our $S/2$ h.v. $\colorh=0$ reserved sites may be reallocated.
-We can do this by freeing up the length-one segments containing just h.v. $\colorh=0$.
+At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
+To satisfy $\textsf{stretched\_goal}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
+So, half of our $S/2$ sites reserved to h.v. $\colorh=0$ may be reallocated.
+One way to do this is by freeing up the singleton segments containing just h.v. $\colorh=0$.
 
-Under our recursively-nested segment layout, subsumption of these eliminated singleton segments allows all remaining segments to ``invade'' by extendeding one site.
-Sticking with our convention of at most one site for each h.v. $\colorh$ per reservation segment, the remaining segments may accrue space for an additional high hanoi value.
-For instance, the largest segment will grow a site for h.v. $\colors +1$.
-Two reservation sites will be added for h.v. $\colors - 1$, four for h.v., $\colors - 2$, etc. --- mirroring the distribution of new incidence counts for these h.v.'s during epoch $\colort=1$.
+Subsumption of these eliminated singleton segments makes space for all remaining segments to ``invade'' by extending one site.
+Sticking with our convention of at most one site with each h.v. $\colorh$ per reservation segment, invading segments accrue space to host an additional high hanoi value data item.
+For instance, the largest segment will grow a site reserved to h.v. $\colorh=\colors +1$.
+Two reservation sites will be added for h.v. $\colorh=\colors - 1$, four for h.v. $\colorh=\colors - 2$, etc. --- mirroring the incidence counts for these h.v.'s during epoch $\colort=1$.
 
-In subsequent epochs $\colort>1$, we can continue dissolving the smallest, innermost-nested reservation segments by one site per epoch to add capacity for new high-h.v. data items.
+In subsequent epochs $\colort>1$, we can continue dissolving the smallest, innermost-nested reservation segments to grow capacity for new high-h.v. data items.
 Figure \ref{fig:hsurf-stretched-intuition-reservations} shows several steps through this process on a 32-site buffer.
-At final epoch $\colort=\colorS-\colors$ ($\colorT \approx 2^{colorS}$), this progressive nested subsimption culminates to a single reservation segment containing the first instance of all h.v.'s $0 \leq \colorh < \colorS$.
+At final epoch $\colort=\colorS-\colors$ (i.e., $\colorT \approx 2^{\colorS}$), the proposed process of progressive, nested segment subsumption culminates to a single reservation segment containing the first instance of all h.v.'s $0 \leq \colorh < \colorS$.
+
+We will next show that the cadence of meta-epochs $\colortau$ corresponds to the timing of successive segment invasions.
 
 \input{thm/stretched-meta-epoch.tex}
 
@@ -140,11 +152,13 @@ Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
 2.
 \end{align*}
 
-However, we can use the exact expression (rather than a bound) to establish a tighter bound at $\colort = \colorS - \colors$, where $\colortau = \colors$,
+However, we can use the exact expression (rather than a bound) to establish a tighter bound at epoch $\colort = \colorS - \colors, \colortau = \colors$,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
-\leq
+&\leq
 2^{\colors - 1 - \colortau}\\
 &\leq
 2^{- 1}. TODO FIXME should be 1 not 1/2
 \end{align*}
+
+%The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
