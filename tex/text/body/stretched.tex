@@ -129,7 +129,7 @@ We will next show that the cadence of meta-epochs $\colortau$ corresponds to the
 
 \input{thm/stretched-meta-epoch.tex}
 
-\subsubsection{Site Selection Implementation}
+\subsubsection{Implementation}
 
 Having determined reservation segment layout strategy, remaining details of site selection can be addressed succinctly.
 As we encounter data items $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that h.v. in descending order of initialized segment size $r$.
@@ -138,6 +138,10 @@ As invasion eliminates smallest initialized segments first, this approach guaran
 Once sites reserved to h.v. $\colorh$ fill, further instances $\colorH(\colorTbar) = \colorh$ are discarded without storage.
 
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
+
+Ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ is accomplished by decoding its segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
+We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations.
 
 \subsection{Criterion Satisfaction}
 
