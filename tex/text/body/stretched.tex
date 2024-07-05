@@ -129,6 +129,8 @@ We will next show that the cadence of meta-epochs $\colortau$ corresponds to the
 
 \input{thm/stretched-meta-epoch.tex}
 
+\input{thm/stretched-reservation-count}
+
 \subsubsection{Implementation}
 
 Having determined reservation segment layout strategy, remaining details of site selection can be addressed succinctly.
@@ -145,8 +147,6 @@ We refer the reader to our supplemental Python-language implementation for an ex
 \subsection{Criterion Satisfaction}
 
 In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed stretched curation algorithm.
-
-\input{thm/stretched-reservation-count}
 
 \input{thm/stretched-gap-size}
 
@@ -165,14 +165,19 @@ Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
 2.
 \end{align*}
 
-However, we can use the exact expression (rather than a bound) to establish a tighter bound at epoch $\colort = \colorS - \colors$, where $\colortau = \colors$,
+Considering $\colort = \colorS - \colors$, as a special case, however, we can establish a tighter bound of 1.
+
+\begin{lemma}[Worst-case Gap Size Ratio in Final Epoch]
+For $\colorT \in (\colort = \colorS - \colors)$,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
-2^{\colors - 1 - \colortau}\\
-&\leq
-2^{- 1}. TODO FIXME should be 1 not 1/2
+1.
 \end{align*}
+\end{lemma}
+\begin{proof}
+TODO
+\end{proof}
 
 Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
 

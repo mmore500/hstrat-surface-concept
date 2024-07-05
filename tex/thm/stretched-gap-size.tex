@@ -1,6 +1,8 @@
 \begin{theorem}[Stretched Algorithm Worst-case Gap Size Ratio]
 \label{thm:stretched-gap-size}
 Under the stretched curation algorithm, if at least the first $n$ data items of all h.v. are retained then no gap size ratio $\colorg/\colorTbar$ exceeds $\min\Big(
+  2^{\colortau+1-\colors}
+  ,
   \frac{2(\colort + \colors)}{\colorS},
   \frac{4\colort}{\colorS}
 \Big)$.
@@ -41,5 +43,5 @@ So, $\colorg = \frac{\left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}}{2} 
 1 / n.
 \end{align*}
 
-Substituting the lower bound for per-h.v. reservation count $n$ derived in Lemma \ref{thm:stretched-reservation-count} gives the result.
+Substituting the expressions for per-h.v. reservation count $n$ derived in Lemma \ref{thm:discarded-incidence-count} and Corollary \ref{thm:stretched-reservation-count} gives the result.
 \end{proof}

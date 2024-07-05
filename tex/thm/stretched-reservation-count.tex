@@ -1,4 +1,4 @@
-\begin{lemma}[Stretched Algorithm h.v. Reserved Sites Lower Bound]
+\begin{corollary}[Stretched Algorithm h.v. Retention Lower Bound]
 \label{thm:stretched-reservation-count}
 Under the stretched curation algorithm, at least the first
 \begin{align*}
@@ -11,22 +11,24 @@ n &\leq
 \Big)
 \end{align*}
 data items of each h.v. $\colorh$ are retained.
-\end{lemma}
+\end{corollary}
 \begin{proof}
 
-By Lemma \ref{thm:discarded-incidence-count}, the number of reservations allocated to hanoi value 0 will provide a lower bound on the number of recent data items retained for any h.v. that has discarded values.
-
-Applying Theorem \ref{thm:meta-epoch-bound} completes the result --- at any epoch $1 \leq \colort \leq \colorS - \colors$, the number of h.v. 0 instances retained is at least
+By Lemma \ref{thm:discarded-incidence-count}, at least the first $2^{\colors - 1 - \colortau}$ items of each h.v. are retained.
+Applying Theorem \ref{thm:meta-epoch-bound} completes the result.
+At any epoch $1 \leq \colort \leq \colorS - \colors$,
 \begin{align*}
-2^{\colors - 1 - \min\Big(
+n
+&= 2^{\colors - 1 - \colortau}\\
+&\leq2^{\colors - 1 - \min\Big(
   \log_2(\colort + \colors),
   \log_2(\colort) + 1
-\Big)}
-&= \max\Big(
+\Big)}\\
+&\leq \max\Big(
   2^{\colors - 1 - \log_2(\colort + \colors)},
   2^{\colors - 1 - \log_2(\colort) - 1}
 \Big)\\
-&\stackrel{\checkmark}{=} \max\Big(
+&\stackrel{\checkmark}{\leq} \max\Big(
   \frac{\colorS}{2(\colort + \colors)},
   \frac{\colorS}{4\colort}
 \Big).

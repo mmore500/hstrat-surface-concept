@@ -104,23 +104,21 @@ At this point, the value $\colorh - 2$ has appeared exactly twice and, in genera
 \label{sec:notation-epoch}
 
 Owing to h.v.-based structure, the binary order of magnitude of the elapsed time $\colorT$ plays a useful conceptual role.
-We call this value $\colort \sim \left\lfloor \log_2(\colorT) \right\rfloor$ the \textbf{epoch} of $\colorT$, correcting to begin epoch $\colort=1$ at $\colorT = \colorS$ and taking $\colorT < \colorS$ (before the buffer fills) as epoch $\colort=0$.
-
-We associate time $\colorT=0$ to epoch $\colort=0$ and treat $\colorT < \colorS$ --- before the buffer fills --- as epoch 0.
+We call this value $\colort \sim \log_2(\colorT)$ the \textbf{epoch} of $\colorT$, correcting to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
 
 For the \textit{steady algorithm}, epoch transition occur immediately \textit{before} each binary order of magnitude $\colorT \geq \colorS - 1$ (e.g.,  $\colorT = 15$).
 For the \textit{stretched} and \textit{tilted algorithms}, epoch transition instead occurs exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
-Formally, for $\colorT > \colorS$,
+Formally,
 \begin{align*}
-\colort &= \left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1 \tag{steady criterion algorithm}\\
+\colort &= \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady criterion algorithm}\\
 &\text{or}\\
-\colort &= \left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1 \tag{stretched/tilted criterion algorithms}.
+\colort &= \max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) \tag{stretched/tilted criterion algorithms}.
 \end{align*}
 
 As noted above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
 Thus, for these algorithms,
 \begin{align*}
-\colort &\leq \left\lfloor\log_2(2^{\colorS} - 2)\right\rfloor - \colors + 1 \\
+\colort &\leq \left\lfloor\log_2(2^{\colorS} - 1)\right\rfloor - \colors + 1 \\
 &\leq \colorS - \colors,
 \end{align*}
 assuming $\colorS \geq 2$.
@@ -129,7 +127,7 @@ assuming $\colorS \geq 2$.
 \label{sec:notation-metaepoch}
 
 In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes useful to organize a further abstraction on top of time epoch $\colort$: \textbf{meta-epoch} $\colortau$.
-We define $\colortau=1$ as beginning at $\colort = 1$, with $\colortau=0$ for $\colort=0$.
+We define $\colortau=1$ as beginning at epoch $\colort = 1$, with $\colortau=0$ for epoch $\colort=0$.
 As later motivated in Lemma \ref{thm:stretched-meta-epoch}, we define meta-epochs $\colortau\geq1$ as lasting $2^{\colortau} - 1$ epochs.
 Under this definition, we have $\colortau\geq1$ as beginning at epoch
 \begin{align*}
@@ -137,13 +135,13 @@ Under this definition, we have $\colortau\geq1$ as beginning at epoch
 &= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \\
 &= 2^{\colortau} - \colortau.
 \end{align*}
-For epoch $\colort$, we can therefore calculate the current meta-epoch $\colortau$ as
+For epoch $\colort$ > 0, we can calculate the current meta-epoch $\colortau$ exactly as
 \begin{align*}
 \colortau
 =
 \begin{cases}
-\left\lfloor \log_2(\colort) \right\rfloor & \text{if } \colort = 2^{\left\lfloor \log_2(\colort) \right\rfloor} - \left\lfloor \log_2(\colort) \right\rfloor \\
-\left\lfloor \log_2(\colort) \right\rfloor - 1 & \text{otherwise.}
+\left\lfloor \log_2(\colort) \right\rfloor + 1 & \text{if } \colort = 2^{\left\lfloor \log_2(\colort) \right\rfloor} - \left\lfloor \log_2(\colort) \right\rfloor \\
+\left\lfloor \log_2(\colort) \right\rfloor & \text{otherwise.}
 \end{cases}
 \end{align*}
 
@@ -162,6 +160,7 @@ Taking $\colort = \colorS - \colors$, we can also bound $\colortau$ over the str
 \colortau \leq \colors.
 \end{align*}
 
-% \subsection{Miscellania}
+\subsection{Miscellania}
 
-% As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
+As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
+For binary ceiling, $\left\lceil x \right\rceil_\mathrm{bin} = 2^{\left\lceil \log_2 x \right\rceil}$
