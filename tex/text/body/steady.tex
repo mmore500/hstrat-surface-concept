@@ -14,7 +14,7 @@ It turns out that with all data items $\colorH(\colorTbar) > n$ retained, gap si
 To understand, imagine discarding items with $\colorH(\colorTbar) = 0$.
 This action would drop every other item, and increase gap size from 0 to $\colorg \leq 1$.
 Then, removing items with $\colorH(\colorTbar) = 1$ would again drop every other item, and increase gap size to $\colorg \leq 3$.
-Continuing this pattern to prune successive hanoi values provides well-behaved transitions gradually increasing gap size, while maintaining even spacing.
+Continuing this pattern to prune successive hanoi values provides well-behaved transitions gradually increasing gap size while maintaining even spacing.
 
 We thus define our algorithmic goal as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ for some threshold $n(\colorT)$.
 Formally,
@@ -37,7 +37,7 @@ To fill available buffer space $\colorS$, we will show that $n(\colorT) = \color
 
 Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, Lemma \ref{thm:steady-hv-geq-epoch} shown, uses nearly all buffer space $\colorS$.%
 \footnote{%
-Although we, in fact, have one extra buffer site left over, in practice it is often convenient to use this site to permanently retain the very first or the very most recent data item.%
+Although we, in fact, have one extra buffer site left over, in practice, it is often convenient to use this site to permanently retain the very first or the very most recent data item.%
 }
 % Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
 Thus, under our scheme, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with h.v. $\colorh \geq \colort$.
@@ -47,7 +47,7 @@ This procedure divides buffer space into ``bunches,'' themselves divided into ``
 Bunch 0 contains one segment of length $\colors$ sites.
 Then, for $n > 0$, bunch $n$ contains $2^{n-1}$ segments.
 Although segment count increases across bunch, we define segment length to decrease by 1 each bunch.
-So, segments in the last bunch containing only one site.
+So, segments in the last bunch contain only one site.
 With $\colors$ bunches, available buffer space $\colorS$ is nearly filled,
 \begin{align*}
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.

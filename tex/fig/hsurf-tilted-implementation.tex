@@ -5,7 +5,7 @@
 \includegraphics[width=\linewidth]{
 binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
 \vspace{-4ex}\caption{
-  Buffer composition across time, split by epoch with data items color coded by hanoi value of ingestion time $\colorH(\colorTbar)$.
+  Buffer composition across time, split by epoch with data items color-coded by hanoi value of ingestion time $\colorH(\colorTbar)$.
 }
 \label{fig:hsurf-tilted-implementation-schematic}
 \end{subfigure}
@@ -65,7 +65,7 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   Between $\colorT=0$ and $\colorT=127$, time is segmented into conceptual epochs $\colort=0$, $\colort=1$, and $\colort=2$.
   Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into conceptual ``reservation'' segments by vertical black lines.
   Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
-  At each epoch, data items are filled into sites newly-assigned for their ingestion-order hanoi value from left-to-right.
+  At each epoch, data items are filled into sites newly assigned for their ingestion-order hanoi value from left to right.
   In epoch 0, all sites are filled with a first data item.
   At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high h.v. sites added to other segments.
   Low h.v. data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that h.v., ensuring the most recent data items corresponding to that hanoi value are retained.

@@ -6,11 +6,11 @@ The core function of proposed algorithms is to dynamically filter out a bounded-
 Incoming data is assumed to arrive on a rolling basis, as a \textbf{data stream} comprised of sequential \textbf{data items} $v_i$.
 We assume the data stream to be ephemeral (i.e., ``read once''), and refer to the act of reading an item from the data stream as \textbf{ingesting} it.
 We call this scenario the \textbf{data stream curation problem}.
-Pertinent examples might include rolling downsample operations on sensor readings occuring at a regular frequency, managing checkpoint stores in a rollback-enabled algorithm, or storing telemetry on a production server.
+Pertinent examples might include rolling downsample operations on sensor readings occurring at a regular frequency, managing checkpoint stores in a rollback-enabled algorithm, or storing telemetry on a production server.
 
 As defined, the objective of stream curation considers data items according only to their \textit{temporal context} (i.e., sequence position), and not actual contained values.
 We assume data item values to be fixed size, so as to fit interchangeably in memory buffer slots, but do not consider or discuss semantic values of data items further.
-For the purposes of present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
+For present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
 \subsection{Buffer Storage $\colorS$}
 \label{sec:notation-buffer}
@@ -21,7 +21,7 @@ In associated materials, the fixed-size buffer used to store curated data items 
 Space-efficient solutions for the stream curation problem under extensible memory capacity have been considered in other work \citep{moreno2024algorithms}.%
 }
 Proposed algorithms require minimal capacity $\colorS\geq4$ and for buffer size to be an even power of two, $\colorS = 2^{\colors}$ for some integer $\colors$.
-On occasion it will become necessary to refer to a specific buffer position $\colork$.
+On occasion, it will become necessary to refer to a specific buffer position $\colork$.
 We will take a zero-indexing convention, so $0 \leq \colork < \colorS$.
 
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
@@ -32,7 +32,7 @@ The site selection operation, schematized in Figure \ref{fig:surface-site-ingest
 
 As a space-saving optimization, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
 This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.
-Note, though, that, without metadata, identifying stored data items requires capability deduce ingestion time solely from buffer position.
+Note, though, that, without metadata, identifying stored data items requires capability to deduce ingestion time solely from buffer position $\colork$.
 Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-time calculation} operation for data retrieval.
 
 \subsection{Time $\colorTbar$}
@@ -46,7 +46,7 @@ Because we are only concerned with the sequence order of data items, and not the
 In principle, data stream curation would support indefinite ingestions, $\colorT \in 0, 1, \ldots \,$.
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
 However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS}$ ingestions, $\colorT \in 0, 1, \ldots, 2^{\colorS} - 1$.
-We expect this capacity to suffice for many applications using even moderately-sized buffers.
+We expect this capacity to suffice for many applications using even moderately sized buffers.
 For instance, a 64-site buffer suffices to ingest items continuously at 5GHz for well over 100 years.
 As such, we leave behavior for stretched and tilted curation past $2^{\colorS}$ ingests to future work.
 
@@ -72,7 +72,7 @@ Algorithms cover three main coverage criteria:
 \item \textbf{stretched criterion}: favors \textit{older} data items proportionally to their time index $\colorTbar$ (Section \ref{sec:stretched}), and
 \item \textbf{tilted criteiron}: favors \textit{newer} items proportionally to their time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
 \end{enumerate}
-Figure \ref{fig:criteria-intuition} commpares example ideal retention distributions under each criterion.
+Figure \ref{fig:criteria-intuition} compares example ideal retention distributions under each criterion.
 Formal definitions are provided in its criterion's corresponding section.
 
 \subsection{Time Hanoi Value $\colorh$}
@@ -80,7 +80,7 @@ Formal definitions are provided in its criterion's corresponding section.
 
 \input{fig/hanoi-intuition.tex}
 
-As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms heavily rely on abstractions based around data items' ingestion time $\colorTbar$.
+As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
 One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) = \max \{ n \in \mathbb{Z}_{\geq0} : \colorTbar \bmod 2^n = 0 \}$.%
 \footnote{%
 Note that, in implementation, $\colorH(\colorTbar)$ can be calculated fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
@@ -106,8 +106,8 @@ At this point, the value $\colorh - 2$ has appeared exactly twice and, in genera
 Owing to h.v.-based structure, the binary order of magnitude of the elapsed time $\colorT$ plays a useful conceptual role.
 We call this value $\colort \sim \log_2(\colorT)$ the \textbf{epoch} of $\colorT$, correcting to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
 
-For the \textit{steady algorithm}, epoch transition occur immediately \textit{before} each binary order of magnitude $\colorT \geq \colorS - 1$ (e.g.,  $\colorT = 15$).
-For the \textit{stretched} and \textit{tilted algorithms}, epoch transition instead occurs exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
+For the \textit{steady algorithm}, epoch transitions occur immediately \textit{before} each binary order of magnitude $\colorT \geq \colorS - 1$ (e.g.,  $\colorT = 15$).
+For the \textit{stretched} and \textit{tilted algorithms}, epoch transitions instead occur exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 Formally,
 \begin{align*}
 \colort &= \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady criterion algorithm}\\

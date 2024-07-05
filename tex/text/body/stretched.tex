@@ -28,7 +28,7 @@ Next, we propose a stream curation algorithm tailored to the stretched criterion
 \Big).
 \end{align*}
 
-Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indevinitely many data ingestions $\colorT$, thewe define our proposed stretched algorithm defines ingest site selection only up to $2^{\colorS}$ data items.
+Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indefinitely many data ingestions $\colorT$, our proposed stretched algorithm defines ingest site selection only up to $2^{\colorS}$ data items.
 Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ remains to future work.
 
 \subsection{Strategy}
@@ -63,7 +63,7 @@ We next show setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to resp
 
 \input{fig/hsurf-stretched-implementation.tex}
 
-Be reninded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
 A naive mechanism might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ h.v.'s $\colorh$ encountered through epoch $\colort$, $\colorT \in \colort$.
 However, this approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
@@ -113,7 +113,7 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
 At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
 To satisfy $\textsf{stretched\_goal}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
-So, half of our $S/2$ sites reserved to h.v. $\colorh=0$ may be reallocated.
+So, half of our $S/2$ sites that are reserved to h.v. $\colorh=0$ may be reallocated.
 One way to do this is by freeing up the singleton segments containing just h.v. $\colorh=0$.
 
 Subsumption of these eliminated singleton segments makes space for all remaining segments to ``invade'' by extending one site.
