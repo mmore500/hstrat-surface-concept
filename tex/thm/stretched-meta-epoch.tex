@@ -18,7 +18,7 @@ Owing to the recursively nested structure of reservation layout, smallest-remain
 Because invading reservations grow by exactly one site per epoch, the number of epochs comprising a ``meta-epoch'' during which a reservation segment is invaded to elimination corresponds exactly to their reservation size at invasion outset.
 
 Our proof objective can thus be recast as determining the mature, frozen-for-elimination size $R(r)$ of reservations initialized size $r$ at epoch $\colort=0$.
-With reservation segments $r=1$, by construction, invaded at $\colortau = 1$, our goal is therefore to show $|\{\colort \in \colortau\}| = R(r) = 2^{r} - 1$.
+With reservation segments $r=1$, by construction, invaded at $\colortau = 1$, our goal is therefore to show $|\{\colort \in \colortau\}| = 2^{\colortau} - 1$ matches $R(r)$ by showing $R(r) = 2^{r} - 1$.
 
 As already mentioned, initially-singleton $r=1$ reservations are always invaded first, in epoch $\colort=1$.
 Trivially, these reservations also have $R(1) = 1 \stackrel{\checkmark}{=} 2^1 - 1$ on account of never having the opportunity to act as invader.
