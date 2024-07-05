@@ -129,6 +129,16 @@ We will next show that the cadence of meta-epochs $\colortau$ corresponds to the
 
 \input{thm/stretched-meta-epoch.tex}
 
+\subsubsection{Site Selection Implementation}
+
+Having determined reservation segment layout strategy, remaining details of site selection can be addressed succinctly.
+As we encounter data items $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that h.v. in descending order of initialized segment size $r$.
+Within same-segment-size classes, we can simply fill from left to right.
+As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items $\colorH(\colorTbar) = \colorh$.
+Once sites reserved to h.v. $\colorh$ fill, further instances $\colorH(\colorTbar) = \colorh$ are discarded without storage.
+
+Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
+
 \subsection{Criterion Satisfaction}
 
 In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed stretched curation algorithm.
