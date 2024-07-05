@@ -71,30 +71,34 @@ By construction, this proposition is trivially true for hanoi values with reserv
 However, we must consider h.v.'s with fewer than $2^{\colors-1-\colortau}$ reserved sites.
 For these h.v.'s, we must show that they encounter no more items than their number of sites reserved.
 
+\begin{proofpart}[How many hanoi values $\colorh$ have $2^{\colors - 1 - \colortau}$ reserved sites?]
+
 At the outset of each meta-epoch $\colortau$, there are $2^{\colors - 1 - \colortau}$ uninvaded segments.
-The smallest invading segment will become the next invaded segment after $R$ epochs.
+The smallest invading segment is slated to be invaded next, after $R$ epochs.
 Thus, its current size is
 \begin{align*}
 R(\colortau + 1) - R(\colortau)
-&= (2^{\colortau + 1} - 1) - (2^{\colortau} - 1) \tag{Lemma \ref{thm:stretched-meta-epoch}}\\
+&= (2^{\colortau + 1} - 1) - (2^{\colortau} - 1) \tag{by Lemma \ref{thm:stretched-meta-epoch}}\\
 &= 2^{\colortau + 1} - 2^{\colortau}\\
 &= 2^{\colortau}.
 \end{align*}
-All reservations provide a site for all h.v. $\colorh < R$, where $R$ is number of sites in the to-be-invaded reservation.
-So, we can restrict consideration to $\colorh \geq 2^{\colortau} - 1$.
+All $2^{\colors - 1 - \colortau}$ reservations thus provide a site for all h.v. $\colorh < 2^{\tau}$.
+We thus can restrict consideration to $\colorh \geq 2^{\colortau}$.
+\end{proofpart}
 
+\begin{proofpart}[H.v.'s without $2^{\colors-1-\colortau}$ reserved sites]
 Recall that as a propoerty of the hanoi sequence during epoch $\colort$, we have encountered one of the highest-value h.v. $\colorh$, one of the second highest-value h.v. $\colorh-1$, two of the third-highest h.v. $\colorh-2$, etc.
-Also recall that highest-value encountered h.v. increases by one per epoch.
+Also be reminded that highest-value encountered h.v. increases by one per epoch.
 
-Initial reservation sizes are laid out with sizes corresponding to hanoi values.
+Initial reservation sizes are laid out with sizes drawn from the hanoi sequence (Formula \ref{eqn:stretched-segment-sizes}).
 By construction, retained reservations grow exactly one site per epoch.
-Because reservations are eliminated in increasing order of initial size $r$, we will always have the largest (position 0) reservation segment to provide a site for the single encountered instance of the two highest hanoi values.
-We can store the two instances of the the next-smallest h.v. in the largest and second-largest reservations.
+Because reservations are eliminated in increasing order of initialized size $r$, we will always have the largest reservation segment $r=\colors$ to provide a site for the single lone instances of the two highest hanoi values $\colorh=\colort+\colors$ and $\colorh=\colort+\colors-1$.
+Next, we can store the two instances of the the next-smallest h.v. $\colorh=\colort+\colors-2$ in the largest and second-largest reservations $r=\colors$and $r=\colors-2$.
 
-Proceeding into deeper uninvaded reservation nesting layers, reservation count doubles in sync with the number of encountered h.v. instances.
-So, we can safely store all encountered h.v. instances for the top $\colors - \colortau$ encountered hanoi values.
+Proceeding into deeper uninvaded reservation nesting layers, reservation count doubles in step with h.v. instance counts.
+Because we have $\colors - \colortau$ active segment layers, we can safely store all encountered h.v. $\colorH(\colorTbar) = \colorh$ instances for the top $\colors - \colortau$ encountered hanoi values $\colorh$.
 During epoch $\colort$, the highest-encountered h.v. is $\colorh=\colors + \colort$.
-So, we can safely store all encountered h.v. instances for
+So, we can safely store all encountered instances for h.v.'s
 \begin{align*}
 \colorh
 &\geq
@@ -102,7 +106,9 @@ So, we can safely store all encountered h.v. instances for
 &\geq
 \colort - \colortau.
 \end{align*}
+\end{proofpart}
 
+\begin{proofpart}[Have we accounted for all h.v.'s $\colorh$?]
 Combining the above, our question boils down to
 \begin{align*}
 2^{\colortau}
@@ -116,5 +122,6 @@ With $\colort \geq 2^{\colortau} - \colortau$, TODO THIS INEQUALITY IS WRONG
 &\stackrel{?}{\geq} 2^{\colortau} - \colortau - \colortau \\
 &\stackrel{?}{\geq} 2^{\colortau} - 2\colortau.
 \end{align*}
+\end{proofpart}
 
 \end{proof}

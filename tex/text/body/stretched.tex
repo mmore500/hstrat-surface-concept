@@ -162,7 +162,7 @@ Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
 2.
 \end{align*}
 
-However, we can use the exact expression (rather than a bound) to establish a tighter bound at epoch $\colort = \colorS - \colors, \colortau = \colors$,
+However, we can use the exact expression (rather than a bound) to establish a tighter bound at epoch $\colort = \colorS - \colors$, where $\colortau = \colors$,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
@@ -170,5 +170,7 @@ However, we can use the exact expression (rather than a bound) to establish a ti
 &\leq
 2^{- 1}. TODO FIXME should be 1 not 1/2
 \end{align*}
+
+Figure \ref{hsurf-stretched-implementation-satisfaction} shows algorithm performance under the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
 
 %The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
