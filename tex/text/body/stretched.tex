@@ -176,7 +176,13 @@ For $\colorT \in (\colort = \colorS - \colors)$,
 \end{align*}
 \end{lemma}
 \begin{proof}
-TODO
+By construction, $(\colorTbar=0) \in \colorB_{\colorT}$.
+
+Suppose $\exists 2^{\colorS - 1} \leq \colorT < 2^{\colorS}, \colorTbar > 0$ such that $\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} > 1$.
+Then, $\exists \colorTbar$ such that $\{\colorTbar,\colorTbar+1,\,\ldots,2\times\colorTbar \} \in \colorBnot_{\colorT}$.
+Because $\exists 0 \leq n < \colorS$ such that $2^n - 1 \in \{\colorTbar,\colorTbar,\,\ldots,2\times\colorTbar\}$, this would imply $
+\exists 2^n - 1 \in \colorBnot_{\colorT}$.
+However, segment layout provides reserved sites for all h.v. $0\leq\colorh<\colorS$ in final epoch $\colort = \colorS - \colors$, so $\nexists \colorT,\colorTbar$ violating the bound.
 \end{proof}
 
 Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
