@@ -28,7 +28,8 @@ We consider only one update operation on the buffer: storage of an ingested data
 As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data.
 As such, the only way to discard a stored data item is by overwriting it.
 Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection} --- picking where (and if) to store incoming data items.
-The site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), takes primary focus herein.
+In our discussion, let $\colorK(\colorT) \in \cup(\colork \in \colorS, \nullval)$ denote the site selection operation to place data item $\colorTbar$ --- with $\nullval$ denoting a data item dropped without storing.
+This site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), takes primary focus herein.
 
 As a space-saving optimization, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
 This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.
@@ -123,6 +124,13 @@ Thus, for these algorithms,
 \end{align*}
 assuming $\colorS \geq 2$.
 
+\subsection{Site Reservations $\colorHcal(\colork)$}
+\label{sec:notation-reservation}
+
+Algorithm design is structured around ``reserving'' (setting aside) buffer sites $\colork \in \colorS$ to host data items $\colorTbar$ of a specific hanoi value $\colorH(\colorTbar) = \colorh$, on an epoch-to-epoch-basis.
+Denote site $\colork$'s \textbf{hanoi value reservation} during epoch $\colort$ as $\colorHcal_{\colort}(\colork) = \colorh$.
+Note that a data item $\colorTbar \not\in \colort$ may occupy site $\colork$ during epoch $\colort$ with $\colorHcal_{\colort}(\colork) \neq \colorH(\colorTbar)$, having been held over from the previous epoch $\colort - 1$ before being overwriten with an instance of h.v. $\colorh = \colorHcal_{\colort}(\colork)$ during the current epoch $\colort$.
+
 \subsection{Time Meta-epoch $\colortau$}
 \label{sec:notation-metaepoch}
 
@@ -135,7 +143,7 @@ Under this definition, we have $\colortau\geq1$ as beginning at epoch
 &= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \\
 &= 2^{\colortau} - \colortau.
 \end{align*}
-For epoch $\colort$ > 0, we can calculate the current meta-epoch $\colortau$ exactly as
+For epoch $\colort > 0$, we can calculate the current meta-epoch $\colortau$ exactly as
 \begin{align*}
 \colortau
 =
@@ -162,5 +170,6 @@ Taking $\colort = \colorS - \colors$, we can also bound $\colortau$ over the str
 
 \subsection{Miscellania}
 
-As a final piece of minutiae, let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
+Let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
 For binary ceiling, $\left\lceil x \right\rceil_\mathrm{bin} = 2^{\left\lceil \log_2 x \right\rceil}$
+As a final piece of minutiae, take $2^{\mathbb{N}} = \{2^n : n \in 0, 1, \,\ldots \}$.

@@ -1,0 +1,55 @@
+\begin{lemma}[Last-touched Reservation per Epoch]
+\label{lemma:tilted-last-touched}
+The final instance of each h.v. encountered during an epoch is placed in the rightmost site reserved for that hanoi value.
+That is, during any epoch $\colort$,
+\begin{align*}
+\colorK\Big(
+  \max\{\colorT \in \colort : \colorH(\colorT) = \colorh\}
+\Big)
+=
+\max\{\colork \in \colorS : \colorHcal(\colork) = \colorh \}
+\end{align*}
+for all $\colorh \in \{\colorH(0), \colorH(1), \,\ldots, \colorH(\max\{\colorT \in \colort\})\}$.
+\end{lemma}
+
+\begin{proof}
+Assume $\colorh \leq \colors + \colort$.
+Otherwise, no h.v. instances $\colorH(\colorTbar) = \colorh$ are encountered and our task is moot.
+
+Because we cycle through the rightmost reservation segment last (it is rightmost within the innermost segment layer), our proof objective is to show that the number of sites $\colork$ reserved to h.v. $\colorh$ evenly divides the number of h.v. $\colorh$ instances encountered during epoch $\colort$.
+
+How many instances of a hanoi value $\colorh$ are encountered during epoch $\colort$?
+This is
+\begin{align*}
+|\{\colorT \in \colort : \colorH(\colorT) = \colorh\}|
+&=
+2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor.
+\end{align*}
+Adopting $\mathfrak{C}_{\colorH(\colorTbar)}$ as shorthand for this cardinality, observe that $\mathfrak{C}_{\colorH(\colorTbar)} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
+
+How many sites are reserved to a hanoi value $\colorh$ during epoch $\colort$?
+Recall from Lemma \ref{thm:discarded-incidence-count} that this is
+\begin{align*}
+|\{\colork \in \colorS : \colorHcal(\colork) = \colorh\}|
+&=
+\min\Big(
+2^{\colors - \colortau - 1},
+2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors + \colort - \colorh - 1} \right\rfloor
+\Big).
+\end{align*}
+Denoting this cardinality $\mathfrak{C}_{\colorHcal(\colork)}$, observe also that
+$\mathfrak{C}_{\colorHcal(\colork)} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
+
+Because both $\mathfrak{C}_{\colorH(\colorTbar)} \in 2^{\mathbb{N}}$ and $\mathfrak{C}_{\colorHcal(\colork)} \in 2^{\mathbb{N}}$, all that remains to be shown is $\mathfrak{C}_{\colorH(\colorTbar)} \geq \mathfrak{C}_{\colorHcal(\colork)}$.
+Consider,
+\begin{align*}
+2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor
+&\stackrel{?}{\geq}
+\min\Big(
+2^{\colors - \colortau - 1},
+2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors - \colorh - 1} \right\rfloor
+\Big)\\
+&\stackrel{\checkmark}{\geq}
+2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors - \colorh - 1} \right\rfloor.
+\end{align*}
+\end{proof}
