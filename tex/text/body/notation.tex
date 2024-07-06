@@ -110,9 +110,9 @@ For the \textit{steady algorithm}, epoch transitions occur immediately \textit{b
 For the \textit{stretched} and \textit{tilted algorithms}, epoch transitions instead occur exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 Formally,
 \begin{align*}
-\colort &= \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady criterion algorithm}\\
+\colort &= \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady algorithm}\\
 &\text{or}\\
-\colort &= \max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) \tag{stretched/tilted criterion algorithms}.
+\colort &= \max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) \tag{stretched/tilted algorithms}.
 \end{align*}
 
 As noted above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
