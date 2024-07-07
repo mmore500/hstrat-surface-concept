@@ -1,0 +1,48 @@
+\begin{lemma}[Most-recent h.v. instances retained]
+\label{thm:tilted-most-recent-retained}
+At least the most-recent $2^{\colors - 1 - \colortau}$ encountered instances of every h.v. $\colorh$ are retained.
+\end{lemma}
+\begin{proof}
+From Corollary TODO we have that reservations are available to store at least the first $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+So, we can restrict our consideration to instances where h.v. instance count exceeds $2^{\colors - 1 - \colortau}$.
+
+In the absence of invasion, the placements by construction cycle around the available $2^{\colors - 1 - \colortau}$ reserved sites, so the last $2^{\colors - 1 - \colortau}$ h.v. instances are retained.
+
+What about in the case of invasion?
+In this case, again from Corollary $2^{\colors - 1 - \colortau}$, we have the number of reserved sites as dropping from $2^{\colors - \colortau}$ to $2^{\colors - 1 - \colortau}$.
+Recall for each h.v. $\colorh$, data items are placed sequentially into the innermost-nested reservation segment layer, ending with placement into the rightmost reservation segment.
+By Lemma \ref{thm:stretched-discarded-incidence-count}, at the outset of epoch $\colort$, invaded sites $\{\colork \in \colorS : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ therefore always contain the most-recent $2^{\colors - 1 - \colortau}$ ingested h.v. $\colorh = \colorHcal_{\colort - 1}(\colork)$ data items, sequenced left-to-right.
+If data items in these sites were lost instantaneously at ingest time $\min\{\colorT \in \min\{\colort \in \colortau\}\}$, we would not meet our proof objectives, having none of the most-recent $2^{\colors - 1 - \colortau}$ h.v. $\colorh$ data items retained.
+However, this is not the case --- data items in these sites $\colork$ linger until they are actually overwritten by incoming data items $\colorT \in \colort$ with $\colorK(\colorT) = \colork$.
+
+From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that data items are overwritten in the left-to-right order they were deposited --- except the leftmost reservation, which is overwritten last.
+To ensure that the most recent $2^{\colors - 1 - \colortau}$ data items are stored, we therefore must show (1) that at least two depositions of our overwritten h.v. $\colorh$ occur before the first overwrite, and (2) that the cadence of overwrites proceeds slower than the cadence of new instances of the hanoi value $\colorh$ being overwritten.
+
+\begin{proofpart}[Before first overwrite]
+Let $\colorT' = \min\{\colorT \in \colort + 1\}$.
+Because $\colorT' \in 2^{\mathbb{N}} \forall \colort$, we have $\colorH(\colorT') = 0$ and, by the fractal property of the hanoi sequence,
+\begin{align*}
+\colorH(\colorT'), \colorH(\colorT'+1), \,\ldots, \colorH(2\colorT' - 1) = \colorH(0), \colorH(1), \,\ldots, \colorH(\colorT' - 1).
+\end{align*}
+Note that $2\colorT' - 1 = \max\{\colorT \in \colort + 1\}$.
+
+By Lemma \ref{thm:tilted-invader-minus-invaded} for h.v. $\colorHcal_{\colort}(\colork)$ invaded by h.v. $\colorHcal_{\colort + 1}(\colork)$ ($\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
+Recalling that the first instance of h.v. $\colorh$ occurs at ingest time $\colorT = 2^{\colorh} - 1$, note that $\forall\colorh$,
+\begin{align*}
+|\{\colorT \in 0,\,\ldots, 3 \times 2^{\colorh} : \colorH(\colorT) = \colorh\}| = 2.
+\end{align*}
+\end{proofpart}
+Because $\colorT = 3 \times 2^{\colorh} < 2^{\colorh + 2} - 1$, we have our result.
+
+\begin{proofpart}[Overwrite cadence]
+The cadence of h.v. $\colorh$, after its first incidence at ingest time $\colorT=2^{\colorh} - 1$ is to occur every $2^{\colorh + 1}$ data items, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
+Observe also that the cadence at which a h.v. $\geq\colorh$ occurs is every $2^{\colorh}$ items, where $\colorT \bmod 2^{\colorh} = 2^{\colorh} - 1$.
+
+Again, by Lemma \ref{thm:tilted-invader-minus-invaded} for h.v. $\colorHcal_{\colort}(\colork)$ invaded by h.v. $\colorHcal_{\colort + 1}(\colork)$ ($\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
+New incidences of invaded h.v. $\colorHcal_{\colort}(\colork)$ accrue faster than the final $2^{\colors - 1 - \colortau}$ instances of h.v. $\colorh$ from epoch $\colort$ are overwritten because
+\begin{align*}
+2^{\colorh + 1} \stackrel{\checkmark}{<} 2^{\colorh + 2}.
+\end{align*}
+\end{proofpart}
+
+\end{proof}
