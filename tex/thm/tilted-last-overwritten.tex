@@ -1,0 +1,15 @@
+\begin{lemma}[Leftmost invaded is last overwritten]
+\label{thm:tilted-last-overwritten}
+Among the invaded data items $\colork$ overwritten at epoch $\colort > 0$, the leftmost data item is overwritten last.
+That is,
+\begin{align*}
+\min\{ \colorK(\colorT) \text{ for } \colorT \in \colort : \colorHcal_{\colort-1}(\colorK(\colorT)) \neq \colorH(\colorT) \}
+&=
+\colorK\Big(\max \{ \colorT \in \colort \}\Big).
+\end{align*}
+\end{lemma}
+\begin{proof}
+By construction, the leftmost invaded site is $\colork = \colort + \colors$, invaded by h.v. $\colorh = \colort + \colors$ for $\colort > 0$.
+H.v. $\colorh = \colort + \colors$ occurs first at ingest time $\colorT = 2^{\colort + \colors} - 1$.
+Epoch $\colort + 1$ begins at time $\colorT = 2^{\colort + \colors}$, so epoch $\colort$ (which begins at $\colorT = 2^{\colort + \colors - 1}$) ends at ingest time $2^{\colort + \colors - 1}$, giving the result.
+\end{proof}
