@@ -14,9 +14,9 @@ Under the stretched curation algorithm, gap size ratio is bounded
 \end{theorem}
 \begin{proof}
 
-Suppose a data item time $\colorTbar \leq \colorT$.
-What is the smallest hanoi value $\colorh$ such that $\colorH(\colorTbar') = \colorh$ but $\colorTbar' \leq \colorTbar$?
-We can answer this question by determining what is the smallest $m \geq 0$ such that $m \times n \geq \colorTbar$ and $m$ is an even power of two,
+Suppose an ingest time $\colorTbar \leq \colorT$.
+What is the smallest hanoi value $\colorh$ with a guaranteed non-discarded instance $\colorTbar'$ with $\colorH(\colorTbar') = \colorh$ that captures $\colorTbar$, $\colorTbar \leq \colorTbar'$?
+We can answer this question by determining the smallest $m \geq 0$ such that $m \times n \geq \colorTbar$ and $m \in 2^{\mathbb{N}}$,
 \begin{align*}
 m \times n
 &\geq \colorTbar\\
@@ -29,7 +29,7 @@ m
 
 Owing to the nested nature of the hanoi sequence, data items are retained at twice the cadence of the smallest retained hanoi value.
 (The smallest h.v. items are interspersed every-other with higher h.v. items.)
-So, $\colorG_{\colorT}(\colorTbar) = \frac{\left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}}{2} - 1$ and gap size ratio can be bounded
+So, $\colorG_{\colorT}(\colorTbar) = \left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}/2 - 1$ and gap size ratio can be bounded
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
