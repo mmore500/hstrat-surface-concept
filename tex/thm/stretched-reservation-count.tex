@@ -1,4 +1,4 @@
-\begin{corollary}[Stretched Algorithm h.v. Retention Lower Bound]
+\begin{theorem}[Stretched Algorithm h.v. Retention Lower Bound]
 \label{thm:stretched-reservation-count}
 Under the stretched curation algorithm, at least the first
 \begin{align*}
@@ -11,10 +11,10 @@ n &\leq
 \Big)
 \end{align*}
 data items of each h.v. $\colorh$ are retained.
-\end{corollary}
+\end{theorem}
 \begin{proof}
 
-By Lemma \ref{thm:discarded-incidence-count}, at least the first $2^{\colors - 1 - \colortau}$ items of each h.v. are retained.
+By Lemma \ref{thm:stretched-discarded-incidence-count}, at least the first $2^{\colors - 1 - \colortau}$ items of each h.v. are retained.
 Applying Theorem \ref{thm:meta-epoch-bound} completes the result.
 At any epoch $1 \leq \colort \leq \colorS - \colors$,
 \begin{align*}
