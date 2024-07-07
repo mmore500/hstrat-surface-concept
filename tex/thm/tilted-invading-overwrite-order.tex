@@ -1,0 +1,24 @@
+\begin{lemma}[Invading Overwrite Order]
+\label{thm:invading-overwrite-order}
+Except for the value invaded by the leftmost segment $r=\colors$, invaded values are overwritten left-to-right.
+\end{lemma}
+\begin{proof}
+Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ denotes the number of reservation cycles that have elapsed.
+Recall that $\min{\colort \in \colortau} = 2^{\colortau} - \colortau$.
+
+There are $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ uninvaded reservations at meta-epoch $\colortau$.
+Invading h.v. at $\colort > 1$ are
+\begin{align*}
+\colort + \colors, \colorH(0) + \colort + \colortau, \colorH(1) + \colort + \colortau, \colorH(2) + \colort + \colortau, \,\ldots, \colorH(\left\lceil 2^{\colors - 1 - \colortau} \right\rceil - 2) + \colort + \colortau.
+\end{align*}
+
+Rewriten,
+\begin{align*}
+\colort + \colors, \colorH(1 \times 2^{\colort + \colortau} - 1) , \colorH(2 \times 2^{\colort + \colortau} - 1), \colorH(3 \times 2^{\colort + \colortau} - 1), \,\ldots,
+\colorH(\left\lceil2^{\colors - 1 - \colortau} - 1 \right\rceil \times 2^{\colort + \colortau} - 1).
+\end{align*}
+
+TODO Validate that all $(\colorT=x) \in \colort$ for $\colorH(x)$ above.
+
+Because same-h.v. reservations are filled from left-to-right and invading hanoi values accrue sequentially across $\colorT$, invading segments will overwrite their invaded data item left-to-right.
+\end{proof}
