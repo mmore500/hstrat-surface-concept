@@ -1,11 +1,16 @@
 \begin{theorem}[Stretched Algorithm Worst-case Gap Size Ratio]
 \label{thm:stretched-gap-size}
-Under the stretched curation algorithm, no gap size ratio $\colorg/\colorTbar$ exceeds $\min\Big(
+Under the stretched curation algorithm, gap size ratio is bounded
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\leq
+\min\Big(
   2^{\colortau+1-\colors}
   ,
   \frac{2(\colort + \colors)}{\colorS},
   \frac{4\colort}{\colorS}
-\Big)$.
+\Big).
+\end{align*}
 \end{theorem}
 \begin{proof}
 
@@ -24,13 +29,15 @@ m
 
 Owing to the nested nature of the hanoi sequence, data items are retained at twice the cadence of the smallest retained hanoi value.
 (The smallest h.v. items are interspersed every-other with higher h.v. items.)
-So, $\colorg = \frac{\left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}}{2} - 1$ and gap size ratio is less than
+So, $\colorG_{\colorT}(\colorTbar) = \frac{\left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}}{2} - 1$ and gap size ratio can be bounded
 \begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\leq
 \frac{
 \frac{\left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}}{2} - 1
 }{
 \colorTbar
-}
+}\\
 &\leq
 \frac{
 \frac{2\colorTbar / n}{2} - 1
@@ -43,5 +50,20 @@ So, $\colorg = \frac{\left\lceil \colorTbar / n \right\rceil_{\mathrm{bin}}}{2} 
 1 / n.
 \end{align*}
 
-Substituting the expressions for per-h.v. reservation count $n$ derived in Lemma \ref{thm:stretched-discarded-incidence-count} and Theorem \ref{thm:stretched-reservation-count} gives the result.
+Substituting the expressions for per-h.v. reservation count $n$ derived in Lemma \ref{thm:stretched-discarded-incidence-count} and Theorem \ref{thm:stretched-reservation-count} gives,
+\begin{align*}
+  \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+  &\leq
+  \Big[
+    \max\Big(
+      % \left\lceil 2^{\colors - \colortau - 1} \right\rceil,
+      2^{\colors - \colortau - 1},
+      \frac{\colorS}{2(\colort + \colors)},
+      \frac{\colorS}{4\colort},
+    \Big)
+  \Big]^{-1}.
+\end{align*}
+
+Simplifying terms gives the result.
+
 \end{proof}
