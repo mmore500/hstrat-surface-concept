@@ -42,21 +42,21 @@ r + \sum_{j=1}^{r-1} j \times 2^{r-1-j}
 
 \end{proof}
 
-\begin{corollary}[Number h.v. 0 Reservations]
-\label{thm:num-hv0-reservations}
-The number of buffer sites $n$ reserved to h.v. $\colorh=0$ is $2^{\colors-1-\colortau}$.
-\end{corollary}
+% \begin{corollary}[Number h.v. 0 Reservations]
+% \label{thm:stretched-meta-epoch-hv0}
+% The number of buffer sites $n$ reserved to h.v. $\colorh=0$ is $2^{\colors-1-\colortau}$.
+% \end{corollary}
 
-\begin{proof}
-By construction, the number of buffer sites reserved to h.v. $\colorh=0$ at epoch $\colort=0$ is $n_{\colorh0}=2^{\colors - 1}$.
-Lemma \ref{thm:stretched-meta-epoch} corresponds meta-epoch $\colortau$ to underlying reservation segment invasion cycles.
-By construction, the number of buffer sites reserved to a h.v. $\colorh$ halve when that hanoi value is invaded.
-With h.v. $\colorh=0$ always first to be invaded, this occurs at the opening epoch of each meta-epoch $\min\{\colort \in \colortau\}$ and so remains consistent within each meta-epoch.
-Thus,
+% \begin{proof}
+% By construction, the number of buffer sites reserved to h.v. $\colorh=0$ at epoch $\colort=0$ is $n_{\colorh0}=2^{\colors - 1}$.
+% Lemma \ref{thm:stretched-meta-epoch} corresponds meta-epoch $\colortau$ to underlying reservation segment invasion cycles.
+% By construction, the number of buffer sites reserved to a h.v. $\colorh$ halve when that hanoi value is invaded.
+% With h.v. $\colorh=0$ always first to be invaded, this occurs at the opening epoch of each meta-epoch $\min\{\colort \in \colortau\}$ and so remains consistent within each meta-epoch.
+% Thus,
 
-\begin{align*}
-n_{\colorh0}
-&= 2^{\colors - 1} \times \frac{1}{2}^{\colortau}\\
-&\stackrel{\checkmark}{=} 2^{\colors - \colortau - 1}.
-\end{align*}
-\end{proof}
+% \begin{align*}
+% n_{\colorh0}
+% &= 2^{\colors - 1} \times \frac{1}{2}^{\colortau}\\
+% &\stackrel{\checkmark}{=} 2^{\colors - \colortau - 1}.
+% \end{align*}
+% \end{proof}
