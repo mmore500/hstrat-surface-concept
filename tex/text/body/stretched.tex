@@ -31,7 +31,8 @@ Next, we propose a stream curation algorithm tailored to the stretched criterion
 Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indefinitely many data ingestions $\colorT$, our proposed stretched algorithm defines ingest site selection only up to $2^{\colorS}$ data items.
 Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ remains to future work.
 
-\subsection{Strategy}
+\subsection{Stretched Algorithm Strategy}
+\label{sec:stretched-strategy}
 
 \input{fig/hsurf-stretched-intuition.tex}
 
@@ -59,7 +60,8 @@ We next show setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to resp
 
 % Note that, by the nature of the hanoi sequence, the distinct h.v.'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $\{0, 1, \,\ldots \left\lfloor \log_2\colorT + 1 \right\rfloor \}$.
 
-\subsection{Mechanism}
+\subsection{Stretched Algorithm Mechanism}
+\label{sec:stretched-mechanism}
 
 \input{fig/hsurf-stretched-implementation.tex}
 
@@ -76,7 +78,7 @@ For example, at $\colortau=\colort=0$,
 &\stackrel{\checkmark}{\cancel{\leq}} \colorS \text{ for } \colorS > 1.
 \end{align*}
 
-\subsubsection{Layout at $\colort,\colortau=0$}
+\subsubsection{Stretched Algorithm Layout at $\colort,\colortau=0$}
 
 In motivating a more apt strategy, begin by restricting focus to epoch $\colort=\colortau=0$.
 Assume that we reserve sites by h.v. $\colorH(\colorTbar)$, and provide capacity for all data items $0\leq \colorTbar < \colorS$.
@@ -108,7 +110,7 @@ One naive approach would lay segments in descending order by length, as for stea
 However, keeping the hanoi sequence's innate recursive nesting will turn out to serve our objectives.
 The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer, where segment ordering matches that of Formula \ref{eqn:stretched-segment-sizes}.
 
-\subsubsection{Layout at $\colort,\colortau\geq1$}
+\subsubsection{Stretched Algorithm Layout at $\colort,\colortau\geq1$}
 
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
 At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
@@ -131,7 +133,8 @@ We will next show that the cadence of meta-epochs $\colortau$ corresponds to the
 \input{thm/stretched-discarded-incidence-count.tex}
 \input{thm/stretched-reservation-count}
 
-\subsubsection{Implementation}
+\subsubsection{Stretched Algorithm Implementation}
+\label{sec:stretched-implementation}
 
 Having determined reservation segment layout strategy, remaining details of site selection can be addressed succinctly.
 As we encounter data items $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that h.v. in descending order of initialized segment size $r$.
@@ -144,7 +147,8 @@ Ingestion time calculation for lookup of the data item at buffer site $\colork$ 
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
 We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the stretched algorithm.
 
-\subsection{Criterion Satisfaction}
+\subsection{Stretched Algorithm Criterion Satisfaction}
+\label{sec:stretched-satisfaction}
 
 In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed stretched curation algorithm.
 

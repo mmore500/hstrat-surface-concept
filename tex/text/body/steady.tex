@@ -5,7 +5,8 @@ The criterion can be formulated as minimization of the largest gap size between 
 For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized at best $\left\lceil \colorT / \colorS \right\rceil$.
 This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
 
-\subsection{Strategy}
+\subsection{Steady Algorithm Strategy}
+\label{sec:steady-strategy}
 
 Figure \ref{fig:hanoi-intuition-steady} overviews the proposed algorithm's core strategy, which revolves around prioritizing data item retention according to their sequence index hanoi value $\colorH(\colorTbar)$.
 Specifically, we aim to keep data items with the largest hanoi values.
@@ -31,7 +32,8 @@ To fill available buffer space $\colorS$, we will show that $n(\colorT) = \color
 
 \input{thm/steady-hv-geq-epoch}
 
-\subsection{Mechanism}
+\subsection{Steady Algorithm Mechanism}
+\label{sec:steady-mechanism}
 
 \input{fig/hsurf-steady-intuition}
 
@@ -76,7 +78,8 @@ We refer the reader to our supplemental Python-language implementation for an ex
 Also implemented fully in accompanying materials, ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 For buffer size $\colorS$, ingestion times for all data items can calculated with ideal time complexity $\mathcal{O}(\colorS)$.
 
-\subsection{Criterion Satisfaction}
+\subsection{Steady Algorithm Criterion Satisfaction}
+\label{sec:stready-satisfaction}
 
 In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed steady curation algorithm.
 Figure \ref{fig:hsurf-steady-implementation-satisfaction} plots an example of actual worst gap size over time under this algorithm.
