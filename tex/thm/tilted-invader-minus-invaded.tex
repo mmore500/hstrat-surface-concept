@@ -1,0 +1,11 @@
+\begin{lemma}[Difference between Invader and Invaded Hanoi Value]
+\label{thm:tilted-invader-minus-invaded}
+Where $\colorHcal_{\colort + 1}(\colork) \neq \colorHcal_{\colort}(\colork)$, $\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \geq 2$.
+\end{lemma}
+
+\begin{proof}
+Suppose $\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \leq 1$.
+Note that, by construction, any invasion extends the invading segment by at least one site.
+Then, it would be the case that $\exists \colort$ prior to invasion such that the the invaded segment is larger or equal in size to the invading segment.
+However, this cannot be the case --- by construction, segments slated for invasion are always the strictly smallest among remaining segments.
+\end{proof}
