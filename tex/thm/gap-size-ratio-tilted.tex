@@ -18,7 +18,7 @@ From Lemma \ref{thm:retained-equivalence}, we have retained data items
   j' \in 1,2,\,\ldots,2n - 1
   \text{ and }
   \colorh' \in \mathbb{N}
-\}.
+\}. TODO
 \end{align*}
 
 
@@ -48,11 +48,15 @@ So, $\colorG_{\colorT}(\colorTbar) = \left\lceil \frac{\colorTbar + 1 }{2n - 1} 
 \colorTbar
 }\\
 &\leq
-\frac{1}{n - 1/2} + \frac{1 - n}{n\colorTbar}TODO\\
+\frac{\colorTbar + 1}{\colorTbar(n - 1/2)} - 1/\colorTbar\\
 &\leq
-\frac{1}{n - 1/2} - \frac{n - 1}{n\colorTbar}TODO\\
+\frac{1}{n - 1/2} + \frac{1}{\colorTbar(n - 1/2)} - \frac{n - 1/2}{\colorTbar(n - 1/2)}\\
 &\leq
-\frac{1}{n - 1/2}.
+\frac{1}{n - 1/2} + \frac{3/2 - n}{\colorTbar(n - 1/2)}\\
+&\leq
+\frac{1}{n - 1/2} - \frac{n - 3/2}{\colorTbar(n - 1/2)}\\
+&\leq
+\frac{1}{n - 1/2}. TODO check
 \end{align*}
 
 \end{proof}
