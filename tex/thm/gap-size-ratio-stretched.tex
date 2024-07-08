@@ -1,0 +1,59 @@
+\begin{lemma}[Gap Size Ratio, Stretched]
+\label{thm:gap-size-ratio-stretched}
+If the first $n$ data items $\colorTbar$ of each h.v. $\colorh$ are retained, then gap size ratio is bounded,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\leq
+1/n.
+\end{align*}
+\end{lemma}
+\begin{proof}
+
+From Lemma \ref{thm:retained-equivalence}, we have retained data items 
+\begin{align*}
+\mathfrak{R}' =
+\{
+  j'2^{\colorh'} - 1
+  :
+  j' \in 1,2,\,\ldots,2n
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+
+
+What is the smallest $m \geq 0$ such that $m \times (2n) - 1 \geq \colorTbar$ and $m$ is an even power of two?
+\begin{align*}
+m \times 2n
+&\geq \colorTbar + 1\\
+m
+&\geq \frac{\colorTbar + 1}{2n}\\
+m
+&= \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}}.
+\end{align*}
+
+So, $\colorG_{\colorT}(\colorTbar) = \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}} - 1$ and gap size ratio can be bounded
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}  
+&\leq
+\frac{
+\left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}} - 1
+}{
+\colorTbar
+}\\
+&\leq
+\frac{
+2\frac{\colorTbar + 1}{2n} - 1
+}{
+\colorTbar
+}\\
+&\leq
+\frac{1}{n} + \frac{1 - n}{n\colorTbar}\\
+&\leq
+\frac{1}{n} - \frac{n - 1}{n\colorTbar}\\
+&\leq
+1 / n.
+\end{align*}
+
+
+\end{proof}
