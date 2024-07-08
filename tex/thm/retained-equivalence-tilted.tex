@@ -1,13 +1,13 @@
-\begin{lemma}[Retained h.v. Equivalence, Stretched]
+\begin{lemma}[Retained h.v. Equivalence, Tilted]
 \label{thm:retained-equivalence-stretched}
-If the first $n$ data items $\colorTbar$ of each h.v. $\colorh$ are guaranteed retained retained, then we are guaranteed 
+If the first $n$ data items $\colorTbar$ of each h.v. $\colorh$ are guaranteed retained, then we are guaranteed 
 \begin{align*}
 \colorTbar
 &\in
 \{
-  j'2^{\colorh'} - 1
+  2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
   :
-  j' \in 1,2,\,\ldots,2n
+  j' \in 1,2,\,\ldots,2n-1
   \text{ and }
   \colorh' \in \mathbb{N}
 \}.
@@ -26,7 +26,7 @@ The set of retained data items can be denoted
 \begin{align*}
 \mathfrak{R} =
 \{
-  j2^{\colorh + 1} + 2^{\colorh} - 1
+  2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
   :
   j \in 0,1,\,\ldots,n-1
   \text{ and }
@@ -38,9 +38,9 @@ We will show $\mathfrak{R}$ equivalent to,
 \begin{align*}
 \mathfrak{R}' =
 \{
-  j'2^{\colorh'} - 1
+  2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
   :
-  j' \in 1,2,\,\ldots,2n
+  j' \in 1,2,\,\ldots,2n-1
   \text{ and }
   \colorh' \in \mathbb{N}
 \}.
