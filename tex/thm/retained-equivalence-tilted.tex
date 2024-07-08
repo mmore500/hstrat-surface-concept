@@ -7,7 +7,7 @@ If the first $n$ data items $\colorTbar$ of each h.v. $\colorh$ are guaranteed r
 \{
   2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
   :
-  j' \in 1,2,\,\ldots,2n-1
+  j' \in 0,1,\,\ldots,2n-1
   \text{ and }
   \colorh' \in \mathbb{N}
 \}.
@@ -40,7 +40,7 @@ We will show $\mathfrak{R}$ equivalent to,
 \{
   2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
   :
-  j' \in 1,2,\,\ldots,2n-1
+  j' \in 0,1,\,\ldots,2n-1
   \text{ and }
   \colorh' \in \mathbb{N}
 \}.
@@ -51,13 +51,17 @@ Suppose $\colorTbar \in \mathfrak{R}$.
 Then $\exists j,  0 \leq j < n$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
-&= j2^{\colorh + 1} + 2^{\colorh} - 1\\
-&= (2j + 1)2^{\colorh} - 1.
+&= 2^{\colorh + 1}\Big(\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} - j\right\rfloor\Big) + 2^{\colorh} - 1\\
+&= 2^{\colorh + 1}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}\right\rfloor - 2^{\colorh}(2j) + 2^{\colorh} - 1\\
+&= 2^{\colorh} \Big( 1 - 2j + 2\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor \Big) - 1\\
+&= 2^{\colorh} \Big( 1 - 2j + \left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh}} \right\rfloor \Big) - 1 \tag{TODO}\\
+&= 2^{\colorh} \Big( 1 - 2j + \left\lfloor \frac{\colorT}{2^{\colorh}} \right\rfloor - 1 \Big) - 1\\
+&= 2^{\colorh} \Big(\left\lfloor \frac{\colorT}{2^{\colorh}}\right\rfloor - 2j \Big) - 1.
 \end{align*}
-Note that $2j + 1 \in 1,2,\,\ldots,2n$, giving $\mathfrak{R} \subseteq \mathfrak{R}`$.
+Note that $2j \in 0,1,\,\ldots,2n-1$, giving $\mathfrak{R} \subseteq \mathfrak{R}`$.
 \end{proofpart}
 
-\begin{proofpart}[$\mathfrak{R}' \subseteq \mathfrak{R}$]
+\begin{proofpart}[$\mathfrak{R}' \subseteq \mathfrak{R}$]TODO
 Suppose $\colorTbar \in \mathfrak{R}'$.
 Then $\exists j',  0 \leq j' \leq 2n$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
