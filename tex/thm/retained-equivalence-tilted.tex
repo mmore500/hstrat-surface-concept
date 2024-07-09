@@ -78,14 +78,18 @@ Suppose $\colorTbar \in \mathfrak{R}$.
 Then $\exists j,  0 \leq j < n$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
-&= 2^{\colorh + 1}\Big(\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} - j\right\rfloor\Big) + 2^{\colorh} - 1\\
-&= 2^{\colorh + 1}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}\right\rfloor - 2^{\colorh}(2j) + 2^{\colorh} - 1\\
-&= 2^{\colorh} \Big( 1 - 2j + 2\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor \Big) - 1\\
-&= 2^{\colorh} \Big( 1 - 2j + \left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh}} \right\rfloor \Big) - 1 \tag{TODO}\\
-&= 2^{\colorh} \Big( 1 - 2j + \left\lfloor \frac{\colorT}{2^{\colorh}} \right\rfloor - 1 \Big) - 1\\
-&= 2^{\colorh} \Big(\left\lfloor \frac{\colorT}{2^{\colorh}}\right\rfloor - 2j \Big) - 1.
+&= 2^{\colorh + 1}\Big(\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j \Big) + 2^{\colorh} - 1\\
+% &= 2^{\colorh + 1}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}\right\rfloor - 2^{\colorh}(2j) + 2^{\colorh} - 1\\
+&= 2^{\colorh} \Big(2\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor  - 2j + 1 \Big) - 1.
 \end{align*}
-Note that $2j \in 0,1,\,\ldots,2n-1$, giving $\mathfrak{R} \subseteq \mathfrak{R}`$.
+Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floor,
+\begin{align*}
+\colorTbar
+&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh}} \right\rfloor - \epsilon  - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT}{2^{\colorh}} \right\rfloor - 1 - \epsilon - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big(\left\lfloor \frac{\colorT}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
+\end{align*}
+Note that $(2j + \epsilon) \in 0,1,\,\ldots,2n-1$ for $j \in 0,1,\,\ldots,n-1$ giving $\mathfrak{R} \subseteq \mathfrak{R}`$.
 \end{proof}
 
 \begin{sublemma}[$\mathfrak{R}' \subseteq \mathfrak{R}$]
