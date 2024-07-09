@@ -46,7 +46,34 @@ We will show $\mathfrak{R}$ equivalent to,
 \}.
 \end{align*}
 
-\begin{proofpart}[$\mathfrak{R} \subseteq \mathfrak{R}`$]
+Sublemma \ref{thm:tilted-rsubset} shows $\mathfrak{R} \subseteq \mathfrak{R}`$.
+From Sublemma \ref{thm:tilted-subsetr}, $\mathfrak{R}' \subseteq \mathfrak{R}$.
+Hence, $\mathfrak{R}' = \mathfrak{R}$.
+
+\end{proof}
+
+\begin{sublemma}[$\mathfrak{R} \subseteq \mathfrak{R}`$]
+\label{thm:tilted-rsubset}
+Sets $\mathfrak{R} \subseteq \mathfrak{R}`$,
+\begin{align*}
+\{
+  2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
+  :
+  j \in 0,1,\,\ldots,n-1
+  \text{ and }
+  \colorh \in \mathbb{N}
+\}
+&\subseteq
+\{
+  2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
+  :
+  j' \in 0,1,\,\ldots,2n-1
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+\end{sublemma}
+\begin{proof}
 Suppose $\colorTbar \in \mathfrak{R}$.
 Then $\exists j,  0 \leq j < n$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
@@ -59,9 +86,31 @@ Then $\exists j,  0 \leq j < n$ and $\colorh \in \mathbb{N}$ such that
 &= 2^{\colorh} \Big(\left\lfloor \frac{\colorT}{2^{\colorh}}\right\rfloor - 2j \Big) - 1.
 \end{align*}
 Note that $2j \in 0,1,\,\ldots,2n-1$, giving $\mathfrak{R} \subseteq \mathfrak{R}`$.
-\end{proofpart}
+\end{proof}
 
-\begin{proofpart}[$\mathfrak{R}' \subseteq \mathfrak{R}$]
+\begin{sublemma}[$\mathfrak{R}' \subseteq \mathfrak{R}$]
+\label{thm:tilted-subsetr}
+Sets $\mathfrak{R}' \subseteq \mathfrak{R}$,
+\begin{align*}
+\{
+  2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
+  :
+  j' \in 0,1,\,\ldots,2n-1
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}
+&\subseteq
+\{
+  2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
+  :
+  j \in 0,1,\,\ldots,n-1
+  \text{ and }
+  \colorh \in \mathbb{N}
+\}.
+\end{align*}
+
+\end{sublemma}
+\begin{proof}
 Suppose $\colorTbar \in \mathfrak{R}'$.
 Then $\exists j',  0 \leq j' \leq 2n - 1$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
@@ -103,5 +152,4 @@ Then $\exists j',  0 \leq j' \leq 2n - 1$ and $\colorh \in \mathbb{N}$ such that
 % \in 0,1, \, \ldots, (x \leq \frac{n - 1}{2}).
 % \end{align*}
 Because $j'/2 \in 0,1,\,\ldots,n-1$,  $\mathfrak{R}' \subseteq \mathfrak{R}$. TODO -- odd numbers?
-\end{proofpart}
 \end{proof}
