@@ -1,0 +1,21 @@
+\begin{theorem}[Tilted Algorithm Worst-case Gap Size Ratio]
+\label{thm:tilted-gap-size}
+Under the tilted curation algorithm, gap size ratio is bounded
+\begin{align*}
+  \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
+  &\leq
+  \Big[
+    \max\Big(
+      \left\lceil 2^{\colors - \colortau - 1} \right\rceil,
+      \frac{\colorS}{2(\colort + \colors)},
+      \frac{\colorS}{4\colort},
+    \Big)
+    - 1/2
+  \Big]^{-1}.
+\end{align*}
+\end{theorem}
+\begin{proof}
+
+From Supplementary Theorem \ref{thm:gap-size-ratio-tilted}, we have that if the first $n$ instances of each h.v. $\colorh$ are retained that gap size ratio is bounded $1/(n - 0.5)$.
+Substituting the expressions for per-h.v. reservation count $n$ derived in Lemma \ref{thm:stretched-discarded-incidence-count} and Theorem \ref{thm:stretched-reservation-count} gives the result.
+\end{proof}
