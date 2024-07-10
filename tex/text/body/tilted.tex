@@ -67,6 +67,16 @@ As shown previously in Theorem \ref{thm:stretched-first-n-space}, setting $n(\co
 \subsection{Tilted Algorithm Mechanism}
 \label{sec:tilted-mechanism}
 
+Because the tilted algorithm, like the stretched algorithm, also follows an equal-$n$-per-h.v. scheme, hanoi value reservation layout is maintained identically to that of the stretched algorithm.
+Refer to Section \ref{sec:stretched-mechanism} for a detailed description and justification of hanoi value reservation layout, and how it is progressed across epochs $\colort$ and meta-epochs $\colortau$.
+
+A pertinent result of the stretched layout, though, is that the at least $2^{\colors - 1 - \colortau}$ data item instances of each h.v. are retained (Lemma \ref{thm:stretched-reservation-count}).
+However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last}-$n$ rather than the \textit{first}-$n$ instances of each hanoi value.
+We can do that by continuing to write data items for each h.v. into reservation slots for that h.v. after they initially fill --- overwriting older instances of the h.v. to keep a ``ring buffer'' of fresh h.v. instances.
+
+In the following, we prove several results related to this cyclical-overwrite mechanism --- notably, including that it aligns evenly to epoch and meta-epoch transitions.
+Ultimately, these results lead up to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $2^{\colors - 1 - \colortau}$ instances of each h.v., including through transitions where reservation site count for a h.v. is shrunk by half due to invasion.
+
 \input{thm/tilted-last-touched}
 
 \input{thm/tilted-last-overwritten}
