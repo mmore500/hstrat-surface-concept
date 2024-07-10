@@ -119,41 +119,126 @@ Suppose $\colorTbar \in \mathfrak{R}'$.
 Then $\exists j',  0 \leq j' \leq 2n - 1$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
-&= 2^{\colorh}\Big(\left\lfloor \colorT / 2^{\colorh} \right\rfloor - j'\Big) - 1\\
-&= 2^{\colorh}\Big(\left\lfloor \colorT / 2^{\colorh} - \frac{2^{\colorh}}{2^{\colorh}} + \frac{2^{\colorh}}{2^{\colorh}} \right\rfloor - j'\Big) - 1\\
-&= 2^{\colorh}\Big(\left\lfloor (\colorT - 2^{\colorh}) / 2^{\colorh}  + 1 \right\rfloor - j'\Big) - 1\\
-&= 2^{\colorh}\Big(\left\lfloor (\colorT - 2^{\colorh}) / 2^{\colorh} \right\rfloor - j'\Big) + 2^{\colorh} - 1\\
-&= 2^{\colorh}\Big(\left\lfloor 2\frac{\colorT - 2^{\colorh}}{2^{\colorh+1}} \right\rfloor - j'\Big) + 2^{\colorh} - 1\\
-&= 2^{\colorh+1}\Big(
-  \frac{\left\lfloor 2\frac{\colorT - 2^{\colorh}}{2^{\colorh+1}} \right\rfloor}{2} - j'/2
-\Big) + 2^{\colorh} - 1\\
-&\stackrel{\checkmark}{=} 2^{\colorh+1}\Big(
-  \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh+1}} \right\rfloor - j'/2
-\Big) + 2^{\colorh} - 1.  \tag{TODO}
+&= 2^{\colorh}\Big(\left\lfloor \colorT / 2^{\colorh} \right\rfloor - j'\Big) - 1.
 \end{align*}
 
-% In the case that $j' \bmod 2 = 1$,
-% \begin{align*}
-% \colorTbar
-% &= \frac{j'-1}{2} 2^{\colorh + 1} + 2^{\colorh} - 1.
-% \end{align*}
-% for $j' \in 1, 3, \,\ldots 2n-1$.
-% Because $\frac{j'-1}{2} \in 0, 1, \, \ldots, n - 1$ here, $\mathfrak{R}' \subseteq \mathfrak{R}$.
+Begin by calculating the number of factors of two dividing $\colorTbar + 1$, $\colorH(\colorTbar)$.
+Take $\colorH(\colorTbar) \geq \colorh$ (TODO prove this),
+\begin{align*}
+\colorTbar
+&= 2^{\colorh}\Big(\left\lfloor \colorT / 2^{\colorh} \right\rfloor - j'\Big) - 1\\
+&= 2^{\colorH(\colorTbar)} \Big(
+\frac{\left\lfloor \colorT / 2^{\colorh} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh}}
+\Big)
+- 1\\
+&= 2^{\colorH(\colorTbar)} \Big(
+\frac{\left\lfloor \colorT / 2^{\colorh} \right\rfloor - 2^{\colorH(\colorTbar) - \colorh}}{2^{\colorH(\colorTbar) - \colorh}}
++ 1
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh}}
+\Big)
+- 1\\
+&= 2^{\colorH(\colorTbar)} \Big(
+\frac{\left\lfloor \colorT / 2^{\colorh} - 2^{\colorH(\colorTbar) - \colorh} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh}}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh}}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1\\
+&= 2^{\colorH(\colorTbar) + 1} \Big(
+\frac{\left\lfloor \colorT / 2^{\colorh} - 2^{\colorH(\colorTbar) - \colorh} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh + 1}}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh + 1}}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1.
+\end{align*}
 
-% In the case that $j' \bmod 2 = 0$,
-% \begin{align*}
-% \colorTbar
-% &= j'2^{\colorh} - 1\\
-% &= \frac{j'}{2}2^{\colorh + 1} - 1\\
-% &= \frac{j'/2}{\max\{ i \in 2^{\mathbb{N}} : i \bmod j'/2 = 0 \}}2^{\colorh'} - 1\\
-% &= \Big(\frac{j'/2}{\max\{ i \in 2^{\mathbb{N}} : i \bmod j'/2 = 0 \}} - 1\Big) 2^{\colorh'} + 2^{\colorh'} - 1\\
-% &= \Big(\frac{(j'/2)/(\max\{ i \in 2^{\mathbb{N}} : i \bmod j'/2 = 0 \}) - 1}{2}\Big) 2^{\colorh' + 1} + 2^{\colorh'} - 1\\
-% \end{align*}
-% for $j' \in 2, 4, \,\ldots 2n$.
-% Because $j'/2 \in 1, 2, \, \ldots, n$,
-% \begin{align*}
-% \Big(\frac{(j'/2)/(\max\{ i \in 2^{\mathbb{N}} : i \bmod j'/2 = 0 \}) - 1}{2}\Big)
-% \in 0,1, \, \ldots, (x \leq \frac{n - 1}{2}).
-% \end{align*}
-Because $j'/2 \in 0,1,\,\ldots,n-1$,  $\mathfrak{R}' \subseteq \mathfrak{R}$. TODO -- odd numbers?
+By definition $2^{\colorH(\colorTbar)}$ divides $\colorTbar + 1$ and the quoient $\colorTbar / 2^{\colorH(\colorTbar)}$ is an odd, positive integer.
+So, $\colorTbar / 2^{\colorH(\colorTbar)} - 1$ is an even, non-negative integer.
+Because
+\begin{align*}
+\frac{\left\lfloor \colorT / 2^{\colorh} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh}} \in 1, 3, 5, \, \ldots
+\end{align*}
+we have
+\begin{align*}
+\frac{\left\lfloor \colorT / 2^{\colorh} - 2^{\colorH(\colorTbar) - \colorh} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh}}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh}} \in 0, 2, 4, \, \ldots \, .
+\end{align*}
+Thus,
+\begin{align*}
+\frac{
+  \left\lfloor
+  \frac{\colorT - 2^{\colorH(\colorTbar)}}{2^{\colorh}}
+  \right\rfloor
+}{
+  2^{\colorH(\colorTbar) - \colorh + 1}
+}
+- \frac{j'}{
+  2^{\colorH(\colorTbar) - \colorh + 1}
+}
+\in \mathbb{Z}_{\geq0}.
+\end{align*}
+
+Letting $0 \leq \epsilon < 0$ denote a continuity correction factor,
+\begin{align*}
+\colorTbar
+&= 2^{\colorH(\colorTbar) + 1}
+\Big(
+\left\lfloor
+\frac{
+  \colorT - 2^{\colorH(\colorTbar)}
+}{
+  2^{\colorH(\colorTbar) + 1}
+}
+\right\rfloor
++ \epsilon
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh + 1}}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1\\
+&= 2^{\colorH(\colorTbar) + 1}
+\Big(
+\left\lfloor
+\frac{
+  \colorT - 2^{\colorH(\colorTbar)}
+}{
+  2^{\colorH(\colorTbar) + 1}
+}
+\right\rfloor
+- (
+  \frac{j'}{2^{\colorH(\colorTbar) - \colorh + 1}}
+  + \epsilon
+)
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1\\
+\end{align*}
+
+Because
+\begin{align*}
+\left\lfloor
+\frac{
+  \colorT - 2^{\colorH(\colorTbar)}
+}{
+  2^{\colorH(\colorTbar) + 1}
+}
+\right\rfloor
+- (
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh + 1}}
++ \epsilon
+)
+\in \mathbb{Z}
+\end{align*}
+we have
+\begin{align*}
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh + 1}}
+- \epsilon
+\in \mathbb{Z}.
+\end{align*}
+Further, because $0 \leq \epsilon < 1$ and $\colorH(\colorTbar) - \colorh  + 1 \geq 1$,
+\begin{align*}
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh + 1}}
+- \epsilon
+\in
+0, 1, \,\ldots, n - 1,
+\end{align*}
+giving us the result.
 \end{proof}
