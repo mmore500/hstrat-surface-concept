@@ -38,7 +38,7 @@ Long-term, code in this repository will migrate to the `hstrat` and `downstream`
 
 If pecking contributes to a scientific publication, please cite it as
 
-> Matthew Andres Moreno. (2024). mmore500/hsurf. Zenodo. https://zenodo.org/doi/10.5281/zenodo.10779240
+> Matthew Andres Moreno. (2024). mmore500/hstrat-surface-concept. Zenodo. https://zenodo.org/doi/10.5281/zenodo.10779240
 
 ```bibtex
 @software{moreno2024hsurf,
