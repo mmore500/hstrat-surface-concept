@@ -45,10 +45,24 @@ Next, we propose a stream curation algorithm tailored to the tilted criterion, a
 \end{align*}
 
 \subsection{Tilted Algorithm Strategy}
-
 \label{sec:tilted-strategy}
+
 \input{fig/hsurf-tilted-intuition.tex}
 
+The retention strategy for the tilted algorithm strongly resembles that of the stretched algorithm.
+Recall that under the stretched algorithm the first $n(\colorT)$ data items of each hanoi value $\colorH(\colorTbar)$ are retained, with $n(\colorT)$ degrading with time in shifting from many copies of few encountered hanoi values to few copies of many encountered hanoi values.
+Under the tilted algorithm, we instead keep the \textit{last} $n(\colorT)$ data items of each hanoi value.
+Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances of each h.v. approximates tilted distribution.
+
+We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
+\begin{align*}
+\textsf{goal\_tilted}
+&=
+\bigcup_{\colorh \geq 0}
+\{ \colorTbar \in \colorT, \colorT - 1, \, \ldots, \max(0, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}.
+\end{align*}
+Note that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
+As shown previously in Theorem \ref{thm:stretched-first-n-space}, setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 \subsection{Tilted Algorithm Mechanism}
 \label{sec:tilted-mechanism}
@@ -68,7 +82,34 @@ Next, we propose a stream curation algorithm tailored to the tilted criterion, a
 
 \input{fig/hsurf-tilted-implementation.tex}
 
+Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched} -- with the exception that, instead of discarding data items once available sites reserved to that h.v. have filled, we simply cycle back and overwrite data items within that h.v.'s reservations in the order that they were added.
+In practice, the target index among available sites reserved to a h.v. can be calculated as the number of previous times a h.v. has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
+Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
+
+Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+As before, both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
+We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the stretched algorithm.
+
 \subsection{Tilted Algorithm Criterion Satisfaction}
 \label{sec:tilted-satisfaction}
 
+In this final subsection, we establish an upper bound on gap size ratio $\colorg/(\colorT - \colorTbar)$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed tilted curation algorithm.
+
 \input{thm/tilted-gap-size}
+
+Consideration of the gap size bound result found in Theorem \ref{thm:stretched-gap-size} at small and large $\colort$ is instructive.
+During the first epoch where $\colort = 1$,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\leq
+\frac{4}{\colorS}.
+\end{align*}
+
+Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\leq
+2.
+\end{align*}
+
+Figure \ref{fig:hsurf-tilted-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
