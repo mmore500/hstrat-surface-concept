@@ -9,7 +9,7 @@ So, we can restrict our consideration to instances where h.v. instance count exc
 In the absence of invasion, the placements by construction cycle around the available $2^{\colors - 1 - \colortau}$ reserved sites, so the last $2^{\colors - 1 - \colortau}$ h.v. instances are retained.
 
 What about in the case of invasion?
-In this case, again from Lemma \ref{thom:stretched-discarded-incidence-count}, we have the number of reserved sites as dropping from $2^{\colors - \colortau}$ to $2^{\colors - 1 - \colortau}$.
+In this case, again from Lemma \ref{thm:stretched-discarded-incidence-count}, we have the number of reserved sites as dropping from $2^{\colors - \colortau}$ to $2^{\colors - 1 - \colortau}$.
 Recall for each h.v. $\colorh$, data items are placed sequentially into the innermost-nested reservation segment layer, ending with placement into the rightmost reservation segment.
 By Lemma \ref{thm:stretched-discarded-incidence-count}, at the outset of epoch $\colort$, invaded sites $\{\colork \in \colorS : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ therefore always contain the most-recent $2^{\colors - 1 - \colortau}$ ingested h.v. $\colorh = \colorHcal_{\colort - 1}(\colork)$ data items, sequenced left-to-right.
 If data items in these sites were lost instantaneously at ingest time $\min\{\colorT \in \min\{\colort \in \colortau\}\}$, we would not meet our proof objectives, having none of the most-recent $2^{\colors - 1 - \colortau}$ h.v. $\colorh$ data items retained.
