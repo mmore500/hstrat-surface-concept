@@ -2,64 +2,64 @@
 
 In closing, we briefly revisit the principal objectives and major results of presented work.
 We then highlight implications of the work, in terms of both conceptual novelties and potential application areas.
-Finally, we lay out future work --- first, in aspects of the presented work that remain unsolved amd opportunities for extension and elaboration.
+Finally, we lay out future work --- first, in aspects of the presented work that remain unsolved and opportunities for extension and elaboration.
 We also describe steps to build out availability of developed algorithms as an off-the-shelf, plug-and-play software tool.
 
 \subsection{Summary and Discussion}
 
 In this work, we have developed new strategies for ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points, focusing in particular on fixed-capacity procedures amenable to resource-constrained use cases.
 
-As a simplifying assumption, we have reduced to curation to a sole update operation: ``site selection,'' picking a buffer index to write the $n$th received data item into --- and overwrite any existing data item at that location.
+As a simplifying assumption, we have reduced curation to a sole update operation: ``site selection,'' picking a buffer index to write the $n$th received data item into --- and overwrite any existing data item at that location.
 In the interest of concision and efficiency, we forgo any explicit data labeling or other structure (e.g., pointers) and instead require
 site selection to be computable \textit{a priori}.
-For stored data to readily interable, therefore, additionally requires support for straightforward ``inverse'' decoding of a stored data item's provenance based solely on its buffer index and net items ingested from the data stream.
+For stored data to readily interperetable, therefore, additionally requires support for straightforward ``inverse'' decoding of a stored data item's provenance based solely on its buffer index and net items ingested from the data stream.
 
 Ultimately, stream curation decisions dictate what data to keep, and for how long.
-As desiradatum in this regard depends heavily ob use case, we explore a suite of three possible retention strategies rather than just one approach.
+As desiderata in this regard depend heavily on use case, we explore a suite of three possible retention strategies rather than just one approach.
 The first explored curation objective is steady criterion curation, which calls for retention of evenly-spaced samples across data stream history.
-Our proposed algotithm guarantees worst-case even coverage within a factor of two of optimal.
+Our proposed algorithm guarantees worst-case even coverage within a factor of two of optimal.
 
 The second two explored curation objectives, stretched and tilted curation algorithms, bias retention to favor earlier (stretched) or more recent (tilted) data items.
-Proposed algorutmns for these two criteria relate closely in strucutre, differing only in that the former permanently freezes data items within layout segments to maintain the earliest-encountered items, while the latter cycles replacement within layout segments so as to maintain the most-recently encounterrd data items.
-Unlike the proposed steady curation algorithm, which handles indefinitely many dats item ingestions, we leave behavior past $\colorT < 2^{\colorS}$ data item ingestions unspecified in defining the proposed stretched and tilted algorithms.
+Proposed algorithms for these two criteria relate closely in structure, differing only in that the former permanently freezes data items within layout segments to maintain the earliest-encountered items, while the latter cycles replacement within layout segments so as to maintain the most-recently encountered data items.
+Unlike the proposed steady curation algorithm, which handles indefinitely many data item ingestions, we leave behavior past $\colorT < 2^{\colorS}$ data item ingestions unspecified in defining the proposed stretched and tilted algorithms.
 
 All three proposed algorithms include formal description of buffer layout procedure, and indicate how site selection proceeds on this basis.
-As implemented, all algorithms support $\mathcal{O}(1)$ site selection operations and $\mathcal{O}(\colorS)$ to decode all $\colorS$ buffer sites ingest times.
+As implemented, all algorithms provide $\mathcal{O}(1)$ site selection operations and $\mathcal{O}(\colorS)$ to decode all $\colorS$ buffer sites ingest times.
 Presentation also constructs strict worst-case upper bounds on curation quality across elapsed data item ingests.
 
 \subsection{Future Algorithm Development}
 
-The core limitation of existing formulations, as mentioned above, is lack of support over indefinite time domains for stretched and tilted curstion algorithms, which are only specified up to $2^{\colorS}$ data item ingests.
-As such, work remains to design behavior past tbis point.
-One possibility is to restricting consideration to power-of-2 data items $\colorTbar \in 2^{\mathbb{N}}$ and performing steady curation over binary order of magnitude (i.e., $\log_2(2^{\mathbb{N}})$) for these items.
+The core limitation of existing formulations, as mentioned above, is lack of support over indefinite time domains for stretched and tilted curation algorithms, which are only specified up to $2^{\colorS}$ data item ingests.
+As such, work remains to design behavior past this point.
+One possibility is restricting consideration to power-of-2 data items $\colorTbar \in 2^{\mathbb{N}}$ and performing steady curation over binary order of magnitude (i.e., $\log_2(2^{\mathbb{N}})$) for these items.
 
 Another opportunity for enhancement is random-access lookup calculation of a stored data item's provenance $\colorTbar$.
-Whereas current implementation is $\mathcal{O}(1)$ under the strady algorithm, this time complexity is currently not strictly independent of buffer size $\colorS$ for stretched and tilted curation.
+Whereas current implementation is $\mathcal{O}(1)$ under the steady algorithm, this time complexity is currently not strictly independent of buffer size $\colorS$ for stretched and tilted curation.
 
 Beyond these enhancements to presented algorithms, several interesting openings exist for extension of additional operations on curated data.
 Fast data item location for a target ingest provenance $\colorTbar$ is one possibility, perhaps additionally motivating means for fast calculation of the data item ingest time $\colorTbar'$, retained at time $\colorT$, that most closely matches an arbitrary query $\colorTbar$.
 
-Another possibile area of exploration is fast comparison between curated collections.
+Another possible area of exploration is fast comparison between curated collections.
 In particular, in applications involving identification of discrepancy between stream histories, fast operations to identify common retained time points $\colorTbar$ could be valuable.
 The stable buffer position of data items over their retention history raises the possibility of applying vectorized operations for this purpose (e.g., masked bitwise equality tests).
 
 % of comparing two records to find the first mismatch.
-% This, in the context of hereditary atratigraphy in bounding the most recent common ancestor (MRCA) of two lineages.
+% This, in the context of hereditary stratigraphy in bounding the most recent common ancestor (MRCA) of two lineages.
 %Operations that consolidate data through join operations rather than deletion also remain an interesting unaddressed extension.
 
 \subsection{Algorithm Implementation}
 
 Ultimate motivation of this work lies in putting efficient stream curation procedures into production to solve critical data management challenges.
 Indeed, a driving application of this work is to support distributed lineage history tracking in large-scale digital evolution experiments.
-In this application, stream curation is used to downsample randomly-generated lineage ``checkpoints'' that accrue as generations elapse, wiyh divergence between two lineages identifiable vis mismatching checkpoints \citep{moreno2022hereditary}.
+In this application, stream curation is used to downsample randomly-generated lineage ``checkpoints'' that accrue as generations elapse, with divergence between two lineages identifiable via mismatching checkpoints \citep{moreno2022hereditary}.
 Indeed, prototype implementations of presented algorithms have already been successfully applied to support lineage tracking over massively-distributed, agent-based evolution experiments conducted on the 850,000 core Cerebras Wafer-Scale Engine (WSE) device \citep{moreno2024wafer}.
 Promisingly, empirical microbenchmark experiments reported in that work corroborate order-of-magnitude efficiency gains from the algorithms presented here, compared to existing approaches.
 
 This said, we anticipate broader utility of presented stream curation algorithms beyond this original domain in lineage tracking.
 This possibility has motivated our strategy to pursue standalone formalization, as presented here.
 Another key aspect of this strategy, however, is also standalone software implementations of algorithms proposed herein.
-As described in Section \ref{sec:materials}, we have organized stream-curation specefic components --- including all thrre algorithms presented here --- as a standalone software library \citep{moreno2024downstream}.
-Going forward, we intend for stream curation algorithms to support lineage tracking implementation as an public-facing, external dependency rather than as an opaque internal utility \citep{moreno2022hstrat}
+As described in Section \ref{sec:materials}, we have organized stream-curation specific components --- including all three algorithms presented here --- as a standalone software library \citep{moreno2024downstream}.
+Going forward, we intend for stream curation algorithms to support lineage tracking implementation as an public-facing external dependency rather than as an opaque internal utility \citep{moreno2022hstrat}
 
 Numerous challenges remain in preparing library code to meet user needs.
 One issue is in cross-language support.
@@ -67,5 +67,6 @@ Partial implementations are currently available in Python, Zig, and the closely-
 For our own purposes, we plan to port the stream curation algorithms to Rust and C++ in the near future, and publish modules/header files for these as well.
 
 We would be highly interested in collaborating with interested outside developers in assembling implementations in other languages as needed --- whether that's folding new implementations into the \texttt{downstream} software repository or simply linking to outside repositories with additional implementations from the central hub documentation.
-In either case, care will need to be taken to precisely match exact details across implementations of tbe same stream curation algorithm, as  metadata is implicit and the semsntics of stored data, therefore, depends subtly upon the exact site selection implementation used.
-Possible approaches to tbis issue involve simply designating a canonical implementation and providing platform-agnostic means to test agains it, or investing effort to invest into preparing and to maintain some sort of standard or specification for particular stream curation algorithms.
+In either case, care will need to be taken to precisely match exact details across implementations of the same stream curation algorithm, as  metadata is implicit and the semantics of stored data, therefore, depends subtly upon the exact site selection implementation used.
+One possible approach to this issue would simply be designation of a canonical implementation and developmentof platform-agnostic means to validate other implementations against.
+Alternately, effort could be invested in preparing and maintaining explicit standards or specifications.
