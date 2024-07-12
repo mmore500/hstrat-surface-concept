@@ -2,8 +2,8 @@
 
 Our work concerns online sampling of discrete data items from a one-dimensional data stream.
 In composing retained data items, we seek to ``curate'' a collection that represents samples spanning from the first items ingested from the data stream through to the most recent ingested items \citep{moreno2024algorithms}.
-The goal, ultimately, is to preserve a representative approximate record of stream history.
-We assume curation as an online process, with new data items being ingested on an ongoing basis and availability of an appropriate curated record required at every step along the way.
+The goal, ultimately, is to preserve a representative, approximate record of stream history.
+We assume curation as an online process, with new data items being ingested on an ongoing basis and availability of an appropriate curated archive required at every step along the way.
 In practice, such fully-online curation can be necessary when either (1) stream records are consulted on a frequent basis or (2) time point(s) when stream records are needed are not known \textit{a priori} (e.g., query- or trigger-driven).
 
 We consider three possible requirements for temporal makeup of sampled data: steady, stretched, and tilted retention.
@@ -17,9 +17,11 @@ Such considerations arise across a variety of related data stream work, reviewed
 
 \subsection{Applications of Stream Curation}
 
-Stream curation pertains closely to common operations on data streams.
-Most obviousky, stream curation parallels record-keeping by unattended or sporadically-uplonked sensor devices that record incoming observation streams on an indefinite or indeterminate basis \citep{jain2022survey}.
-Potential parallels additionally arise in more genetal binning and aggregation, although we do not directly investigate these possivilities here.
+Efficient stream curation operations stand to benefit a variety of use cases requiring temporally granular synopsis of data stream history.
+A straightforward application would be in record-keeping by unattended or sporadically-uplinked sensor devices with limited memory capacity to record incoming observation streams on an indefinite or indeterminate basis \citep{jain2022survey}.
+In practice, however, full-fidelity data retention also typically eventually becomes infeasible for long-running centralized systems, however well-resourced --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
+Checkpoint-rollback state could also be managed through stream curation, where the possibility of non-halting silent errors could require support for arbitrary rollback extents \citep{aupy2013combination}.
+Extensions could be imagined to support more general aggregation and approximation operations over stream history besides sampling \citep{schoellhammer2024lightweight}, although we do not directly investigate these possibilities here.
 
 % Existing work has largely applied rolling full retention of most recent data within available buffer space \citep{fincham1995use} or dismissal of incoming data after storage reaches capacity \citep{saunders1989portable,mahzan2017design}.
 % Strategies to maintain a cross-sectional time sample appear scant, although there has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
