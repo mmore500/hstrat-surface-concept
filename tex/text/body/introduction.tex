@@ -1,3 +1,27 @@
 \section{Introduction} \label{sec:introduction}
 
-TODO
+Efficient operations over data streams are critical in harnessing ever-increasing volume and velocity of digital influxes.
+Formally, ``data stream'' problems involve computation over strictly-ordered sequences of read-once inputs.
+Such streams' ordering may be dictated by inherently real-time processes (e.g., physical sensor inputs), access patterns for physical storage media (e.g., a tape archive), or progression of compute state (e.g., non-reversible-time simulation) \citep{henzinger1998computing}.
+The data streaming model assumes input greatly exceeds memory capacity, with many analyses simply treating streams as unbounded \citep{jiang2006research}.
+Indeed, many real-world computing problems must not only operate over data sources vastly outstripping memory capacity, but also must do so on a continuous, indefinite basis \citep{cordeiro2016online}.
+
+Notable data stream oriented domains include sensor networks \citep{elnahrawy2003research}, big-data analytics \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems administration \citep{fischer2012real}, financial analytics \citep{rajeshwari2016real,agarwal2009faster}, environment monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
+As noted above, iterative simulation can also be considered as a data stream --- in terms of traversal of vast ephemeral intermediate states \citep{abdulla2004simulation,schutzel2014stream}.
+
+Here, we focus on just one possible operation over data streams: subsampling.
+We consider specifically the task of maintaining collections spread systematically across the sequence of encountered data items, a scenario we refer to as ``data stream curation.''
+We will proceed to stipulate the parameters and objectives of this problem in formal detail next.
+Then, we review prior work and preview contributions of this work --- most notably, including:
+\begin{enumerate}
+\item establishment of three curation quality criteria (\textit{steady}, \textit{stretched}, and \textit{tilted} retention) reflecting a breadth of possible use-case objectives,
+\item formalization of recently-developed procedures for $\mathcal{O}(1)$ stream curation approximating each of these retention criteria with near-zero storage overhead,
+\item proving viability of internal mechanisms underpinning proposed curation procedures, and
+\item demonstration of worst-case bounds on curated collection composition under proposed procedures.
+\end{enumerate}
+
+\input{text/body/introduction/stream-curation}
+
+\input{text/body/introduction/prior-work}
+
+\input{text/body/introduction/prospectus}
