@@ -122,8 +122,9 @@ Then $\exists j',  0 \leq j' \leq 2n - 1$ and $\colorh \in \mathbb{N}$ such that
 &= 2^{\colorh}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh} \right\rfloor - j'\Big) - 1.
 \end{align*}
 
-Begin by calculating the number of factors of two dividing $\colorTbar + 1$, $\colorH(\colorTbar)$.
-Take $\colorH(\colorTbar) \geq \colorh$ (TODO prove this),
+Begin by calculating how many factors of two divide $\colorTbar + 1$, $\colorH(\colorTbar)$.
+Note that we have $\colorH(\colorTbar) \geq \colorh$ because $2^{\colorh}$ divides $\colorTbar + 1 = 2^{\colorh}(\left\lfloor (\colorT + 1) / 2^{\colorh} \right\rfloor - j')$.
+This fact in hand, we may rearrange our formula for $\colorTbar$,
 \begin{align*}
 \colorTbar
 &= 2^{\colorh}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh} \right\rfloor - j'\Big) - 1\\
