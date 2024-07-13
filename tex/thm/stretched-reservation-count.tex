@@ -14,12 +14,12 @@ data items of each h.v. $\colorh$ are retained.
 \end{theorem}
 \begin{proof}
 
-By Lemma \ref{thm:stretched-discarded-incidence-count}, at least the first $2^{\colors - 1 - \colortau}$ items of each h.v. are retained.
+By Lemma \ref{thm:stretched-discarded-incidence-count}, at least the first $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ items of each h.v. are retained.
 Applying Theorem \ref{thm:meta-epoch-bound} completes the result.
 At any epoch $1 \leq \colort \leq \colorS - \colors$,
 \begin{align*}
 n
-&= 2^{\colors - 1 - \colortau}\\
+&= \left\lceil 2^{\colors - 1 - \colortau} \right\rceil\\
 &\leq2^{\colors - 1 - \min\Big(
   \log_2(\colort + \colors),
   \log_2(\colort) + 1

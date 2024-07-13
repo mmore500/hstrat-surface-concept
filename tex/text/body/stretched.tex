@@ -53,7 +53,7 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \end{align*}
 By construction, $\textsf{goal\_stretched} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
 
-We next show setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
+We next show setting $n(\colorT) = \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ suffices to respect available buffer capacity $\colorS$.
 
 \input{thm/stretched-first-n-space.tex}
 
@@ -65,15 +65,15 @@ We next show setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to resp
 
 \input{fig/hsurf-stretched-implementation.tex}
 
-Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  \left\lceil2^{\colors - 1 - \colortau}\right\rceil$ instances of each hanoi value.
 A naive mechanism might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ h.v.'s $\colorh$ encountered through epoch $\colort$, $\colorT \in \colort$.
 However, this approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
 \begin{align*}
 2^{\colors - 1 - \colortau} \times 2^{\colors + \colort}
-&=
+&\geq
 2^{2\colors - 1}\\
-&=
+&\geq
 \frac{\colorS^{2}}{2}\\
 &\stackrel{\checkmark}{\cancel{\leq}} \colorS \text{ for } \colorS > 1.
 \end{align*}
@@ -113,7 +113,7 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 \subsubsection{Stretched Algorithm Layout at $\colort,\colortau\geq1$}
 
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
-At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
+At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = \left\lceil2^{\colors - 1 - \colortau}\right\rceil = \colorS / 2$ reserved sites per hanoi value.
 To satisfy $\textsf{stretched\_goal}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
 So, half of our $S/2$ sites that are reserved to h.v. $\colorh=0$ may be reallocated.
 One way to do this is by freeing up the singleton segments containing just h.v. $\colorh=0$.
@@ -155,40 +155,39 @@ In this final subsection, we establish an upper bound on gap size ratio $\colorg
 \input{thm/stretched-gap-size}
 
 Consideration of the gap size bound result found in Theorem \ref{thm:stretched-gap-size} at small and large $\colort$ is instructive.
-During the first epoch where $\colort = 1$,
+During epoch $\colort = 1$,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 \leq
 \frac{4}{\colorS}.
 \end{align*}
 
-Likewise, during the last supported epoch, where $\colort = \colorS - \colors$,
+Likewise, during the last supported epoch, where $\colortau = \colors$,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 \leq
-2.
-\end{align*}
-
-Considering $\colort = \colorS - \colors$, as a special case, however, we can establish a tighter bound of 1.
-
-\begin{lemma}[Worst-case Gap Size Ratio in Final Epoch]
-For $\colorT \in (\colort = \colorS - \colors)$,
-\begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
-&\leq
 1.
 \end{align*}
-\end{lemma}
-\begin{proof}
-By construction, $(\colorTbar=0) \in \colorB_{\colorT}$.
-
-Suppose $\exists 2^{\colorS - 1} \leq \colorT < 2^{\colorS}, \colorTbar > 0$ such that $\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} > 1$.
-Then, $\exists \colorTbar$ such that $\{\colorTbar,\colorTbar+1,\,\ldots,2\times\colorTbar \} \in \colorBnot_{\colorT}$.
-Because $\exists 0 \leq n < \colorS$ such that $2^n - 1 \in \{\colorTbar,\colorTbar,\,\ldots,2\times\colorTbar\}$, this would imply $
-\exists 2^n - 1 \in \colorBnot_{\colorT}$.
-However, segment layout provides reserved sites for all h.v. $0\leq\colorh<\colorS$ in final epoch $\colort = \colorS - \colors$, so $\nexists \colorT,\colorTbar$ violating the bound.
-\end{proof}
 
 Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
+
+
+% \begin{lemma}[Worst-case Gap Size Ratio in Final Epoch]
+% For $\colorT \in (\colort = \colorS - \colors)$,
+% \begin{align*}
+% \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+% &\leq
+% 1.
+% \end{align*}
+% \end{lemma}
+% \begin{proof}
+% By construction, $(\colorTbar=0) \in \colorB_{\colorT}$.
+
+% Suppose $\exists 2^{\colorS - 1} \leq \colorT < 2^{\colorS}, \colorTbar > 0$ such that $\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} > 1$.
+% Then, $\exists \colorTbar$ such that $\{\colorTbar,\colorTbar+1,\,\ldots,2\times\colorTbar \} \in \colorBnot_{\colorT}$.
+% Because $\exists 0 \leq n < \colorS$ such that $2^n - 1 \in \{\colorTbar,\colorTbar,\,\ldots,2\times\colorTbar\}$, this would imply $
+% \exists 2^n - 1 \in \colorBnot_{\colorT}$.
+% However, segment layout provides reserved sites for all h.v. $0\leq\colorh<\colorS$ in final epoch $\colort = \colorS - \colors$, so $\nexists \colorT,\colorTbar$ violating the bound.
+% \end{proof}
 
 %The largest h.v. encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.

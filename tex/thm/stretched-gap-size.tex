@@ -5,7 +5,7 @@ Under the stretched curation algorithm, gap size ratio is bounded
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
 \min\Big(
-  2^{\colortau+1-\colors},
+  \left\lceil 2^{\colortau+1-\colors} \right\rceil,
   \frac{2(\colort + \colors)}{\colorS},
   \frac{4\colort}{\colorS}
 \Big).
@@ -22,7 +22,7 @@ Substituting the expressions for per-h.v. reservation count $n$ derived in Lemma
   \Big[
     \max\Big(
       % \left\lceil 2^{\colors - \colortau - 1} \right\rceil,
-      2^{\colors - \colortau - 1},
+      \left\lceil 2^{\colors - \colortau - 1} \right\rceil,
       \frac{\colorS}{2(\colort + \colors)},
       \frac{\colorS}{4\colort},
     \Big)

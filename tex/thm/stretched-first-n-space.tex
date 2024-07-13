@@ -7,10 +7,12 @@ That is,
 |\bigcup_{\colorh \geq 0}
 \{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}| \leq \colorS
 \end{align*}
-for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
+for $n(\colorT) = \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$.
 \end{lemma}
 \begin{proof}
 
+We sill consider two cases.
+\begin{proofpart}[Case $\colortau < \colorS$]
 Because each time point $\colorTbar$ has only one h.v. $\colorH(\colorTbar)$,
 \begin{align*}
 |\textsf{goal\_stretched}|
@@ -19,7 +21,11 @@ Because each time point $\colorTbar$ has only one h.v. $\colorH(\colorTbar)$,
 &=
 1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau}, 2^{\colors + \colort - 1 - \colorh}\Big)\\
 &=
-1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau}, 2^{\colors + \colort - 1 - \colorh}\Big)\\
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau}, 2^{\colors + \colort - 1 - \colorh}\Big).
+\end{align*}
+Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$,
+\begin{align*}
+|\textsf{goal\_stretched}|
 &=
 1 + \sum_{\colorh=0}^{\colort + \colortau} 2^{\colors - 1 - \colortau} + \sum_{\colorh=\colort + \colortau + 1}^{\colors + \colort - 1} 2^{\colors + \colort - 1 - \colorh}\\
 &=
@@ -35,6 +41,19 @@ Because each time point $\colorTbar$ has only one h.v. $\colorH(\colorTbar)$,
 &\stackrel{\checkmark}\leq
 \colorS.
 \end{align*}
+\end{proofpart}
+
+\begin{proofpart}[Case $\colortau=\colors$]
+Every h.v. has exactly one reserved site, so
+\begin{align*}
+|\textsf{goal\_stretched}|
+&=
+\sum_{\colorh} 1\\
+&= \colors + \colort\\
+&= \colors + \colorS - \colors\\
+&\stackrel{\checkmark}{\leq} \colorS.
+\end{align*}
+\end{proofpart}
 
 % Solving
 % \begin{align*}

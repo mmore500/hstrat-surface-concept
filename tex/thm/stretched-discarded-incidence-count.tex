@@ -1,11 +1,12 @@
 \begin{lemma}[Minimum retained h.v. incidences]
 \label{thm:stretched-discarded-incidence-count}
-No data item $\colorTbar'$ is discarded unless its h.v. incidence $|\{\colorTbar \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar) = \colorH(\colorTbar')|$ exceeds $2^{\colors - 1 - \colortau}$.
+No data item $\colorTbar'$ is discarded unless its h.v. incidence $|\{\colorTbar \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar) = \colorH(\colorTbar')|$ exceeds $\left\lceil2^{\colors - 1 - \colortau}\right\rceil$.
 \end{lemma}
 
 \begin{proof}
-By construction, this proposition is trivially true for hanoi values with at least $2^{\colors-1-\colortau}$ sites.
-However, we must consider h.v.'s with fewer than $2^{\colors-1-\colortau}$ reserved sites.
+By construction, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
+During final meta-epoch $\colortau = \colors$, ever encountered h.v. has exactly $\left\lfloor 2^{-1} \right\rfloor = 1$ reserved site.
+However, we must consider h.v.'s with fewer than $2^{\colors-1-\colortau}$ reserved sites, with $\colortau < \colors$.
 For these h.v.'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to h.v. $\colorh$.
 
 \begin{proofpart}[How many hanoi values $\colorh$ have $2^{\colors - 1 - \colortau}$ reserved sites?]
