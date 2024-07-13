@@ -13,7 +13,7 @@ From Lemma \ref{thm:retained-equivalence-tilted}, we have retained data items
 \begin{align*}
 \mathfrak{R}' =
 \{
-2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
+2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j\Big) - 1
   :
   j' \in 0,1,\,\ldots,2n-1
   \text{ and }
@@ -21,42 +21,54 @@ From Lemma \ref{thm:retained-equivalence-tilted}, we have retained data items
 \}.
 \end{align*}
 
-
-What is the smallest $m \geq 0$ such that $m \times (2n - 1) \geq \colorTbar$ and $m$ is an even power of two?
+Begin by finding the smallest $m \in 2^{\mathbb{N}}$ such that
 \begin{align*}
-m \times (2n - 1)
-&\geq \colorTbar + 1\\
+m\Big( \left\lfloor (\colorT + 1)/m \right\rfloor - (2n - 1)\Big) - 1
+&\leq
+\colorTbar.
+\end{align*}
+Solving for $m$,
+\begin{align*}
+m \left\lfloor (\colorT + 1)/m \right\rfloor - m(2n - 1)
+&\leq \colorTbar + 1\\
 m
-&\geq \frac{\colorTbar + 1}{2n - 1}\\
+&\geq \frac{
+m \left\lfloor (\colorT + 1)/m \right\rfloor - \colorTbar - 1
+}{2n - 1}\\
 m
-&= \left\lceil \frac{\colorTbar + 1 }{2n - 1} \right\rceil_{\mathrm{bin}}.
+&\geq \frac{
+\colorT + 1 - \colorTbar - 1
+}{2n - 1}\\
+m
+&= \left\lceil \frac{\colorT - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}}.
 \end{align*}
 
-So, $\colorG_{\colorT}(\colorTbar) = \left\lceil \frac{\colorTbar + 1 }{2n - 1} \right\rceil_{\mathrm{bin}} - 1$ and gap size ratio can be bounded
+So, $\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} \leq \left\lceil \frac{\colorT - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1$ and gap size ratio can be bounded
 \begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
 &\leq
 \frac{
-\left\lceil \frac{\colorTbar + 1 }{2n - 1} \right\rceil_{\mathrm{bin}} - 1
+\left\lceil \frac{\colorT - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1
 }{
-\colorTbar
+\colorT - \colorTbar
 }\\
 &\leq
 \frac{
-2\frac{\colorTbar + 1}{2n - 1} - 1
+2\frac{\colorT - \colorTbar}{2n - 1}
+ - 1
 }{
-\colorTbar
+\colorT - \colorTbar
 }\\
 &\leq
-\frac{\colorTbar + 1}{\colorTbar(n - 1/2)} - 1/\colorTbar\\
-&\leq
-\frac{1}{n - 1/2} + \frac{1}{\colorTbar(n - 1/2)} - \frac{n - 1/2}{\colorTbar(n - 1/2)}\\
-&\leq
-\frac{1}{n - 1/2} + \frac{3/2 - n}{\colorTbar(n - 1/2)}\\
-&\leq
-\frac{1}{n - 1/2} - \frac{n - 3/2}{\colorTbar(n - 1/2)}\\
+\frac{1
+}{n - 1/2}
+-
+\frac{1
+}{
+\colorT - \colorTbar
+}\\
 &\stackrel{\checkmark}{\leq}
-\frac{1}{n - 1/2}. TODO check
+\frac{1}{n - 1/2}.
 \end{align*}
 
 \end{proof}
