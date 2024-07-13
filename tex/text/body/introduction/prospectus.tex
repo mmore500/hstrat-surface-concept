@@ -3,7 +3,7 @@
 % In this work, we have developed new strategies for ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points, focusing in particular on fixed-capacity procedures amenable to resource-constrained use cases.
 
 Our proposed approach revolves around a strong simplifying constraint: we assume a fixed number of buffer sites where items ingested from a data stream may be written and, once stored, we do not allow them to be subsequently inspected or moved.
-Only one further event may occur after a data item is stored, in that it may be overwriten by a later data item.
+Only one further event may occur after a data item is stored, in that it may be overwritten by a later data item.
 Under this regime, the composition of retained data emerges implicitly as a consequence of overwrite order.
 Put another way, curation policy is restricted to be exercised solely through ``site selection,'' picking a buffer index to write the $n$th received data item into.
 (We also allow ingested data items to be discarded without storage.)
@@ -15,8 +15,8 @@ We term this operation ``site lookup.''
 
 \subsection{Major Results}
 
-This paper contributes three site section algorithms, with corresponding site lookup procedures.
+This paper contributes three site selection algorithms, with corresponding site lookup procedures.
 These algorithms differ in temporal composition of retained data items, targeting steady, stretched, and tilted distributions, respectively.
 All three proposed algorithms support fast $\mathcal{O}(1)$ site selection.
-Accompanying site lookip is $\mathcal{O}(\colorS)$ in decoding all $\colorS$ buffer sites' ingest times.
+Accompanying site lookup is $\mathcal{O}(\colorS)$ in decoding all $\colorS$ buffer sites' ingest times.
 We provide worst-case upper bounds on curation quality across elapsed data item ingests, with the steady algorithm notable in guaranteeing performance matching best case within a factor of two.
