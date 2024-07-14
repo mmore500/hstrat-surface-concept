@@ -18,7 +18,7 @@ However, this is not the case --- data items in these sites $\colork$ linger unt
 From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that data items are overwritten in the left-to-right order they were deposited --- except the leftmost reservation, which is overwritten last.
 To ensure that the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ data items are stored, we therefore must show (1) that at least two depositions of our overwritten h.v. $\colorh$ occur before the first overwrite, and (2) that the cadence of overwrites proceeds slower than the cadence of new instances of the hanoi value $\colorh$ being overwritten.
 
-\begin{proofpart}[Before first overwrite]
+\begin{proofpart}[Before First Overwrite]
 Let $\colorT' = \min\{\colorT \in \colort + 1\}$.
 Because $\colorT' \in 2^{\mathbb{N}} \forall \colort$, we have $\colorH(\colorT') = 0$ and, by the fractal property of the hanoi sequence,
 \begin{align*}
@@ -34,7 +34,7 @@ Recalling that the first instance of h.v. $\colorh$ occurs at ingest time $\colo
 \end{proofpart}
 Because $\colorT = 3 \times 2^{\colorh} < 2^{\colorh + 2} - 1$, we have our result.
 
-\begin{proofpart}[Overwrite cadence]
+\begin{proofpart}[Overwrite Cadence]
 The cadence of h.v. $\colorh$, after its first incidence at ingest time $\colorT=2^{\colorh} - 1$ is to occur every $2^{\colorh + 1}$ data items, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
 Observe also that the cadence at which a h.v. $\geq\colorh$ occurs is every $2^{\colorh}$ items, where $\colorT \bmod 2^{\colorh} = 2^{\colorh} - 1$.
 
