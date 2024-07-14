@@ -68,13 +68,13 @@ We have that h.v. $\colorh + \colors$ will place one data item in bunch 0 during
 This is the same number of data items left by h.v. $\colorh$ in bunch 0.
 The same holds for all bunches, with data items left by h.v. $\colorh$ equivalent in number to those to be placed in bunch $n$ from h.v. $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
 
-As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one between incoming data items and data items of h.v. $\colorh=\colort-1$ to choreograph clean elimination of h.v. $\colorh$ by overwrites each epoch.
+As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one correspondence between incoming data items and data items of h.v. $\colorh=\colort-1$ to choreograph clean elimination of h.v. $\colorh$ by overwrites each epoch.
 In determining placement site $\colork$ for ingest $\colorTbar$, we map incoming data items with h.v. $\colorh \geq \colort$ over items $\colorh = colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
 Calculating the number of h.v. instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be placed.
-We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of this procedure, which comprises a handful of fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
 
 \input{thm/steady-hv-elimination}
 
+We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of this procedure, which comprises a handful of fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
 Also implemented fully in accompanying materials, ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 For buffer size $\colorS$, ingestion times for all data items can calculated with ideal time complexity $\mathcal{O}(\colorS)$.
 

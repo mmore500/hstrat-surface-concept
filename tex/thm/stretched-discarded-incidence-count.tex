@@ -1,11 +1,11 @@
-\begin{lemma}[Minimum retained h.v. incidences]
+\begin{lemma}[Minimum Retained Items per Hanoi Value]
 \label{thm:stretched-discarded-incidence-count}
 No data item $\colorTbar'$ is discarded unless its h.v. incidence $|\{\colorTbar \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar) = \colorH(\colorTbar')|$ exceeds $\left\lceil2^{\colors - 1 - \colortau}\right\rceil$.
 \end{lemma}
 
 \begin{proof}
-By construction, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
-During final meta-epoch $\colortau = \colors$, ever encountered h.v. has exactly $\left\lfloor 2^{-1} \right\rfloor = 1$ reserved site.
+By layout construction, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
+During final meta-epoch $\colortau = \colors$, every encountered h.v. has exactly $\left\lfloor 2^{-1} \right\rfloor = 1$ reserved site.
 However, we must consider h.v.'s with fewer than $2^{\colors-1-\colortau}$ reserved sites, with $\colortau < \colors$.
 For these h.v.'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to h.v. $\colorh$.
 
@@ -24,7 +24,7 @@ The $2^{\colors - 1 - \colortau}$ active reservation segments thus provide at le
 We thus can restrict consideration to $\colorh \geq 2^{\colortau}$.
 \end{proofpart}
 
-\begin{proofpart}[H.v.'s without $2^{\colors-1-\colortau}$ reserved sites]
+\begin{proofpart}[Hanoi Values Without $2^{\colors-1-\colortau}$ Reserved Sites]
 Recall that as a propoerty of the hanoi sequence during epoch $\colort$, we have encountered one of highest-value h.v. $\colorh$, one of second highest-value h.v. $\colorh-1$, two of the third-highest h.v. $\colorh-2$, etc.
 Also be reminded that highest-value encountered h.v. $\colorh$ increases by one per epoch $\colort$.
 
@@ -47,7 +47,7 @@ So, we can safely store all encountered instances for h.v.'s
 over the entirety of meta-epoch $\colortau$.
 \end{proofpart}
 
-\begin{proofpart}[Have we accounted for all h.v.'s $\colorh$?]
+\begin{proofpart}[Have we accounted for all hanoi values?]
 Combining the above, the question of covering all h.v.'s $0\leq\colorh\leq\colors+\colort$ becomes,
 \begin{align*}
 2^{\colortau}
