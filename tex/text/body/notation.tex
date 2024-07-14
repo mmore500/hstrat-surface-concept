@@ -82,13 +82,13 @@ Formal definitions are provided in its criterion's corresponding section.
 \input{fig/hanoi-intuition.tex}
 
 As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
-One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) = \max \{ n \in \mathbb{Z}_{\geq0} : (\colorTbar + 1) \bmod 2^n = 0 \}$.%
+One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) = \max \{ n \in \mathbb{Z}_{\geq0} : (\colorTbar + 1) \bmod 2^n = 0 \}$.
+Note that terms of this sequence $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots$ correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.%
 \footnote{%
-Note that, in implementation, $\colorH(\colorTbar)$ can be calculated fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
+As such, in implementation, $\colorH(\colorTbar)$ can be calculated in fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
 }
-The first few terms of this sequence are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots$ \quad .
 This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
-We maintain our zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
+We continue our zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
 
 We refer to $\colorH(\colorTbar) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorTbar$ in reference to parallels with the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
 On occasion, we abbreviate this term as ``h.v.''
