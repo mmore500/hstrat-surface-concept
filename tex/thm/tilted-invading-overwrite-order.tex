@@ -3,22 +3,59 @@
 Except for the value invaded by the leftmost segment $r=\colors$, invaded values are overwritten left-to-right.
 \end{lemma}
 \begin{proof}
-Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ denotes the number of reservation cycles that have elapsed.
-Recall that $\min\{\colort \in \colortau\} = 2^{\colortau} - \colortau$.
+Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ tells the number of reservation segment subsumption cycles that have elapsed.
+Recall also that $\min\{\colort \in \colortau\} = 2^{\colortau} - \colortau$.
 
-There are $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ uninvaded reservations at meta-epoch $\colortau$.
-Invader h.v.'s at $\colort > 1$ are
+There are $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ uninvaded reservation segments at meta-epoch $\colortau$.
+Invader h.v.'s at $\colort \geq 1$ are
 \begin{align*}
-\colort + \colors, \colorH(0) + \colort + \colortau, \colorH(1) + \colort + \colortau, \colorH(2) + \colort + \colortau, \,\ldots, \colorH(\left\lceil 2^{\colors - 1 - \colortau} \right\rceil - 2) + \colort + \colortau.
+\colort + \colors, \colorH(0) + \colort + \colortau, \colorH(1) + \colort + \colortau, \,\ldots, \colorH(\left\lceil 2^{\colors - 1 - \colortau} \right\rceil - 2) + \colort + \colortau.
 \end{align*}
 
-Rewriten,
+Rewritten based on properties of the hanoi sequence and excluding the leftmost invader (covered in Lemma \ref{thm:tilted-last-overwritten}),
 \begin{align*}
-\colort + \colors, \colorH(1 \times 2^{\colort + \colortau} - 1) , \colorH(2 \times 2^{\colort + \colortau} - 1), \colorH(3 \times 2^{\colort + \colortau} - 1), \,\ldots,
-\colorH(\left\lceil2^{\colors - 1 - \colortau} - 1 \right\rceil \times 2^{\colort + \colortau} - 1).
+\colorH(2^{\colort + \colors - 1} + 1 \times 2^{\colort + \colortau} - 1) , \colorH(2^{\colort + \colors - 1} + 2 \times 2^{\colort + \colortau} - 1), \,\ldots,
+\colorH(2^{\colort + \colors - 1} + (\left\lceil2^{\colors - 1 - \colortau}\right\rceil - 1)  \times 2^{\colort + \colortau} - 1).
 \end{align*}
 
-TODO Validate that all $(\colorT=x) \in \colort$ for $\colorH(x)$ above.
+We will confirm that,
+\begin{align*}
+\{
+\colorT \in
+2^{\colort + \colors - 1} + 1 \times 2^{\colort + \colortau} - 1,
+2^{\colort + \colors - 1} + 2 \times 2^{\colort + \colortau} - 1,
+\,\ldots,
+2^{\colort + \colors - 1} + (\left\lceil2^{\colors - 1 - \colortau} \right\rceil - 1) \times 2^{\colort + \colortau} - 1
+\} \subseteq \colort.
+\end{align*}
+Consider the range of ingest times comprising epoch $\colort$,
+\begin{align*}
+\{
+\colorTbar \in \colort
+\} = \{
+2^{\colort + \colors - 1},
+2^{\colort + \colors - 1} + 1,
+\,\ldots,
+2^{\colort + \colors} - 1
+\}.
+\end{align*}
+Showing that our sequence of h.v.'s occurs during $\colort$ therefore requires,
+\begin{align*}
+2^{\colort + \colors} - 1
+&\stackrel{?}{\geq}
+(\left\lceil 2^{\colors - 1 - \colortau} \right\rceil  - 1)
+2^{\colort + \colortau} + 2^{\colort + \colors - 1}\\
+2^{\colort + \colors - 1} - 1
+&\stackrel{?}{\geq}
+\left\lceil 2^{\colors - 1 - \colortau} \right\rceil \times 2^{\colort + \colortau} - 2^{\colort + \colortau}.
+\end{align*}
+Given $\colort + \colortau \geq 2$ for all invasions,
+\begin{align*}
+2^{\colort + \colors - 1} + 3
+&\stackrel{\checkmark}{\geq}
+2^{\colort + \colors - 1}.
+\end{align*}
 
-Because same-h.v. reservations are filled from left-to-right and invading hanoi values accrue sequentially across $\colorT$, invading segments will overwrite their invaded data item left-to-right.
+Remark that for all non-invading $\colorT \in \colort$, $\colorH(\colorT) < \colort + \colortau$.
+Because same-h.v. reservations are filled from left-to-right and invading hanoi values accrue sequentially across $\colorT$, invading segments will overwrite their invaded data items left-to-right.
 \end{proof}
