@@ -1,11 +1,11 @@
 \begin{abstract}
-We address the problem of filtering a fixed-capacity, rolling subsample from a data stream, a task we term the ``data stream curation'' problem.
-Our focus is in meeting temporal coverage criteria, rather than prioritizing retention based on semantic data item values.
-Formalized algorithms target three temporal coverage criteria: (1) steady coverage, where retained data should spread evenly across time; (2) stretched coverage, where early data items should be proportionally favored; and (3) tilted coverage, where recent data items should be proportionally favored.
+We address the problem of filtering a fixed-capacity, rolling subsample from a data stream.
+Specifically, we explore ``data stream curation'' strategies to fulfill requirements on the composition of sample time points retained.
+We target three temporal coverage criteria: (1) steady coverage, where retained samples should spread evenly across elapsed data stream history; (2) stretched coverage, where early data items should be proportionally favored; and (3) tilted coverage, where recent data items should be proportionally favored.
 For each algorithm, we prove worst-case bounds on rolling coverage quality.
-In contrast to previous work by Moreno, Rodriguez Papa, and Dolson (2024), which dynamically scales memory use to guarantee a specified level of coverage quality, here we focus on the more practical, application-driven case of maximizing coverage quality given memory capacity fixed \textit{a priori}.
-As a core simplifying assumption, we restrict algorithm implementations to a single update operation: writing from the data stream to a calculated buffer site --- with data never read back, no metadata stored, and data eviction occurring only implicitly via overwrite.
-By drawing only on primitive, low-level operations and ensuring full, overhead-free use of allotted memory to store data content, this conceptual framework ensures suitability to domains that are resource-constrained (e.g., embedded systems), performance-critical (e.g., real-time), and small-grained (e.g., data items as small as individual bits or bytes).
-In particular, relying on power-of-two-based buffer layout schemes allows storage site selection for ingested data items to proceed through concise $\mathcal{O}(1)$ bit-level operations.
-Anticipating utility across diverse stream-oriented scenarios, we accompany our presentation with open-source implementations, targeting both scripted and compiled application domains.
+In contrast to previous work by Moreno, Rodriguez Papa, and Dolson (2024), which dynamically scales memory use to guarantee a specified level of coverage quality, here we focus on the more practical, application-driven case of maximizing coverage quality given a fixed memory capacity.
+As a core simplifying assumption, we restrict algorithm design to a single update operation: writing from the data stream to a calculated buffer site --- with data never read back, no metadata stored (e.g., sample timestamps), and data eviction occurring only implicitly via overwrite.
+By drawing only on primitive, low-level operations and ensuring full, overhead-free use of allotted memory, this framework ideally suits domains that are resource-constrained (e.g., embedded systems), performance-critical (e.g., real-time), and small-grained (e.g., individual data items as small as single bits or bytes).
+In particular, use of power-of-two-based buffer layout schemes ensures $\mathcal{O}(1)$ data ingestion, via concise bit-level operations.
+To further practical applications, we provide plug-and-play open-source implementations, targeting both scripted and compiled application domains.
 \end{abstract}
