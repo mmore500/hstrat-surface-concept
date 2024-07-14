@@ -1,7 +1,7 @@
 \begin{abstract}
 We address the problem of filtering a fixed-capacity, rolling subsample from a data stream.
 Specifically, we explore ``data stream curation'' strategies to fulfill requirements on the composition of sample time points retained.
-We target three temporal coverage criteria: (1) steady coverage, where retained samples should spread evenly across elapsed data stream history; (2) stretched coverage, where early data items should be proportionally favored; and (3) tilted coverage, where recent data items should be proportionally favored.
+Three temporal coverage criteria are targeted: (1) steady coverage, where retained samples should spread evenly across elapsed data stream history; (2) stretched coverage, where early data items should be proportionally favored; and (3) tilted coverage, where recent data items should be proportionally favored.
 For each algorithm, we prove worst-case bounds on rolling coverage quality.
 In contrast to previous work by Moreno, Rodriguez Papa, and Dolson (2024), which dynamically scales memory use to guarantee a specified level of coverage quality, here we focus on the more practical, application-driven case of maximizing coverage quality given a fixed memory capacity.
 As a core simplifying assumption, we restrict algorithm design to a single update operation: writing from the data stream to a calculated buffer site --- with data never read back, no metadata stored (e.g., sample timestamps), and data eviction occurring only implicitly via overwrite.
