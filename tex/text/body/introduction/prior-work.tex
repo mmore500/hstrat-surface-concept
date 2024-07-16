@@ -1,23 +1,23 @@
 \subsection{Prior Work}
 \label{sec:prior-work}
 
-Given the broad applicability of the data stream paradigm, a rich ecosystem of algorithms exists to support many types of analysis and summarization over sequenced input --- such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
-Stream curation aligns, in particular, at the intersection of two general data stream processing strategies:
+Given the broad applicability of the data stream paradigm, many algorithms exist for analysis and summarization over sequenced input --- such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
+Stream curation involves two general data stream processing patterns:
 \begin{enumerate}
-\item sampling, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
-\item temporal binning/windowing, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
+\item \textit{sampling}, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
+\item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
 \end{enumerate}
-Stream curation further situates within the purview of logical (rather than physical) time algorithms \citep{sibai2016sampling}, as retention objectives are organized vis-a-vis sequence index rather than real time.
+Stream curation further situates within the purview of logical time algorithms \citep{sibai2016sampling}, as retention objectives are organized vis-a-vis sequence index rather than real time.
 
-Owing to the fundamental role of dimension-reduction in supporting more advanced data stream operations, downsampling over logical bins has garnered longstanding algorithmic attention.
+Owing to the fundamental role of dimension-reduction in supporting more advanced data stream operations, downsampling over logical bins has received robust algorithmic attention.
 Notably, schemes for fixed-capacity steady (``equi-segmented'') and tilted (``vari-segmented'') retention appear in \citep{zhao2005generalized}, with the latter resembling additional ``pyramidal,'' ``logarithmic,'' and ``tilted'' time window schemes appearing elsewhere \citep{aggarwal2003framework,han2005stream,giannella2003mining,phithakkitnukoon2010recent}.
-Despite congruities with present work in their objectives and, to an extent, curated collection composition, these references do not prescribe non-iterative layout and update procedures or emphasize minimization of representational overhead (e.g., timestamps, segment length values), as pursued here.
-Work on ``amnesic approximation,'' a generalized scheme for downsamping satisfying an arbitrary temporal cost function, is also notable in its closely related objectives --- although catering to a substantially more resource-intensive use case \citep{palpanas2004online}.
+Despite congruities with present work in their objectives and, to an extent, curated collection composition, no existing work prescribes non-iterative layout and update procedures that emphasize minimization of representational overhead (e.g., avoiding storage of timestamps, segment length values) --- as pursued here.
+Work on ``amnesic approximation,'' a generalized scheme for downsamping satisfying an arbitrary temporal cost function, is also notable in its related objectives --- although catering to a substantially more resource-intensive use case \citep{palpanas2004online}.
 
 % To our knowledge, these previous implementations all unfold through stateful iteration, with representational overhead for each stored value ; stateless enumerations of retained set composition are original to our work in this paper.
 
-\citet{moreno2024algorithms}, which also develops stream curation techniques in service of hereditary stratigraphy \citep{moreno2022hstrat}, should be particularly noted in relation to present work.
-Whereas this earlier work also focuses on minimizing the representational footprint around stored data, algorithm design caters better to variable-capacity storage, rather than fixed-capacity.
-Although configurations oriented to fixed-capacity use cases targeted herein are also explored in \citet{moreno2024algorithms}, they require a more expensive update process keeping data in sorted order and, in practice, can leave unused buffer capacity in order to guarantee bounded adherence to size limits.
-Indeed, head-to-head comparison has demonstrated present algorithms as improving execution speed by order of magnitude and also, in the case of tilted retention, enhancing buffer space utilization \citep{moreno2024guide,moreno2024trackable}.
-In addition to these benchmark analyses --- beyond the scope of formal algorithmic exposition herein --- presented algorithms have also already seen use implementing hereditary stratigraphy for lineage tracking within very large-scale agent-based evolution simulations on the 850,000-core Cerebras Wafer-Scale Engine platform \citep{moreno2024trackable}.
+\citet{moreno2024algorithms}, which presented earlier stream curation techniques in service of hereditary stratigraphy \citep{moreno2022hstrat}, should be particularly noted in relation to present work.
+Whereas that earlier work also focuses on minimizing the representational footprint around stored data, algorithm design caters better to variable-capacity storage, rather than fixed-capacity.
+Although configurations oriented to fixed-capacity use cases targeted herein are also explored in \citet{moreno2024algorithms}, they require a more expensive update process that keeps data in sorted order and can leave buffer capacity unused.
+Indeed, head-to-head benchmarks have demonstrated present algorithms as improving execution speed by order of magnitude and also, in the case of tilted retention, enhancing buffer space utilization \citep{moreno2024guide,moreno2024trackable}.
+In addition to benchmark analysis --- and beyond the scope of formal algorithmic exposition herein --- presented algorithms have also been applied to hereditary stratigraphy for lineage tracking within very large-scale agent-based evolution simulations on the 850,000-core Cerebras Wafer-Scale Engine platform \citep{moreno2024trackable}.
