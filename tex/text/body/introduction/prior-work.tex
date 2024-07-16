@@ -11,7 +11,7 @@ Stream curation further situates within the purview of logical time algorithms \
 
 Owing to the fundamental role of dimension-reduction in supporting more advanced data stream operations, downsampling over logical bins has received robust algorithmic attention.
 Notably, schemes for fixed-capacity steady (``equi-segmented'') and tilted (``vari-segmented'') retention appear in \citep{zhao2005generalized}, with the latter resembling additional ``pyramidal,'' ``logarithmic,'' and ``tilted'' time window schemes appearing elsewhere \citep{aggarwal2003framework,han2005stream,giannella2003mining,phithakkitnukoon2010recent}.
-Despite congruities with present work in their objectives and, to an extent, curated collection composition, no existing work prescribes non-iterative layout and update procedures that emphasize minimization of representational overhead (e.g., avoiding storage of timestamps, segment length values) --- as pursued here.
+Despite congruities with present work in their objectives and, to an extent, curated collection composition, no existing work prescribes non-iterative layout and update procedures that emphasize minimization of representational overhead (e.g., avoiding storage of timestamps, segment length values, etc.) --- as pursued here.
 Work on ``amnesic approximation,'' a generalized scheme for downsamping satisfying an arbitrary temporal cost function, is also notable in its related objectives --- although catering to a substantially more resource-intensive use case \citep{palpanas2004online}.
 
 % To our knowledge, these previous implementations all unfold through stateful iteration, with representational overhead for each stored value ; stateless enumerations of retained set composition are original to our work in this paper.
