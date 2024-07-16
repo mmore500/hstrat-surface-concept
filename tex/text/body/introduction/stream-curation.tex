@@ -1,38 +1,40 @@
 \subsection{Stream Curation Problem}
 
 Our work concerns online sampling of discrete data items from a one-dimensional data stream.
-In composing retained data items, we seek to ``curate'' a collection that represents samples spanning from the first items ingested from the data stream through to the most recent ingested items \citep{moreno2024algorithms}.
-The goal, ultimately, is to preserve a representative, approximate record of stream history.
-We assume curation as an online process, with new data items being ingested on an ongoing basis and availability of an appropriate curated archive required at every step along the way.
-In practice, such fully-online curation can be necessary when either (1) stream records are consulted on a frequent basis or (2) time point(s) when stream records are needed are not known \textit{a priori} (e.g., query- or trigger-driven).
+In selecting retained data items, we seek to ``curate'' a collection containing samples spanning the first items ingested from the data stream through the most recent ingested items \citep{moreno2024algorithms}.
+The objective, ultimately, is to preserve a representative, approximate record of stream history.
 
-We consider three possible requirements for temporal makeup of sampled data: steady, stretched, and tilted retention.
-The first, steady retention, seeks a uniformly-spaced sample.
-Stretched and tilted retention, by contrast, prioritize sample density over particular regions of history.
-The former prefers early data items, while the later prefers recent data items --- proportionally to position within the span of elapsed history.
+We assume curation as an online process, with new data items being ingested on an ongoing basis, with a properly curated archive also needed on a continual basis.
+In practice, such fully-online curation can be necessary when either (1) stream records are consulted on a frequent basis or (2) time point(s) when stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven).
+
+We consider three possible requirements on sampled data: \textit{steady}, \textit{stretched}, and \textit{tilted} criteria.
+The first, \textbf{steady} retention, seeks a uniformly-spaced sample.
+\textbf{Stretched} and \textbf{tilted} retention, by contrast, prioritize sample density in particular regions of history.
+The former prefers early data items, while the later prefers recent data items --- both proportionally to position within the span of elapsed history.
 Formal definitons of these three criteria will be introduced later in Section \ref{sec:notation-coverage}.
-Such considerations arise across a variety of related data stream work, reviewed shortly \citep{aggarwal2003framework,han2005stream}.
+Related objectives appear in a variety of related data stream work, reviewed shortly in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
 
 %Each contributed policy includes indexing schemes that simultaneously support both efficient update operations and efficient storage of retained stream values in a flat array, requiring only $\mathcal{O}(1)$ storage overhead --- a single counter value.
 
 \subsection{Applications of Stream Curation}
 
-Efficient stream curation operations stand to benefit a variety of use cases requiring temporally granular synopsis of data stream history.
-A straightforward application would be in record-keeping by unattended or sporadically-uplinked sensor devices with limited memory capacity to record incoming observation streams on an indefinite or indeterminate basis \citep{jain2022survey}.
-In practice, however, full-fidelity data retention also typically eventually becomes infeasible for long-running centralized systems, however well-resourced --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
-Checkpoint-rollback state could also be managed through stream curation, where the possibility of non-halting silent errors could require support for arbitrary rollback extents \citep{aupy2013combination}.
+Efficient stream curation operations benefit a variety of use cases requiring synopsis of data stream history.
+A straightforward application of stream curation is in record-keeping by unattended or sporadically-uplinked sensor devices, that record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
+In practice, however, even well-resourced centralized systems require thinning of full fidelity data --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
+Checkpoint-rollback state might also be managed through stream curation, where the possibility of non-halting silent errors require support for arbitrary rollback extents \citep{aupy2013combination}.
 Extensions could be imagined to support more general aggregation and approximation operations over stream history besides sampling \citep{schoellhammer2024lightweight}, although we do not directly investigate these possibilities here.
 
 % Existing work has largely applied rolling full retention of most recent data within available buffer space \citep{fincham1995use} or dismissal of incoming data after storage reaches capacity \citep{saunders1989portable,mahzan2017design}.
 % Strategies to maintain a cross-sectional time sample appear scant, although there has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
 
-Although strictly separate from the content of this paper, algorithm developments reported here originally stem from work on ``hereditary stratigraphy,'' a recently-developed technique for distributed tracking of digital ancestry trees --- for instance phylogenetic history amont agents in evolution simulations or provenance analysis of decentralized social network content, peer-to-peer file sharing, and computer viruses \citep{moreno2022hereditary}.
-Hereditary stratigraphy takes a reconstruction-based approach to tracking, annotating surveiled artifacts with checkpoint data, extended with a new ``fingerprint'' before each copy event.
-Comparing two artifacts' accreted records reveals the duration of their common ancestry, with the first mismatched fingerprints indicating the terminus of common descent.
+Algorithm developments reported here originally stem from supporting work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for distributed tracking of digital ancestry trees --- for instance phylogenetic history amont agents in evolution simulations or provenance analysis of decentralized social network content, peer-to-peer file sharing, and computer viruses \citep{moreno2022hereditary}.
+Although separate from our objectives here, we will briefly motivate this particular use case of stream curation.
+Hereditary stratigraphy takes a reconstruction-based approach to tracking, annotating surveiled artifacts with checkpoint data, which is extended by a new ``fingerprint'' with each copy event.
+Comparing two artifacts' accreted records reveals the duration of their common ancestry, with the first mismatched fingerprints indicating the end of common descent.
 
-Hereditary stratigraphy relies on stream curation to prevent memory bloat from unbounded growth of generational fingerprint records.
+Hereditary stratigraphy relies on stream curation to prevent unbounded growth of generational fingerprint records from bloating memory use.
 These records can be considered as a data stream, in that they accrue piece-by-piece, on an indefinite basis.
 Downsampling fingerprints saves memory, but introduces uncertainty as to the timing of lineage divergence.
 To this end, the manner in which retained checkpoints are spaced across generational history is crucial to inference quality.
-Recent work, for instance, finds that recency-biased tilted retention --- rather than steady retention --- maximizes phylogeny reconstruction accuracy for common evolutionary scenarios \citep{moreno2024guide}.
-Minimizing storage overhead also plays a critical role in enabling efficacy of hereditary stratigraphy, with \citet{moreno2024guide} finding that single-bit checkpoint values maximize reconstruction quality by allowing more fingerprints to be retained.
+Recent work, for instance, finds that recency-biased ``\textit{tilted}'' retention --- opposed to ``\textit{steady}'' retention --- maximizes phylogeny reconstruction accuracy for common evolutionary scenarios \citep{moreno2024guide}.
+Minimizing per-item storage overhead is also critical to hereditary stratigraphy, with \citet{moreno2024guide} finding that single-bit checkpoint values maximize reconstruction quality (i.e., by allowing more fingerprints to be retained).
