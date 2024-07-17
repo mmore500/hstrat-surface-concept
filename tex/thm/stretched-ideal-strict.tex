@@ -1,6 +1,6 @@
 \begin{lemma}[Best-possible Stretched Criterion Satisfaction]
 \label{thm:stretched-ideal-strict}
-The stretched criterion (largest gap size ratio) for a buffer of size $\colorS$ at time $\colorT$ can be minimized no lower than,
+The stretched criterion (i.e., largest gap size ratio) for a buffer of size $\colorS$ at time $\colorT$ can be minimized no lower than,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\geq
@@ -21,23 +21,27 @@ That is, total gap size $\sum \colorg \geq \colorT - \colorS$.
 As a consequence of discretization, the smallest possible gap size is 1 data item.
 
 Optimal retention grows successive gap sizes by a factor $\colorT^{1/\colorS}$.
+Total gap space is
+\begin{align*}
+\textsf{gap\_space} = \colorT - \colorS.
+\end{align*}
 Equating total gap space to sum gap sizes
 \begin{align*}
-\colorT - \colorS
+\textsf{gap\_space}
 &=
-\sum_{i = 0}^{j} \colorT^{i/\colorS} % +1?
+\sum_{i = 0}^{\textsf{num\_gaps}} \colorT^{i/\colorS} % +1?
 \\
 &=
 \frac{
-  \colorT^{(j + 1)/\colorS} - 1
+  \colorT^{(\textsf{num\_gaps} + 1)/\colorS} - 1
 }{
   \colorT^{1/\colorS} - 1
 }.
 \end{align*}
 
-The number of discrete gaps instantiated $j$ follows as at least,
+The number of discrete gaps instantiated follows as at least,
 \begin{align*}
-j
+\textsf{num\_gaps}
 &\geq
 \left\lfloor
 \colorS \log_{\colorT}\Big(
@@ -46,8 +50,8 @@ j
 \right\rfloor.
 \end{align*}
 
-The smallest gap will be located $\mathsf{num\_gaps} + \mathsf{gap\_space}$ time steps back from the most recent observed time $\colorT$.
-The $\mathsf{num\_gaps}$ term arises from the time steps occupied by retained data between gaps.
+The smallest gap of at least size 1 will be located $\mathsf{num\_gaps} + \mathsf{gap\_space}$ time steps back from the most recent observed time $\colorT$.
+Note that the $\mathsf{num\_gaps}$ term accounts for the time steps occupied by retained data between gaps (i.e., ``fence posts'').
 So, the first gap will occur at time $\colorTbar = \colorT - \mathsf{num\_gaps} - \mathsf{gap\_space}$ and the gap size ratio will be at least.
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}

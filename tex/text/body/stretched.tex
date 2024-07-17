@@ -1,24 +1,24 @@
 \section{Stretched Algorithm} \label{sec:stretched}
 
-The stretched criterion favors early data items, targeting a record spaced proportionally to data item ingest time $\colorTbar$.
+The stretched criterion favors early data items, targeting a record with gap sizes proportional to data item ingest time $\colorTbar$.
 The criterion can be formulated as minimization of the largest ratio of gap size to ingest time,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
 For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items geometrically by ratio $\colorT^{1/\colorS}$.
 Counting from zero, under such a layout the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
-Neglecting discretization effects, gap size ratio can be minimized at best approximately
+Deriving an approximate bound without accounting for discretization effects, gap size ratio would be minimized at best,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\stackrel{\sim}{\geq}
 \colorT^{1/\colorS} - 1.
 \end{align*}
 
-Accounting for discretization provides a strict lower bound on gap size ratio, presented next.
+Working in discretization provides a strict lower bound on gap size ratio, presented next.
 
 \input{thm/stretched-ideal-strict}
 
-Next, we propose a stream curation algorithm tailored to the stretched criterion, achieving maximum gap size no worse than,
+This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
@@ -29,7 +29,7 @@ Next, we propose a stream curation algorithm tailored to the stretched criterion
 \end{align*}
 
 Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indefinitely many data ingestions $\colorT$, our proposed stretched algorithm defines ingest site selection only up to $2^{\colorS}$ data items.
-Extension of the stretched algorithm for epoch $\colort > \colorS - \colors$ remains to future work.
+Extension of the stretched algorithm t support epochs $\colort > \colorS - \colors$ remains to future work.
 
 \subsection{Stretched Algorithm Strategy}
 \label{sec:stretched-strategy}
