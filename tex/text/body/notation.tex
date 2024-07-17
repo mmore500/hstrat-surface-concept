@@ -1,15 +1,12 @@
 \section{Preliminaries, Notations, and Terminology} \label{sec:notation}
 
-\input{fig/ingest-and-lookup.tex}
-
 The core function of proposed algorithms is to dynamically filter out a bounded-size subset of incoming data that, according to a desired \textbf{coverage criterion}, minimizes \textbf{time gaps} between retained data items.
 Incoming data is assumed to arrive on a rolling basis, as a \textbf{data stream} comprised of sequential \textbf{data items} $v_i$.
 We assume the data stream to be ephemeral (i.e., ``read once''), and refer to the act of reading an item from the data stream as \textbf{ingesting} it.
-We call this scenario the \textbf{data stream curation problem}.
-Pertinent examples might include rolling downsample operations on sensor readings occurring at a regular frequency, managing checkpoint stores in a rollback-enabled algorithm, or storing telemetry on a production server.
+As mentioned above, we term this scenario the \textbf{data stream curation problem}.
 
 As defined, the objective of stream curation considers data items according only to their \textit{temporal context} (i.e., sequence position), and not actual contained values.
-We assume data item values to be fixed size, so as to fit interchangeably in memory buffer slots, but do not consider or discuss semantic values of data items further.
+We assume data item values to be fixed size, so as to fit interchangeably in memory buffer slots, but do not consider or discuss semantic values data items actually contain further.
 For present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
 \subsection{Buffer Storage $\colorS$}
@@ -25,8 +22,7 @@ On occasion, it will become necessary to refer to a specific buffer position $\c
 We will take a zero-indexing convention, so $0 \leq \colork < \colorS$.
 
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
-As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data.
-As such, the only way to discard a stored data item is by overwriting it.
+As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data --- and the only way to discard a stored data item is by overwriting it.
 Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection} --- picking where (and if) to store incoming data items.
 In our discussion, let $\colorK(\colorT) \in \cup(\colork \in \colorS, \nullval)$ denote the site selection operation to place data item $\colorTbar$ --- with $\nullval$ denoting a data item dropped without storing.
 This site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), takes primary focus herein.
@@ -42,13 +38,13 @@ Figure \ref{fig:ingest-rank-calculation} depicts an example \textit{ingested-tim
 We will refer to each data item's stream sequence index as its \textbf{ingestion time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
 In referring to time, we will also take a zero-indexing convention, so that the first element of the data stream has ingestion time $\colorTbar=0$.
 We assume $\colorT$ to be known for each data ingestion, which is simple to accomplish in practice by simply incrementing a counter each time a data item is ingested.
-Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will sometimes shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
+Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will interchangeably shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
 
 In principle, data stream curation would support indefinite ingestions, $\colorT \in 0, 1, \ldots \,$.
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
 However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS}$ ingestions, $\colorT \in 0, 1, \ldots, 2^{\colorS} - 1$.
 We expect this capacity to suffice for many applications using even moderately sized buffers.
-For instance, a 64-site buffer suffices to ingest items continuously at 5GHz for well over 100 years.
+For instance, a 64-site buffer suffices to ingest items continuously at 5GHz for over 100 years.
 As such, we leave behavior for stretched and tilted curation past $2^{\colorS}$ ingests to future work.
 
 \subsection{Gap Size $\colorg$}
@@ -74,7 +70,7 @@ Algorithms cover three main coverage criteria:
 \item \textbf{tilted criteiron}: favors \textit{newer} items proportionally to their time index recency $\colorT - \colorTbar$ (Section \ref{sec:tilted}).
 \end{enumerate}
 Figure \ref{fig:criteria-intuition} compares example ideal retention distributions under each criterion.
-Formal definitions are provided in its criterion's corresponding section.
+Formal definitions are provided in each criterion's corresponding section.
 
 \subsection{Time Hanoi Value $\colorh$}
 \label{sec:notation-hanoi}
