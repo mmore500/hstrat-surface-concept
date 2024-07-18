@@ -1,23 +1,21 @@
 \section{Tilted Algorithm} \label{sec:tilted}
 
-The tilted criterion favors recent data items, enjoining a record spaced proportionally to time elapsed since data item ingest, $\colorT - \colorTbar$.
+The tilted criterion favors recent data items, enjoining a record spaced proportionally to time elapsed since data item's ingest time, $\colorT - \colorTbar$.
 This is opposite the stretched criterion, which favors early data items.
 
 The tilted criterion can be formulated as minimization of the largest ratio of gap size to ingest time,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} \text{ for } \colorTbar < \colorT.
 \end{align*}
-For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items geometrically by ratio $\colorT^{1/\colorS}$.
-Counting from zero, under such a layout the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
-Neglecting discretization effects, gap size ratio can be minimized at best approximately
 
-The same approximate lower bound on best-case gap size ratio derived for the stretched algorithm applies here,
+The same approximate lower bound on best-case gap size ratio derived for the stretched curation can be applied also to tilted curation,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\stackrel{\sim}{\geq}
 \colorT^{1/\colorS} - 1.
+\tag{Equation \ref{eqn:approx-gap-bound}}
 \end{align*}
-The strict bound on stretched algorithm gap size ratio acounting for discretiztion effects presented in Theorem \ref{thm:stretched-ideal-strict} also applies here,
+As can the strict bound on stretched algorithm gap size ratio acounting for discretiztion effects,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
 &\geq
@@ -29,19 +27,23 @@ The strict bound on stretched algorithm gap size ratio acounting for discretizti
     (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
   \Big)\right\rfloor
 }.
+\tag{Theorem \ref{thm:stretched-ideal-strict}}
 \end{align*}
 
-Next, we propose a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size no worse than,
+In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than,
 \begin{align*}
   \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
   &\leq
-  \Big[
+  \frac{
+    1
+  }{
     \max\Big(
       \frac{\colorS}{2(\colort + \colors)},
       \frac{\colorS}{4\colort},
+      \frac{\colorS}{\left\lceil 2^{\colors - \colortau - 1} \right\rceil}
     \Big)
     - 1/2
-  \Big]^{-1}.
+  }.
 \end{align*}
 
 \subsection{Tilted Algorithm Strategy}
