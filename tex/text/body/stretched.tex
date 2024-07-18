@@ -139,12 +139,14 @@ With relationship between segment subsumption and meta-epoch $\colortau$ thus es
 \subsubsection{Stretched Algorithm Implementation}
 \label{sec:stretched-implementation}
 
-Having determined reservation segment layout strategy, remaining details of site selection can be addressed succinctly.
-As we encounter data items $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that h.v. in descending order of initialized segment size $r$.
-Within same-segment-size classes, we can simply fill from left to right.
-As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items $\colorH(\colorTbar) = \colorh$.
-Once sites reserved to h.v. $\colorh$ fill, further instances $\colorH(\colorTbar) = \colorh$ are discarded without storage.
-Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
+Having determined reservation segment layout strategy by hanoi value, remaining details of site selection can be addressed succinctly.
+
+As we encounter data items with $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that item's h.v. in descending order of initialized segment size $r$.
+Among same-size segments, we simply fill from left to right.
+As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items with $\colorH(\colorTbar) = \colorh$.
+We may thus reinterpret Lemma \ref{thm:stretched-discarded-incidence-count} and Corollary \ref{thm:stretched-reservation-count} as providing guarantees on the first $n$ instances of each h.v. retained.
+Once sites reserved to h.v. $\colorh$ fill, it is necessary to discard further instances $\colorH(\colorTbar) = \colorh$ without storage.
+Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates the resulting site selection process $\colorK(\colorT)$ over epochs $\colort=0,1,2$ on an example buffer, size $\colorS=32$.
 
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
@@ -157,8 +159,8 @@ In this final subsection, we establish an upper bound on gap size ratio $\colorg
 
 \input{thm/stretched-gap-size}
 
-Consideration of the gap size bound result found in Theorem \ref{thm:stretched-gap-size} at small and large $\colort$ is instructive.
-During epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 4/\colorS$.
+Consideration of the gap size bound result found in Theorem \ref{thm:stretched-gap-size} at early and late epochs $\colort$ is instructive.
+During earlyepoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 4/\colorS$.
 Likewise, during the last supported epoch, where $\colortau = \colors$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$.
 Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
 
