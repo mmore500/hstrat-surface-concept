@@ -5,14 +5,14 @@ Buffer space $\colorS$ suffices to store set $\textsf{goal\_stretched}$.
 That is,
 \begin{align*}
 |\bigcup_{\colorh \geq 0}
-\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}| \leq \colorS
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in 0,1,\,\ldots,n(t) : \colorTbar < \colorT \}| \leq \colorS
 \end{align*}
 for $n(\colorT) = \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$.
 \end{lemma}
 \begin{proof}
+We will consider final supported meta-epoch $\colortau=\colors$ separately from earlier meta-epochs $\colortau<\colors$.
 
-We sill consider two cases.
-\begin{proofpart}[Case $\colortau < \colorS$]
+\begin{proofpart}[Case $\colortau < \colors$]
 Because each time point $\colorTbar$ has only one h.v. $\colorH(\colorTbar)$,
 \begin{align*}
 |\textsf{goal\_stretched}|
@@ -23,7 +23,7 @@ Because each time point $\colorTbar$ has only one h.v. $\colorH(\colorTbar)$,
 &=
 1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau}, 2^{\colors + \colort - 1 - \colorh}\Big).
 \end{align*}
-Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$,
+Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$ (i.e., $\colorh = \colort + \colortau$),
 \begin{align*}
 |\textsf{goal\_stretched}|
 &=
@@ -44,7 +44,8 @@ Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$,
 \end{proofpart}
 
 \begin{proofpart}[Case $\colortau=\colors$]
-Every h.v. has exactly one reserved site, so
+During final meta-epoch $\colortau=\colors$, every h.v. has exactly one reserved site.
+Thus,
 \begin{align*}
 |\textsf{goal\_stretched}|
 &=

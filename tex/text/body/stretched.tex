@@ -36,18 +36,17 @@ Extension of the stretched algorithm to support epochs $\colort > \colorS - \col
 
 \input{fig/hsurf-stretched-intuition.tex}
 
-As with the steady algorithm, abstracting data items $\colorTbar$ according to their hanoi value $\colorH(\colorTbar)$ provides the backbone of our approach to stretched curation.
-However, instead of keeping just the $n$ highest encountered h.v.'s, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered h.v.'s.
+As with the steady algorithm, processing data items $\colorTbar$ based on their hanoi value $\colorH(\colorTbar)$ provides the backbone of our approach to stretched curation.
+However, instead of keeping just the largest $n$ highest encountered h.v.'s encountered, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered h.v.'s.
 Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each h.v. approximates stretched distribution.
 
 To respect fixed buffer capacity, per-h.v. capacity $n$ must degrade as we encounter new h.v.'s.
-Take $\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n - 1) : \colorH(\colorTbar) = \colorh \}$ as denoting the first $n$ encountered instances $\colorTbar$ of hanoi value $\colorh$.
 We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
 \textsf{goal\_stretched}
 &=
 \bigcup_{\colorh \geq 0}
-\{ \colorTbar \in 0, 1, \, \ldots, \min(\colorT, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}.
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in 0,1,\,\ldots,n(t) : \colorTbar < \colorT \}
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
@@ -66,8 +65,8 @@ We next show setting $n(\colorT) = \left\lceil 2^{\colors - 1 - \colortau} \righ
 \input{fig/hsurf-stretched-implementation.tex}
 
 Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  \left\lceil2^{\colors - 1 - \colortau}\right\rceil$ instances of each hanoi value.
-A naive mechanism might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ h.v.'s $\colorh$ encountered through epoch $\colort$, $\colorT \in \colort$.
-However, this approach would exceed available buffer capacity.
+A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ h.v.'s $\colorh$ encountered through epoch $\colort \ni \colorT$.
+However, such a naive approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
 \begin{align*}
 2^{\colors - 1 - \colortau} \times 2^{\colors + \colort}
@@ -75,20 +74,21 @@ For example, at $\colortau=\colort=0$,
 2^{2\colors - 1}\\
 &\geq
 \frac{\colorS^{2}}{2}\\
-&\stackrel{\checkmark}{\cancel{\leq}} \colorS \text{ for } \colorS > 1.
+&\cancel{\leq} \colorS \text{ for } \colorS > 1.
 \end{align*}
+A more sophisticated approach will be needed, which we develop next.
 
 \subsubsection{Stretched Algorithm Layout at $\colort,\colortau=0$}
 
-In motivating a more apt strategy, begin by restricting focus to epoch $\colort=\colortau=0$.
-Assume that we reserve sites by h.v. $\colorH(\colorTbar)$, and provide capacity for all data items $0\leq \colorTbar < \colorS$.
-Suppose organization of reserved sites into segments, each with at most one site reserved per hanoi value.
+In motivating a more apt stretched layout strategy, begin by restricting focus to epoch $\colort=\colortau=0$, where $\colorT < \colorS$.
+Assume that we assign one site to each data item $0\leq \colorTbar < \colorS$ and arrange site assignments according to h.v. $\colorh = \colorH(\colorTbar)$.
+Suppose organization of reserved sites into contiguous segments, with no two items in the same segment allowed to share the same hanoi value $\colorh$.
 
 Under this scheme, we will have at least $\colorS/2$ segments, one per h.v. $\colorh=0$ instance encountered.
-In constructing segments, half of these $\colorh=0$ segments can be augmented with one of the $\colorS/4$ h.v. $\colorh=1$ reservations.
+In constructing segments, half of these $\colorh=0$ segments can be augmented with a site to house one of the $\colorS/4$ h.v. $\colorh=1$ data items.
 We can continue, and further augment $\colorS/8$ segments with h.v. $\colorh=2$, etc.
-Placing all encountered h.v. $\colorh\leq\colors$ yields segment sizes that turn out to recapitulate the hanoi sequence.
-Special-casing the largest segment, constructed segment sizes can be enumerated as
+Continuing this pattern to place all encountered h.v. $\colorh\leq\colors$ yields segment sizes that turn out to recapitulate the hanoi sequence.
+Special-casing the largest segment, constructed segment sizes can in fact be enumerated as
 \begin{align}
 \colors + 1, \colorH(0) + 1, \colorH(1) + 1, \ldots, \colorH(\colorS/2 - 2) + 1.
 \label{eqn:stretched-segment-sizes}
@@ -105,10 +105,10 @@ These segment sizes can be shown to exactly fill available buffer space $\colorS
 \colorS.
 \end{align*}
 
-Thus far, we have only considered segment sizes --- and not discussed arrangement of segment order onto physical buffer space $\colorS$.
-One naive approach would lay segments in descending order by length, as for steady retention in Section \ref{sec:steady}.
-However, keeping the hanoi sequence's innate recursive nesting will turn out to serve our objectives.
-The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer, where segment ordering matches that of Formula \ref{eqn:stretched-segment-sizes}.
+Thus far, we have only considered segment sizes --- and not discussed arrangement of segment order within buffer space $\colorS$.
+One naive approach would simply order segments by length, as previously in Section \ref{sec:steady}.
+However, adopting the hanoi sequence's natural ordering, as done in Formula \ref{eqn:stretched-segment-sizes}, will turn out to serve our objectives.
+The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer, with segments sized and arranged directly as enumerated in Formula \ref{eqn:stretched-segment-sizes}.
 
 \subsubsection{Stretched Algorithm Layout at $\colort,\colortau\geq1$}
 
