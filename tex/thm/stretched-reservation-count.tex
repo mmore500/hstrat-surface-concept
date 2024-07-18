@@ -1,16 +1,16 @@
 \begin{corollary}[Minimum Retained Items per Hanoi Value, Bound Approximations]
 \label{thm:stretched-reservation-count}
-Under the stretched curation algorithm, at least the first
+Under the stretched curation algorithm, space for at least
 \begin{align*}
 % 2^{\colors - 1 - \colortau}
 % \geq
-n &\leq
+n &\geq
 \max\Big(
   \frac{\colorS}{2(\colort + \colors)},
   \frac{\colorS}{4\colort}
 \Big)
 \end{align*}
-data items of each h.v. $\colorh$ are retained.
+encountered data items of each h.v. $\colorh$ is provided.
 \end{corollary}
 \begin{proof}
 
@@ -20,15 +20,16 @@ At any epoch $1 \leq \colort \leq \colorS - \colors$,
 \begin{align*}
 n
 &= \left\lceil 2^{\colors - 1 - \colortau} \right\rceil\\
-&\leq2^{\colors - 1 - \min\Big(
+&\geq 2^{\colors - 1 - \colortau}\\
+&\geq2^{\colors - 1 - \min\Big(
   \log_2(\colort + \colors),
   \log_2(\colort) + 1
 \Big)}\\
-&\leq \max\Big(
+&\geq \max\Big(
   2^{\colors - 1 - \log_2(\colort + \colors)},
   2^{\colors - 1 - \log_2(\colort) - 1}
 \Big)\\
-&\stackrel{\checkmark}{\leq} \max\Big(
+&\stackrel{\checkmark}{\geq} \max\Big(
   \frac{\colorS}{2(\colort + \colors)},
   \frac{\colorS}{4\colort}
 \Big).
