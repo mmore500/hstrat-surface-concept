@@ -115,7 +115,7 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
 At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = \left\lceil2^{\colors - 1 - \colortau}\right\rceil = \colorS / 2$ reserved sites per hanoi value.
-To satisfy $\textsf{stretched\_goal}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
+To satisfy $\textsf{goal\_stretched}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
 So, half of our $S/2$ sites that are reserved to h.v. $\colorh=0$ may be freed up.
 One way to do this is by releasing all singleton segments containing \textit{only} h.v. $\colorh=0$.
 
