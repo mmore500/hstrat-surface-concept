@@ -58,26 +58,24 @@ Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances
 
 We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
+\\
 \textsf{goal\_tilted}
 &=
 \bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log(\colorT + 1) \right\rfloor}
 \{ \colorTbar =
-\max\Big(
-  \colorTbar' \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar') = \colorh
-\Big)
-- i2^{\colorh + 1} \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \geq 0 \}\\
-&=
-\bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log(\colorT + 1) \right\rfloor}
-\{ \colorTbar =
-\Big(
+\eqnmarkbox[WildStrawberry]{maxhanoi}{
   \left\lfloor
   \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}}
   + 2^{\colorh}
   - 1
   \right\rfloor
-\Big)
+}
 - i2^{\colorh + 1} \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \geq 0 \}.
 \end{align*}
+
+\annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
+  \colorTbar' \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar') = \colorh
+\}$}
 
 Note also that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
 It can be shown analogously to Theorem \ref{thm:stretched-first-n-space} that setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
