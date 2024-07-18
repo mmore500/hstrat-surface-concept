@@ -60,11 +60,27 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \begin{align*}
 \textsf{goal\_tilted}
 &=
-\bigcup_{\colorh \geq 0}
-\{ \colorTbar \in \colorT, \colorT - 1, \, \ldots, \max(0, 2^{\colorh + 1}n(\colorT) - 1) : \colorH(\colorTbar) = \colorh \}.
+\bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log(\colorT + 1) \right\rfloor}
+\{ \colorTbar =
+\max\Big(
+  \colorTbar' \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar') = \colorh
+\Big)
+- i2^{\colorh + 1} \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \geq 0 \}\\
+&=
+\bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log(\colorT + 1) \right\rfloor}
+\{ \colorTbar =
+\Big(
+  \left\lfloor
+  \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}}
+  + 2^{\colorh}
+  - 1
+  \right\rfloor
+\Big)
+- i2^{\colorh + 1} \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \geq 0 \}.
 \end{align*}
-Note that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
-As shown previously in Theorem \ref{thm:stretched-first-n-space}, setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
+
+Note also that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
+It can be shown analogously to Theorem \ref{thm:stretched-first-n-space} that setting $n(\colorT) = 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 \subsection{Tilted Algorithm Mechanism}
 \label{sec:tilted-mechanism}
