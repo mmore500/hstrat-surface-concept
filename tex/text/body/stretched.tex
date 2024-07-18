@@ -47,7 +47,7 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \textsf{goal\_stretched}
 &=
 \bigcup_{\colorh \geq 0}
-\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in 0,1,\,\ldots,n(t) : \colorTbar < \colorT \}
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \leq \colorT \}
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
