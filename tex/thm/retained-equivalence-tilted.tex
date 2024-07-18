@@ -5,13 +5,14 @@ If the most recent $n$ data items $\colorH(\colorTbar) = \colorh$ for each h.v. 
 \colorTbar
 &\in
 \{
-  2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j\Big) - 1
+  2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j'\Big) - 1
   :
   j' \in 0,1,\,\ldots,2n-1
   \text{ and }
   \colorh' \in \mathbb{N}
 \}.
 \end{align*}
+Note that, although this formulation includes $\colorTbar < 0$, an extension filtering $\colorTbar \in 0,1,\,\ldots,\colorT$ follows trivially.
 \end{lemma}
 \begin{proof}
 
@@ -38,7 +39,7 @@ We will show $\mathfrak{R}$ equivalent to,
 \begin{align*}
 \mathfrak{R}' =
 \{
-  2^{\colorh'}\Big(\left\lfloor (\colorT + 1)/ 2^{\colorh'} \right\rfloor - j\Big) - 1
+  2^{\colorh'}\Big(\left\lfloor (\colorT + 1)/ 2^{\colorh'} \right\rfloor - j'\Big) - 1
   :
   j' \in 0,1,\,\ldots,2n-1
   \text{ and }
@@ -46,15 +47,15 @@ We will show $\mathfrak{R}$ equivalent to,
 \}.
 \end{align*}
 
-Sublemma \ref{thm:tilted-rsubset} shows $\mathfrak{R} \subseteq \mathfrak{R}`$.
+Sublemma \ref{thm:tilted-rsubset} shows $\mathfrak{R} \subseteq \mathfrak{R}'$.
 From Sublemma \ref{thm:tilted-subsetr}, $\mathfrak{R}' \subseteq \mathfrak{R}$.
 Hence, $\mathfrak{R}' = \mathfrak{R}$.
 
 \end{proof}
 
-\begin{sublemma}[$\mathfrak{R} \subseteq \mathfrak{R}`$]
+\begin{sublemma}[$\mathfrak{R} \subseteq \mathfrak{R}'$]
 \label{thm:tilted-rsubset}
-Sets $\mathfrak{R} \subseteq \mathfrak{R}`$,
+Set $\mathfrak{R}$ subsets set $\mathfrak{R}'$,
 \begin{align*}
 &\{
   2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
@@ -89,15 +90,15 @@ Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floo
 &= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor - 1 - \epsilon - 2j + 1 \Big) - 1\\
 &= 2^{\colorh} \Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
 \end{align*}
-Note that $(2j + \epsilon) \in 0,1,\,\ldots,2n-1$ for $j \in 0,1,\,\ldots,n-1$ giving $\mathfrak{R} \subseteq \mathfrak{R}`$.
+Note that $(2j + \epsilon) \in 0,1,\,\ldots,2n-1$ for $j \in 0,1,\,\ldots,n-1$ giving $\mathfrak{R} \subseteq \mathfrak{R}'$.
 \end{proof}
 
 \begin{sublemma}[$\mathfrak{R}' \subseteq \mathfrak{R}$]
 \label{thm:tilted-subsetr}
-Sets $\mathfrak{R}' \subseteq \mathfrak{R}$,
+Set $\mathfrak{R}'$ subsets $\mathfrak{R}$,
 \begin{align*}
 &\{
-  2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j\Big) - 1
+  2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j'\Big) - 1
   :
   j' \in 0,1,\,\ldots,2n-1
   \text{ and }
