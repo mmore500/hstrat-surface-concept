@@ -61,14 +61,15 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \\
 \textsf{goal\_tilted}
 &=
-\bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log(\colorT + 1) \right\rfloor}
+\bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log_2(\colorT + 1) \right\rfloor}
 \{ \colorTbar =
 \eqnmarkbox[WildStrawberry]{maxhanoi}{
   \left\lfloor
   \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}}
+  \right\rfloor
+  2^{\colorh + 1}
   + 2^{\colorh}
   - 1
-  \right\rfloor
 }
 - i2^{\colorh + 1} \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \geq 0 \}.
 \end{align*}
