@@ -115,19 +115,19 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
 At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = \left\lceil2^{\colors - 1 - \colortau}\right\rceil = \colorS / 2$ reserved sites per hanoi value.
 To satisfy $\textsf{stretched\_goal}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
-So, half of our $S/2$ sites that are reserved to h.v. $\colorh=0$ may be reallocated.
-One way to do this is by freeing up the singleton segments containing just h.v. $\colorh=0$.
+So, half of our $S/2$ sites that are reserved to h.v. $\colorh=0$ may be freed up.
+One way to do this is by releasing all singleton segments containing \textit{only} h.v. $\colorh=0$.
 
-Subsumption of these eliminated singleton segments makes space for all remaining segments to ``invade'' by extending one site.
+Because singleton segments intersperse all other segments, their elimination makes space for all remaining segments to ``invade'' by growing one site.
 Sticking with our convention of at most one site with each h.v. $\colorh$ per reservation segment, invading segments accrue space to host an additional high hanoi value data item.
 For instance, the largest segment will grow a site reserved to h.v. $\colorh=\colors +1$.
-Two reservation sites will be added for h.v. $\colorh=\colors - 1$, four for h.v. $\colorh=\colors - 2$, etc. --- mirroring the incidence counts for these h.v.'s during epoch $\colort=1$.
+Two reservation sites will be added for h.v. $\colorh=\colors - 1$, four for h.v. $\colorh=\colors - 2$, etc. --- crucially, mirroring the incidence counts for these h.v.'s during epoch $\colort=1$.
 
 In subsequent epochs $\colort>1$, we can continue dissolving the smallest, innermost-nested reservation segments to grow capacity for new high-h.v. data items.
-Figure \ref{fig:hsurf-stretched-intuition-reservations} shows several steps through this process on a 32-site buffer.
-At final epoch $\colort=\colorS-\colors$ (i.e., $\colorT \approx 2^{\colorS}$), the proposed process of progressive, nested segment subsumption culminates to a single reservation segment containing the first instance of all h.v.'s $0 \leq \colorh < \colorS$.
+Figure \ref{fig:hsurf-stretched-intuition-reservations} shows several steps through this ``invasion'' process on a 32-site buffer.
+At final epoch $\colort=\colorS-\colors$ (i.e., $\colorT \approx 2^{\colorS}$), the proposed process of progressive, nested segment subsumption culminates to a single reservation segment containing one site for each h.v. $0 \leq \colorh < \colorS$.
 
-We will next show that the cadence of meta-epochs $\colortau$ corresponds to the timing of successive segment invasions.
+We will next show our definition of meta-epoch $\colortau$ corresponds precisely to the timing with which successive inner segments are subsumed.
 
 \input{thm/stretched-meta-epoch.tex}
 \input{thm/stretched-discarded-incidence-count.tex}
