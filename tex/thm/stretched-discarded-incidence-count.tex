@@ -19,7 +19,7 @@ That is,
 \end{lemma}
 
 \begin{proof}
-By layout construction, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
+By layout design, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
 During final meta-epoch $\colortau = \colors$, every encountered h.v. has exactly $\left\lfloor 2^{-1} \right\rfloor = 1$ reserved site.
 However, we must consider h.v.'s with fewer than $2^{\colors-1-\colortau}$ reserved sites, with $\colortau < \colors$.
 For these h.v.'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to h.v. $\colorh$.
@@ -60,21 +60,12 @@ So, we can safely store all encountered instances for h.v.'s
 \colort + \colortau
 \end{align*}
 over the entirety of meta-epoch $\colortau$.
+With $(\colort = 2^{\colortau} - \colortau) \in \colortau$, we can thus further restrict our consideration to $\colorh < 2^{\colortau}$.
 \end{proofpart}
 
 \begin{proofpart}[Have we accounted for all hanoi values?]
-Combining the above, the question of covering all h.v.'s $0\leq\colorh\leq\colors+\colort$ becomes,
-\begin{align*}
-2^{\colortau}
-\stackrel{?}{\geq} \colort - \colortau.
-\end{align*}
-
-With $(\colort = 2^{\colortau} - \colortau) \in \colortau$,
-\begin{align*}
-2^{\colortau}
-&\stackrel{?}{\geq} 2^{\colortau} - \colortau + \colortau \\
-&\stackrel{\checkmark}{\geq} 2^{\colortau}.
-\end{align*}
+Combining the above, the question of covering all encountered h.v.'s $0\leq\colorh\leq\colors+\colort$ becomes whether $\exists \colorh \in \mathbb{N}$ such that $\colorh < 2^{\colortau}$ and $\colorh \geq 2^{\colortau}$.
+No such $\colorh$ exists, so we have accounted for all h.v. in satisfying our requirements.
 \end{proofpart}
 
 \end{proof}
