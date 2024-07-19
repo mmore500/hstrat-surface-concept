@@ -1,11 +1,15 @@
-\begin{lemma}[Hanoi Value Delta Between Invader and Invaded]
+\begin{lemma}[Monotonicity of Hanoi Value Reservation $\colorHcal(\colork)$ for Buffer Site $\colork$]
 \label{thm:tilted-invader-minus-invaded}
-Where $\colorHcal_{\colort + 1}(\colork) \neq \colorHcal_{\colort}(\colork)$, $\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \geq 2$.
+A site's assigned hanoi value reservation never decreases.
+Where it increases, it does so by at least 2.
+Formally, where $\colorHcal_{\colort + 1}(\colork) \neq \colorHcal_{\colort}(\colork)$,
+\begin{align*}
+\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \geq 2.
+\end{align*}
 \end{lemma}
 
 \begin{proof}
-Suppose $\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \leq 1$.
-Note that, by construction, any invasion extends the invading segment by at least one site.
-Then, it would be the case that $\exists \colort$ prior to invasion such that the the invaded segment is larger or equal in size to the invading segment.
-However, this cannot be the case --- by construction, segments slated for invasion are always the strictly smallest among remaining segments.
+By design, invasion of any segment begins at the segment's leftmost site $\colork$, always assigned $\colorHcal(\colork) = 0$.
+Because singleton $r=0$ reservation segments never invade, the invader of this leftmost $\colorh = 0$ site will always stem from a segment $r \geq 1$ and have h.v. $\colorh > 1$.
+The delta $\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \geq 2$ remains constant over subsequent invasion steps because invader and invaded h.v.'s both increment by exactly 1 each epoch (until complete elimination of the invaded segment).
 \end{proof}
