@@ -25,6 +25,8 @@ To ensure that the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\r
 \item that the cadence of overwrites proceeds slower than the cadence of new instances of the hanoi value $\colorh$ being overwritten.
 \end{enumerate}
 
+\begin{mybox}
+\textbf{Intuition.}
 Imagine the sequence of $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ most recent data items $\colorT$ for h.v. $\colorH(\colorT) = \colorh$ like the classic video game ``snake'' \citep{de2016complexity}.
 In that game, the eponymous snake grows at its head and shrinks at its tail.
 Analogously, our sequence of most recent data items adds new items at the front and has tail items overwritten.
@@ -33,6 +35,7 @@ From that point, our $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ item
 The two conditions described above ensure that writes of fresh instances of h.v. $\colorh$ (1) pull far enough ahead and (2) stay far enough ahead of invading overwrites to keep at least the snake's leading $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ body segments intact.
 Mixing metaphors, the snake drags its head and then its tail to safety in the remaining $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved ring buffer sites as the rickety bridge of re-reserved but not-yet-overwritten sites it had been occupying collapses behind it.
 After escaping, the snake happily crawls in circles around its $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites --- at least, until invaded again.
+\end{mybox}
 
 \begin{proofpart}[Before First Overwrite]
 Let $\colorT' = \min\{\colorT \in \colort + 1\}$.

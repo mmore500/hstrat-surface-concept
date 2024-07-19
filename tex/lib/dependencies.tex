@@ -23,6 +23,16 @@
 \usepackage{siunitx}
 \usepackage{subcaption}
 \usepackage{textcomp}
+\usepackage[most]{tcolorbox}
+
+% adapted from https://tex.stackexchange.com/a/512504
+\newtcolorbox{mybox}{
+enhanced,
+boxrule=0pt,frame hidden,
+borderline west={4pt}{0pt}{green!50!black},
+colback=green!30!gray!15,
+sharp corners
+}
 
 % adapted from https://tex.stackexchange.com/a/332653/316176
 \makeatletter
