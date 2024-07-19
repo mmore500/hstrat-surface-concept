@@ -1,5 +1,5 @@
-\begin{lemma}[Epochs' Last Instance of a Hanoi Value]
-\label{lemma:tilted-last-touched}
+\begin{lemma}[Last Instance of a Hanoi Value within Epoch $\colort$]
+\label{thm:tilted-last-touched}
 The final instance of each h.v. encountered during an epoch is placed in the rightmost site reserved for that hanoi value.
 That is, during any epoch $\colort$,
 \begin{align*}
@@ -9,14 +9,17 @@ That is, during any epoch $\colort$,
 =
 \max\{\colork \in \colorS : \colorHcal(\colork) = \colorh \}
 \end{align*}
-for all $\colorh \in \{\colorH(0), \colorH(1), \,\ldots, \colorH(\max\{\colorT \in \colort\})\}$.
+for all $\colorh \in \{\colorHcal(\colork) : \colork \in \colorS\}$.
 \end{lemma}
 
 \begin{proof}
-Assume $\colorh \leq \colors + \colort$.
-Otherwise, no h.v. instances $\colorH(\colorTbar) = \colorh$ are encountered and our task is moot.
-
-Because we cycle through the rightmost reservation segment last (it is rightmost within the innermost segment layer), our proof objective is to show that the number of sites $\colork$ reserved to h.v. $\colorh$ evenly divides the number of h.v. $\colorh$ instances encountered during epoch $\colort$.
+Because we are only concerned with pertinent h.v. $\colorh \in \{\colorHcal(\colork) : \colork \in \colorS\}$, we may assume $\colorh \leq \colors + \colort$.
+In traversing a hanoi value's ``ring buffer'' of reserved sites, the rightmost reservation segment is visited last, as it is positioned rightmost within the set of smallest size segments.
+Our proof objective can thus be fulfilled by showing that the number of sites $\colork$ reserved to h.v. $\colorh$ evenly divides the number of h.v. $\colorh$ instances encountered during epoch $\colort$.
+That is,
+\begin{align*}
+|\{\colorT \in \colort : \colorH(\colort) = \colorh\}| \bmod |\{\colork \in \colorS : \colorHcal(\colork) = \colorh\} = 0.
+\end{align*}
 
 How many instances of a hanoi value $\colorh$ are encountered during epoch $\colort$?
 This is
