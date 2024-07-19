@@ -1,6 +1,32 @@
-\begin{lemma}[Invasion Overwrite Order]
+\begin{lemma}[Invasion Overwrite Order within Epoch $\colort$]
 \label{thm:tilted-invading-overwrite-order}
-Except for the value invaded by the leftmost segment $r=\colors$, invaded values are overwritten left-to-right.
+Except for the leftmost invaded site in segment $r=\colors$, invaded sites are overwritten left-to-right. For $\colort > 0$, pick
+\begin{align*}
+\\
+\colork',\colork''
+\in
+\eqnmarkbox[WildStrawberry]{invadedsites}{
+  \mathsf{invaded\_sites}_{\colort}
+}
+: \colors < \colork' < \colork'' < \colorS.
+\end{align*}
+\annotate[yshift=1em]{above,left}{invadedsites}{$\{
+  \colork \in \colorS
+  : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)
+\}$}
+Then,
+\begin{align*}
+\min\{
+  \colorT \in \colort
+  : \colorK(\colorT) = \colork'
+\}
+<
+\min\{
+  \colorT \in \colort
+  : \colorK(\colorT) = \colork''
+\}.
+\end{align*}
+
 \end{lemma}
 \begin{proof}
 Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ tells the number of reservation segment subsumption cycles that have elapsed.
@@ -49,7 +75,7 @@ Showing that our sequence of h.v.'s occurs during $\colort$ therefore requires,
 &\stackrel{?}{\geq}
 \left\lceil 2^{\colors - 1 - \colortau} \right\rceil \times 2^{\colort + \colortau} - 2^{\colort + \colortau}.
 \end{align*}
-Given $\colort + \colortau \geq 2$ for all invasions,
+Given $\colort + \colortau \geq 2$ for all invasions because both $\colort > 0$ and $\colortau > 0$,
 \begin{align*}
 2^{\colort + \colors - 1} + 3
 &\stackrel{\checkmark}{\geq}
