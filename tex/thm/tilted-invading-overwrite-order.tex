@@ -71,6 +71,7 @@ With $\colort + \colortau \geq 2$ for all invasions because both $\colort > 0$ a
 \min(\textsf{invader\_hv\_times}_{\colort})
 &\stackrel{?}{\geq}
 \min\{\colorT \in \colort\}\\
+2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1
 &\stackrel{\checkmark}{\geq}
 2^{\colort + \colors - 1}.
 \end{align*}
@@ -92,9 +93,38 @@ Testing $\textsf{invader\_hv\_times}_{\colort}$ against the upper bound of $\col
 2^{\colort + \colors - 1}
 &\stackrel{\checkmark}{\leq}
 2^{\colort + \colors - 1} + 3.
-\tag{$\colortau + \colort \geq 2$}
+\tag{as above, $\colortau + \colort \geq 2$}
 \end{align*}
 
-Remark that for all non-invading $\colorT \in \colort$, $\colorH(\colorT) < \colort + \colortau$.
-Because same-h.v. reservations are filled from left-to-right and invading hanoi values accrue sequentially across $\colorT$, invading segments will overwrite their invaded data items left-to-right.
+Our final step is to establish that $\mathsf{invader\_hv\_times}_{\colort}$ captures all $\colorT \in \colort$ here $\colorh = \colorH(\colorT)$ is an invading hanoi value --- that is, $\colorH(\colorT) \geq \colort + \colortau$.
+Remark that $\colorT$ such that $\colorH(\colorT) \geq \colort + \colortau$ occur are spaced $2^{\colort + \colortau}$ items apart.
+Because $\mathsf{invader\_hv\_times}_{\colort}$ have an identical cadence, our question boils down to whether
+\begin{align*}
+\min(\textsf{invader\_hv\_times}_{\colort})
+- 2^{\colort + \colortau}
+&\stackrel{?}{<}
+\min\{\colorT \in \colort\}\\
+2^{\colort + \colors - 1} - 1
+&\stackrel{\checkmark}{<}
+2^{\colort + \colors - 1},
+\end{align*}
+and
+\begin{align*}
+\max(\textsf{invader\_hv\_times}_{\colort})
++ 2^{\colort + \colortau}
+&\stackrel{?}{>}
+\max\{\colorT \in \colort\}\\
+\left\lceil 2^{\colors - 1 - \colortau}\right\rceil 2^{\colort + \colortau}
+&\stackrel{?}{>}
+2^{\colort + \colors} - 1\\
+2^{\colort + \colors - 1}
++ 2^{\colort + \colors - 1}
+&\stackrel{?}{>}
+2^{\colort + \colors} - 1\\
+2^{\colort + \colors}
+&\stackrel{\checkmark}{>}
+2^{\colort + \colors} - 1.
+\end{align*}
+
+The result follows from algorithm specification, with each h.v. filling its own newly-allocated reservation sites from left to right.
 \end{proof}
