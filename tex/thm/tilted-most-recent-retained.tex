@@ -6,17 +6,33 @@ At least the most recent $\left\lceil2^{\colors - 1 - \colortau}\right\rceil$ en
 From Lemma \ref{thm:stretched-discarded-incidence-count} we have that reservations are available to store at least the first $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of each hanoi value.
 So, we can restrict our consideration to instances where h.v. instance count exceeds $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$.
 
-In the absence of invasion, the placements by construction cycle around the available $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites, so the last $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ h.v. instances are retained.
+In the absence of invasion, data item placement (by design) cycles around the sites reserved to a hanoi value.
+With at least $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ sites reserved, at least the last $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of each h.v. are retained.
 
 What about in the case of invasion?
 In this case, again from Lemma \ref{thm:stretched-discarded-incidence-count}, we have the number of reserved sites as dropping from $\left\lceil 2^{\colors - \colortau} \right\rceil$ to $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$.
-Recall for each h.v. $\colorh$, data items are placed sequentially into the innermost-nested reservation segment layer, ending with placement into the rightmost reservation segment.
-By Lemma \ref{thm:stretched-discarded-incidence-count}, at the outset of epoch $\colort$, invaded sites $\{\colork \in \colorS : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ therefore always contain the most-recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ ingested h.v. $\colorh = \colorHcal_{\colort - 1}(\colork)$ data items, sequenced left-to-right.
-If data items in these sites were lost instantaneously at ingest time $\min\{\colorT \in \min\{\colort \in \colortau\}\}$, we would not meet our proof objectives, having none of the most-recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ h.v. $\colorh$ data items retained.
-However, this is not the case --- data items in these sites $\colork$ linger until they are actually overwritten by incoming data items $\colorT \in \colort$ with $\colorK(\colorT) = \colork$.
+Recall from Lemma \ref{thm:tilted-last-touched} each epoch, the final encounttered instance of each h.v. is placed into the rightmost reservation segment.
+By design, we therefore know that the final encountered $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances (ending at the rightmost reservation segment) are laid out left-to-right across the smallest remaining segments, $r = \colortau$.
 
-From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that data items are overwritten in the left-to-right order they were deposited --- except the leftmost reservation, which is overwritten last.
-To ensure that the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ data items are stored, we therefore must show (1) that at least two depositions of our overwritten h.v. $\colorh$ occur before the first overwrite, and (2) that the cadence of overwrites proceeds slower than the cadence of new instances of the hanoi value $\colorh$ being overwritten.
+So, at the outset of epoch $\colort$, to-be-invaded sites $\{\colork \in \colorS : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ always contain the most-recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ ingested h.v. $\colorh = \colorHcal_{\colort - 1}(\colork)$ data items, sequenced left-to-right.
+If data items in these sites were lost instantaneously at time $\min\{\colorT \in \colort\}$, we would not meet our proof objectives, having at that point none of the most-recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ h.v. $\colorh$ data items retained.
+However, this is not the case --- data items in these sites $\colork$ linger until they are \textit{actually} overwritten by incoming data items $\colorT \in \colort$ with $\colorK(\colorT) = \colork$.
+
+From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that --- over the course of an epoch --- data items are overwritten in the left-to-right order they were deposited --- except the leftmost reservation, which is overwritten last.
+To ensure that the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ data items are stored, we therefore must show two conditions:
+\begin{enumerate}
+\item that at least two depositions of our overwritten h.v. $\colorh$ occur before the first invasion overwrite, and
+\item that the cadence of overwrites proceeds slower than the cadence of new instances of the hanoi value $\colorh$ being overwritten.
+\end{enumerate}
+
+Imagine the sequence of $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ most recent data items $\colorT$ for h.v. $\colorH(\colorT) = \colorh$ like the classic video game ``snake'' \citep{de2016complexity}.
+In that game, the eponymous snake grows at its head and shrinks at its tail.
+Analogously, our sequence of most recent data items adds new items at the front and has tail items overwritten.
+When an invasion occurs and half of ring buffer reservations are lost, the snake's head has just arrived to the last site of the \textit{lost half of the ring buffer} and its leading $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ sites are \textit{stretched across the lost half of the ring buffer}.
+From that point, our $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ item snake will be chased into the remaining half of the ring buffer by overwrites at its rear.
+The two conditions described above ensure that writes of fresh instances of h.v. $\colorh$ (1) pull far enough ahead and (2) stay far enough ahead of invading overwrites to keep at least the snake's leading $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ body segments intact.
+Mixing metaphors, the snake drags its head and then its tail to safety in the remaining $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved ring buffer sites as the rickety bridge of re-reserved but not-yet-overwritten sites it had been occupying collapses behind it.
+After escaping, the snake happily crawls in circles around its $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites --- at least, until invaded again.
 
 \begin{proofpart}[Before First Overwrite]
 Let $\colorT' = \min\{\colorT \in \colort + 1\}$.
