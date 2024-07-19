@@ -16,34 +16,49 @@ for all $\colorh \in \{\colorHcal(\colork) : \colork \in \colorS\}$.
 Because we are only concerned with pertinent h.v. $\colorh \in \{\colorHcal(\colork) : \colork \in \colorS\}$, we may assume $\colorh \leq \colors + \colort$.
 In traversing a hanoi value's ``ring buffer'' of reserved sites, the rightmost reservation segment is visited last, as it is positioned rightmost within the set of smallest size segments.
 Our proof objective can thus be fulfilled by showing that the number of sites $\colork$ reserved to h.v. $\colorh$ evenly divides the number of h.v. $\colorh$ instances encountered during epoch $\colort$.
-That is,
+That is, we wish to show
 \begin{align*}
-|\{\colorT \in \colort : \colorH(\colort) = \colorh\}| \bmod |\{\colork \in \colorS : \colorHcal(\colork) = \colorh\} = 0.
+\\
+\eqnmarkbox[WildStrawberry]{numitemsh}{
+  \mathsf{num\_items}_{\colorh}
+\bmod
+}
+\eqnmarkbox[WildStrawberry]{numsitesh}{
+  \mathsf{num\_sites}_{\colorh}
+}
+&= 0.
 \end{align*}
+
+\annotate[yshift=1em]{above,left}{numitemsh}{$|\{
+  \colorT \in \colort : \colorH(\colort) = \colorh
+\}|$}
+\annotate[yshift=1em]{above,right}{numsitesh}{$|\{
+  \colork \in \colorS : \colorHcal(\colork) = \colorh
+\}|$}
 
 How many instances of a hanoi value $\colorh$ are encountered during epoch $\colort$?
 This is
 \begin{align*}
-|\{\colorT \in \colort : \colorH(\colorT) = \colorh\}|
+\textsf{num\_items}_{\colorh}
 &=
 2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor.
 \end{align*}
-Adopting $\mathfrak{C}_{\colorH(\colorTbar)}$ as shorthand for this cardinality, observe that $\mathfrak{C}_{\colorH(\colorTbar)} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
+Observe that $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
 
 How many sites are reserved to a hanoi value $\colorh$ during epoch $\colort$?
 Recall from Lemma \ref{thm:stretched-discarded-incidence-count} that this is
 \begin{align*}
-|\{\colork \in \colorS : \colorHcal(\colork) = \colorh\}|
+\textsf{num\_sites}_{\colorh}
 &=
 \min\Big(
 \left\lceil 2^{\colors - \colortau - 1} \right\rceil,
 2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors + \colort - \colorh - 1} \right\rfloor
 \Big).
 \end{align*}
-Denoting this cardinality $\mathfrak{C}_{\colorHcal(\colork)}$, observe also that
-$\mathfrak{C}_{\colorHcal(\colork)} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
+Remark also that
+$\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
 
-Because both $\mathfrak{C}_{\colorH(\colorTbar)} \in 2^{\mathbb{N}}$ and $\mathfrak{C}_{\colorHcal(\colork)} \in 2^{\mathbb{N}}$, all that remains to be shown is $\mathfrak{C}_{\colorH(\colorTbar)} \geq \mathfrak{C}_{\colorHcal(\colork)}$.
+Because both $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ and $\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$, all that remains to be shown is $\textsf{num\_items}_{\colorh} \geq \textsf{num\_sites}_{\colorh}$.
 Consider,
 \begin{align*}
 2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor
