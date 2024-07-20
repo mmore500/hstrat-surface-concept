@@ -30,19 +30,19 @@ Presentation for each constructs strict worst-case upper bounds on curation qual
 
 \subsection{Future Algorithm Development}
 
-The core limitation of present work, as mentioned above, is that the stretched and tilted algorithms are only specified up to $2^{\colorS}$ data item ingests.
+The core limitation of present work, as mentioned above, is specification of stretched and tilted algorithms only through $2^{\colorS}$ data item ingests.
 As such, work remains to design behavior past this point.
-One possibility is switching over at $\colorT = 2^{\colorS}$ to steady curation on data item hanoi value $\colorH(\colorT)$ (i.e., rather than on $\colorT$ itself).
+One possibility is switching over at $\colorT = 2^{\colorS}$ to apply steady curation on data item hanoi value $\colorH(\colorT)$ (i.e., rather than on $\colorT$ itself, as originally formulated).
 
 Another enhancement would be random-access lookup calculation.
-Whereas current implementation is $\mathcal{O}(1)$ under the steady algorithm, random access time complexity currently depends on buffer size $\colorS$ for stretched and tilted curation.
+Whereas current implementation is $\mathcal{O}(1)$ under the steady algorithm, for stretched and tilted curation the random access time complexity currently depends on buffer size $\colorS$.
 
-In addition, several interesting openings exist for extension of additional operations on curated data.
-Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ and fast ingest-order iteration over buffer sites $\colork \in \colorS$ would be useful.
+Several interesting openings exist for extension of additional operations on curated data.
+Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ would be useful, as would fast ingest-order iteration over buffer sites $\colork \in \colorS$.
 
-A final unexplored possibility is fast comparison between curated collections --- critical for applications that rely on identification of discrepancies between stream histories, such as hereditary stratigraphy.
-For this purpose, fast operations to identify common retained time points $\colorTbar$ between records differing in elapsed ingest count $\colorT$ would be valuable.
-The stable buffer position of data items over their retention raises the possibility of applying vectorized operations for this purpose (e.g., masked bitwise equality tests).
+A final unexplored direction is fast comparison between curated collections --- critical for applications that rely on identification of discrepancies between stream histories, such as hereditary stratigraphy.
+To these ends, fast operations to identify common retained time points $\colorTbar$ between records differing in elapsed ingest count $\colorT$ would be valuable.
+The stable buffer position of data items once stored raises the possibility of applying vectorized operations for record-to-record comparison (e.g., masked bitwise equality tests).
 
 % of comparing two records to find the first mismatch.
 % This, in the context of hereditary stratigraphy in bounding the most recent common ancestor (MRCA) of two lineages.
@@ -50,24 +50,24 @@ The stable buffer position of data items over their retention raises the possibi
 
 \subsection{Algorithm Implementation}
 
-Ultimate motivation of this work lies in putting efficient stream curation procedures into production to solve critical data management challenges.
-Indeed, a driving application of this work is to support distributed lineage history tracking in large-scale digital evolution experiments.
-In this application, stream curation is used to downsample randomly-generated lineage ``checkpoints'' that accrue as generations elapse, with divergence between two lineages identifiable via mismatching checkpoints \citep{moreno2022hereditary}.
-Indeed, prototype implementations of presented algorithms have already been successfully applied to support lineage tracking over massively-distributed, agent-based evolution experiments conducted on the 850,000 core Cerebras Wafer-Scale Engine (WSE) device \citep{moreno2024trackable}.
+Ultimate motivation of this work is first and foremost application driven.
+We wish to put efficient stream curation procedures into production to address challenges in resource-constrained data management.
+
+Indeed, a key driver of this work has been in ``hereditary stratigraphy'' tooling to support distributed lineage tracking in large-scale digital evolution experiments.
+In this use case, stream curation downsamples randomly-generated lineage ``checkpoints'' that accrue as generations elapse, allowing divergence between lineages to be identified via mismatching checkpoints \citep{moreno2022hereditary}.
+Prototype implementations of presented algorithms have already seen successfully deployment in lineage tracking over massively-distributed, agent-based evolution experiments conducted on the 850,000 core Cerebras Wafer-Scale Engine (WSE) device \citep{moreno2024trackable}.
 Promisingly, empirical microbenchmark experiments reported in that work corroborate order-of-magnitude efficiency gains from the algorithms presented here, compared to existing approaches.
 
-This said, we anticipate broader utility of presented stream curation algorithms beyond this original domain in lineage tracking.
-This possibility has motivated our strategy to pursue standalone formalization, as presented here.
-Another key aspect of this strategy, however, is also standalone software implementations of algorithms proposed herein.
-As described in Section \ref{sec:materials}, we have organized stream-curation specific components --- including all three algorithms presented here --- as a standalone software library \citep{moreno2024downstream}.
+However, we also anticipate broader use cases beyond hereditary stratigraphy.
+This possibility warrants standalone software implementations of algorithms proposed herein, independent of infrastructure developed to support hereditary stratigraphy \citep{moreno2022hstrat}.
+As described in Section \ref{sec:materials}, we have organized stream-curation specific components --- including all three algorithms presented here --- as the standalone software library \textit{downstream} \citep{moreno2024downstream}.
 Going forward, we intend for stream curation algorithms to support lineage tracking implementation as an public-facing external dependency rather than as an opaque internal utility \citep{moreno2022hstrat}
 
-Numerous challenges remain in preparing library code to meet user needs.
-One issue is in cross-language support.
+One challenge in supporting end-users is cross-language interoperation.
 Partial implementations are currently available in Python, Zig, and the closely-related Cerebras Software Language (CSL) \citep{moreno2024hsurf,moreno2024downstream,moreno2024wse}.
-For our own purposes, we plan to port the stream curation algorithms to Rust and C++ in the near future, and publish a crate/header-only library, respectively, as well.
+For our own purposes, we plan to publish ports of stream curation algorithms for Rust and C++.
 
-We would be highly interested in collaborating with interested outside developers in assembling implementations in other languages as needed --- whether that's folding new implementations into the \texttt{downstream} software repository or simply linking to outside repositories with additional implementations from the central hub documentation.
-In either case, care will need to be taken to precisely match exact details across implementations of the same stream curation algorithm, as  metadata is implicit and the semantics of stored data, therefore, depends subtly upon the exact site selection implementation used.
-One possible approach to this issue would simply be designation of a canonical implementation and developmentof platform-agnostic means to validate other implementations against.
+We would be highly interested in collaborations in assembling implementations in other languages as needed --- whether incorporating new implementations into the \textit{downstream} software repository or linking to outside repositories from the \textit{downstream} documentation.
+In either case, care will need to be taken for consistency across implementations, as the semantics of stored data depends subtly upon exactly how site selection unfolded.
+One possible approach to this issue would simply be designation of a canonical implementation and development of language-agnostic means to validate other implementations.
 Alternately, effort could be invested in preparing and maintaining an explicit standard or specification.
