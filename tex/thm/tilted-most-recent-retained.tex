@@ -39,7 +39,7 @@ In that game, the titular snake slithers by growing at its head and shrinking at
 Analogously, our sequence of most recent h.v. instances adds new items at the front and has tail items overwritten.
 When an invasion occurs and half of ring buffer reservations are reassigned, the snake's head will always have just arrived to the final site of the reassigned half of the ring buffer.
 Its body of $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ sites will be stretched out across the reassigned half of the ring buffer.
-In other words, our snake is laid out entirely within the danger zone!
+In other words, our snake is laid out entirely within the \textit{danger zone}!
 
 From that point, our snake containing $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ items will be chased into the kept half of the ring buffer as overwrites enchroach at its rear.
 The two desiderata described above ensure that the snake (1) pulls ahead and (2) stays far enough ahead of invading overwrites to keep at all time $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ body segments intact.
