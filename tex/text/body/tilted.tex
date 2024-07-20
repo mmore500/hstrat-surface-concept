@@ -115,8 +115,8 @@ In practice, the target index among available sites reserved to a h.v. can be ca
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
 
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
-As before, both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
-We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the stretched algorithm.
+Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
+We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the tilted algorithm.
 
 \subsection{Tilted Algorithm Criterion Satisfaction}
 \label{sec:tilted-satisfaction}

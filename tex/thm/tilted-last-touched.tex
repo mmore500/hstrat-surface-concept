@@ -13,7 +13,7 @@ for all $\colorh \in \{\colorHcal(\colork) : \colork \in \colorS\}$.
 \end{lemma}
 
 \begin{proof}
-Because we are only concerned with pertinent h.v. $\colorh \in \{\colorHcal(\colork) : \colork \in \colorS\}$, we may assume $\colorh \leq \colors + \colort$.
+Because we are only concerned with pertinent h.v. $\colorh \in \{\colorH(\colorT) : \colorT \in \colort\}$, we may assume $\colorh \leq \colors + \colort$.
 In traversing a hanoi value's ``ring buffer'' of reserved sites, the rightmost reservation segment is visited last, as it is positioned rightmost within the set of smallest size segments.
 Our proof objective can thus be fulfilled by showing that the number of sites $\colork$ reserved to h.v. $\colorh$ evenly divides the number of h.v. $\colorh$ instances encountered during epoch $\colort$.
 That is, we wish to show
@@ -43,22 +43,21 @@ This is
 &=
 2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor.
 \end{align*}
-Observe that $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
+Observe that $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ for encountered h.v.'s $\colorh \leq \colors + \colort$.
 
 How many sites are reserved to a hanoi value $\colorh$ during epoch $\colort$?
 Recall from Lemma \ref{thm:stretched-discarded-incidence-count} that this is
 \begin{align*}
 \textsf{num\_sites}_{\colorh}
-&=
+&\geq
 \min\Big(
 \left\lceil 2^{\colors - \colortau - 1} \right\rceil,
 2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors + \colort - \colorh - 1} \right\rfloor
 \Big).
 \end{align*}
-Remark also that
-$\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$ for $\colorh \leq \colors + \colort$.
+Remark also that $\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$ for encountered h.v.'s' $\colorh \leq \colors + \colort$.
 
-Because both $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ and $\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$, all that remains to be shown is $\textsf{num\_items}_{\colorh} \geq \textsf{num\_sites}_{\colorh}$.
+Because both $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ and $\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$ for encountered h.v.'s, all that remains to be shown is $\textsf{num\_items}_{\colorh} \geq \textsf{num\_sites}_{\colorh}$.
 Consider,
 \begin{align*}
 2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor

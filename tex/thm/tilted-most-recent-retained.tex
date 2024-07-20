@@ -27,7 +27,7 @@ Instead, data items in reassigned sites $\colork$ linger until they are \textit{
 From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that, over the course of an epoch, invaded data items are overwritten left to right --- except the leftmost reservation, which is overwritten last.
 Ensuring that the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ data items are stored therefore requires two desiderata:
 \begin{enumerate}
-\item at least two depositions of invaded h.v. $\colorh$ occur before the first invasion overwrite, and
+\item at least two instances of invaded h.v. $\colorh$ occur before the first invading overwrite, and
 \item the cadence of overwrites proceeds slower than that of new instances of invaded hanoi value $\colorh$.
 \end{enumerate}
 
@@ -39,33 +39,37 @@ In that game, the titular snake slithers by growing at its head and shrinking at
 Analogously, our sequence of most recent h.v. instances adds new items at the front and has tail items overwritten.
 When an invasion occurs and half of ring buffer reservations are reassigned, the snake's head will always have just arrived to the final site of the reassigned half of the ring buffer.
 Its body of $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ sites will be stretched out across the reassigned half of the ring buffer.
+In other words, our snake is laid out entirely within the danger zone!
+
 From that point, our snake containing $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ items will be chased into the kept half of the ring buffer as overwrites enchroach at its rear.
 The two desiderata described above ensure that the snake (1) pulls ahead and (2) stays far enough ahead of invading overwrites to keep at all time $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ body segments intact.
 Mixing metaphors, the snake slithers head then tail to safety as the rickety bridge of reassigned but not-yet-overwritten sites it had been occupying collapses behind it.
-After escaping the kept $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ ring buffer sites, the snake of recent h.v. instances then happily crawls in circles around its $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites --- at least, until invaded again.
+After escaping the reassigned $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ ring buffer sites, the snake of recent h.v. instances then happily crawls in circles around its $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites --- at least, until invaded again.
 \end{mybox}
 
-\begin{proofpart}[Before First Overwrite]
+\begin{proofpart}[Two Instances of Invaded Hanoi Value before First Invading Overwrite]
 Let $\colorT' = \min\{\colorT \in \colort + 1\}$.
-Because $\colorT' \in 2^{\mathbb{N}} \forall \colort$, we have $\colorH(\colorT') = 0$ and, by the fractal property of the hanoi sequence,
+Because $\colorT' \in 2^{\mathbb{N}} \forall \colort$ we have $\colorH(\colorT') = 0$.
+By the fractal properties of the hanoi sequence, we may then rewrite the sequence of hanoi values encountered during epoch $\colort + 1$ as,
 \begin{align*}
 \colorH(\colorT'), \colorH(\colorT'+1), \,\ldots, \colorH(2\colorT' - 1) = \colorH(0), \colorH(1), \,\ldots, \colorH(\colorT' - 1).
 \end{align*}
 Note that $2\colorT' - 1 = \max\{\colorT \in \colort + 1\}$.
 
-By Lemma \ref{thm:tilted-invader-minus-invaded} for h.v. $\colorHcal_{\colort}(\colork)$ invaded by h.v. $\colorHcal_{\colort + 1}(\colork)$ ($\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
-Recalling that the first instance of h.v. $\colorh$ occurs at ingest time $\colorT = 2^{\colorh} - 1$, note that $\forall\colorh$,
+By Lemma \ref{thm:tilted-invader-minus-invaded} for h.v. $\colorHcal_{\colort}(\colork)$ invaded by h.v. $\colorHcal_{\colort + 1}(\colork)$ (i.e., $\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
+Recalling that the first instance of h.v. $\colorh$ occurs at ingest time $\colorT = 2^{\colorh} - 1$ and h.v. $\colorh$ recurs at $\colorT = 2^{\colorh + 1} + 2^{\colorh} - 1$, note that $\forall\colorh$,
 \begin{align*}
 |\{\colorT \in 0,\,\ldots, 3 \times 2^{\colorh} : \colorH(\colorT) = \colorh\}| = 2.
 \end{align*}
 \end{proofpart}
 Because $\colorT = 3 \times 2^{\colorh} < 2^{\colorh + 2} - 1$, we have our result.
 
-\begin{proofpart}[Overwrite Cadence]
-The cadence of h.v. $\colorh$, after its first incidence at ingest time $\colorT=2^{\colorh} - 1$ is to occur every $2^{\colorh + 1}$ data items, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
+\begin{proofpart}[Overwrite Cadence Slower than Invaded Hanoi Value Cadence]
+The cadence of h.v. $\colorh$, after its first incidence at ingest time $\colorT=2^{\colorh} - 1$ is to occur every $2^{\colorh + 1}$ data items.
+Specifically, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
 Observe also that the cadence at which a h.v. $\geq\colorh$ occurs is every $2^{\colorh}$ items, where $\colorT \bmod 2^{\colorh} = 2^{\colorh} - 1$.
 
-Again, by Lemma \ref{thm:tilted-invader-minus-invaded} for h.v. $\colorHcal_{\colort}(\colork)$ invaded by h.v. $\colorHcal_{\colort + 1}(\colork)$ ($\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
+Again, by Lemma \ref{thm:tilted-invader-minus-invaded} for h.v. $\colorHcal_{\colort}(\colork)$ invaded by h.v. $\colorHcal_{\colort + 1}(\colork)$ (i.e., $\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
 New incidences of invaded h.v. $\colorHcal_{\colort}(\colork)$ accrue faster than the final $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of h.v. $\colorh$ from epoch $\colort$ are overwritten because
 \begin{align*}
 2^{\colorh + 1} \stackrel{\checkmark}{<} 2^{\colorh + 2}.
