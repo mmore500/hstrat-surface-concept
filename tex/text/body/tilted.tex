@@ -112,7 +112,7 @@ We take particular care in considering transitions the ``ring buffer'' of sites 
 
 Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched} -- with the exception that, instead of discarding data items once available sites reserved to that h.v. have filled, we simply cycle back and overwrite data items within that h.v.'s reservations in the order that they were added.
 In practice, the target index among available sites reserved to a h.v. can be calculated as the number of previous times a h.v. has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
-Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort=0,1,2$ on buffer size $\colorS=32$.
+Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
 
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).

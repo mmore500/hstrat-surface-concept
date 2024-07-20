@@ -147,7 +147,7 @@ Among same-size segments, we simply fill from left to right.
 As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items with $\colorH(\colorTbar) = \colorh$.
 We may thus reinterpret Lemma \ref{thm:stretched-discarded-incidence-count} and Corollary \ref{thm:stretched-reservation-count} as providing guarantees on the first $n$ instances of each h.v. retained.
 Once sites reserved to h.v. $\colorh$ fill, it is necessary to discard further instances $\colorH(\colorTbar) = \colorh$ without storage.
-Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates the resulting site selection process $\colorK(\colorT)$ over epochs $\colort=0,1,2$ on an example buffer, size $\colorS=32$.
+Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates the resulting site selection process $\colorK(\colorT)$ over epochs $\colort \in \{0,1,2\}$ on an example buffer, size $\colorS=32$.
 
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
