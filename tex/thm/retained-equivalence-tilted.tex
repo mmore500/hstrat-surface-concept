@@ -154,6 +154,7 @@ This fact in hand, we may rearrange our formula for $\colorTbar$,
 \Big)
 + 2^{\colorH(\colorTbar)}
 - 1.
+\\
 \end{align*}
 \annotate[yshift=0em]{below,right}{proofgoal}{need to show $\in \{0,1,\,\ldots,n-1\}$}
 
@@ -161,7 +162,7 @@ By definition, $2^{\colorH(\colorTbar)}$ divides $\colorTbar + 1$ and the quotie
 So, $(\colorTbar + 1) / 2^{\colorH(\colorTbar)} - 1$ is an even, non-negative integer.
 Because
 \begin{align*}
-\frac{\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh'}} \in \{1, 3, 5, \, \ldots\} \, ,
+\frac{\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh'}} \in \{1, 3, 5, \, \ldots\},
 \end{align*}
 we have
 \begin{align*}
@@ -227,10 +228,10 @@ Because
   2^{\colorH(\colorTbar) + 1}
 }
 \right\rfloor
-- (
+- \Big(
 \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
 - \epsilon
-)
+\Big)
 \in \mathbb{Z},
 \end{align*}
 we necessarily have
