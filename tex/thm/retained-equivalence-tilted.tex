@@ -79,18 +79,18 @@ Suppose $\colorTbar \in \mathsf{have\_retained}$.
 Then $\exists j \in \{0,1,\,\ldots,n-1\}$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
-&= 2^{\colorh + 1}\Big(\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j \Big) + 2^{\colorh} - 1\\
+&= 2^{\colorh \eqnmarkbox[yellow]{}{+ 1}}\Big(\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j \Big) + \eqnmarkbox[orange]{}{2^{\colorh}} - 1\\
 % &= 2^{\colorh + 1}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}\right\rfloor - 2^{\colorh}(2j) + 2^{\colorh} - 1\\
-&= 2^{\colorh} \Big(2\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor  - 2j + 1 \Big) - 1.
+&= 2^{\colorh} \Big(\eqnmarkbox[yellow]{}{2}\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor  - \eqnmarkbox[yellow]{}{2}j + \eqnmarkbox[orange]{}{1} \Big) - 1.
 \end{align*}
 Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floor,
 \begin{align*}
 \colorTbar
-&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh}} \right\rfloor - \epsilon  - 2j + 1 \Big) - 1\\
-&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor - 1 - \epsilon - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big( \left\lfloor \eqnmarkbox[yellow]{}{2} \frac{\colorT - \eqnmarkbox[orange]{}{2^{\colorh}} + 1}{2^{\colorh+1}} \right\rfloor \eqnmarkbox[yellow]{}{- \epsilon}  - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor \eqnmarkbox[orange]{}{- 1} - \epsilon - 2j + 1 \Big) - 1\\
 &= 2^{\colorh} \Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
 \end{align*}
-Note that $(2j + \epsilon) \in \{0,1,\,\ldots,2n-1\}$ for $j \in \{0,1,\,\ldots,n-1\}$ giving $\mathsf{have\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{want\_retained}$.
+Note that $(2j + \epsilon) \in \{0,1,\,\ldots,2n-1\}$ for $j \in \{0,1,\,\ldots,n-1\}$, giving $\mathsf{have\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{want\_retained}$.
 \end{proof}
 
 \begin{sublemma}[$\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$]
