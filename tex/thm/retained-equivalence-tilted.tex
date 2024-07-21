@@ -86,8 +86,8 @@ Then $\exists j \in \{0,1,\,\ldots,n-1\}$ and $\colorh \in \mathbb{N}$ such that
 Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floor,
 \begin{align*}
 \colorTbar
-&= 2^{\colorh} \Big( \left\lfloor \eqnmarkbox[yellow]{}{2} \frac{\colorT - \eqnmarkbox[orange]{}{2^{\colorh}} + 1}{2^{\colorh+1}} \right\rfloor \eqnmarkbox[yellow]{}{- \epsilon}  - 2j + 1 \Big) - 1\\
-&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor \eqnmarkbox[orange]{}{- 1} - \epsilon - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big( \left\lfloor \eqnmarkbox[YellowGreen]{}{2} \frac{\colorT \eqnmarkbox[Orchid]{}{- 2^{\colorh}} + 1}{2^{\colorh+1}} \right\rfloor \eqnmarkbox[YellowGreen]{}{- \epsilon}  - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor \eqnmarkbox[Orchid]{}{- 1} - \epsilon - 2j + 1 \Big) - 1\\
 &= 2^{\colorh} \Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
 \end{align*}
 Note that $(2j + \epsilon) \in \{0,1,\,\ldots,2n-1\}$ for $j \in \{0,1,\,\ldots,n-1\}$, giving $\mathsf{have\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{want\_retained}$.
