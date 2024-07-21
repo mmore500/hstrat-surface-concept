@@ -55,7 +55,7 @@ Then $\exists j \in \{0,1,\,\ldots,n-1\}$ and $\colorh \in \mathbb{N}$ such that
 &= j2^{\colorh + 1} + 2^{\colorh} - 1\\
 &= (2j + 1)2^{\colorh} - 1.
 \end{align*}
-Noting $2j + 1 \in 1,2,\,\ldots,2n$ gives $\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$.
+Noting $2j + 1 \in 1,2,\,\ldots,2n$ gives $\mathsf{have\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{want\_retained}$.
 \end{proofpart}
 
 \begin{proofpart}[$\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$]
@@ -66,13 +66,13 @@ Then $\exists j'\in\{1,2,\,\ldots,2n\}$ and $\colorh' \in \mathbb{N}$ such that
 &= j'2^{\colorh'} - 1.
 \end{align*}
 
-In the case that $j' \bmod 2 = 1$,
+First, where $j' \in \{1,2,\,\ldots,2n-1\}$,
 \begin{align*}
 \colorTbar
 &= \frac{j'-1}{2} 2^{\colorh' + 1} + 2^{\colorh'} - 1.
 \end{align*}
 for $j' \in \{1, 3, \,\ldots 2n-1\}$.
-Because $\frac{j'-1}{2} \in 0, 1, \, \ldots, n - 1$ here, $\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$.
+Because $\frac{j'-1}{2} \in 0, 1, \, \ldots, n - 1$ here, $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$.
 
 In the case that $j' \bmod 2 = 0$,
 \begin{align*}
@@ -108,6 +108,6 @@ Because $j'/2 \in \{1, 2, \, \ldots, n\}$,
 \Big(\frac{(j'/2)/(2^{\colorH(j'/2 - 1)}) - 1}{2}\Big)
 \stackrel{\checkmark}{\leq} \frac{n - 1}{2}).
 \end{align*}
-Thus, $\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$ here, too.
+Thus, $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$ here, too.
 \end{proofpart}
 \end{proof}

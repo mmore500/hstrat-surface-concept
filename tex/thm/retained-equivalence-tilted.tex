@@ -90,7 +90,7 @@ Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floo
 &= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor - 1 - \epsilon - 2j + 1 \Big) - 1\\
 &= 2^{\colorh} \Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
 \end{align*}
-Note that $(2j + \epsilon) \in \{0,1,\,\ldots,2n-1\}$ for $j \in \{0,1,\,\ldots,n-1\}$ giving $\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$.
+Note that $(2j + \epsilon) \in \{0,1,\,\ldots,2n-1\}$ for $j \in \{0,1,\,\ldots,n-1\}$ giving $\mathsf{have\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{want\_retained}$.
 \end{proof}
 
 \begin{sublemma}[$\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$]
@@ -242,5 +242,5 @@ Further, because $0 \leq \epsilon < 1$ and $\colorH(\colorTbar) - \colorh'  + 1 
 \in
 \{0, 1, \,\ldots, n - 1\},
 \end{align*}
-giving us the result.
+giving us the result, $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$.
 \end{proof}
