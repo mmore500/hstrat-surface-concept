@@ -79,9 +79,9 @@ Suppose $\colorTbar \in \mathsf{have\_retained}$.
 Then $\exists j \in \{0,1,\,\ldots,n-1\}$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
-&= 2^{\colorh \eqnmarkbox[yellow]{}{+ 1}}\Big(\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j \Big) + \eqnmarkbox[orange]{}{2^{\colorh}} - 1\\
+&= 2^{\colorh \eqnmarkbox[yellow]{}{+ 1}}\Big(\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j \Big) \eqnmarkbox[orange]{}{+ 2^{\colorh}} - 1\\
 % &= 2^{\colorh + 1}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}\right\rfloor - 2^{\colorh}(2j) + 2^{\colorh} - 1\\
-&= 2^{\colorh} \Big(\eqnmarkbox[yellow]{}{2}\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor  - \eqnmarkbox[yellow]{}{2}j + \eqnmarkbox[orange]{}{1} \Big) - 1.
+&= 2^{\colorh} \Big(\eqnmarkbox[yellow]{}{2}\left\lfloor \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor  - \eqnmarkbox[yellow]{}{2}j \eqnmarkbox[orange]{}{+ 1} \Big) - 1.
 \end{align*}
 Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floor,
 \begin{align*}
