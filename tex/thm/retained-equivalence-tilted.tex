@@ -117,10 +117,10 @@ Set $\mathsf{want\_retained}$ subsets $\mathsf{have\_retained}$,
 \end{sublemma}
 \begin{proof}
 Suppose $\colorTbar \in \mathsf{want\_retained}$.
-Then $\exists j' \in \{0,1,\,\ldots,2n - 1\}$ and $\colorh \in \mathbb{N}$ such that
+Then $\exists j' \in \{0,1,\,\ldots,2n - 1\}$ and $\colorh' \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
-&= 2^{\colorh}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh} \right\rfloor - j'\Big) - 1.
+&= 2^{\colorh'}\Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'\Big) - 1.
 \end{align*}
 
 Begin by calculating how many factors of two divide $\colorTbar + 1$, $\colorH(\colorTbar)$.
