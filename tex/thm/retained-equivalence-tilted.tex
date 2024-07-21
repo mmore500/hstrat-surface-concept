@@ -129,24 +129,31 @@ This fact in hand, we may rearrange our formula for $\colorTbar$,
 \begin{align*}
 \colorTbar
 &= 2^{\colorh'}\Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'\Big) - 1\\
-&= 2^{\colorH(\colorTbar)} \Big(
-\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh'}}
+&= 2^{\eqnmarkbox[yellow]{}{\colorH(\colorTbar)}} \Big(
+\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'}{2^{\eqnmarkbox[yellow]{}{\colorH(\colorTbar) - \colorh'}}}
 \Big)
 - 1\\
 &= 2^{\colorH(\colorTbar)} \Big(
-\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - 2^{\colorH(\colorTbar) - \colorh'}}{2^{\colorH(\colorTbar) - \colorh'}}
-+ 1
+\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor \eqnmarkbox[orange]{}{- 2^{\colorH(\colorTbar) - \colorh'}}}{2^{\colorH(\colorTbar) - \colorh'}}
+\eqnmarkbox[orange]{}{+ 1}
 - \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}}
 \Big)
 - 1\\
 &= 2^{\colorH(\colorTbar)} \Big(
-\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} - 2^{\colorH(\colorTbar) - \colorh'} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh'}}
+\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \eqnmarkbox[orange]{}{- 2^{\colorH(\colorTbar) - \colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh'}}
 - \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}}
+\Big)
+\eqnmarkbox[orange]{}{+ 2^{\colorH(\colorTbar)}}
+- 1\\
+&= 2^{\colorH(\colorTbar) \eqnmarkbox[Orchid]{}{+ 1}} \Big(
+\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} - 2^{\eqnmarkbox[YellowGreen]{}{\colorH(\colorTbar)} - \colorh'} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' \eqnmarkbox[Orchid]{}{+ 1}}}
+-
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' \eqnmarkbox[Orchid]{}{+ 1}}}
 \Big)
 + 2^{\colorH(\colorTbar)}
 - 1\\
 &= 2^{\colorH(\colorTbar) + 1} \Big(
-\frac{\left\lfloor (\colorT + 1)/ 2^{\colorh'} - 2^{\colorH(\colorTbar) - \colorh'} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+\frac{\left\lfloor \frac{\colorT - 2^{\eqnmarkbox[YellowGreen]{}{\colorH(\colorTbar)}} + 1}{2^{\colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' + 1}}
 -
 \eqnmarkbox[WildStrawberry]{proofgoal}{
 \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
