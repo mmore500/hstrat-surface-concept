@@ -25,7 +25,7 @@ indexed from $j=0$.
 
 The set of retained data items can be denoted
 \begin{align*}
-\mathfrak{R} =
+\mathsf{have\_retained} =
 \{
   2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
   :
@@ -35,9 +35,9 @@ The set of retained data items can be denoted
 \}.
 \end{align*}
 
-We will show $\mathfrak{R}$ equivalent to,
+We will show $\mathsf{have\_retained}$ equivalent to,
 \begin{align*}
-\mathfrak{R}' =
+\mathsf{want\_retained} =
 \{
   2^{\colorh'}\Big(\left\lfloor (\colorT + 1)/ 2^{\colorh'} \right\rfloor - j'\Big) - 1
   :
@@ -47,15 +47,15 @@ We will show $\mathfrak{R}$ equivalent to,
 \}.
 \end{align*}
 
-Sublemma \ref{thm:tilted-rsubset} shows $\mathfrak{R} \subseteq \mathfrak{R}'$.
-From Sublemma \ref{thm:tilted-subsetr}, $\mathfrak{R}' \subseteq \mathfrak{R}$.
-Hence, $\mathfrak{R}' = \mathfrak{R}$.
+Sublemma \ref{thm:tilted-rsubset} shows $\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$.
+From Sublemma \ref{thm:tilted-subsetr}, $\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$.
+Hence, $\mathsf{want\_retained} = \mathsf{have\_retained}$.
 
 \end{proof}
 
-\begin{sublemma}[$\mathfrak{R} \subseteq \mathfrak{R}'$]
+\begin{sublemma}[$\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$]
 \label{thm:tilted-rsubset}
-Set $\mathfrak{R}$ subsets set $\mathfrak{R}'$,
+Set $\mathsf{have\_retained}$ subsets set $\mathsf{want\_retained}$,
 \begin{align*}
 &\{
   2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
@@ -75,7 +75,7 @@ Set $\mathfrak{R}$ subsets set $\mathfrak{R}'$,
 \end{align*}
 \end{sublemma}
 \begin{proof}
-Suppose $\colorTbar \in \mathfrak{R}$.
+Suppose $\colorTbar \in \mathsf{have\_retained}$.
 Then $\exists j,  0 \leq j < n$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
@@ -90,12 +90,12 @@ Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floo
 &= 2^{\colorh} \Big( \left\lfloor \frac{\colorT + 1}{2^{\colorh}} \right\rfloor - 1 - \epsilon - 2j + 1 \Big) - 1\\
 &= 2^{\colorh} \Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
 \end{align*}
-Note that $(2j + \epsilon) \in 0,1,\,\ldots,2n-1$ for $j \in 0,1,\,\ldots,n-1$ giving $\mathfrak{R} \subseteq \mathfrak{R}'$.
+Note that $(2j + \epsilon) \in 0,1,\,\ldots,2n-1$ for $j \in 0,1,\,\ldots,n-1$ giving $\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$.
 \end{proof}
 
-\begin{sublemma}[$\mathfrak{R}' \subseteq \mathfrak{R}$]
+\begin{sublemma}[$\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$]
 \label{thm:tilted-subsetr}
-Set $\mathfrak{R}'$ subsets $\mathfrak{R}$,
+Set $\mathsf{want\_retained}$ subsets $\mathsf{have\_retained}$,
 \begin{align*}
 &\{
   2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j'\Big) - 1
@@ -116,7 +116,7 @@ Set $\mathfrak{R}'$ subsets $\mathfrak{R}$,
 
 \end{sublemma}
 \begin{proof}
-Suppose $\colorTbar \in \mathfrak{R}'$.
+Suppose $\colorTbar \in \mathsf{want\_retained}$.
 Then $\exists j',  0 \leq j' \leq 2n - 1$ and $\colorh \in \mathbb{N}$ such that
 \begin{align*}
 \colorTbar
