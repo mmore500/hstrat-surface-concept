@@ -21,7 +21,7 @@ Although, given $\colort$ it is not possible to derive an analytical expression 
 \colort \leq 2^{f(\colort)} - f(\colort).
 \end{align*}
 The following demonstrates two such expressions $f(\colort)$ --- one that provides a tighter upper bound on $n$ for small $\colort$ and the other as a tighter bound for large $\colort$.
-The result comprises the tightest of bounds \ref{eqn:meta-epoch-bound-small} and \ref{eqn:meta-epoch-bound-large} at each epoch $\colort$.
+The result comprises bound formulas \ref{eqn:meta-epoch-bound-small} and \ref{eqn:meta-epoch-bound-large}, using the $\min$ operator to apply the tighter between them at each epoch $\colort$.
 
 \begin{proofpart}
 First, we show
@@ -48,8 +48,11 @@ Consider,
 2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
 &\stackrel{?}{\geq} \colort\\
 \colort + \colors - \log_2(\colort + \colors)
-\colors - \log_2(\colort + \colors)
 &\stackrel{?}{\geq} \colort\\
+\colors - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} 0\\
+\log_2(2^{\colors}) - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} 0\\
 \log_2\frac{2^{\colors}}{\colort + \colors}
 &\stackrel{?}{\geq} 0\\
 \frac{2^{\colors}}{\colort + \colors}
@@ -60,7 +63,8 @@ Consider,
 &\stackrel{?}{\geq} \colort + \colors\\
 \colorS - \colors &\stackrel{?}{\geq} \colort.
 \end{align*}
-Restriction on $\colort$ can satisfy this condition, so
+It happens that stretched and tilted algorithms do not define ingestion beyond $\colort = \colorS - \colors$ (i.e., $\colorT \geq 2^{\colorS}$).
+Restricting $\colort$,
 \begin{align*}
 2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
 &\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in 1, 2, \ldots, \colorS - \colors.
