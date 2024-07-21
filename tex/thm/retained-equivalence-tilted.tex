@@ -126,32 +126,32 @@ Then $\exists j' \in \{0,1,\,\ldots,2n - 1\}$ and $\colorh' \in \mathbb{N}$ such
 Begin by calculating how many factors of two divide $\colorTbar + 1$, $\colorH(\colorTbar)$.
 Note that we have $\colorH(\colorTbar) \geq \colorh'$ because $2^{\colorh'}$ divides $\colorTbar + 1 = 2^{\colorh'}(\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j')$.
 This fact in hand, we may rearrange our formula for $\colorTbar$,
-\begin{align*}
+\begin{align}
 \colorTbar
-&= 2^{\colorh'}\Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'\Big) - 1\\
+&= 2^{\colorh'}\Big(\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'\Big) - 1 \nonumber\\
 &= 2^{\eqnmarkbox[yellow]{}{\colorH(\colorTbar)}} \Big(
 \frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'}{2^{\eqnmarkbox[yellow]{}{\colorH(\colorTbar) - \colorh'}}}
 \Big)
-- 1\\
+- 1 \nonumber\\
 &= 2^{\colorH(\colorTbar)} \Big(
 \frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor \eqnmarkbox[orange]{}{- 2^{\colorH(\colorTbar) - \colorh'}}}{2^{\colorH(\colorTbar) - \colorh'}}
 \eqnmarkbox[orange]{}{+ 1}
 - \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}}
 \Big)
-- 1\\
+- 1 \nonumber\\
 &= 2^{\colorH(\colorTbar)} \Big(
 \frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \eqnmarkbox[orange]{}{- 2^{\colorH(\colorTbar) - \colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh'}}
 - \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}}
 \Big)
 \eqnmarkbox[orange]{}{+ 2^{\colorH(\colorTbar)}}
-- 1\\
+- 1 \nonumber\\
 &= 2^{\colorH(\colorTbar) \eqnmarkbox[Orchid]{}{+ 1}} \Big(
 \frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} - 2^{\eqnmarkbox[YellowGreen]{}{\colorH(\colorTbar)} - \colorh'} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' \eqnmarkbox[Orchid]{}{+ 1}}}
 -
 \frac{j'}{2^{\colorH(\colorTbar) - \colorh' \eqnmarkbox[Orchid]{}{+ 1}}}
 \Big)
 + 2^{\colorH(\colorTbar)}
-- 1\\
+- 1 \nonumber\\
 &= 2^{\colorH(\colorTbar) + 1} \Big(
 \frac{\left\lfloor \frac{\colorT - 2^{\eqnmarkbox[YellowGreen]{}{\colorH(\colorTbar)}} + 1}{2^{\colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' + 1}}
 -
@@ -161,41 +161,44 @@ This fact in hand, we may rearrange our formula for $\colorTbar$,
 \Big)
 + 2^{\colorH(\colorTbar)}
 - 1.
-\\
-\end{align*}
+\label{eqn:needtoshowj}\\
+\nonumber
+\end{align}
 \annotate[yshift=0em]{below,right}{proofgoal}{need to show $\in \{0,1,\,\ldots,n-1\}$}
 
 By definition, $2^{\colorH(\colorTbar)}$ divides $\colorTbar + 1$ and the quotient $(\colorTbar + 1) / 2^{\colorH(\colorTbar)}$ is an odd, positive integer.
-So, $(\colorTbar + 1) / 2^{\colorH(\colorTbar)} - 1$ is an even, non-negative integer.
-Because
+So, $(\eqnmarkbox[yellow]{}{\colorTbar} + 1) / 2^{\colorH(\colorTbar)} - 1$ is an even, non-negative integer.
+Applying this observation to our expression for $\colorTbar$ from Equation \ref{eqn:needtoshowj},
 \begin{align*}
-\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh'}} \in \{1, 3, 5, \, \ldots\},
-\end{align*}
-we have
-\begin{align*}
-\frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} - 2^{\colorH(\colorTbar) - \colorh'} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh'}}
-- \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}} \in \{0, 2, 4, \, \ldots\}.
-\end{align*}
-Thus, dividing by 2,
-\begin{align*}
-\frac{
-  \left\lfloor
-  \frac{\colorT + 1 - 2^{\colorH(\colorTbar)}}{2^{\colorh'}}
-  \right\rfloor
-}{
-  2^{\colorH(\colorTbar) - \colorh' + 1}
-}
-- \frac{j'}{
-  2^{\colorH(\colorTbar) - \colorh' + 1}
-}
-\in \{0,1,2,\,\ldots\}.
+  \frac{
+  \eqnmarkbox[yellow]{}{
+  2^{\colorboxed{orange}{\colorH(\colorTbar)} + 1} \Big(
+    \frac{\left\lfloor \frac{\colorT - 2^{\colorH(\colorTbar)} + 1}{2^{\colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+    -
+    \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+    \Big)
+    \colorboxed{YellowGreen}{+ 2^{\colorH(\colorTbar)}}
+    \colorboxed{Orchid}{- 1}
+  }
+  \colorboxed{Orchid}{+ 1}
+  }{2^{\colorboxed{orange}{\colorH(\colorTbar)}}}
+  \colorboxed{YellowGreen}{- 1}
+  &= 2 \Big(
+    \frac{\left\lfloor \frac{\colorT - 2^{\colorH(\colorTbar)} + 1}{2^{\colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+    -
+    \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+    \Big)\\
+    &\in \{x \in 0, 2, 4,\, \ldots\}.
 \end{align*}
 
-Letting $\epsilon \in \{0, 1\}$ denote a continuity correction factor,
+% \frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh'}} \in \{1, 3, 5, \, \ldots\},
+% \end{align*}
+Dividing by 2 and letting $\epsilon \in \{0, 1\}$ denote a continuity correction factor for the integer floor,
 \begin{align*}
-\colorTbar
-&= 2^{\colorH(\colorTbar) + 1}
-\Big(
+\frac{\left\lfloor \frac{\colorT - 2^{\colorH(\colorTbar)} + 1}{2^{\eqnmarkbox[SkyBlue]{}{\colorh'}}} \right\rfloor}{2^{\colorH(\colorTbar) \eqnmarkbox[SkyBlue]{}{- \colorh'} + 1}}
+-
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+&=
 \left\lfloor
 \frac{
   \colorT - 2^{\colorH(\colorTbar)} + 1
@@ -203,13 +206,9 @@ Letting $\epsilon \in \{0, 1\}$ denote a continuity correction factor,
   2^{\colorH(\colorTbar) + 1}
 }
 \right\rfloor
-+ \epsilon
-- \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
-\Big)
-+ 2^{\colorH(\colorTbar)}
-- 1\\
-&= 2^{\colorH(\colorTbar) + 1}
-\Big(
+\eqnmarkbox[SkyBlue]{}{+ \epsilon}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}\\
+&=
 \left\lfloor
 \frac{
   \colorT - 2^{\colorH(\colorTbar)} + 1
@@ -217,13 +216,12 @@ Letting $\epsilon \in \{0, 1\}$ denote a continuity correction factor,
   2^{\colorH(\colorTbar) + 1}
 }
 \right\rfloor
-- (
+- \Big(
   \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
   - \epsilon
-)
 \Big)
-+ 2^{\colorH(\colorTbar)}
-- 1\\
+\\
+&\in \{0,1,2,\,\ldots\}
 \end{align*}
 
 Because
@@ -244,7 +242,6 @@ Because
 we necessarily have
 \begin{align*}
 \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
-- \epsilon
 \in \mathbb{Z}.
 \end{align*}
 Further, because $0 \leq \epsilon < 1$ and $\colorH(\colorTbar) - \colorh'  + 1 \geq 1$,
