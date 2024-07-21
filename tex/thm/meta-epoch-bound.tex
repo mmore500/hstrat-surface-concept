@@ -7,7 +7,7 @@ The current meta-epoch at epoch $\colort$ is bounded,
   \log_2(\colort + \colors),
   \log_2(\colort) + 1
 \Big)
-\text{ for } \colort \in 1, 2, \ldots, \colorS - \colors.
+\text{ for } \colort \in \{1, 2, \ldots, \colorS - \colors\}.
 \end{align*}
 \end{lemma}
 \begin{proof}
@@ -33,7 +33,7 @@ This bound follows from,
 \begin{align*}
 2^{\log_{2}(\colort) + 1} - \log_2(\colort) - 1
 &= 2\colort - \log_2(\colort) - 1 \\
-&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in 1, 2, \ldots \, .
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in \{1, 2, \ldots\} \, .
 \end{align*}
 \end{proofpart}
 
@@ -67,7 +67,7 @@ It happens that stretched and tilted algorithms do not define ingestion beyond $
 Restricting $\colort$,
 \begin{align*}
 2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
-&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in 1, 2, \ldots, \colorS - \colors.
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in \{1, 2, \ldots, \colorS - \colors\}.
 \end{align*}
 \end{proofpart}
 \end{proof}
