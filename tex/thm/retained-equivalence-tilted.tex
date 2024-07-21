@@ -12,7 +12,7 @@ If the most recent $n$ data items $\colorH(\colorTbar) = \colorh$ for each h.v. 
   \colorh' \in \mathbb{N}
 \}.
 \end{align*}
-Note that, although this formulation includes $\colorTbar < 0$, an extension filtering $\colorTbar \in \{0,1,\,\ldots,\colorT\}$ follows trivially.
+Note that, although this formulation nominally includes $\colorTbar < 0$, an extension filtering $\colorTbar \in \{0,1,\,\ldots,\colorT\}$ follows trivially.
 \end{lemma}
 \begin{proof}
 
@@ -147,13 +147,17 @@ This fact in hand, we may rearrange our formula for $\colorTbar$,
 - 1\\
 &= 2^{\colorH(\colorTbar) + 1} \Big(
 \frac{\left\lfloor (\colorT + 1)/ 2^{\colorh'} - 2^{\colorH(\colorTbar) - \colorh'} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' + 1}}
-- \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+-
+\eqnmarkbox[WildStrawberry]{proofgoal}{
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+}
 \Big)
 + 2^{\colorH(\colorTbar)}
 - 1.
 \end{align*}
+\annotate[yshift=0em]{below,right}{proofgoal}{need to show $\in \{0,1,\,\ldots,n-1\}$}
 
-By definition $2^{\colorH(\colorTbar)}$ divides $\colorTbar + 1$ and the quotient $(\colorTbar + 1) / 2^{\colorH(\colorTbar)}$ is an odd, positive integer.
+By definition, $2^{\colorH(\colorTbar)}$ divides $\colorTbar + 1$ and the quotient $(\colorTbar + 1) / 2^{\colorH(\colorTbar)}$ is an odd, positive integer.
 So, $(\colorTbar + 1) / 2^{\colorH(\colorTbar)} - 1$ is an even, non-negative integer.
 Because
 \begin{align*}

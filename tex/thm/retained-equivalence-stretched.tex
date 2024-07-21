@@ -66,20 +66,23 @@ Then $\exists j'\in\{1,2,\,\ldots,2n\}$ and $\colorh' \in \mathbb{N}$ such that
 &= j'2^{\colorh'} - 1.
 \end{align*}
 
-First, where $j' \in \{1,2,\,\ldots,2n-1\}$,
+First, where $j' \in \{1,3,5,\,\ldots,2n-1\}$,
 \begin{align*}
 \colorTbar
 &= \frac{j'-1}{2} 2^{\colorh' + 1} + 2^{\colorh'} - 1.
 \end{align*}
-for $j' \in \{1, 3, \,\ldots 2n-1\}$.
-Because $\frac{j'-1}{2} \in 0, 1, \, \ldots, n - 1$ here, $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$.
+Because $\frac{j'-1}{2} \in 0, 1, \, \ldots, n - 1$ here, $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$ in this case.
 
-In the case that $j' \bmod 2 = 0$,
+In the case that $j' \in \{0,2,4,\,\ldots,2n\}$,
 \begin{align*}
 \colorTbar
 &= j'2^{\colorh'} - 1\\
-&= \frac{j'}{2}2^{\colorh' + 1} - 1.
+&=
+\eqnmarkbox[WildStrawberry]{inpositiven}{
+  \frac{j'}{2}
+}2^{\colorh' + 1} - 1.
 \end{align*}
+\annotate[yshift=0em]{below,right}{inpositiven}{$\in \{1,2,\,\ldots,n\}$}
 
 Recalling that $\colorH(j'/2 - 1) = \log_2 \max\{ i \in 2^{\mathbb{N}} : j'/2 \bmod i = 0 \}$,
 \begin{align*}
@@ -90,24 +93,33 @@ Recalling that $\colorH(j'/2 - 1) = \log_2 \max\{ i \in 2^{\mathbb{N}} : j'/2 \b
   \frac{j'/2}{2^{\colorH(j'/2 - 1)}}
 }
 2^{\colorh'} - 1\\
-&= \Big(\frac{j'/2}{2^{\colorH(j'/2 - 1)}} - 1\Big) 2^{\colorh'} + 2^{\colorh'} - 1\\
 &=
-\eqnmarkbox[WildStrawberry]{inintegers}{\Big(
+\eqnmarkbox[WildStrawberry]{inevenintegers}{
+  \Big(\frac{j'/2}{2^{\colorH(j'/2 - 1)}} - 1\Big)
+}
+2^{\colorh'} + 2^{\colorh'} - 1.\\
+\end{align*}
+\annotate[yshift=1em]{above,right}{inoddintegers}{$\in \{x \in 1,3,5,\,\ldots : x \leq n\}$}
+\annotate[yshift=0em]{below,right}{inevenintegers}{$\in \{x \in 0, 2, 4, \,\ldots : x \leq n - 1\}$}
+for $j' \in \{0, 2, 4, \,\ldots 2n\}$.
+
+Taking,
+\begin{align*}
+  \colorTbar
+  &=
   \frac{
     \frac{j'/2}{2^{\colorH(j'/2 - 1)}} - 1
   }{2}
-\Big)}
-2^{\colorh' + 1} + 2^{\colorh'} - 1
-\\
+2^{\colorh' + 1} + 2^{\colorh'} - 1,
 \end{align*}
-\annotate[yshift=1em]{above,right}{inoddintegers}{$\in 1,3,5,\ldots$}
-\annotate[yshift=0em]{below,right}{inintegers}{$\in \mathbb{N}$}
-for $j' \in \{2, 4, \,\ldots 2n\}$.
-Because $j'/2 \in \{1, 2, \, \ldots, n\}$,
+we have
 \begin{align*}
-\Big(\frac{(j'/2)/(2^{\colorH(j'/2 - 1)}) - 1}{2}\Big)
-\stackrel{\checkmark}{\leq} \frac{n - 1}{2}).
+  \frac{
+    \frac{j'/2}{2^{\colorH(j'/2 - 1)}} - 1
+  }{2}
+  &\in \{x \in 0,1,2,\,\ldots,: x \leq (n-1)/2\}\\
+  &\stackrel{\checkmark}{\in} \{0,1,2,\,\ldots,n-1\},
 \end{align*}
-Thus, $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$ here, too.
+so $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$ here, too.
 \end{proofpart}
 \end{proof}
