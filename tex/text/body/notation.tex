@@ -56,7 +56,7 @@ Formally, we define gap size as a count of consecutive data items discarded (i.e
 Let $\colorB_{\colorT}$ denote data items retained in buffer at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to data items discarded (i.e., overwritten) up to that point.
 So established, gap size at record index $\colorTbar$. $0 \leq \colorTbar \leq \colorT$ follows as
 \begin{align*}
-\colorG_{\colorT}(\colorTbar) = \left| \{\colorTbar - m, \,\ldots, \colorTbar, \,\ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
+\colorG_{\colorT}(\colorTbar) \coloneq \left| \{\colorTbar - m, \,\ldots, \colorTbar, \,\ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
 \end{align*}
 Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
 
@@ -78,7 +78,7 @@ Formal definitions are provided in each criterion's corresponding section.
 \input{fig/hanoi-intuition.tex}
 
 As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
-One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) = \max \{ n \in \mathbb{Z}_{\geq0} : (\colorTbar + 1) \bmod 2^n = 0 \}$.
+One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) \coloneq \max \{ n \in \mathbb{Z}_{\geq0} : (\colorTbar + 1) \bmod 2^n = 0 \}$.
 Note that terms of this sequence $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots$ correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.%
 \footnote{%
 As such, in implementation, $\colorH(\colorTbar)$ can be calculated in fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
@@ -107,9 +107,9 @@ For the \textit{steady algorithm}, epoch transitions occur immediately \textit{b
 For the \textit{stretched} and \textit{tilted algorithms}, epoch transitions instead occur exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 Formally,
 \begin{align*}
-\colort &= \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady algorithm}\\
+\colort &\coloneq \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady algorithm}\\
 &\text{or}\\
-\colort &= \max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) \tag{stretched/tilted algorithms}.
+\colort &\coloneq \max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) \tag{stretched/tilted algorithms}.
 \end{align*}
 
 As noted above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
