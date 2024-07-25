@@ -21,6 +21,7 @@
 \usepackage{orcidlink}
 \usepackage{physics}
 \usepackage{siunitx}
+\usepackage{stix}
 \usepackage{subcaption}
 \usepackage{textcomp}
 \usepackage[most]{tcolorbox}
@@ -47,8 +48,8 @@ parbox=false
 % adapted from https://tex.stackexchange.com/a/129455/316176
 \newcommand{\adjustedaccent}[1]{%
   \mathchoice{}{}
-    {\mbox{\raisebox{-.8ex}[0pt][0pt]{$\scriptscriptstyle#1$}}}
-    {\mbox{\raisebox{-.6ex}[0pt][0pt]{\scalebox{.8}{$\scriptscriptstyle#1$}}}}
+    {\mbox{\raisebox{-.85ex}[0pt][0pt]{$\scriptscriptstyle#1$}}}
+    {\mbox{\raisebox{-.65ex}[0pt][0pt]{\scalebox{.8}{$\scriptscriptstyle#1$}}}}
 }
 \newcommand\smileacc[1]{\overset{\adjustedaccent{\smile}}{#1}}
 \newcommand\frownacc[1]{\overset{\adjustedaccent{\smallfrown}}{#1}}
