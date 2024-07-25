@@ -44,10 +44,20 @@ parbox=false
 }
 \makeatother
 
+% adapted from https://tex.stackexchange.com/a/129455/316176
+\newcommand{\adjustedaccent}[1]{%
+  \mathchoice{}{}
+    {\mbox{\raisebox{-.8ex}[0pt][0pt]{$\scriptscriptstyle#1$}}}
+    {\mbox{\raisebox{-.6ex}[0pt][0pt]{\scalebox{.8}{$\scriptscriptstyle#1$}}}}
+}
+\newcommand\smileacc[1]{\overset{\adjustedaccent{\smile}}{#1}}
+\newcommand\frownacc[1]{\overset{\adjustedaccent{\smallfrown}}{#1}}
+
+
 \newcommand{\colort}{\mathcolor{VioletRed}{\mathrm{t}}}
 \newcommand{\colortau}{\mathcolor{orange}{\tau}}
 \newcommand{\colorT}{\mathcolor{red}{T}}
-\newcommand{\colorTbar}{\mathcolor{red}{\overline{T}}}
+\newcommand{\colorTbar}{\mathcolor{red}{\smileacc{T}}}
 
 \newcommand{\colork}{\mathcolor{purple}{k}}
 \newcommand{\colors}{\mathcolor{blue}{\mathrm{s}}}
