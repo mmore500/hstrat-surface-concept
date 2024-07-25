@@ -54,7 +54,7 @@ In this section, we present a stream curation algorithm tailored to the tilted c
 The retention strategy for the tilted algorithm strongly resembles that of the stretched algorithm.
 Recall that under the stretched algorithm the first $n(\colorT)$ data items of each hanoi value $\colorH(\colorTbar)$ are retained, with $n(\colorT)$ degrading with time in shifting from many copies of few encountered hanoi values to few copies of many encountered hanoi values.
 Under the tilted algorithm, we instead keep the \textit{last} $n(\colorT)$ data items of each hanoi value.
-Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances of each h.v. approximates tilted distribution.
+Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances of each \hv{} approximates tilted distribution.
 
 We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
@@ -84,16 +84,16 @@ It can be shown analogously to Theorem \ref{thm:stretched-first-n-space} that se
 \subsection{Tilted Algorithm Mechanism}
 \label{sec:tilted-mechanism}
 
-Because the tilted algorithm, like the stretched algorithm, also follows an equal-$n$-per-h.v. scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
+Because the tilted algorithm, like the stretched algorithm, also follows an equal-$n$-per-\hv{} scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
 Refer to Section \ref{sec:stretched-mechanism} for a detailed description and justification of this hanoi value reservation layout, and how it is unfolds across epochs $0 \leq \colort \leq \colorS - \colors$.
 
-A pertinent result of the stretched layout, though, is that the at least $\left\lceil2^{\colors - 1 - \colortau}\right\rceil$ data item instances of each h.v. are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
+A pertinent result of the stretched layout, though, is that the at least $\left\lceil2^{\colors - 1 - \colortau}\right\rceil$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
 However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last} $n$ rather than the \textit{first} $n$ instances of each hanoi value.
-We can do that by continuing to write data items for each h.v. into buffer sites reserved for that h.v. after they initially fill --- overwriting older instances of the h.v. to keep a ``ring buffer'' of fresh h.v. instances.
+We can do that by continuing to write data items for each \hv{} into buffer sites reserved for that \hv{} after they initially fill --- overwriting older instances of the \hv{} to keep a ``ring buffer'' of fresh \hv{} instances.
 
 In the following, we prove several results related to the tilted algorithm's ring buffer mechanism --- notably, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
 Ultimately, these results lead up to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of each hanoi value.
-We take particular care in considering transitions the ``ring buffer'' of sites reserved to a h.v. is halved by growth of invading segments.
+We take particular care in considering transitions the ``ring buffer'' of sites reserved to a \hv{} is halved by growth of invading segments.
 
 \input{thm/tilted-last-touched}
 
@@ -110,8 +110,8 @@ We take particular care in considering transitions the ``ring buffer'' of sites 
 
 \input{fig/hsurf-tilted-implementation.tex}
 
-Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched} -- with the exception that, instead of discarding data items once available sites reserved to that h.v. have filled, we simply cycle back and overwrite data items within that h.v.'s reservations in the order that they were added.
-In practice, the target index among available sites reserved to a h.v. can be calculated as the number of previous times a h.v. has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
+Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched} -- with the exception that, instead of discarding data items once available sites reserved to that \hv{} have filled, we simply cycle back and overwrite data items within that \hv{}'s reservations in the order that they were added.
+In practice, the target index among available sites reserved to a \hv{} can be calculated as the number of previous times a \hv{} has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
 
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.

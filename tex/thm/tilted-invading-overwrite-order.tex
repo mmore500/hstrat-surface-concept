@@ -33,7 +33,7 @@ Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ tells how many
 Recall also that $\min\{\colort \in \colortau\} = 2^{\colortau} - \colortau$.
 
 There are $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ uninvaded reservation segments at meta-epoch $\colortau$.
-From left to right across buffer space, invader h.v.'s during epoch $\colort \geq 1$ are
+From left to right across buffer space, invader \hv{}'s during epoch $\colort \geq 1$ are
 \begin{align*}
 \colort + \colors, \colorH(0) + \colort + \colortau, \colorH(1) + \colort + \colortau, \,\ldots, \colorH(\left\lceil 2^{\colors - 1 - \colortau} \right\rceil - 2) + \colort + \colortau.
 \end{align*}
@@ -58,7 +58,7 @@ Rewritten based on properties of the hanoi sequence and excluding the leftmost i
 \end{align*}
 \annotate[yshift=1em]{above,right}{hanoitime1,hanoitime2,hanoitime3}{$1,2,\,\ldots,\left\lceil2^{\colors - 1 - \colortau}\right\rceil - 1$}
 
-To reach our proof objective, we will analyze the sequence of timepoints $\mathsf{invader\_hv\_times}_{\colort}$ mapping to invader h.v.'s,
+To reach our proof objective, we will analyze the sequence of timepoints $\mathsf{invader\_hv\_times}_{\colort}$ mapping to invader \hv{}'s,
 \begin{align*}
 \colorT \in i \times 2^{\colort + \colortau} +
 2^{\colort + \colors - 1} - 1
@@ -126,5 +126,5 @@ and
 2^{\colort + \colors} - 1.
 \end{align*}
 
-The result follows from algorithm specification, with each h.v. filling its own newly-assigned reservation sites from left to right.
+The result follows from algorithm specification, with each \hv{} filling its own newly-assigned reservation sites from left to right.
 \end{proof}

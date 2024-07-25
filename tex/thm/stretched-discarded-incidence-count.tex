@@ -1,6 +1,6 @@
 \begin{lemma}[Minimum Retained Items per Hanoi Value]
 \label{thm:stretched-discarded-incidence-count}
-No data item $\colorTbar'$ is discarded unless more than $\left\lceil 2^{\colors - 1 - \colortau}\right\rceil$ items with h.v. $\colorH(\colorTbar')$ have been encountered.
+No data item $\colorTbar'$ is discarded unless more than $\left\lceil 2^{\colors - 1 - \colortau}\right\rceil$ items with \hv{} $\colorH(\colorTbar')$ have been encountered.
 That is,
 \begin{align*}
 |\{
@@ -20,9 +20,9 @@ That is,
 
 \begin{proof}
 By layout design, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
-During final meta-epoch $\colortau = \colors$, every encountered h.v. has exactly $\left\lceil 2^{-1} \right\rceil = 1$ reserved site.
-However, we must consider h.v.'s with fewer than $2^{\colors-1-\colortau}$ reserved sites more closely, for $\colortau < \colors$.
-For these under-reserved h.v.'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to h.v. $\colorh$.
+During final meta-epoch $\colortau = \colors$, every encountered \hv{} has exactly $\left\lceil 2^{-1} \right\rceil = 1$ reserved site.
+However, we must consider \hv{}'s with fewer than $2^{\colors-1-\colortau}$ reserved sites more closely, for $\colortau < \colors$.
+For these under-reserved \hv{}'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to \hv{} $\colorh$.
 
 \begin{proofpart}[How many hanoi values $\colorh$ have $2^{\colors - 1 - \colortau}$ reserved sites?]
 
@@ -35,23 +35,23 @@ R(\colortau + 1) - R(\colortau)
 &= 2^{\colortau + 1} - 2^{\colortau}\\
 &= 2^{\colortau}.
 \end{align*}
-With one site contributed for each h.v. per uninvaded segment, all h.v. $\colorh < 2^{\colortau}$ thus have reserved at least $2^{\colors - 1 - \colortau}$ sites.
+With one site contributed for each \hv{} per uninvaded segment, all \hv{} $\colorh < 2^{\colortau}$ thus have reserved at least $2^{\colors - 1 - \colortau}$ sites.
 We thus can restrict consideration to $\colorh \geq 2^{\colortau}$.
 \end{proofpart}
 
 \begin{proofpart}[Hanoi Values Without $2^{\colors-1-\colortau}$ Reserved Sites]
-Recall that at the conclusion of epoch $\colort$, we have encountered one of highest-value h.v. $\colorh$, one of second highest-value h.v. $\colorh-1$, two of the third-highest h.v. $\colorh-2$, etc.
-Also be reminded that highest-value encountered h.v. $\colorh$ increases by one per epoch $\colort$.
+Recall that at the conclusion of epoch $\colort$, we have encountered one of highest-value \hv{} $\colorh$, one of second highest-value \hv{} $\colorh-1$, two of the third-highest \hv{} $\colorh-2$, etc.
+Also be reminded that highest-value encountered \hv{} $\colorh$ increases by one per epoch $\colort$.
 
 Initial reservation segments are laid out with sizes drawn from the hanoi sequence (Formula \ref{eqn:stretched-segment-sizes}).
 By construction, retained reservations grow exactly one site per epoch.
 Because reservations are eliminated in increasing order of their initialized size $r$, we will always (over supported domain $\colorTbar < 2^{\colors}$) have the largest reservation segment $r=\colors$ to provide a site for the lone instances of our two highest hanoi values $\colorh=\colort+\colors$ and $\colorh=\colort+\colors-1$.
-Along these lines, we can store the two instances of the the next-smallest h.v. $\colorh=\colort+\colors-2$ in the largest and second-largest reservations $r=\colors$ and $r=\colors-2$.
-Proceeding into deeper uninvaded segment layers, reserved site count doubles --- perfectly in step with h.v. instance counts.
+Along these lines, we can store the two instances of the the next-smallest \hv{} $\colorh=\colort+\colors-2$ in the largest and second-largest reservations $r=\colors$ and $r=\colors-2$.
+Proceeding into deeper uninvaded segment layers, reserved site count doubles --- perfectly in step with \hv{} instance counts.
 
-With segments $r \geq \colors - \colortau$ active, we can safely store all encountered h.v. $\colorH(\colorTbar) = \colorh$ instances for the top $\colors - \colortau$ encountered hanoi values $\colorh$.
-During epoch $\colort$, the highest-encountered h.v. is $\colorh=\colors + \colort$.
-So, we can safely store all encountered instances for h.v.'s
+With segments $r \geq \colors - \colortau$ active, we can safely store all encountered \hv{} $\colorH(\colorTbar) = \colorh$ instances for the top $\colors - \colortau$ encountered hanoi values $\colorh$.
+During epoch $\colort$, the highest-encountered \hv{} is $\colorh=\colors + \colort$.
+So, we can safely store all encountered instances for \hv{}'s
 \begin{align*}
 \colorh
 &\geq
@@ -64,8 +64,8 @@ With $(\colort = 2^{\colortau} - \colortau) \in \colortau$, we can thus further 
 \end{proofpart}
 
 \begin{proofpart}[Have we accounted for all hanoi values?]
-Combining the above, the question of covering all encountered h.v.'s $0\leq\colorh\leq\colors+\colort$ becomes whether $\exists \colorh \in \mathbb{N}$ such that $\colorh < 2^{\colortau}$ and $\colorh \geq 2^{\colortau}$.
-No such $\colorh$ exists, so we have accounted for all h.v. in satisfying our requirements.
+Combining the above, the question of covering all encountered \hv{}'s $0\leq\colorh\leq\colors+\colort$ becomes whether $\exists \colorh \in \mathbb{N}$ such that $\colorh < 2^{\colortau}$ and $\colorh \geq 2^{\colortau}$.
+No such $\colorh$ exists, so we have accounted for all \hv{} in satisfying our requirements.
 \end{proofpart}
 
 \end{proof}

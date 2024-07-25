@@ -42,9 +42,9 @@ Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, Lemma \r
 Although we, in fact, have one extra buffer site left over, in practice, it is often convenient to use this site to permanently retain the very first or the very most recent data item.%
 }
 % Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
-Thus, under our scheme, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with h.v. $\colorh \geq \colort$.
+Thus, under our scheme, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
 
-Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with h.v. $\colort - 1$ each epoch.
+Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with \hv{} $\colort - 1$ each epoch.
 This procedure divides buffer space into ``bunches,'' themselves divided into ``segments.''
 Bunch 0 contains one segment of length $\colors$ sites.
 Then, for $n > 0$, bunch $n$ contains $2^{n-1}$ segments.
@@ -55,22 +55,22 @@ With $\colors$ bunches, available buffer space $\colorS$ is nearly filled,
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.
 \end{align*}
 
-If, for a hanoi value $\colorh$, we place one data item $\colorH(\colorTbar) = \colorh$ per segment, the proposed layout scheme happens to naturally segregate data items with that h.v. by ingestion epoch across bunches.
-Bunch 0 will contain the first data item with h.v. $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
-Bunch 1 contains the data item with that h.v. $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \colort - \colors + 2 : \colorH(\colorTbar) \}$, and so forth.
-Because only one not-yet-encountered h.v. surfaces each epoch, during any one epoch we will be taking data item instances from only the top $\colors$ h.v.'s $\colorh \geq \colort$ into storage.
-Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - n$ h.v.'s $\colorh$ that have ``progressed'' to bunch $n$ can be stored within each segment in that bunch.
+If, for a hanoi value $\colorh$, we place one data item $\colorH(\colorTbar) = \colorh$ per segment, the proposed layout scheme happens to naturally segregate data items with that \hv{} by ingestion epoch across bunches.
+Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
+Bunch 1 contains the data item with that \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \colort - \colors + 2 : \colorH(\colorTbar) \}$, and so forth.
+Because only one not-yet-encountered \hv{} surfaces each epoch, during any one epoch we will be taking data item instances from only the top $\colors$ \hv{}'s $\colorh \geq \colort$ into storage.
+Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - n$ \hv{}'s $\colorh$ that have ``progressed'' to bunch $n$ can be stored within each segment in that bunch.
 
 \input{fig/hsurf-steady-implementation}
 
-The properties of this arrangement become useful in managing elimination of data items with h.v. $\colorh$ during epoch $\colort=\colorh + 1$.
-We have that h.v. $\colorh + \colors$ will place one data item in bunch 0 during epoch $\colort=\colorh + 1$.
-This is the same number of data items left by h.v. $\colorh$ in bunch 0.
-The same holds for all bunches, with data items left by h.v. $\colorh$ equivalent in number to those to be placed in bunch $n$ from h.v. $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
+The properties of this arrangement become useful in managing elimination of data items with \hv{} $\colorh$ during epoch $\colort=\colorh + 1$.
+We have that \hv{} $\colorh + \colors$ will place one data item in bunch 0 during epoch $\colort=\colorh + 1$.
+This is the same number of data items left by \hv{} $\colorh$ in bunch 0.
+The same holds for all bunches, with data items left by \hv{} $\colorh$ equivalent in number to those to be placed in bunch $n$ from \hv{} $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
 
-As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one correspondence between incoming data items and data items of h.v. $\colorh=\colort-1$ to choreograph clean elimination of h.v. $\colorh$ by overwrites each epoch.
-In determining placement site $\colork$ for ingest $\colorTbar$, we map incoming data items with h.v. $\colorh \geq \colort$ over items $\colorh = colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
-Calculating the number of h.v. instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be placed.
+As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh$ by overwrites each epoch.
+In determining placement site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
+Calculating the number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be placed.
 
 \input{thm/steady-hv-elimination}
 
