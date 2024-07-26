@@ -25,8 +25,8 @@ Initial Reservation Segment Size & int & $r$ & \textsuperscript{\textdagger}N/A 
 Mature Reservation Segment Size & int & $R(r)$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl} $2^{r} - 1$ (Lemma \ref{thm:stretched-meta-epoch}) & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}$\in [0 \twodots \colorS]$ \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Curation Quality}} \\ \hline
-Retained Data Items & set & $\colorB$ & algorithm-consequent & $\subseteq [0\twodots\colorT]$ \\
-Discarded Data Items & set & $\colorBnot$ & $[0\twodots\colorT] \setminus \colorB$ & $\subseteq [0\twodots\colorT]$ \\
+Retained Data Items & set & $\colorB_{\colorT}$ & algorithm-consequent & $\subseteq [0\twodots\colorT]$ \\
+Discarded Data Items & set & $\colorBnot_{\colorT}$ & $[0\twodots\colorT] \setminus \colorB_{\colorT}$ & $\subseteq [0\twodots\colorT]$ \\
 Gap Size in Curated Collection & int & $\colorg = \colorG_{\colorT}(\colorTbar)$ & Formula \ref{eqn:gap-size-defn} & $\in [0 \twodots \colorT]$
 \end{tabular}
 \centering
