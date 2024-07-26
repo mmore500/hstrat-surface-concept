@@ -1,10 +1,12 @@
 \begin{table}[]
 \begin{tabular}{lllll}
 \hline
-Name & Type & Notation & Definition & Domain \\ \hline
+\textit{Name} & \textit{Type} & \textit{Notation} & \textit{Definition} & \textit{Domain} \\ \hline
+\rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Space}} \\ \hline
 Buffer Size & int & $\colorS$ & user-defined & $\in 2^{\mathbb{N}}$ \\
 Log Buffer Size & int & $\colors$ & $\log_2 \colorS$ & $\in \mathbb{N}$ \\ \hline
+\rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Time}} \\ \hline
 Current Time & int & $\colorT$ & num elapsed data item ingests & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots 2^{\colorS})$ \\
 Ingestion Time & int & $\colorTbar$ & num ingests preceding data item & $\in [0 \twodots \colorT]$ \\
@@ -14,11 +16,13 @@ Time Epoch & int & $\colort = \mathit{f}_{\!\Circled[fill color=VioletRed!70!lig
 Time Meta-epoch & int & $\colortau = \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}}(\colort)$ & Formula \ref{eqn:meta-epoch-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colors]$ \\
 & set & $\lBrace \colortau \rBrace$ & $\{\colort^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}}(\colort^{\prime}) = \colortau \}$ & $\subseteq [\colort_{1} \twodots \colort_{2}]$\\
 & set & $\{\!\!\lBrace \colortau \rBrace\!\!\}$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}} \circ \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT^{\prime}) = \colortau \}$ & $\subseteq [\colorT_{1} \twodots \colorT_{2}]$\\ \hline
+\rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Strategy}} \\ \hline
 Selected Buffer Site & int & $\colork = \colorK(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorS)$ \\
 Hanoi Value Reservation & int & $\colorh = \colorHcal_{\colort}(\colork)$ & algorithm-defined & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
 Initial Segment Size & int & $r$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}algorithm-defined & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}$\in [0 \twodots \colors]$ \\
 Mature Segment Size & int & $R(r)$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}algorithm-defined & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}$\in [0 \twodots \colorS]$ \\ \hline
+\rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Curation Quality}} \\ \hline
 Retained Data Items & set & $\colorB$ & algorithm-consequent & $\subseteq [0\twodots\colorT]$ \\
 Discarded Data Items & set & $\colorBnot$ & $[0\twodots\colorT] \setminus \colorB$ & $\subseteq [0\twodots\colorT]$ \\
