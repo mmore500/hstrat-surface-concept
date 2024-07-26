@@ -1,0 +1,27 @@
+\begin{table}[]
+\begin{tabular}{lllll}
+Name & Type & Notation & Definition & Domain \\ \hline
+Buffer Size & int & $\colorS$ & user-defined & $\in 2^{\mathbb{N}}$ \\
+Selected Buffer Site & int & $\colork = \colorK(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorS)$ \\
+Log Buffer Size & int & $\colors$ & $\log_2 \colorS$ & $\in \mathbb{N}$ \\
+Current Time & int & $\colorT$ & num elapsed data item ingests & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots 2^{\colorS})$ \\
+Ingestion Time & int & $\colorTbar$ & num ingests preceding data item & $\in [0 \twodots \colorT]$ \\
+Time Epoch & int & $\colort = \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT)$ & Formula \ref{eqn:epoch-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS - \colors]$ \\
+& set & $\lBrace \colort \rBrace$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT^{\prime}) = \colort \}$ & $\subseteq [\colorT_{1} \twodots \colorT_{2}]$ \\
+Time Meta-epoch & int & $\colortau = \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}}(\colort)$ & Formula \ref{eqn:meta-epoch-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colors]$ \\
+& set & $\lBrace \colortau \rBrace$ & $\{\colort^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}}(\colort^{\prime}) = \colortau \}$ & $\subseteq [\colort_{1} \twodots \colort_{2}]$\\
+& set & $\{\!\!\lBrace \colortau \rBrace\!\!\}$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}} \circ \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT^{\prime}) = \colortau \}$ & $\subseteq [\colorT_{1} \twodots \colorT_{2}]$\\
+Time Hanoi Value & int & $\colorh = \colorH(\colorT)$ & Formula \ref{eqn:hanoi-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
+Site Reserved Hanoi Value & int & $\colorh = \colorHcal_{\colort}(\colork)$ & algorithm-defined & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
+Retained Data Items & set & $\colorB$ & algorithm-consequent & $\subseteq [0\twodots\colorT]$ \\
+Discarded Data Items & set & $\colorBnot$ & $[0\twodots\colorT] \setminus \colorB$ & $\subseteq [0\twodots\colorT]$\\
+Initial Segment Size & int & $r$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}algorithm-defined & $\in [0 \twodots \colors]$ \\
+Mature Segment Size & int & $R(r)$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}algorithm-defined & $\in [0 \twodots \colorS]$ \\
+Gap Size & int & $\colorg = \colorG_{\colorT}(\colorTbar)$ & Formula \ref{eqn:gap-size-defn} & $\in [0 \twodots \colorT]$ \\
+\end{tabular}
+\caption{
+Notation.
+\textsuperscript{\textdagger}steady algorithm;
+\textsuperscript{\textdaggerdbl}stretched and tilted algorithms.
+} \label{tab:notation}
+\end{table}

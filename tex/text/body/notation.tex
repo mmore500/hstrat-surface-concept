@@ -9,6 +9,8 @@ As defined, the objective of stream curation considers data items according only
 We assume data item values to be fixed size, so as to fit interchangeably in memory buffer slots, but do not consider or discuss semantic values data items actually contain further.
 For present discussion, we assume data items to be fixed-size and do not consider the actual values of the data items further.
 
+\input{tab/notation.tex}
+
 \subsection{Buffer Storage $\colorS$}
 \label{sec:notation-buffer}
 
@@ -55,9 +57,12 @@ We define coverage criteria in terms of \textbf{gap sizes} in the retained recor
 Formally, we define gap size as a count of consecutive data items discarded (i.e., overwritten).
 Let $\colorB_{\colorT}$ denote data items retained in buffer at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to data items discarded (i.e., overwritten) up to that point.
 So established, gap size at record index $\colorTbar \in \{0,1,\,\ldots,\colorT\}$ follows as
-\begin{align*}
-\colorG_{\colorT}(\colorTbar) \coloneq \left| \{\colorTbar - m, \,\ldots, \colorTbar, \,\ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
-\end{align*}
+\begin{align}
+\colorG_{\colorT}(\colorTbar)
+&\coloneq
+\left| \{\colorTbar - m, \,\ldots, \colorTbar, \,\ldots, \colorTbar+n\} \in \colorBnot_{\colorT} \right|_\mathrm{max}.
+\label{eqn:gap-size-defn}
+\end{align}
 Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
 
 \subsection{Coverage Criteria}
@@ -78,7 +83,13 @@ Formal definitions are provided in each criterion's corresponding section.
 \input{fig/hanoi-intuition.tex}
 
 As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
-One foundational abstraction is the corresponding value in the ``ruler'' integer sequence $\colorH(\colorTbar) \coloneq \max \{ n \in \mathbb{Z}_{\geq0} : (\colorTbar + 1) \bmod 2^n = 0 \}$.
+One foundational abstraction is the corresponding value in the ``ruler'' integer sequence,
+\begin{align}
+\colorH(\colorTbar)
+\coloneq
+\max \{ n \in \mathbb{Z}_{\geq0} : (\colorTbar + 1) \bmod 2^n = 0 \}.
+\label{eqn:hanoi-defn}
+\end{align}
 Note that terms of this sequence $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots$ correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.%
 \footnote{%
 As such, in implementation, $\colorH(\colorTbar)$ can be calculated in fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
@@ -106,11 +117,15 @@ We call this value $\colort \sim \log_2(\colorT)$ the \textbf{epoch} of $\colorT
 For the \textit{steady algorithm}, epoch transitions occur immediately \textit{before} each binary order of magnitude $\colorT \geq \colorS - 1$ (e.g.,  $\colorT = 15$).
 For the \textit{stretched} and \textit{tilted algorithms}, epoch transitions instead occur exactly at each binary order of magnitude (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 Formally,
-\begin{align*}
-\colort &\coloneq \max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) \tag{steady algorithm}\\
-&\text{or}\\
-\colort &\coloneq \max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) \tag{stretched/tilted algorithms}.
-\end{align*}
+\begin{equation}
+\colort
+\coloneq
+\begin{cases}
+\max\Big(\left\lfloor \log_2(\colorT+1) \right\rfloor - \colors + 1, 0\Big) & \text{for steady algorithm} \\
+\max\Big(\left\lfloor \log_2(\colorT - 1) \right\rfloor - \colors + 1, 0\Big) & \text{for stretched and tilted algorithms.}
+\end{cases}
+\label{eqn:epoch-defn}
+\end{equation}
 
 As noted above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
 Thus, for these algorithms,
@@ -138,11 +153,12 @@ In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes
 We define $\colortau=1$ as beginning at epoch $\colort = 1$, with $\colortau=0$ for epoch $\colort=0$.
 As later motivated in Lemma \ref{thm:stretched-meta-epoch}, we define meta-epochs $\colortau\geq1$ as lasting $2^{\colortau} - 1$ epochs.
 Under this definition, we have $\colortau\geq1$ as beginning at epoch
-\begin{align*}
+\begin{align}
 \min\{\colort \in \colortau\}
 &= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \\
 &= 2^{\colortau} - \colortau.
-\end{align*}
+\label{eqn:meta-epoch-defn}
+\end{align}
 For epoch $\colort > 0$, we can calculate the current meta-epoch $\colortau$ exactly as
 \begin{align*}
 \colortau
