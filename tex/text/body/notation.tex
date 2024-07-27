@@ -93,8 +93,6 @@ Formal definitions are provided in each criterion's corresponding section.
 \subsection{Time Hanoi Value $\colorh$}
 \label{sec:notation-hanoi}
 
-\input{fig/hanoi-intuition.tex}
-
 As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
 One foundational abstraction is the corresponding value in the ``ruler'' integer sequence,
 \begin{align}
@@ -120,6 +118,8 @@ So, a hanoi value $\colorh$ appears twice as often as value $\colorh + 1$.
 Remark, though, that when hanoi value $\colorh$ appears for the first time, the value $\colorh - 1$ has appeared exactly once.
 So, we have seen exactly one instance of $\colorh$ and also exactly one instance of $\colorh - 1$.
 At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times.
+
+\input{fig/hanoi-intuition.tex}
 
 \subsection{Time Epoch $\colort$}
 \label{sec:notation-epoch}

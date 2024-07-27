@@ -1,7 +1,6 @@
 \subsection{Proposed Approach}
 
 % In this work, we have developed new strategies for ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points, focusing in particular on fixed-capacity procedures amenable to resource-constrained use cases.
-\input{fig/ingest-and-lookup.tex}
 
 Our proposed approach revolves around a strong simplifying constraint: we assume a fixed number of buffer sites where items ingested from a data stream may be written and, once stored, we do not allow them to be subsequently inspected or moved.
 Only one further event may occur after a data item is stored, in that it may be overwritten by a later data item.
@@ -13,6 +12,8 @@ Note that this operational scheme inherently forgoes any explicit data labeling,
 Instead, we require site selection to be computable \textit{a priori}.
 As a further consequence, efficient attribution of data items' origin time now requires support for straightforward ``inverse'' decoding of a stored data item's provenance based solely on its buffer index and how many items have been ingested from the data stream.
 We term this operation ``\textit{site lookup}.''
+
+\input{fig/ingest-and-lookup.tex}
 
 Figure \ref{fig:ingest-and-lookup} overviews the site selection process and its relationship to site selection.
 
