@@ -4,25 +4,25 @@
 \noindent\fcolorbox{gray!3}{gray!3}{%
 \begin{minipage}[c][0.97in]{0.02\textwidth}
 \hspace{-0.5ex}%
-\rotatebox{90}{$\colorT = 50$}
+\rotatebox{90}{$\colorT = 100$}
 \end{minipage}}%
 \hspace{-1.5ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!4}{orange!4}{%
 \begin{minipage}[]{0.34\textwidth}
-\includegraphics[trim={0.2cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\includegraphics[trim={0.2cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=}%
 \end{minipage}}%
 \hspace{-1ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{pink!6}{pink!6}{%
 \begin{minipage}[]{0.31\textwidth}
-\includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-after-alt+x=index+y=hanoi-value+ext=}%
 \end{minipage}}%
 \hspace{-1ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{teal!5}{teal!5}{%
 \begin{minipage}[]{0.31\textwidth}
-\includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
+\includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-after-alt+x=index+y=hanoi-value+ext=}%
 \end{minipage}\hspace{-1ex}}%
 \end{minipage}\vspace{-1ex}
 
@@ -30,25 +30,25 @@
 \noindent\fcolorbox{gray!11}{gray!11}{%
 \begin{minipage}[c][1.25in]{0.02\textwidth}
 \hspace{-0.5ex}%
-\rotatebox{90}{$\colorT = 100$}
+\rotatebox{90}{$\colorT = 50$}
 \end{minipage}}%
 \hspace{-1.5ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!10}{orange!10}{%
 \begin{minipage}[c]{0.34\textwidth}
-\includegraphics[trim={0.2cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=}%
+\includegraphics[trim={0.2cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
 \end{minipage}}%
 \hspace{-1ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{pink!15}{pink!15}{%
 \begin{minipage}[c]{0.31\textwidth}
-\includegraphics[trim={1cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-after-alt+x=index+y=hanoi-value+ext=}%
+\includegraphics[trim={1cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
 \end{minipage}}%
 \hspace{-1ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{teal!11}{teal!11}{%
 \begin{minipage}[]{0.31\textwidth}
-\includegraphics[trim={1cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-after-alt+x=index+y=hanoi-value+ext=}%
+\includegraphics[trim={1cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=100+y=hanoi-value+ext=}%
 \end{minipage}\hspace{-1ex}}%
 \end{minipage}\vspace{-1ex}
 
@@ -106,7 +106,7 @@
   Our proposed strategy for the stretched criterion retains the first $n$ data item instances of all observed hanoi values.
   As time elapses, $n$ is halved across hanoi values in a rolling fashion --- also shown by red arrows above.
   Our strategy to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n$ data item instances of each hanoi value are retained.
-  Top and bottom panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
+  Bottom and top panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
   Red hatched boxes indicate discarded data items.
   Green boxes indicate retained data items.
   }
