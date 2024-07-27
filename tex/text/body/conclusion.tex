@@ -38,7 +38,7 @@ Another enhancement would be random-access lookup calculation.
 Whereas current implementation is $\mathcal{O}(1)$ under the steady algorithm, for stretched and tilted curation the random access time complexity currently depends on buffer size $\colorS$.
 
 Several interesting openings exist for extension of additional operations on curated data.
-Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ would be useful, as would fast ingest-order iteration over buffer sites $\colork \in \colorS$.
+Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ would be useful, as would fast ingest-order iteration over buffer sites $\colork \in [0 \twodots \colorS)$.
 
 A final unexplored direction is fast comparison between curated collections --- critical for applications that rely on identification of discrepancies between stream histories, such as hereditary stratigraphy.
 To these ends, fast operations to identify common retained time points $\colorTbar$ between records differing in elapsed ingest count $\colorT$ would be valuable.
