@@ -154,9 +154,9 @@ assuming $\colorS \geq 2$.
 Algorithm design is structured around ``reserving'' (setting aside) buffer sites $\colork \in [0\twodots\colorS)$ to host data items $\colorTbar$ of a specific hanoi value $\colorH(\colorTbar) = \colorh$, on an epoch-to-epoch-basis.
 Denote site $\colork$'s \textbf{hanoi value reservation} during epoch $\colort$ as $\colorHcal_{\colort}(\colork) = \colorh$.%
 \footnote{%
-A careful reader may wonder if site $\colork$'s hanoi value reservation $\colorHcal_{\colort}(\colork)$ should also be qualified by overall buffer size $\colorS$, in addition to current epoch $\colort$.
-Although omited from our notation for brevity, this is indeed the case.%
-}%
+A careful reader may wonder if notation for site $\colork$'s hanoi value reservation $\colorHcal_{\colort}(\colork)$ should also be qualified by overall buffer size $\colorS$ as $\colorHcal_{\colort,\colorS}(\colork)$, in addition to current epoch $\colort$.
+Although omitted from our notation for brevity, this is indeed the case.
+}
 Note that a data item $\colorTbar \not\in \colortsetofT$ may occupy site $\colork$ during epoch $\colort$ with $\colorHcal_{\colort}(\colork) \neq \colorH(\colorTbar)$, having been held over from the previous epoch $\colort - 1$ before being overwriten with an instance of \hv{} $\colorh = \colorHcal_{\colort}(\colork)$ during the current epoch $\colort$.
 
 \subsection{Time Meta-epoch $\colortau$}
