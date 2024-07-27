@@ -47,18 +47,18 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \textsf{goal\_stretched}
 &\coloneq
 \bigcup_{\colorh \geq 0}
-\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \leq \colorT \}
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \leq \colorT \}
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
-By construction, $\textsf{goal\_stretched} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
+By construction, $\textsf{goal\_stretched} \subset \{ \colorTbar \in [0 \twodots \colorT] \}$.
 
 We next show setting $n(\colorT) \coloneq \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ suffices to respect available buffer capacity $\colorS$.
 
 \input{thm/stretched-first-n-space.tex}
 
 
-% Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $\{0, 1, \,\ldots \left\lfloor \log_2\colorT + 1 \right\rfloor \}$.
+% Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.
 
 \subsection{Stretched Algorithm Mechanism}
 \label{sec:stretched-mechanism}
@@ -177,8 +177,8 @@ Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm per
 % By construction, $(\colorTbar=0) \in \colorB_{\colorT}$.
 
 % Suppose $\exists 2^{\colorS - 1} \leq \colorT < 2^{\colorS}, \colorTbar > 0$ such that $\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} > 1$.
-% Then, $\exists \colorTbar$ such that $\{\colorTbar,\colorTbar+1,\,\ldots,2\times\colorTbar \} \in \colorBnot_{\colorT}$.
-% Because $\exists 0 \leq n < \colorS$ such that $2^n - 1 \in \{\colorTbar,\colorTbar,\,\ldots,2\times\colorTbar\}$, this would imply $
+% Then, $\exists \colorTbar$ such that $[\colorTbar \twodots 2\times\colorTbar] \in \colorBnot_{\colorT}$.
+% Because $\exists 0 \leq n < \colorS$ such that $2^n - 1 \in [\colorTbar \twodots 2\times\colorTbar]$, this would imply $
 % \exists 2^n - 1 \in \colorBnot_{\colorT}$.
 % However, segment layout provides reserved sites for all \hv{} $0\leq\colorh<\colorS$ in final epoch $\colort = \colorS - \colors$, so $\nexists \colorT,\colorTbar$ violating the bound.
 % \end{proof}

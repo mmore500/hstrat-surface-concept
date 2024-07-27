@@ -56,14 +56,14 @@ Rewritten based on properties of the hanoi sequence and excluding the leftmost i
 + 2^{\colort + \colors - 1} - 1
 \Big).
 \end{align*}
-\annotate[yshift=1em]{above,right}{hanoitime1,hanoitime2,hanoitime3}{$1,2,\,\ldots,\left\lceil2^{\colors - 1 - \colortau}\right\rceil - 1$}
+\annotate[yshift=1em]{above,right}{hanoitime1,hanoitime2,hanoitime3}{$[1 \twodots \left\lceil2^{\colors - 1 - \colortau}\right\rceil - 1]$}
 
 To reach our proof objective, we will analyze the sequence of timepoints $\mathsf{invader\_hv\_times}_{\colort}$ mapping to invader \hv{}'s,
 \begin{align*}
 \colorT \in i \times 2^{\colort + \colortau} +
 2^{\colort + \colors - 1} - 1
 :
-i \in 1,2,\,\ldots,\left\lceil2^{\colors - 1 - \colortau}\right\rceil - 1.
+i \in [1 \twodots \left\lceil2^{\colors - 1 - \colortau}\right\rceil - 1].
 \end{align*}
 First, we should confirm $\textsf{invader\_hv\_times}_{\colort} \subseteq \colort$.
 With $\colort + \colortau \geq 2$ for all invasions because both $\colort > 0$ and $\colortau > 0$, we readily have

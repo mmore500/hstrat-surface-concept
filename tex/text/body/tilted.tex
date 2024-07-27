@@ -61,7 +61,7 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \\
 \textsf{goal\_tilted}
 &\coloneq
-\bigcup_{\colorh \in 0, 1, \,\ldots, \left\lfloor \log_2(\colorT + 1) \right\rfloor}
+\bigcup_{\colorh \in [0 \twodots \left\lfloor \log_2(\colorT + 1) \right\rfloor]}
 \{ \colorTbar =
 \eqnmarkbox[WildStrawberry]{maxhanoi}{
   \left\lfloor
@@ -71,14 +71,14 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
   + 2^{\colorh}
   - 1
 }
-- i2^{\colorh + 1} \text{ for } i \in 0,1,\,\ldots,n(\colorT) - 1 : \colorTbar \geq 0 \}.
+- i2^{\colorh + 1} \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \geq 0 \}.
 \end{align*}
 
 \annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
-  \colorTbar' \in 0,1,\,\ldots,\colorT : \colorH(\colorTbar') = \colorh
+  \colorTbar' \in [0 \twodots \colorT] : \colorH(\colorTbar') = \colorh
 \}$}
 
-Note also that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in 0, 1, \, \ldots, \colorT \}$.
+Note also that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in [0 \twodots \colorT]$.
 It can be shown analogously to Theorem \ref{thm:stretched-first-n-space} that setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 \subsection{Tilted Algorithm Mechanism}

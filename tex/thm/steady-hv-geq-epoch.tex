@@ -1,7 +1,7 @@
 \begin{lemma}[Space Required to Store $\textsf{goal\_steady}$.] \label{thm:steady-hv-geq-epoch}
 
 At any time $\colorT$ in epoch $\colort$, sufficient buffer space exists to store all data items with \hv{} $\colorh > \colort - 1$.
-That is, $\left| \{\colorTbar \in \{0, \ldots, \colorT \} : \colorH(\colorTbar) \geq \colort \} \right| \leq \colorS$.
+That is, $\left| \{\colorTbar \in [0 \twodots \colorT] : \colorH(\colorTbar) \geq \colort \} \right| \leq \colorS$.
 \end{lemma}
 
 \begin{proof}
@@ -11,8 +11,8 @@ So, \hv{} $\colorh = \colors + \colort$ is encountered at $\colorT = 2^{\colors 
 At that time, there are $\colors$ distinct hanoi values $\colorh$ such that $\colort \leq \colorh \leq \colors + \colort$.
 Summing \hv{} data item counts and subtracting away $\colorh = \colors + \colort$ (which lies one time point beyond epoch $\colort$) gives
 \begin{align*}
-\left| \{\colorTbar \in \{0, \ldots\, , 2^{\colors} - 2 \} : \colorH(\colorTbar) \geq \colort \} \right|
-&= \left| \{\colorTbar \in \{0, \ldots \, , 2^{\colors} - 1 \} : \colorH(\colorTbar) \geq \colort \} \right| - 1\\
+\left| \{\colorTbar \in [0 \twodots 2^{\colors} - 2] : \colorH(\colorTbar) \geq \colort \} \right|
+&= \left| \{\colorTbar \in [0 \twodots 2^{\colors} - 1] : \colorH(\colorTbar) \geq \colort \} \right| - 1\\
 &= 1 + \sum_{i=1}^{\colors} 2^{i - 1} - 1 \\
 &= 2^{\colors} - 1 \\
 &= \colorS - 1\\
