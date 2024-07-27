@@ -29,7 +29,10 @@ We will take a zero-indexing convention, so $0 \leq \colork < \colorS$.
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
 As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data --- and the only way to discard a stored data item is by overwriting it.
 Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection} --- picking where (and if) to store incoming data items.
-In our discussion, let $\colorK(\colorT) \in [0\twodots\colorS)\cup\{\nullval\}$ denote the site selection operation to place data item $\colorTbar$ --- with $\nullval$ denoting a data item dropped without storing.
+In our discussion, let $\colorK(\colorT) \in [0\twodots\colorS)\cup\{\nullval\}$ denote the site selection operation to place data item $\colorTbar$ --- with $\nullval$ denoting a data item dropped without storing.%
+\footnote{%
+A more exacting notation would reflect that site selection depends on buffer size (i.e., as $\colorK_{\colorS}(\colorT)$), but we omit this in our notation for brevity.
+}
 This site selection operation, schematized in Figure \ref{fig:surface-site-ingest}), takes primary focus herein.
 
 As a space-saving optimization, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
