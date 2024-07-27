@@ -63,7 +63,14 @@ So established, gap size at record index $\colorTbar \in [0 \twodots \colorT]$ f
 \begin{align}
 \colorG_{\colorT}(\colorTbar)
 &\coloneq
-\left| [\colorTbar-m \twodots \colorTbar+n] \subseteq \colorBnot_{\colorT} \right|_\mathrm{max}.
+\max
+\{
+  m + n
+  \text{ for }
+  m, n \in \mathbb{N}
+  :
+  [\colorTbar-m \twodots \colorTbar+n) \subseteq \colorBnot_{\colorT}
+\}.
 \label{eqn:gap-size-defn}
 \end{align}
 Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
