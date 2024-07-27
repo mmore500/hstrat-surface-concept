@@ -17,29 +17,31 @@ The stretched criterion (i.e., largest gap size ratio) for a buffer of size $\co
 
 \begin{proof}
 At time $\colorT > \colorS$, we have discarded at least $\colorT - \colorS$ data items.
-That is, total gap size $\sum \colorg \geq \colorT - \colorS$.
-As a consequence of discretization, the smallest possible gap size is 1 data item.
-
-Optimal retention grows successive gap sizes by a factor $\colorT^{1/\colorS}$.
-Total gap space is
-\begin{align*}
+That is, total gap space $\sum \colorg \geq \colorT - \colorS$.
+For optimal minimization of gap size ratio, we may assume
+\begin{align}
 \textsf{gap\_space} = \colorT - \colorS.
-\end{align*}
-Equating total gap space to sum gap sizes
-\begin{align*}
+\label{eqn:gap-space-a}
+\end{align}
+
+As a consequence of discretization, the smallest possible gap size is 1 data item.
+Optimal retention grows successive gap sizes by a factor $\colorT^{1/\colorS}$.
+Calculating total gap space as a sum of gap sizes,
+\begin{align}
 \textsf{gap\_space}
 &=
 \sum_{i = 0}^{\textsf{num\_gaps}} \colorT^{i/\colorS} % +1?
-\\
+\nonumber \\
 &=
 \frac{
   \colorT^{(\textsf{num\_gaps} + 1)/\colorS} - 1
 }{
   \colorT^{1/\colorS} - 1
 }.
-\end{align*}
+\label{eqn:gap-space-b}
+\end{align}
 
-The number of discrete gaps instantiated follows as at least,
+Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b}, the number of discrete gaps instantiated follows as at least,
 \begin{align*}
 \textsf{num\_gaps}
 &\geq
