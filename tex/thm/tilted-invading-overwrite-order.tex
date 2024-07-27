@@ -11,18 +11,18 @@ Except for the leftmost invaded site in segment $r=\colors$, invaded sites are o
 : \colors < \colork' < \colork'' < \colorS.
 \end{align*}
 \annotate[yshift=1em]{above,left}{invadedsites}{$\{
-  \colork \in \colorS
+  \colork \in [0\twodots\colorS)
   : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)
 \}$}
 Then,
 \begin{align*}
 \min\{
-  \colorT \in \colort
+  \colorT \in \colortsetofT
   : \colorK(\colorT) = \colork'
 \}
 <
 \min\{
-  \colorT \in \colort
+  \colorT \in \colortsetofT
   : \colorK(\colorT) = \colork''
 \}.
 \end{align*}
@@ -30,7 +30,7 @@ Then,
 \end{lemma}
 \begin{proof}
 Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ tells how many reservation segment subsumption cycles that have elapsed.
-Recall also that $\min\{\colort \in \colortau\} = 2^{\colortau} - \colortau$.
+Recall also that $\min(\colort \in \colortausetoft) = 2^{\colortau} - \colortau$.
 
 There are $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ uninvaded reservation segments at meta-epoch $\colortau$.
 From left to right across buffer space, invader \hv{}'s during epoch $\colort \geq 1$ are
@@ -70,7 +70,7 @@ With $\colort + \colortau \geq 2$ for all invasions because both $\colort > 0$ a
 \begin{align*}
 \min(\textsf{invader\_hv\_times}_{\colort})
 &\stackrel{?}{\geq}
-\min\{\colorT \in \colort\}\\
+\min(\colorT \in \colortsetofT)\\
 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1
 &\stackrel{\checkmark}{\geq}
 2^{\colort + \colors - 1}.
@@ -79,7 +79,7 @@ Testing $\textsf{invader\_hv\_times}_{\colort}$ against the upper bound of $\col
 \begin{align*}
 \max(\textsf{invader\_hv\_times}_{\colort})
 &\stackrel{?}{\leq}
-\max\{\colorT \in \colort\}
+\max(\colorT \in \colortsetofT)
 \\
 (\left\lceil 2^{\colors - 1 - \colortau} \right\rceil  - 1)
 2^{\colort + \colortau} + 2^{\colort + \colors - 1}
@@ -96,14 +96,14 @@ Testing $\textsf{invader\_hv\_times}_{\colort}$ against the upper bound of $\col
 \tag{as above, $\colortau + \colort \geq 2$}
 \end{align*}
 
-Our final step is to establish that $\mathsf{invader\_hv\_times}_{\colort}$ captures all $\colorT \in \colort$ here $\colorh = \colorH(\colorT)$ is an invading hanoi value --- that is, $\colorH(\colorT) \geq \colort + \colortau$.
+Our final step is to establish that $\mathsf{invader\_hv\_times}_{\colort}$ captures all $\colorT \in \colortsetofT$ here $\colorh = \colorH(\colorT)$ is an invading hanoi value --- that is, $\colorH(\colorT) \geq \colort + \colortau$.
 Remark that $\colorT$ such that $\colorH(\colorT) \geq \colort + \colortau$ occur are spaced $2^{\colort + \colortau}$ items apart.
 Because $\mathsf{invader\_hv\_times}_{\colort}$ have an identical cadence, our question boils down to whether
 \begin{align*}
 \min(\textsf{invader\_hv\_times}_{\colort})
 - 2^{\colort + \colortau}
 &\stackrel{?}{<}
-\min\{\colorT \in \colort\}\\
+\min(\colorT \in \colortsetofT)\\
 2^{\colort + \colors - 1} - 1
 &\stackrel{\checkmark}{<}
 2^{\colort + \colors - 1},
@@ -113,7 +113,7 @@ and
 \max(\textsf{invader\_hv\_times}_{\colort})
 + 2^{\colort + \colortau}
 &\stackrel{?}{>}
-\max\{\colorT \in \colort\}\\
+\max(\colorT \in \colortsetofT)\\
 \left\lceil 2^{\colors - 1 - \colortau}\right\rceil 2^{\colort + \colortau}
 &\stackrel{?}{>}
 2^{\colort + \colors} - 1\\

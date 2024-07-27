@@ -57,7 +57,7 @@ With $\colors$ bunches, available buffer space $\colorS$ is nearly filled,
 
 If, for a hanoi value $\colorh$, we place one data item $\colorH(\colorTbar) = \colorh$ per segment, the proposed layout scheme happens to naturally segregate data items with that \hv{} by ingestion epoch across bunches.
 Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
-Bunch 1 contains the data item with that \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \colort - \colors + 2 : \colorH(\colorTbar) \}$, and so forth.
+Bunch 1 contains the data item with that \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \colortsetofT - \colors + 2 : \colorH(\colorTbar) \}$, and so forth.
 Because only one not-yet-encountered \hv{} surfaces each epoch, during any one epoch we will be taking data item instances from only the top $\colors$ \hv{}'s $\colorh \geq \colort$ into storage.
 Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - n$ \hv{}'s $\colorh$ that have ``progressed'' to bunch $n$ can be stored within each segment in that bunch.
 

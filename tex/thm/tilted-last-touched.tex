@@ -4,16 +4,16 @@ The final instance of each \hv{} encountered during an epoch is placed in the ri
 That is, during any epoch $\colort$,
 \begin{align*}
 \colorK\Big(
-  \max\{\colorT \in \colort : \colorH(\colorT) = \colorh\}
+  \max\{\colorT \in \colortsetofT : \colorH(\colorT) = \colorh\}
 \Big)
 =
-\max\{\colork \in \colorS : \colorHcal_{\colort}(\colork) = \colorh \}
+\max\{\colork \in [0\twodots\colorS) : \colorHcal_{\colort}(\colork) = \colorh \}
 \end{align*}
-for all $\colorh \in \{\colorHcal_{\colort}(\colork) : \colork \in \colorS\}$.
+for all $\colorh \in \{\colorHcal_{\colort}(\colork) : \colork \in [0\twodots\colorS)\}$.
 \end{lemma}
 
 \begin{proof}
-Because we are only concerned with pertinent \hv{} $\colorh \in \{\colorH(\colorT) : \colorT \in \colort\}$, we may assume $\colorh \leq \colors + \colort$.
+Because we are only concerned with pertinent \hv{} $\colorh \in \{\colorH(\colorT) : \colorT \in \colortsetofT\}$, we may assume $\colorh \leq \colors + \colort$.
 In traversing a hanoi value's ``ring buffer'' of reserved sites, the rightmost reservation segment is visited last, as it is positioned rightmost within the set of smallest size segments.
 Our proof objective can thus be fulfilled by showing that the number of sites $\colork$ reserved to \hv{} $\colorh$ evenly divides the number of \hv{} $\colorh$ instances encountered during epoch $\colort$.
 That is, we wish to show
@@ -30,10 +30,10 @@ That is, we wish to show
 \end{align*}
 
 \annotate[yshift=1em]{above,left}{numitemsh}{$|\{
-  \colorT \in \colort : \colorH(\colort) = \colorh
+  \colorT \in \colortsetofT : \colorH(\colort) = \colorh
 \}|$}
 \annotate[yshift=1em]{above,right}{numsitesh}{$|\{
-  \colork \in \colorS : \colorHcal_{\colort}(\colork) = \colorh
+  \colork \in [0\twodots\colorS) : \colorHcal_{\colort}(\colork) = \colorh
 \}|$}
 
 How many instances of a hanoi value $\colorh$ are encountered during epoch $\colort$?

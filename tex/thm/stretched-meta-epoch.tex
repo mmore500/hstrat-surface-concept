@@ -17,7 +17,7 @@ Owing to the recursively nested structure of segment layout, smallest-remaining 
 Because invading segments grow by exactly one buffer site per epoch, the number of epochs $\colort$ it takes for a reservation segment to be invaded to elimination corresponds exactly to the invaded segment's reservation size at invasion outset.
 Our proof objective can thus be recast as determining the mature, frozen-for-elimination size $R(r)$ of segments initialized size $r$ at epoch $\colort=0$.
 
-For reservation segments with $r=1$ invaded beginning epoch $\colort=1$ and meta-epoch $\colortau = 1$, our goal is therefore to show $|\{\colort \in \colortau\}| = 2^{\colortau} - 1$ matches $R(r)$ by showing $R(r) = 2^{r} - 1$.
+For reservation segments with $r=1$ invaded beginning epoch $\colort=1$ and meta-epoch $\colortau = 1$, our goal is therefore to show $|\colort \in \colortausetoft| = 2^{\colortau} - 1$ matches $R(r)$ by showing $R(r) = 2^{r} - 1$.
 As already mentioned, initialized-singleton $r=1$ segments are always invaded first, in epoch $\colort=1$.
 Trivially, these segments also have $R(1) = 1$. on account of never having the opportunity to act as invader.
 Segments initialized size $r=2$ are invaded next.
@@ -52,7 +52,7 @@ r + \sum_{j=1}^{r-1} j \times 2^{r-1-j}
 % By construction, the number of buffer sites reserved to \hv{} $\colorh=0$ at epoch $\colort=0$ is $n_{\colorh0}=2^{\colors - 1}$.
 % Lemma \ref{thm:stretched-meta-epoch} corresponds meta-epoch $\colortau$ to underlying reservation segment invasion cycles.
 % By construction, the number of buffer sites reserved to a \hv{} $\colorh$ halve when that hanoi value is invaded.
-% With \hv{} $\colorh=0$ always first to be invaded, this occurs at the opening epoch of each meta-epoch $\min\{\colort \in \colortau\}$ and so remains consistent within each meta-epoch.
+% With \hv{} $\colorh=0$ always first to be invaded, this occurs at the opening epoch of each meta-epoch $\min(\colort \in \colortausetoft)$ and so remains consistent within each meta-epoch.
 % Thus,
 
 % \begin{align*}

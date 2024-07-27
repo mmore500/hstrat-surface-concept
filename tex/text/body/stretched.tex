@@ -66,7 +66,7 @@ We next show setting $n(\colorT) \coloneq \left\lceil 2^{\colors - 1 - \colortau
 \input{fig/hsurf-stretched-implementation.tex}
 
 Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  \left\lceil2^{\colors - 1 - \colortau}\right\rceil$ instances of each hanoi value.
-A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ \hv{}'s $\colorh$ encountered through epoch $\colort \ni \colorT$.
+A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ \hv{}'s $\colorh$ encountered through epoch $\colort$ with $\colorT \in \colortsetofT$.
 However, such a naive approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
 \begin{align*}

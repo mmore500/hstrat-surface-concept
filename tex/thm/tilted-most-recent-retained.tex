@@ -18,11 +18,11 @@ In this case, again from Lemma \ref{thm:stretched-discarded-incidence-count}, we
 Recall from Lemma \ref{thm:tilted-last-touched} each epoch, the final encountered instance of each \hv{} is placed into the rightmost reservation segment.
 By design of placement ordering across segments, we therefore know that the final $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of a \hv{} encountered during an epoch are laid out left to right in each of the smallest-size remaining segments, $r = \colortau$ ( with the last instance occupying the rightmost reservation segment).
 
-So, at the outset of epoch $\colort$, reassigned sites $\{\colork \in \colorS : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ always contain the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of \hv{} $\colorh = \colorHcal_{\colort - 1}(\colork)$, arranged left to right.
-If data items in these reassigned sites were lost instantaneously at time $\min\{\colorT \in \colort\}$, we would not meet our proof objectives.
+So, at the outset of epoch $\colort$, reassigned sites $\{\colork \in [0\twodots\colorS) : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ always contain the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of \hv{} $\colorh = \colorHcal_{\colort - 1}(\colork)$, arranged left to right.
+If data items in these reassigned sites were lost instantaneously at time $\min(\colorT \in \colortsetofT)$, we would not meet our proof objectives.
 At that point, we would have none of the most-recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ \hv{} $\colorh$ data items retained.
 However, data items are not lost instantaneously when a site is reassigned.
-Instead, data items in reassigned sites $\colork$ linger until they are \textit{actually} overwritten by incoming data items $\colorT \in \colort$ with $\colorK(\colorT) = \colork$.
+Instead, data items in reassigned sites $\colork$ linger until they are \textit{actually} overwritten by incoming data items $\colorT \in \colortsetofT$ with $\colorK(\colorT) = \colork$.
 
 From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that, over the course of an epoch, invaded data items are overwritten left to right --- except the leftmost reservation, which is overwritten last.
 Ensuring that the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ data items are stored therefore requires two desiderata:
@@ -48,13 +48,13 @@ After escaping the reassigned $\left\lceil 2^{\colors - 1 - \colortau} \right\rc
 \end{mybox}
 
 \begin{proofpart}[Two Instances of Invaded Hanoi Value before First Invading Overwrite]
-Let $\colorT' = \min\{\colorT \in \colort + 1\}$.
+Let $\colorT' = \min(\colorT \in \colortsetofTone)$.
 Because $\colorT' \in 2^{\mathbb{N}} \forall \colort$ we have $\colorH(\colorT') = 0$.
 By the fractal properties of the hanoi sequence, we may then rewrite the sequence of hanoi values encountered during epoch $\colort + 1$ as,
 \begin{align*}
 \colorH(\colorT'), \colorH(\colorT'+1), \,\ldots, \colorH(2\colorT' - 1) = \colorH(0), \colorH(1), \,\ldots, \colorH(\colorT' - 1).
 \end{align*}
-Note that $2\colorT' - 1 = \max\{\colorT \in \colort + 1\}$.
+Note that $2\colorT' - 1 = \max(\colorT \in \colortsetofTone)$.
 
 By Lemma \ref{thm:tilted-invader-minus-invaded} for \hv{} $\colorHcal_{\colort}(\colork)$ invaded by \hv{} $\colorHcal_{\colort + 1}(\colork)$ (i.e., $\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
 Recalling that the first instance of \hv{} $\colorh$ occurs at ingest time $\colorT = 2^{\colorh} - 1$ and \hv{} $\colorh$ recurs at $\colorT = 2^{\colorh + 1} + 2^{\colorh} - 1$, note that $\forall\colorh$,
