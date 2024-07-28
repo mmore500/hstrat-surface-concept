@@ -36,7 +36,7 @@ def site_reservation_at_rank_heatmap(
 
     ax.axhline(1, color="burlywood", linewidth=12)  # alt: "burlywood"
 
-    # this part is a mess, could be rewritten ...
+    # this part is a mess, could be rewritten
     reservation_indices = extract_reservation_indices_at_rank(
         slice_df, rank, reservation_mode=reservation_mode
     )
