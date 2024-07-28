@@ -103,9 +103,9 @@
   Here, ``lollipop'' bars show hanoi values of data item ingestion time, $\colorH(\colorTbar)$.
   To satisfy the steady criterion, our proposed strategy discards data items with hanoi value below a threshold $n(\colorT)$ (\ref{fig:hanoi-intuition-steady}).
   As time elapses, the threshold $n$ increases and excludes more low hanoi value data items to respect available buffer space --- shown by red arrows above.
-  Our proposed strategy for the stretched criterion retains the first $n$ data item instances of all observed hanoi values.
+  Our proposed strategy for the stretched criterion retains the first $n$ data item instances of all observed hanoi values (\ref{fig:hanoi-intuition-stretched}).
   As time elapses, $n$ is halved across hanoi values in a rolling fashion --- also shown by red arrows above.
-  Our strategy to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n$ data item instances of each hanoi value are retained.
+  Our strategy to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n$ data item instances of each hanoi value are retained (\ref{fig:hanoi-intuition-tilted}).
   Bottom and top panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
   Red hatched boxes indicate discarded data items.
   Green boxes indicate retained data items.
