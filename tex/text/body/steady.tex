@@ -2,31 +2,32 @@
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
 The criterion can be formulated as minimization of the largest gap size between retained data items.
-For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized at best $\left\lceil \colorT / \colorS \right\rceil$.
+For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized tto at best $\left\lceil \colorT / \colorS \right\rceil$.
 This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
 
 \subsection{Steady Algorithm Strategy}
 \label{sec:steady-strategy}
 
-Figure \ref{fig:hanoi-intuition-steady} overviews the proposed algorithm's core strategy, which revolves around prioritizing data item retention according to their sequence index hanoi value $\colorH(\colorTbar)$.
+Figure \ref{fig:hanoi-intuition-steady} overviews the proposed algorithm's core strategy, which revolves around prioritizing data item retention according to the \hv{} of the sequence indices, $\colorH(\colorTbar)$.
 Specifically, we aim to keep data items with the largest hanoi values.
 
-It turns out that with all data items $\colorH(\colorTbar) > n$ retained, gap size is at most $\colorg \leq 2^n - 1$.
+It turns out that with all data items $\colorH(\colorTbar) > m$ retained, gap size is at most $\colorg \leq 2^m - 1$.
 To understand, imagine discarding items with $\colorH(\colorTbar) = 0$.
 This action would drop every other item, and increase gap size from 0 to $\colorg \leq 1$.
 Then, removing items with $\colorH(\colorTbar) = 1$ would again drop every other item, and increase gap size to $\colorg \leq 3$.
 Continuing this pattern to prune successive hanoi values provides well-behaved transitions gradually increasing gap size while maintaining even spacing.
 
-We thus define our algorithmic goal as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ for some threshold $n(\colorT)$.
+We thus define our algorithm as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ for some threshold $n(\colorT)$.
+(The threshold $n(\colorT)$ must increase over time to ensure space for new high h.v. data items as we encounter them.)
 Formally,
 \begin{align*}
 \textsf{goal\_steady}
 \coloneq \{
-\colorTbar \in [0 \twodots \colorTbar]
+\colorTbar \in [0 \twodots \colorT]
 : \colorH(\colorTbar) > n(\colorT)
 \}.
 \end{align*}
-In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as ingests elapse.
+In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as time elapses elapse.
 
 To fill available buffer space $\colorS$, we will show that $n(\colorT) = \colort - 1$.
 
