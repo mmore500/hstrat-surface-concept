@@ -4,7 +4,7 @@
 
 Our proposed approach revolves around a strong simplifying constraint: we assume a fixed number of buffer sites where items ingested from a data stream may be written and, once stored, we do not allow them to be subsequently inspected or moved.
 Only one further event may occur after a data item is stored, in that it may be overwritten by a later data item.
-(We also allow ingested data items to be discarded without storage.)
+We also allow ingested data items to be discarded without storage.
 Under this regime, the composition of retained data emerges implicitly as a consequence of items targeted for overwrite.
 Put another way, curation policy is exercised solely through ``\textit{site selection}'' when picking a buffer index for the $n$th received data item.
 

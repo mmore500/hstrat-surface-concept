@@ -5,7 +5,7 @@ Incoming data is assumed to arrive on a rolling basis, as a \textbf{data stream}
 We assume the data stream to be ephemeral (i.e., ``read once''), and refer to the act of reading an item from the data stream as \textbf{ingesting} it.
 As mentioned above, we term this scenario the \textbf{data stream curation problem}.
 
-As defined, the objective of stream curation considers data items according only to their logical sequence position.
+We consider data items according only to their logical sequence position.
 We do not consider data items' actual semantic values or real-time arrival.
 We assume data item values as fixed size and thus interchangeable in memory buffer slots.
 
@@ -27,10 +27,8 @@ On occasion, it will become necessary to refer to a specific buffer position $\c
 We will take a zero-indexing convention, so $\colork \in [0\twodots\colorS)$.
 
 We consider only one update operation on the buffer: storage of an ingested data item at a buffer site $\colork$.
-As a \textit{simplifying limitation}, algorithms do not move, swap, or read already-stored data, and the only way to discard a stored data item is by overwriting it.
 Under this scheme, control of what data is retained and for how long occurs solely as a consequence of \textit{ingestion site selection} --- picking where (and if) to store incoming data items.
-
-In our discussion, let $\colorK(\colorT) \in [0\twodots\colorS)\cup\{\nullval\}$ denote the site selection operation to place data item $\colorT$ --- with $\nullval$ denoting a data item dropped without storing.%
+Let $\colorK(\colorT) \in [0\twodots\colorS)\cup\{\nullval\}$ denote the site selection operation to place data item $\colorT$ --- with $\nullval$ denoting a data item dropped without storing.%
 \footnote{%
 A more exacting notation would reflect that site selection depends on buffer size (i.e., as $\colorK_{\colorS}(\colorT)$), but we omit this in our notation for brevity.
 }
@@ -45,11 +43,11 @@ Figure \ref{fig:ingest-rank-calculation} depicts the role of \textit{site lookup
 \label{sec:notation-time}
 
 We will refer to each data item's stream sequence index as its \textbf{ingestion time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
-In referring to time, we will also take a zero-indexing convention, so that the first element of the data stream has ingestion time $\colorTbar=0$.
+We use a zero-indexing convention (the first element of the data stream has ingestion time $\colorTbar=0$).
 We assume $\colorT$ to be known for each data ingestion.
 Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
 
-In principle, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
+Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
 However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS}$ ingestions, $\colorT \in [0 \twodots 2^{\colorS})$.
 We expect this capacity to suffice for many applications using even moderately sized buffers.
@@ -59,11 +57,11 @@ As such, we leave behavior for stretched and tilted curation past $2^{\colorS}$ 
 \subsection{Gap Size $\colorg$}
 \label{sec:notation-gapsize}
 
-Be reminded that \textit{coverage criteria} for retained data items considered here operate solely in terms of items' time indices $\colorTbar$.
+% Be reminded that \textit{coverage criteria} for retained data items considered here operate solely in terms of items' time indices $\colorTbar$.
 We define coverage criteria in terms of \textbf{gap sizes} in the retained record.
 Formally, we define gap size as a count of consecutive data items that have been discarded or overwritten.
 Let $\colorB_{\colorT}$ denote data items retained in buffer at time $\colorT$ (including $v_{\colorT}$) and $\colorBnot_{\colorT}$ refer to data items discarded (i.e., overwritten) up to that point.
-Gap size at record index $\colorTbar \in [0 \twodots \colorT]$ follows as
+Gap size for record index $\colorTbar \in [0 \twodots \colorT]$ at time $\colorT$ follows as
 \begin{align}
 \colorG_{\colorT}(\colorTbar)
 &\coloneq
@@ -95,23 +93,22 @@ Formal definitions are provided in each criterion's corresponding section.
 \label{sec:notation-hanoi}
 
 As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
-One foundational abstraction is the corresponding value in the ``ruler'' integer sequence,
+One foundational abstraction is the corresponding value in the following integer sequence,
 \begin{align}
 \colorH(\colorTbar)
 \coloneq
 \max \{ n \in \mathbb{N} : (\colorTbar + 1) \bmod 2^n = 0 \}.
 \label{eqn:hanoi-defn}
 \end{align}
-Terms of this sequence correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.
-The first terms are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots \,$.%
+Refer to $\colorH(\colorTbar) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorTbar$, in reference to parallels with the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
+We frequently abbreviate this term as ``\textbf{\hv{}}''
+
+Terms of this sequence, A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}, correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.%
 \footnote{%
 As such, in implementation, $\colorH(\colorTbar)$ can be calculated in fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
 }
-This sequence appears as A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}.
+The first terms are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots \,$.
 We continue our zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
-
-We refer to $\colorH(\colorTbar) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorTbar$ in reference to parallels with the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
-We frequently abbreviate this term as ``\textbf{\hv{}}''
 
 Some intuition for the structure of the Hanoi sequence will benefit the reader.
 As depicted in Figure \ref{fig:hanoi-intuition}, the hanoi sequence exhibits recursively-nested fractal structure.
@@ -146,7 +143,7 @@ For the \textit{stretched} and \textit{tilted algorithms}, epochs begin exactly 
 In both cases, note correction to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
 
 As described above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS}$.
-Thus, for these algorithms,
+With epoch $\colort = 1$ delayed until time $T=2^{\colors}$ for these algorithms,
 \begin{align*}
 \colort &\leq \left\lfloor\log_2(2^{\colorS} - 1)\right\rfloor - \colors + 1
 \leq \colorS - \colors,
@@ -203,4 +200,4 @@ Taking $\colort = \colorS - \colors$, we can also bound $\colortau$ over the str
 
 Let the binary floor of a value $x$ be denoted $\left\lfloor x \right\rfloor_\mathrm{bin} = 2^{\left\lfloor \log_2 x \right\rfloor}$.
 For binary ceiling, let $\left\lceil x \right\rceil_\mathrm{bin} = 2^{\left\lceil \log_2 x \right\rceil}$.
-As a final piece of minutiae, take $2^{\mathbb{N}} = \{2^n : n \in \mathbb{N} \}$.
+As a final piece of minutiae, take $\{2^{\mathbb{N}}\}$ as shorthand for $\{2^n : n \in \mathbb{N} \}$.

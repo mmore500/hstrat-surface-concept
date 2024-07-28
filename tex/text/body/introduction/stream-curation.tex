@@ -5,7 +5,7 @@ In selecting retained data items, we seek to ``curate'' a collection containing 
 The objective, ultimately, is to preserve a representative, approximate record of stream history.
 
 We assume curation as an online process, with new data items being ingested on an ongoing basis, with a properly curated archive also needed on a continual basis.
-In practice, such fully-online curation can be necessary when either (a) stream records are consulted on a frequent basis or (b) time point(s) when stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
+In practice, such fully-online curation can be necessary when either (a) stream records are consulted on a frequent basis or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
 
 \input{fig/criteria-intuition}
 
@@ -20,8 +20,8 @@ Related objectives appear in a variety of related data stream work, reviewed in 
 
 \subsection{Applications of Stream Curation}
 
-Efficient stream curation operations benefit a variety of use cases requiring synopsis of data stream history.
-A straightforward application of stream curation is in record-keeping by unattended or sporadically-uplinked sensor devices, that record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
+Efficient stream curation operations benefit a variety of use cases requiring synopses of data stream history.
+A straightforward application of stream curation is in unattended or sporadically-uplinked sensor devices, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
 In practice, however, even well-resourced centralized systems require thinning of full fidelity data --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
 Checkpoint-rollback state might also be managed through stream curation in scenarios where the possibility of non-halting silent errors require support for arbitrary rollback extents \citep{aupy2013combination}.
 Extensions could be imagined to support more general aggregation and approximation operations over stream history besides sampling \citep{schoellhammer2024lightweight}, although we do not directly investigate these possibilities here.

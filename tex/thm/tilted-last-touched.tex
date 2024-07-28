@@ -43,7 +43,7 @@ This is
 &=
 2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor.
 \end{align*}
-Observe that $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ for encountered \hv{}'s $\colorh \leq \colors + \colort$.
+Observe that $\textsf{num\_items}_{\colorh} \in \{2^{\mathbb{N}}\}$ for encountered \hv{}'s $\colorh \leq \colors + \colort$.
 
 How many sites are reserved to a hanoi value $\colorh$ during epoch $\colort$?
 Recall from Lemma \ref{thm:stretched-discarded-incidence-count} that this is
@@ -55,9 +55,9 @@ Recall from Lemma \ref{thm:stretched-discarded-incidence-count} that this is
 2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors + \colort - \colorh - 1} \right\rfloor
 \Big).
 \end{align*}
-Remark also that $\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$ for encountered \hv{}'s' $\colorh \leq \colors + \colort$.
+Remark also that $\textsf{num\_sites}_{\colorh} \in \{2^{\mathbb{N}}\}$ for encountered \hv{}'s' $\colorh \leq \colors + \colort$.
 
-Because both $\textsf{num\_items}_{\colorh} \in 2^{\mathbb{N}}$ and $\textsf{num\_sites}_{\colorh} \in 2^{\mathbb{N}}$ for encountered \hv{}'s, all that remains to be shown is $\textsf{num\_items}_{\colorh} \geq \textsf{num\_sites}_{\colorh}$.
+Because both $\textsf{num\_items}_{\colorh} \in \{2^{\mathbb{N}}\}$ and $\textsf{num\_sites}_{\colorh} \in \{2^{\mathbb{N}}\}$ for encountered \hv{}'s, all that remains to be shown is $\textsf{num\_items}_{\colorh} \geq \textsf{num\_sites}_{\colorh}$.
 Consider,
 \begin{align*}
 2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor

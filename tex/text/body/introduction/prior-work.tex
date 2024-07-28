@@ -7,17 +7,18 @@ Stream curation involves two general data stream processing patterns:
 \item \textit{sampling}, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
 \item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
 \end{enumerate}
-Stream curation further situates within the purview of logical time algorithms \citep{sibai2016sampling}, as retention objectives are organized vis-a-vis sequence index rather than real time.
+Further, stream curation pertains to logical time \citep{sibai2016sampling}, as retention objectives are organized vis-a-vis sequence index rather than real time.
 
 Owing to the fundamental role of dimension-reduction in supporting more advanced data stream operations, downsampling over logical bins has received robust algorithmic attention.
 Notably, schemes for fixed-capacity steady (``equi-segmented'') and tilted (``vari-segmented'') retention appear in \citep{zhao2005generalized}, with the latter resembling additional ``pyramidal,'' ``logarithmic,'' and ``tilted'' time window schemes appearing elsewhere \citep{aggarwal2003framework,han2005stream,giannella2003mining,phithakkitnukoon2010recent}.
-Despite congruities with present work in their objectives and, to an extent, their structure, no existing work prescribes non-iterative layout and update procedures that emphasize minimization of representational overhead (e.g., avoiding storage of timestamps, segment length values, etc.) --- as pursued here.
+Although congruities exist in objectives and aspects of algorithm structure, no existing work prescribes non-iterative layout and update procedures that emphasize minimization of representational overhead (e.g., avoiding storage of timestamps, segment length values, etc.) --- as pursued here.
 Work on ``amnesic approximation,'' a generalized scheme for downsamping satisfying an arbitrary temporal cost function, is also notable in its related objectives --- although catering to a substantially more resource-intensive use case \citep{palpanas2004online}.
 
 % To our knowledge, these previous implementations all unfold through stateful iteration, with representational overhead for each stored value ; stateless enumerations of retained set composition are original to our work in this paper.
 
 \citet{moreno2024algorithms}, which presented earlier stream curation techniques in service of hereditary stratigraphy, should be particularly noted in relation to present work.
 Whereas that earlier work also focuses on minimizing the representational footprint around stored data, it caters better to variable-capacity storage --- rather than fixed-capacity.
-Although configurations oriented to fixed-capacity use cases targeted herein are also explored in \citet{moreno2024algorithms}, they require a more expensive update process that keeps data in sorted order and can leave buffer capacity unused.
-Indeed, head-to-head benchmarks have demonstrated that present algorithms improve execution speed by an order of magnitude across the board and enhance buffer space utilization for tilted retention \citep{moreno2024guide,moreno2024trackable}.
+Although configurations oriented to fixed-capacity use cases targeted here are also explored in \citet{moreno2024algorithms}, they require a more expensive update process that keeps data in sorted order and can leave buffer capacity unused.
+Indeed, head-to-head benchmark trials reflect marked benefits from key simplifications explored in this work.
+Execution speed is improved by an order of magnitude across the board and buffer space utilization is enhanced under tilted retention \citep{moreno2024guide,moreno2024trackable}.
 In addition to benchmark analysis, presented algorithms have also been applied to hereditary stratigraphy for lineage tracking within large-scale agent-based evolution simulations on the 850,000-core Cerebras Wafer-Scale Engine platform \citep{moreno2024trackable}.
