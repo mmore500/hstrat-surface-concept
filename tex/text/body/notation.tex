@@ -164,17 +164,18 @@ Note that a data item $\colorTbar \not\in \colortsetofT$ may occupy site $\color
 \subsection{Time Meta-epoch $\colortau$}
 \label{sec:notation-metaepoch}
 
-In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes useful to organize a further abstraction on top of time epoch $\colort$ --- the \textbf{meta-epoch} $\colortau$.
-We define $\colortau=1$ as beginning at epoch $\colort = 1$, with $\colortau=0$ for epoch $\colort=0$.
+In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes useful to group sequential epochs $\colort$ together as \textbf{meta-epochs} $\colortau$.
+We define $\colortau=0$ as corresponding to epoch $\colort=0$.
+Meta-epoch $\colortau=1$ therefore begins at epoch $\colort = 1$.
 As later motivated in Lemma \ref{thm:stretched-meta-epoch}, we define meta-epochs $\colortau\geq1$ as lasting $2^{\colortau} - 1$ epochs.
-Under this definition, we have for $\colortau\geq1$,
+Under this definition, we have $\colortau\geq1$ as beginning at epoch
 \begin{align}
 \min(\colort \in \colortausetoft)
 &= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \\
 &= 2^{\colortau} - \colortau.
 \label{eqn:meta-epoch-defn}
 \end{align}
-For epoch $\colort > 0$, we can calculate the current meta-epoch $\colortau$ exactly as
+For epoch $\colort > 0$, we can thus calculate the current meta-epoch $\colortau$ exactly as
 \begin{align*}
 \colortau
 =
