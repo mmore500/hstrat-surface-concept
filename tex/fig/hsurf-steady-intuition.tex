@@ -3,31 +3,31 @@
   \begin{subfigure}[b]{0.4\linewidth}
     \includegraphics[width=0.025\textwidth, trim={0.2cm 2.8cm 16.0cm 2.8cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}%
     \includegraphics[width=0.975\textwidth, trim={0.7cm 0cm 1.4cm 5.6cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
-    \caption{\footnotesize Buffer layout from epoch $\colort=0$ to $\colort=5$.}
-    \label{subfig:heatmap}
+    \caption{\footnotesize Site \hv{} reservations $\colorHcal(\colork)$ for epochs $\colort=0$ to $\colort=5$.}
+    \label{fig:hsurf-steady-intuition-heatmap}
   \end{subfigure}%
   \vline%
   \begin{subfigure}[b]{0.59\linewidth}
     \includegraphics[width=\textwidth, trim={0cm 0cm 0.3cm 1cm}, clip]{img/hsurf-steady-intuition}
-    \caption{\footnotesize Buffer layout for one hanoi value $\colorh$.}
-    \label{subfig:diagram}
+    \caption{\footnotesize Site selection $\colorK(\colorT)$ for data items of one \hv{}, $\colorH(\colorT) = \colorh$.}
+    \label{fig:hsurf-steady-intuition-diagram}
   \end{subfigure}
   \caption{
     \textbf{Steady algorithm strategy.}
     \footnotesize
-    Overview of placement strategy for data item instances of hanoi value $\colorh$.
-    Data items are shown in yellow, spanning across the epoch timeline from when they are stored to when they are overwritten.
-    Available memory buffer sites, broken into conceptual segments, are shown across the top of the schematic.
-    The first data item with $\colorH(\colorTbar) = \colorh$ is placed in segment 0.
-    The next data item with \hv{} $\colorh$ is encountered in the following epoch, and it is placed in segment 1.
-    In epoch 3, two data items with \hv{} $\colorh$ are encountered and placed in segment 2.
+    Left panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal(\colork)$ over from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
+    Segments are separated by black dividers; segment bunches are not explicitly indicated.
+    Note that site $\colork=0$ is unused.
+    Right panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for a hanoi value $\colorh$ from its first occurance during epoch $\colort=\colorh-3$ to epoch $\colort=\colorh+1$, when stored instances of that \hv{} are overwritten.
+    Available memory buffer sites are shown across the bottom of the schematic.
+    Data items's vertical span provides a timeline from when they are stored to when they are overwritten.
+    The first data item with $\colorH(\colorT) = \colorh$ is placed in segment $\colort=\colorh-3$.
+    The next data item with \hv{} $\colorh$ is encountered in the following epoch, and it is placed in bunch 1.
+    In epoch $\colort=\colorh-1$, two data items with \hv{} $\colorh$ are encountered and placed into segments within bunch 2.
     In the epoch 4, four \hv{} $\colorh$ data items (twice as many) are encountered.
-    We place them in segment 3.
-    If working with a larger memory buffer, this pattern would continue in subsequent epochs.
-    During the epoch after the last segment is written to, all \hv{} $\colorh$ data items are overwritten.
-    In segment 0 they are overwritten by \hv{} $\colorh - 4$, in segment 1, \hv{} $\colorh - 3$, and so forth.
-    In this manner, data items with highest hanoi value are retained on a rolling basis.
-    This approach ensures equal gap sizes across history, with gap sizes gracefully doubling in size as intermediate values are overwritten.
+    We place them in bunch 3's one-site segments.
+    Finally, during epoch $\colort=\colorh+1$, no more \hv{} $\colorh$ data items are stored and all stored \hv{} $\colorh$ items are overwritten.
+    In this manner, data items with highest hanoi value are retained on a rolling basis to provide uniformly-spaced gaps --- as laid out in Figure \ref{fig:hanoi-intuition-steady}.
   }
   \label{fig:hsurf-steady-intuition}
 \end{figure*}
