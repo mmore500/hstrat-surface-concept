@@ -28,6 +28,7 @@
     Reservation segments are separated by black lines in both diagrams; bunches are indicated by color code in the right diagram, with segments having same initial size $r$ belonging to the same bunch.
     As epochs elapse, segments grow from initial size $r$ to mature size $R$ and are then invaded to elimination by their larger left neighbor.
     Note how recursive nesting ensures that the shortest segments are eliminated first.
+    Note also how sites invaded during an epoch all share the same reserved \hv{}, causing available sites for that \hv{} to instantaneously halve.
     To ensure it lasts longest, the first item with \hv{} $\colorH(\colorT) = 0$ is placed in the leftmost (and largest) segment $r=5$.
     Subsequent \hv{} instances are accomodated in segment $r=3$, the two $r=2$ segments, and then the four $r=1$ segments.
     Once available segment reservations are filled, subsequent \hv{} instances are discarded without storage.
