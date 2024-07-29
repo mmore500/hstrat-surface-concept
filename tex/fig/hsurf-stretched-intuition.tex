@@ -2,7 +2,7 @@
   \centering
 \begin{subfigure}{0.48\textwidth}
 \includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 0}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
-\caption{\footnotesize Site \hv{} reservations $\colorHcal(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
+\caption{\footnotesize Site \hv{} reservations $\colorHcal_{\colort}(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
 \label{fig:hsurf-stretched-intuition-reservations}
 \end{subfigure}%
 ~
@@ -20,7 +20,7 @@
   \caption{
     \textbf{Stretched algorithm strategy.}
     \footnotesize
-    Left panel \ref{fig:hsurf-stretched-intuition-reservations} shows progression of \hv{} reservations $\colorHcal(\colork)$ on a buffer with size $\colorS=16$ across supported epochs $\colort \in [0\twodots\colorS - \colors)$.
+    Left panel \ref{fig:hsurf-stretched-intuition-reservations} shows progression of \hv{} reservations $\colorHcal_{\colort}(\colork)$ on a buffer with size $\colorS=16$ across supported epochs $\colort \in [0\twodots\colorS - \colors)$.
     Horizontal rows track epoch $\colort$, indicated on the leftmost axis.
     The rightmost axis, in the right panel, indicates meta-epoch $\colortau$.
     Observe, for instance, that four sites, colored blue, are reserved for \hv{} $\colorh=0$ during epoch $\colort=0$.
