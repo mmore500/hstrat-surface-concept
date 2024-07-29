@@ -1,14 +1,17 @@
 \begin{figure*}[htbp!]
   \centering
-\begin{subfigure}{0.43\textwidth}
-\includegraphics[width=\textwidth]{img/hsurf-stretched-intuition}
-\caption{site selection for hanoi value 0}
-\label{fig:hsurf-stretched-intuition-site-selection}
-\end{subfigure}%
-\begin{subfigure}{0.57\textwidth}
-\includegraphics[width=\textwidth]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 0}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
 \caption{hanoi value reservations across epochs}
 \label{fig:hsurf-stretched-intuition-reservations}
+\end{subfigure}%
+~
+\vline
+~
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth, clip, trim={1.25cm 0 0 0}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+\caption{TODO}
+\label{fig:hsurf-stretched-intuition-reservations-size}
 \end{subfigure}
   \caption{
     \textbf{Stretched algorithm strategy.}
