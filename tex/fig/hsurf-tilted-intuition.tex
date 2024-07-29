@@ -1,11 +1,20 @@
 \begin{figure*}[htbp!]
   \centering
-\begin{minipage}{0.43\textwidth}
-\includegraphics[width=\textwidth]{img/hsurf-tilted-intuition}
-\end{minipage}%
-\begin{minipage}{0.57\textwidth}
-\centering
-\begin{minipage}{0.95\linewidth}
+
+  \hfill
+\begin{subfigure}{0.43\textwidth}
+  \includegraphics[width=\textwidth]{img/hsurf-stretched-intuition}
+  \caption{site selection for hanoi value 0}
+  \label{fig:hsurf-stretched-intuition-site-selection}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.43\textwidth}
+  \includegraphics[width=\textwidth]{img/hsurf-tilted-intuition}
+  \caption{TODO}
+  \label{fig:hsurf-stretched-intuition-TODO}
+\end{subfigure}
+\hfill
+
   \caption{
     \textbf{Tilted algorithm strategy.}
     \footnotesize
@@ -21,6 +30,4 @@
   In this manner, this layout strategy approximates the last-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-tilted}, with $n$ decreasing to respect available buffer space as segments are invaded and lost (just as for the stretched algorithm, Figure \ref{fig:hsurf-stretched-intuition-reservations}).
   }
   \label{fig:hsurf-tilted-intuition}
-\end{minipage}
-\end{minipage}
 \end{figure*}
