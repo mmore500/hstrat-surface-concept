@@ -1,37 +1,38 @@
 \begin{figure*}[htbp!]
   \centering
-\begin{subfigure}{0.49\textwidth}
+\begin{subfigure}{0.48\textwidth}
 \includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 0}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
-\caption{hanoi value reservations across epochs}
+\caption{\footnotesize Site \hv{} reservations $\colorHcal(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
 \label{fig:hsurf-stretched-intuition-reservations}
 \end{subfigure}%
 ~
+~
+~
 \vline
 ~
-\begin{subfigure}{0.49\textwidth}
+~
+~
+\begin{subfigure}{0.48\textwidth}
 \includegraphics[width=\textwidth, clip, trim={1.25cm 0 0 0}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
-\caption{TODO}
+\caption{\footnotesize Initialized $r$ and mature $R$ reservation segment sizes.}
 \label{fig:hsurf-stretched-intuition-reservations-size}
 \end{subfigure}
   \caption{
     \textbf{Stretched algorithm strategy.}
     \footnotesize
-    First panel \ref{fig:hsurf-stretched-intuition-site-selection} shows placement strategy for data items with hanoi value $\colorH(\colorTbar) = 0$ on a buffer of size $\colorS=8$.
-    Four sites, shown in dark blue, are reserved for hanoi value 0 during epoch 0.
-    Reservation segment bunches are nested recursively, with successive bunches having shorter segments.
-    The first data item instance with hanoi value $\colorH(\colorTbar) = 0$ is placed in segment bunch 0, which only contains one segment: segment 0.
-    The second \hv{} 0 data item is placed in segment bunch 1, which comprises just segment 1.
-    The third and fourth \hv{} 0 items are placed in segment bunch 2, which comprises segments 2 and 3 --- both containing only one buffer site.
-    During epoch 1, \hv{} 0 sites in segment bunch 2 are ceded, leaving two sites reserved for \hv{} 0.
-    Note how these first-overwritten sites contain the most recent, as opposed to most ancient, \hv{} 0 data items.
-    Subsequently, during epoch 2, reserved space for \hv{} 0 contracts to just segment 0 and the second \hv{} 0 data item is overwritten.
-    Second panel \ref{fig:hsurf-stretched-intuition-reservations} shows \hv{} reservation layout across epochs for a 32-site buffer.
-    Reservation segments are separated by black lines.
-    As epochs elapse, inner-nested segments are invaded as outer-nested segments extend by one hanoi value.
-    Recursive nesting ensures that the shortest --- and last-filled --- segments are lost first.
-    % Each epoch, all invaded sites share the same hanoi value, causing the available reservation sites for that \hv{} to instantaneously halve.
-    Because the distribution of segment lengths mirrors the hanoi sequence, buffer space becomes available for the first-seen instances of high hanoi values as they are encountered.
-  In this manner, this layout strategy approximates the first-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-stretched}, with $n$ decreasing to respect available buffer space as segments are invaded and lost.
+    Left panel \ref{fig:hsurf-stretched-intuition-reservations} shows progression of \hv{} reservations $\colorHcal(\colork)$ on a buffer with size $\colorS=16$ across supported epochs $\colort \in [0\twodots\colorS - \colors)$.
+    Horizontal rows track epoch $\colort$, indicated on the leftmost axis.
+    The rightmost axis, in the right panel, indicates meta-epoch $\colortau$.
+    Observe, for instance, that four sites, colored blue, are reserved for \hv{} $\colorh=0$ during epoch $\colort=0$.
+    As shown in right panel \ref{fig:hsurf-stretched-intuition-reservations-size}, reservation segment bunches are nested recursively, with inner bunches having shorter segments.
+    Reservation segments are separated by black lines in both diagrams; bunches are indicated by color code in the right diagram, with segments having same initial size $r$ belonging to the same bunch.
+    As epochs elapse, segments grow from initial size $r$ to mature size $R$ and are then invaded to elimination by their larger left neighbor.
+    Note how recursive nesting ensures that the shortest segments are eliminated first.
+    To ensure it lasts longest, the first item with \hv{} $\colorH(\colorT) = 0$ is placed in the leftmost (and largest) segment $r=5$.
+    Subsequent \hv{} instances are accomodated in segment $r=3$, the two $r=2$ segments, and then the four $r=1$ segments.
+    Once available segment reservations are filled, subsequent \hv{} instances are discarded without storage.
+    Because the segment sizes $r$ mirror the hanoi sequence, invasion of one site per epoch $\colort$ ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$.
+  In this manner, layout approximates the first-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-stretched}, with $n$ progressively decreasing as segments are invaded and lost.
   }
   \label{fig:hsurf-stretched-intuition}
 \end{figure*}
