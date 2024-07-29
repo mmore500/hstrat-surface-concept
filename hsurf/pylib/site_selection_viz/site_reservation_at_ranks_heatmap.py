@@ -13,6 +13,7 @@ def site_reservation_at_ranks_heatmap(
     ranks: typing.List[int],
     reservation_mode: str = "tilted",
     zigzag: bool = True,
+    plotter_: typing.Callable = site_reservation_at_rank_heatmap,
 ) -> mpl_figure.Figure:
 
     figsize = (surface_history_df["site"].nunique() / 2, len(ranks) / 2)
@@ -32,7 +33,7 @@ def site_reservation_at_ranks_heatmap(
     )
 
     for rank, ax in zip(ranks, axs[:-1, 1][::-1]):
-        site_reservation_at_rank_heatmap(
+        plotter_(
             surface_history_df,
             rank,
             ax=ax,
