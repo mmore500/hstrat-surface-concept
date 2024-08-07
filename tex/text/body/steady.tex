@@ -2,8 +2,9 @@
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
 The criterion can be formulated as minimization of the largest gap size between retained data items.
-For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized tto at best $\left\lceil \colorT / \colorS \right\rceil$.
+For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized to at best $\left\lceil \colorT / \colorS \right\rceil$.
 This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
+(Disparity from ideal arises, in part, because maintaining uniform gap spacing on an ongoing basis is impossible on account of data item discards merging neighboring gaps.)
 
 \subsection{Steady Algorithm Strategy}
 \label{sec:steady-strategy}
@@ -28,8 +29,7 @@ Formally,
 \}.
 \end{align*}
 In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as time elapses elapse.
-
-To fill available buffer space $\colorS$, we will show that $n(\colorT) = \colort - 1$.
+To fill available buffer space $\colorS$, we will next show that $n(\colorT) = \colort - 1$.
 
 \input{thm/steady-hv-geq-epoch}
 
@@ -38,12 +38,14 @@ To fill available buffer space $\colorS$, we will show that $n(\colorT) = \color
 
 \input{fig/hsurf-steady-intuition}
 
-Maintaining all $\colorTbar$ such that $\colorH(\colorT) \geq \colort$, Lemma \ref{thm:steady-hv-geq-epoch} shown, uses nearly all buffer space $\colorS$.%
+Lemma \ref{thm:steady-hv-geq-epoch} has shown that storing all $\colorTbar$ with $\colorH(\colorT) \geq \colort$ requires all buffer space $\colorS$.%
 \footnote{%
-Although we, in fact, have one extra buffer site left over, in practice, it is often convenient to use this site to permanently retain the very first or the very most recent data item.%
+More exactly, $\colorS - 1$ sites are required.
+So, \textit{nearly} all buffer space is needed to store $\{\colorTbar : \colorH(\colorT) \geq \colort\}$.
+In practice, the surplus site is convenient to store the very first or the very most recent data item.
 }
 % Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
-Thus, under our scheme, each epoch, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
+Thus, each epoch $\colort$, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
 
 Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with \hv{} $\colort - 1$ each epoch.
 This procedure divides buffer space into ``bunches,'' themselves divided into ``segments.''
@@ -56,7 +58,7 @@ With $\colors$ bunches, available buffer space $\colorS$ is nearly filled,
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.
 \end{align*}
 
-If, for a hanoi value $\colorh$, we place one data item $\colorH(\colorTbar) = \colorh$ per segment, the proposed layout scheme happens to naturally segregate data items with that \hv{} by ingestion epoch across bunches.
+If, for a hanoi value $\colorh$, we store one data item $\colorH(\colorTbar) = \colorh$ per segment, the proposed layout scheme happens to naturally segregate data items with that \hv{} by ingestion epoch across bunches.
 Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
 Bunch 1 contains the data item with that \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \colortsetofT - \colors + 2 : \colorH(\colorTbar) \}$, and so forth.
 Because only one not-yet-encountered \hv{} surfaces each epoch, during any one epoch we will be taking data item instances from only the top $\colors$ \hv{}'s $\colorh \geq \colort$ into storage.
@@ -65,13 +67,13 @@ Segment size (decreasing by one each bunch) is arranged so that one instance of 
 \input{fig/hsurf-steady-implementation}
 
 The properties of this arrangement become useful in managing elimination of data items with \hv{} $\colorh$ during epoch $\colort=\colorh + 1$.
-We have that \hv{} $\colorh + \colors$ will place one data item in bunch 0 during epoch $\colort=\colorh + 1$.
+We have that \hv{} $\colorh + \colors$ will store one data item in bunch 0 during epoch $\colort=\colorh + 1$.
 This is the same number of data items left by \hv{} $\colorh$ in bunch 0.
-The same holds for all bunches, with data items left by \hv{} $\colorh$ equivalent in number to those to be placed in bunch $n$ from \hv{} $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
+The same holds for all bunches, with data items left by \hv{} $\colorh$ equivalent in number to those to be stored in bunch $n$ from \hv{} $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
 
 As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of this one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh$ by overwrites each epoch.
-In determining placement site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
-Calculating the number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be placed.
+In determining storage site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = \colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
+Calculating the number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be stored.
 
 \input{thm/steady-hv-elimination}
 
