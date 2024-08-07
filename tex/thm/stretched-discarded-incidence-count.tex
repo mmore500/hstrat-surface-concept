@@ -1,6 +1,6 @@
 \begin{lemma}[Minimum retained data items per \hv{}]
 \label{thm:stretched-discarded-incidence-count}
-No data item $\colorTbar'$ is discarded unless more than $\left\lceil 2^{\colors - 1 - \colortau}\right\rceil$ items with \hv{} $\colorH(\colorTbar')$ have been encountered.
+No data item $\colorTbar'$ is discarded unless more than $2^{\colors - 1 - \colortau}$ items with \hv{} $\colorH(\colorTbar')$ have been encountered.
 That is,
 \begin{align*}
 |\{
@@ -13,13 +13,13 @@ That is,
 \colorTbar \in [0 \twodots \colorT]
 : \colorH(\colorTbar) = \colorH(\colorTbar')
 \}|,
-\left\lceil 2^{\colors - 1 - \colortau} \right\rceil
+2^{\colors - 1 - \colortau}
 \Big).
 \end{align*}
 \end{lemma}
 
 \begin{proof}
-By layout design, this proposition is trivially true for hanoi values with at least $\left\lceil 2^{\colors-1-\colortau} \right\rceil$ sites.
+By layout design, this proposition is trivially true for hanoi values with at least $2^{\colors-1-\colortau}$ sites.
 During final meta-epoch $\colortau = \colors$, every encountered \hv{} has exactly $\left\lceil 2^{-1} \right\rceil = 1$ reserved site.
 However, we must consider \hv{}'s with fewer than $2^{\colors-1-\colortau}$ reserved sites more closely, for $\colortau < \colors$.
 For these under-reserved \hv{}'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to \hv{} $\colorh$.

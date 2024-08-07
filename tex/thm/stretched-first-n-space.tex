@@ -7,13 +7,11 @@ That is,
 |\bigcup_{\colorh \geq 0}
 \{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \leq \colorT \}| \leq \colorS
 \end{align*}
-for $n(\colorT) = \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$.
+for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
 \end{lemma}
 \begin{proof}
-We will consider final supported meta-epoch $\colortau=\colors$ separately from earlier meta-epochs $\colortau<\colors$.
-
-\begin{proofpart}[Case $\colortau < \colors$]
-Because each time point $\colorTbar$ has only one \hv{} $\colorH(\colorTbar)$,
+As defined over supported $\colorT < 2^{\colorS}$, meta-epochs $\colortau<\colors$.
+Counting data items required by $\textsf{goal\_stretched}$,
 \begin{align*}
 |\textsf{goal\_stretched}|
 &=
@@ -41,20 +39,6 @@ Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$ (i.e
 &\stackrel{\checkmark}\leq
 \colorS.
 \end{align*}
-\end{proofpart}
-
-\begin{proofpart}[Case $\colortau=\colors$]
-During final meta-epoch $\colortau=\colors$, every \hv{} has exactly one reserved site.
-Thus,
-\begin{align*}
-|\textsf{goal\_stretched}|
-&=
-\sum_{\colorh} 1\\
-&= \colors + \colort\\
-&= \colors + \colorS - \colors\\
-&\stackrel{\checkmark}{\leq} \colorS.
-\end{align*}
-\end{proofpart}
 
 % Solving
 % \begin{align*}

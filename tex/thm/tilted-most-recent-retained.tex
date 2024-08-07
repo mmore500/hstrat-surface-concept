@@ -7,22 +7,22 @@ Concretely,
 \end{align*}
 \end{lemma}
 \begin{proof}
-From Lemma \ref{thm:stretched-discarded-incidence-count} we have reservations available to store at least the first $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of each hanoi value.
-After this point, data item placement cycles around sites reserved to a \hv as a ring buffer --- keeping most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances.
+From Lemma \ref{thm:stretched-discarded-incidence-count} we have reservations available to store at least the first $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+After this point, data item placement cycles around sites reserved to a \hv as a ring buffer --- keeping most recent $2^{\colors - 1 - \colortau}$ instances.
 However, we must validate behavior at the transition points where this ring buffer shrinks due to invasion.
 
-In the case of invasion, the number of reserved sites drops from $\left\lceil 2^{\colors - \colortau} \right\rceil$ to $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$.
+In the case of invasion, the number of reserved sites drops from $\left\lceil 2^{\colors - \colortau} \right\rceil$ to $2^{\colors - 1 - \colortau}$.
 Recall from Lemma \ref{thm:tilted-last-touched} that the final instance of each \hv{} each epoch is placed into the rightmost reservation segment.
-We therefore know that the final $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of a \hv{} encountered during an epoch were laid out left to right in each of the smallest-size remaining segments, $r = \colortau$ (with the last instance occupying the rightmost reservation segment).
+We therefore know that the final $2^{\colors - 1 - \colortau}$ instances of a \hv{} encountered during an epoch were laid out left to right in each of the smallest-size remaining segments, $r = \colortau$ (with the last instance occupying the rightmost reservation segment).
 
-So, at the outset of epoch $\colort$, reassigned sites $\{\colork \in [0\twodots\colorS) : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ always contain the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of \hv{} $\colorh = \colorHcal_{\colort - 1}(\colork)$, arranged left to right.
+So, at the outset of epoch $\colort$, reassigned sites $\{\colork \in [0\twodots\colorS) : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ always contain the most recent $2^{\colors - 1 - \colortau}$ instances of \hv{} $\colorh = \colorHcal_{\colort - 1}(\colork)$, arranged left to right.
 If data items in these reassigned sites were lost instantaneously at time $\min(\colorT \in \colortsetofT)$, we would not meet our proof objectives.
-At that point, we would have none of the most-recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ \hv{} $\colorh$ data items retained.
+At that point, we would have none of the most-recent $2^{\colors - 1 - \colortau}$ \hv{} $\colorh$ data items retained.
 However, data items are not lost instantaneously when a site is reassigned.
 Instead, data items in reassigned sites $\colork$ linger until they are \textit{actually} overwritten by incoming data items $\colorT \in \colortsetofT$ with $\colorK(\colorT) = \colork$.
 
 From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that, over the course of an epoch, invaded data items are overwritten left to right --- except the leftmost reservation, which is overwritten last.
-Ensuring retention of the most recent $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ data items for a \hv{} during invasion therefore requires two desiderata:
+Ensuring retention of the most recent $2^{\colors - 1 - \colortau}$ data items for a \hv{} during invasion therefore requires two desiderata:
 \begin{enumerate}
 \item at least two instances of invaded \hv{} $\colorh$ occur before the first invading overwrite, and
 \item the cadence of overwrites proceeds no faster than fresh instances of invaded \hv{} $\colorh$ accrue.
@@ -31,16 +31,16 @@ Ensuring retention of the most recent $\left\lceil 2^{\colors - 1 - \colortau} \
 
 \begin{mybox}
 \textbf{Intuition.}
-Imagine the chain of $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ recent instances of \hv{} $\colorh$ as the protagonist of the classic video game ``snake'' \citep{de2016complexity}.
+Imagine the chain of $2^{\colors - 1 - \colortau}$ recent instances of \hv{} $\colorh$ as the protagonist of the classic video game ``snake'' \citep{de2016complexity}.
 In that game, the titular snake slithers by growing at its head and shrinking at its tail.
 Analogously, our sequence of most recent \hv{} instances adds new items at the front and has tail items overwritten.
-When an invasion occurs and half of ring buffer reservations are reassigned, the snake's body of $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ sites is stretched out across the reassigned half of the ring buffer.
+When an invasion occurs and half of ring buffer reservations are reassigned, the snake's body of $2^{\colors - 1 - \colortau}$ sites is stretched out across the reassigned half of the ring buffer.
 In other words, our snake is laid out entirely within the \textit{danger zone}!
 
-At that point when an invasion epoch $\colort$ begins, our snake containing $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ items will be chased into the preserved half of the ring buffer as overwrites enchroach at its rear.
-The two desiderata described above ensure that the snake (1) pulls ahead and (2) stays ahead of invading overwrites to keep $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ body segments intact.
+At that point when an invasion epoch $\colort$ begins, our snake containing $2^{\colors - 1 - \colortau}$ items will be chased into the preserved half of the ring buffer as overwrites enchroach at its rear.
+The two desiderata described above ensure that the snake (1) pulls ahead and (2) stays ahead of invading overwrites to keep $2^{\colors - 1 - \colortau}$ body segments intact.
 Mixing metaphors, the snake slithers head then tail to safety as the rickety bridge of reassigned but not-yet-overwritten sites it had been occupying collapses behind it.
-After escaping the reassigned $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ ring buffer sites, the snake of recent \hv{} instances happily crawls in circles around its $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites --- at least, until invaded again.
+After escaping the reassigned $2^{\colors - 1 - \colortau}$ ring buffer sites, the snake of recent \hv{} instances happily crawls in circles around its $2^{\colors - 1 - \colortau}$ reserved sites --- at least, until invaded again.
 \end{mybox}
 
 \begin{proofpart}[Two instances of invaded \hv{} before first invading overwrite]

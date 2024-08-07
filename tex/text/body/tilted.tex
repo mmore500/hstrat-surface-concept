@@ -40,7 +40,7 @@ In this section, we present a stream curation algorithm tailored to the tilted c
     \max\Big(
       \frac{\colorS}{2(\colort + \colors)},
       \frac{\colorS}{4\colort},
-      \frac{\colorS}{\left\lceil 2^{\colors - \colortau - 1} \right\rceil}
+      \frac{\colorS}{2^{\colors - \colortau - 1}}
     \Big)
     - 1/2
   }.
@@ -87,12 +87,12 @@ It can be shown analogously to Theorem \ref{thm:stretched-first-n-space} that se
 Because the tilted algorithm, like the stretched algorithm, also follows an equal-$n$-per-\hv{} scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
 Refer to Section \ref{sec:stretched-mechanism} for a detailed description and justification of this hanoi value reservation layout, and how it is unfolds across epochs $0 \leq \colort \leq \colorS - \colors$.
 
-A pertinent result of the stretched layout, though, is that the at least $\left\lceil2^{\colors - 1 - \colortau}\right\rceil$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
+A pertinent result of the stretched layout, though, is that the at least $2^{\colors - 1 - \colortau}$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
 However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last} $n$ rather than the \textit{first} $n$ instances of each hanoi value.
 We can do that by continuing to write data items for each \hv{} into buffer sites reserved for that \hv{} after they initially fill --- overwriting older instances of the \hv{} to keep a ``ring buffer'' of fresh \hv{} instances.
 
 In the following, we prove several results related to the tilted algorithm's ring buffer mechanism --- notably, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
-Ultimately, these results lead up to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ instances of each hanoi value.
+Ultimately, these results lead up to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
 We take particular care in considering transitions the ``ring buffer'' of sites reserved to a \hv{} is halved by growth of invading segments.
 
 \input{thm/tilted-last-touched}

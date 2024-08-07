@@ -53,7 +53,7 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \end{align*}
 By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT]$.
 
-We next show setting $n(\colorT) \coloneq \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ suffices to respect available buffer capacity $\colorS$.
+We next show setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 \input{thm/stretched-first-n-space.tex}
 
@@ -65,7 +65,7 @@ We next show setting $n(\colorT) \coloneq \left\lceil 2^{\colors - 1 - \colortau
 
 \input{fig/hsurf-stretched-implementation.tex}
 
-Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  \left\lceil2^{\colors - 1 - \colortau}\right\rceil$ instances of each hanoi value.
+Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
 A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ \hv{}'s $\colorh$ encountered through epoch $\colort$ with $\colorT \in \colortsetofT$.
 However, such a naive approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
@@ -114,7 +114,7 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 \subsubsection{Stretched Algorithm Layout at $\colort,\colortau\geq1$}
 
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
-At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = \left\lceil2^{\colors - 1 - \colortau}\right\rceil = \colorS / 2$ reserved sites per hanoi value.
+At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
 To satisfy $\textsf{goal\_stretched}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
 So, half of our $S/2$ sites that are reserved to \hv{} $\colorh=0$ may be freed up.
 One way to do this is by releasing all singleton segments containing \textit{only} \hv{} $\colorh=0$.
@@ -132,7 +132,7 @@ We will next show our definition of meta-epoch $\colortau$ corresponds precisely
 
 \input{thm/stretched-meta-epoch.tex}
 
-With relationship between segment subsumption and meta-epoch $\colortau$ thus established, we will now turn our attention to showing that our scheme maintains reservation layout sufficient to accomodate at least $n(\colorT) = \left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ items of each hanoi value.
+With relationship between segment subsumption and meta-epoch $\colortau$ thus established, we will now turn our attention to showing that our scheme maintains reservation layout sufficient to accomodate at least $n(\colorT) = 2^{\colors - 1 - \colortau}$ items of each hanoi value.
 
 \input{thm/stretched-discarded-incidence-count.tex}
 \input{thm/stretched-reservation-count}

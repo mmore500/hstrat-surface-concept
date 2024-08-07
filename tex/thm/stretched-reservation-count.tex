@@ -14,12 +14,12 @@ encountered data items of each \hv{} $\colorh$ is provided.
 \end{corollary}
 \begin{proof}
 
-By Lemma \ref{thm:stretched-discarded-incidence-count}, space for at least $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ encountered items of each \hv{} is provided.
+By Lemma \ref{thm:stretched-discarded-incidence-count}, space for at least $2^{\colors - 1 - \colortau}$ encountered items of each \hv{} is provided.
 Applying Supplementary Lemma \ref{thm:meta-epoch-bound} completes the result.
 At any epoch $1 \leq \colort \leq \colorS - \colors$,
 \begin{align*}
 n
-&= \left\lceil 2^{\colors - 1 - \colortau} \right\rceil\\
+&= 2^{\colors - 1 - \colortau}\\
 &\geq 2^{\colors - 1 - \colortau}\\
 &\geq2^{\colors - 1 - \min\Big(
   \log_2(\colort + \colors),
