@@ -46,7 +46,7 @@ Mixing metaphors, the snake slithers head then tail to safety as the rickety bri
 After escaping the reassigned $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ ring buffer sites, the snake of recent \hv{} instances then happily crawls in circles around its $\left\lceil 2^{\colors - 1 - \colortau} \right\rceil$ reserved sites --- at least, until invaded again.
 \end{mybox}
 
-\begin{proofpart}[Two Instances of Invaded Hanoi Value before First Invading Overwrite]
+\begin{proofpart}[Two instances of invaded \hv{} before first invading overwrite]
 Let $\colorT' = \min(\colorT \in \colortsetofTone)$.
 Because $\colorT' \in \{2^{\mathbb{N}}\} \forall \colort$ we have $\colorH(\colorT') = 0$.
 By the fractal properties of the hanoi sequence, we may then rewrite the sequence of hanoi values encountered during epoch $\colort + 1$ as,
@@ -63,7 +63,7 @@ Recalling that the first instance of \hv{} $\colorh$ occurs at ingest time $\col
 \end{proofpart}
 Because $\colorT = 3 \times 2^{\colorh} < 2^{\colorh + 2} - 1$, we have our result.
 
-\begin{proofpart}[Overwrite Cadence Slower than Invaded Hanoi Value Cadence]
+\begin{proofpart}[Overwrite cadence slower than invaded \hv{} cadence]
 The cadence of \hv{} $\colorh$, after its first incidence at ingest time $\colorT=2^{\colorh} - 1$ is to occur every $2^{\colorh + 1}$ data items.
 Specifically, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
 Observe also that the cadence at which a \hv{} $\geq\colorh$ occurs is every $2^{\colorh}$ items, where $\colorT \bmod 2^{\colorh} = 2^{\colorh} - 1$.
