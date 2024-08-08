@@ -13,25 +13,32 @@ for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
 As defined over supported $\colorT < 2^{\colorS - 1}$, all meta-epochs $\colortau<\colors$.
 Counting data items required by $\textsf{goal\_stretched}$,
 \begin{align*}
+\\
 |\textsf{goal\_stretched}|
 &=
-\sum_{\colorh} \min\Big(2^{\colors - 1 - \colortau},\;\; |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
+\sum_{\colorh} \min\Big(
+\eqnmarkbox[WildStrawberry]{sonetau}{2^{\colors - 1 - \colortau}},\;\; |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
 &=
 1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big)\\
 &=
 1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big).
 \end{align*}
+\annotate[yshift=1em]{above,left}{sonetau}{%
+Set $\textsf{goal\_stretched}$ only requires $2^{\colors - 1 - \colortau}$ of each \hv.
+}
+
 Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$ (i.e., $\colorh = \colort + \colortau$),
 \begin{align*}
 |\textsf{goal\_stretched}|
 &=
 1 + \sum_{\colorh=0}^{\colort + \colortau} 2^{\colors - 1 - \colortau} + \sum_{\colorh=\colort + \colortau + 1}^{\colors + \colort - 1} 2^{\colors + \colort - 1 - \colorh}\\
 &=
-1 + (\colort + \colortau + 1) 2^{\colors - 1 - \colortau} + 2^{\colors - 1 - \colortau} - 1\\
+1 + (\colort + \colortau + 1) 2^{\colors - 1 - \colortau} + 2^{\colors - 1 - \colortau} - 1 \tag{via summation identities}\\
 &=
 (\colort + \colortau + 2) 2^{\colors - 1 - \colortau}\\
 &\leq
-(2^{\colortau + 1} - (\colortau + 1) - 1 + \colortau + 2) 2^{\colors - 1 - \colortau}\\
+(2^{\colortau + 1} - (\colortau + 1) - 1 + \colortau + 2) 2^{\colors - 1 - \colortau} \\
+% \tag{Equation \label{eqn:meta-epoch-defn}, $\min(\colort \in \colortausetoft)$}
 &\leq
 (2^{\colortau + 1}) 2^{\colors - 1 - \colortau}\\
 &\leq

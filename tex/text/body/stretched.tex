@@ -5,7 +5,7 @@ The criterion can be formulated as minimization of the largest ratio of gap size
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
-For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items geometrically by ratio $\colorT^{1/\colorS}$.
+For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items geometrically by ratio $\colorT^{1/\colorS}$ so that gap size grows proportionally to $\colorTbar$.
 Counting from zero, under such a layout the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
 Deriving an approximate bound without accounting for discretization effects, gap size ratio would be minimized at best,
 \begin{align}
@@ -15,7 +15,7 @@ Deriving an approximate bound without accounting for discretization effects, gap
 \colorT^{1/\colorS} - 1.
 \end{align}
 
-Lemma \ref{thm:stretched-ideal-strict} works in discretization provides a strict lower bound on gap size ratio,
+Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict lower bound on gap size ratio,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\geq
@@ -29,25 +29,24 @@ Lemma \ref{thm:stretched-ideal-strict} works in discretization provides a strict
 }.
 \end{align*}
 
-This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than,
+This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
 \min\Big(
+  \left\lceil 2^{\colortau + 1 - \colors}\right\rceil
   \frac{2(\colort + \colors)}{\colorS},\;\;
   \frac{4\colort}{\colorS}
 \Big)
 \end{align*}
-
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
+Notably, guarantees cap gap size ratio ${\colorG_{\colorT}(\colorTbar)}/{\colorTbar} \leq 1$.
 
 \subsection{Stretched Algorithm Strategy}
 \label{sec:stretched-strategy}
 
-\input{fig/hsurf-stretched-intuition.tex}
-
 As with the steady algorithm, processing data items $\colorTbar$ based on their hanoi value $\colorH(\colorTbar)$ provides the backbone of our approach to stretched curation.
-However, instead of keeping just the largest $n$ highest encountered \hv{}'s encountered, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered \hv{}'s.
+However, instead of keeping just the $n$ highest \hv{}'s encountered, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered \hv{}'s.
 Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each \hv{} approximates stretched distribution.
 
 To respect fixed buffer capacity, per-\hv{} capacity $n$ must degrade as we encounter new \hv{}'s.
@@ -64,6 +63,9 @@ By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT]$.
 Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 % Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.
+
+\FloatBarrier  % ensure no peeking ahead by readers!
+\input{fig/hsurf-stretched-intuition.tex}
 
 \subsection{Stretched Algorithm Mechanism}
 \label{sec:stretched-mechanism}

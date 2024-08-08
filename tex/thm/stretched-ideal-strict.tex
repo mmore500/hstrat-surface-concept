@@ -41,10 +41,11 @@ Calculating total gap space as a sum of gap sizes,
 \label{eqn:gap-space-b}
 \end{align}
 
-Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b}, the number of discrete gaps instantiated follows as at least,
+Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b} and solving for the number of discrete gaps instantiated,
 \begin{align*}
+\\
 \textsf{num\_gaps}
-&\geq
+&\eqnmarkbox[WildStrawberry]{numgapsgeq}{\geq}
 \left\lfloor
 \colorS \log_{\colorT}\Big(
   (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
@@ -52,7 +53,11 @@ Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b}, the number of discrete
 \right\rfloor.
 \end{align*}
 
-The smallest gap of at least size 1 will be located $\mathsf{num\_gaps} + \mathsf{gap\_space}$ time steps back from the most recent observed time $\colorT$.
+\annotate[yshift=1em]{above,left}{numgapsgeq}{%
+Integer floor ensures lower bound on $\textsf{num\_gaps}$.
+}
+
+Counting discarded time steps and retained ``fence posts,'' the smallest gap (of at least size 1) will be located $\mathsf{num\_gaps} + \mathsf{gap\_space}$ time steps back from the most recent observed time $\colorT$.
 Note that the $\mathsf{num\_gaps}$ term accounts for the time steps occupied by retained data between gaps (i.e., ``fence posts'').
 So, the first gap will occur at time $\colorTbar = \colorT - \mathsf{num\_gaps} - \mathsf{gap\_space}$ and the gap size ratio will be at least.
 \begin{align*}
