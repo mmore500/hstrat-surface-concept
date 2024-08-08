@@ -128,7 +128,7 @@ We call this measure the \textbf{epoch} $\colort$ of time $\colorT$,
 \begin{equation}
 \colort
 \coloneq
-\max\Big(\left\lfloor \log_2(\colorT+x) \right\rfloor - \colors + 1, 0\Big)
+\max\Big(\left\lfloor \log_2(\colorT+x) \right\rfloor - \colors + 1,\, 0\Big)
 \text{ with }
 x =
 \begin{cases}
@@ -190,7 +190,7 @@ Recalling that stretched and tilted algorithms limit $\colort \leq \colorS - \co
 \colortau
 &\leq
 \min\Big(
-  \log_2(\colort + \colors),
+  \log_2(\colort + \colors),\,
   \log_2(\colort) + 1
 \Big)
 \text{ for } \colort \in [1 \twodots \colorS - \colors].
