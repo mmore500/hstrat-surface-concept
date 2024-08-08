@@ -11,7 +11,7 @@ From Lemma \ref{thm:stretched-discarded-incidence-count} we have reservations av
 After this point, data item placement cycles around sites reserved to a \hv as a ring buffer --- keeping most recent $2^{\colors - 1 - \colortau}$ instances.
 However, we must validate behavior at the transition points where this ring buffer shrinks due to invasion.
 
-In the case of invasion, the number of reserved sites drops from $\left\lceil 2^{\colors - \colortau} \right\rceil$ to $2^{\colors - 1 - \colortau}$.
+In the case of invasion, the number of reserved sites drops from $2^{\colors - \colortau}$ to $2^{\colors - 1 - \colortau}$.
 Recall from Lemma \ref{thm:tilted-last-touched} that the final instance of each \hv{} each epoch is placed into the rightmost reservation segment.
 We therefore know that the final $2^{\colors - 1 - \colortau}$ instances of a \hv{} encountered during an epoch were laid out left to right in each of the smallest-size remaining segments, $r = \colortau$ (with the last instance occupying the rightmost reservation segment).
 
