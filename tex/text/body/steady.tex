@@ -29,29 +29,24 @@ Formally,
 \}.
 \end{align*}
 In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as time elapses elapse.
-To fill available buffer space $\colorS$, we will next show that $n(\colorT) = \colort - 1$.
-
-\input{thm/steady-hv-geq-epoch}
+Lemma \ref{thm:steady-hv-geq-epoch} shows that $n(\colorT) = \colort - 1$ fills available buffer space $\colorS$.%
+\footnote{%
+More exactly, $\colorS - 1$ sites are required.
+So, \textit{nearly} all buffer space is needed to store $\{\colorTbar : \colorH(\colorT) \geq \colort\}$.
+In practice, the surplus site can be convenient to store the very first or the very most recent data item.
+}
 
 \subsection{Steady Algorithm Mechanism}
 \label{sec:steady-mechanism}
 
 \input{fig/hsurf-steady-intuition}
 
-Lemma \ref{thm:steady-hv-geq-epoch} has shown that storing all $\colorTbar$ with $\colorH(\colorT) \geq \colort$ requires all buffer space $\colorS$.%
-\footnote{%
-More exactly, $\colorS - 1$ sites are required.
-So, \textit{nearly} all buffer space is needed to store $\{\colorTbar : \colorH(\colorT) \geq \colort\}$.
-In practice, the surplus site is convenient to store the very first or the very most recent data item.
-}
-% Note that, under this scheme, there are never retained items $\colorT$ such that $\colorH(\colorT) < \colort - 1$.
-Thus, each epoch $\colort$, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
-
+Each epoch $\colort$, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
 Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with \hv{} $\colorh = \colort - 1$ each epoch.
-This procedure divides buffer space into $\colors$ ``bunches,'' themselves divided into ``segments.''
+We divide buffer space into $\colors$ ``bunches,'' themselves divided into ``segments.''
 Bunch $i=0$ contains one segment of length $\colors$ sites.
 Then, for $i > 0$, bunch $i$ contains $2^{i-1}$ segments.
-Although segment count increases across bunch, we define segment length as $\colors - i$ --- decreasing by 1 each bunch.
+Although segment count increases across bunch, we define segment length as $\colors - i$, decreasing by 1 each bunch.
 So, segments in the last bunch contain only one site.
 With $\colors$ bunches, available buffer space $\colorS$ is nearly filled by this reservation layout,
 \begin{align*}
@@ -61,21 +56,20 @@ With $\colors$ bunches, available buffer space $\colorS$ is nearly filled by thi
 For each hanoi value $\colorh$, if we store one data item $\colorH(\colorTbar) = \colorh$ per segment, each epoch $\colort$ will fill one segment bunch.
 Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
 Bunch 1 contains the data item with that \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \lBrace \colort = \colorh - \colors + 2 \rBrace : \colorH(\colorTbar) = \colorh \}$, and so forth.
-Because only one not-yet-encountered \hv{} surfaces each epoch, during any one epoch we will be taking data item instances from only the top $\colors$ \hv's $\colorh \geq \colort$ into storage.
+Because only one not-yet-encountered \hv{} surfaces each epoch, each epoch only takes data item instances from only the top $\colors$ \hv's $\colorh \geq \colort$ into storage.
 % Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - n$ \hv's $\colorh$ that have ``progressed'' to bunch $n$ can be stored within each segment in that bunch.
 
 \input{fig/hsurf-steady-implementation}
 
-The properties of this arrangement become useful in managing elimination of data items with \hv{} $\colorh$ during epoch $\colort=\colorh + 1$.
+The particulars of our layout become useful in managing elimination of data items with \hv{} $\colorh$ during epoch $\colort=\colorh + 1$.
 We have that \hv{} $\colorh + \colors$ will store one data item in bunch 0 during epoch $\colort=\colorh + 1$.
 This is the same number of data items left by \hv{} $\colorh$ in bunch 0.
 The same holds for all bunches, with data items left by \hv{} $\colorh$ equivalent in number to those to be stored in bunch $n$ from \hv{} $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
 
-As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh$ by overwrites each epoch.
+As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh=\colort-1$ by overwrites each epoch.
 In determining storage site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = \colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
 Calculating the number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be stored.
-
-\input{thm/steady-hv-elimination}
+Lemma \ref{thm:steady-hv-elimination} verifies the behavior of this procedure.
 
 We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of this procedure, which comprises a handful of fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
 Also implemented fully in accompanying materials, ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
