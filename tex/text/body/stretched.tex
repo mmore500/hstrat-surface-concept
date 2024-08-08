@@ -29,7 +29,7 @@ This section proposes a stream curation algorithm tailored to the stretched crit
 \Big).
 \end{align*}
 
-Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indefinitely many data ingestions $\colorT$, our proposed stretched algorithm defines ingest site selection only up to $2^{\colorS}$ data items.
+Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indefinitely many data ingestions $\colorT$, our proposed stretched algorithm support ingesting only up to $2^{\colorS} - 2$ data items.
 Extension of the stretched algorithm to support epochs $\colort > \colorS - \colors$ remains to future work.
 
 \subsection{Stretched Algorithm Strategy}
@@ -126,7 +126,7 @@ Two reservation sites will be added for \hv{} $\colorh=\colors - 1$, four for \h
 
 In subsequent epochs $\colort>1$, we can continue dissolving the smallest, innermost-nested reservation segments to grow capacity for new high-\hv{} data items.
 Figure \ref{fig:hsurf-stretched-intuition-reservations} shows several steps through this ``invasion'' process on a 32-site buffer.
-At final epoch $\colort=\colorS-\colors$ (i.e., $\colorT \approx 2^{\colorS}$), the proposed process of progressive, nested segment subsumption culminates to a single reservation segment containing one site for each \hv{} $0 \leq \colorh < \colorS$.
+At final epoch $\colort=\colorS-\colors - 1$ (i.e., $\colorT \approx 2^{\colorS - 1}$), the proposed process of progressive, nested segment subsumption culminates to a single reservation segment containing one site for each \hv{} $0 \leq \colorh < \colorS$.
 
 We will next show our definition of meta-epoch $\colortau$ corresponds precisely to the timing with which successive inner segments are subsumed.
 
@@ -162,25 +162,4 @@ In this final subsection, we establish an upper bound on gap size ratio $\colorg
 
 During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 4/\colorS$.
 Likewise, during the last supported epoch, where $\colortau = \colors$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$.
-Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $0 \leq \colorT < 2^{\colorS}$.
-
-
-% \begin{lemma}[Worst-case Gap Size Ratio in Final Epoch]
-% For $\colorT \in (\colort = \colorS - \colors)$,
-% \begin{align*}
-% \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
-% &\leq
-% 1.
-% \end{align*}
-% \end{lemma}
-% \begin{proof}
-% By construction, $(\colorTbar=0) \in \colorB_{\colorT}$.
-
-% Suppose $\exists 2^{\colorS - 1} \leq \colorT < 2^{\colorS}, \colorTbar > 0$ such that $\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} > 1$.
-% Then, $\exists \colorTbar$ such that $[\colorTbar \twodots 2\times\colorTbar] \in \colorBnot_{\colorT}$.
-% Because $\exists 0 \leq n < \colorS$ such that $2^n - 1 \in [\colorTbar \twodots 2\times\colorTbar]$, this would imply $
-% \exists 2^n - 1 \in \colorBnot_{\colorT}$.
-% However, segment layout provides reserved sites for all \hv{} $0\leq\colorh<\colorS$ in final epoch $\colort = \colorS - \colors$, so $\nexists \colorT,\colorTbar$ violating the bound.
-% \end{proof}
-
-%The largest \hv{} encountered is $\colorH(\colorS/4 - 1) = \left\lfloor \log_2(\colorS/4) \right\rfloor = \colors - 2$.
+Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$

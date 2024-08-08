@@ -7,7 +7,7 @@ The current meta-epoch at epoch $\colort$ is bounded,
   \log_2(\colort + \colors),\,
   \log_2(\colort) + 1
 \Big)
-\text{ for } \colort \in [1 \twodots \colorS - \colors].
+\text{ for } \colort \in [1 \twodots \colorS - \colors).
 \end{align*}
 \end{lemma}
 \begin{proof}
@@ -39,11 +39,11 @@ This bound follows from,
 \end{proofpart}
 
 \begin{proofpart}
-Before the supported final epoch for the stretched algorithm $\colort = S - s$, the upper bound
+The upper bound
 \begin{align}
-\colortau \leq \log_2(\colort + \colors) \label{eqn:meta-epoch-bound-large}
+\colortau \leq \log_2(\colort + \colors - 1) \label{eqn:meta-epoch-bound-large}
 \end{align}
-can also be established.
+can also be established for $\colort \leq \colorS - \colors$.
 Consider,
 \begin{align*}
 2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
@@ -64,11 +64,11 @@ Consider,
 &\stackrel{?}{\geq} \colort + \colors\\
 \colorS - \colors &\stackrel{?}{\geq} \colort.
 \end{align*}
-It happens that stretched and tilted algorithms do not define ingestion beyond $\colort = \colorS - \colors$ (i.e., $\colorT \geq 2^{\colorS}$).
+Stretched and tilted algorithms do not define ingestion for $\colort \geq \colorS - \colors$ (i.e., $\colorT \geq 2^{\colorS - 1}$).
 Restricting $\colort$,
 \begin{align*}
 2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
-&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in [1 \twodots \colorS - \colors].
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in [1 \twodots \colorS - \colors).
 \end{align*}
 \end{proofpart}
 \end{proof}

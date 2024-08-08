@@ -9,7 +9,7 @@ Log Buffer Size & int & $\colors$ & $\log_2 \colorS$ & $\in \mathbb{N}$ \\
 Buffer Site & int & $\colork$ & index position in buffer & $\in [0\twodots\colorS)$ \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Time}} \\ \hline
-Current Time & int & $\colorT$ & num elapsed data item ingests & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots 2^{\colorS})$ \\
+Current Time & int & $\colorT$ & num elapsed data item ingests & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots 2^{\colorS - 1})$ \\
 Data Item Ingest Time & int & $\colorTbar$ & num ingests preceding data item & $\in [0 \twodots \colorT]$ \\
 Hanoi Value (\hv{}) of Time & int & $\colorh = \colorH(\colorT)$ & Formula \ref{eqn:hanoi-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
 Time Epoch & int & $\colort = \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT)$ & Formula \ref{eqn:epoch-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS - \colors)$ \\
