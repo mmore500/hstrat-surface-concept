@@ -91,7 +91,7 @@ We can continue, and further augment $\colorS/8$ segments with \hv{} $\colorh=2$
 Continuing this pattern to place all encountered \hv{} $\colorh\leq\colors$ yields segment sizes that turn out to recapitulate the hanoi sequence.
 Special-casing the largest segment, constructed segment sizes can in fact be enumerated as
 \begin{align}
-\colors + 1, \colorH(0) + 1, \colorH(1) + 1, \ldots, \colorH(\colorS/2 - 2) + 1.
+\colors + 1,\, \colorH(0) + 1,\, \colorH(1) + 1,\, \ldots,\, \colorH(\colorS/2 - 2) + 1.
 \label{eqn:stretched-segment-sizes}
 \end{align}
 These segment sizes can be shown to exactly fill available buffer space $\colorS$,
@@ -101,8 +101,8 @@ These segment sizes can be shown to exactly fill available buffer space $\colorS
 2^{\colors - 2 - \colorh} \times (\colorh + 1)
 &=
 \colors + 1 +
-2^{\colors} - \colors - 1\\
-&\stackrel{\checkmark}{=}
+2^{\colors} - \colors - 1
+\stackrel{\checkmark}{=}
 \colorS.
 \end{align*}
 
