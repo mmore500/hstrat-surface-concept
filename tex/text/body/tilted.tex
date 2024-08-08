@@ -2,35 +2,14 @@
 
 The tilted criterion favors recent data items, enjoining a record spaced proportionally to time elapsed since data item's ingest time, $\colorT - \colorTbar$.
 This is opposite the stretched criterion, which favors early data items.
-
 The tilted criterion can be formulated as minimization of the largest ratio of gap size to ingest time,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} \text{ for } \colorTbar < \colorT.
 \end{align*}
 
-The same approximate lower bound on best-case gap size ratio derived for the stretched curation can be applied also to tilted curation,
-\begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
-&\stackrel{\sim}{\geq}
-\colorT^{1/\colorS} - 1.
-\tag{via Equation \ref{eqn:approx-gap-bound}}
-\end{align*}
-As can the strict bound on stretched algorithm gap size ratio acounting for discretiztion effects,
-\begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
-&\geq
-\frac{
-  1
-}{
-  1 + \colorS
-  - \left\lfloor \colorS \log_{\colorT}\Big(
-    (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
-  \Big)\right\rfloor
-}.
-\tag{via Theorem \ref{thm:stretched-ideal-strict}}
-\end{align*}
+The approximate lower bound on best-case gap size ratio provided in Equation \ref{eqn:approx-gap-bound} for the stretched curation can also be applied to tilted curation, as can the strict bound on best-case gap size ratio acounting for discretiztion effects established Theorem \ref{thm:stretched-ideal-strict}.
 
-In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than,
+In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than
 \begin{align*}
   \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
   &\leq
@@ -79,7 +58,7 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \}$}
 
 Note also that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in [0 \twodots \colorT]$.
-It can be shown analogously to Theorem \ref{thm:stretched-first-n-space} that setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
+It can be shown analogously to the stretched algorithm's Lemma \ref{thm:stretched-first-n-space} that setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$ under the tilted algorithm.
 
 \subsection{Tilted Algorithm Mechanism}
 \label{sec:tilted-mechanism}
@@ -91,19 +70,9 @@ A pertinent result of the stretched layout, though, is that the at least $2^{\co
 However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last} $n$ rather than the \textit{first} $n$ instances of each hanoi value.
 We can do that by continuing to write data items for each \hv{} into buffer sites reserved for that \hv{} after they initially fill --- overwriting older instances of the \hv{} to keep a ``ring buffer'' of fresh \hv{} instances.
 
-In the following, we prove several results related to the tilted algorithm's ring buffer mechanism --- notably, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
-Ultimately, these results lead up to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
-We take particular care in considering transitions the ``ring buffer'' of sites reserved to a \hv{} is halved by growth of invading segments.
-
-\input{thm/tilted-last-touched}
-
-\input{thm/tilted-last-overwritten}
-
-\input{thm/tilted-invader-minus-invaded}
-
-\input{thm/tilted-invading-overwrite-order}
-
-\input{thm/tilted-most-recent-retained}
+Supplemental materials prove several results related to the tilted algorithm's ring buffer mechanism --- notably, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
+These results build to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+We take particular care in considering transitions where the ``ring buffer'' of sites reserved to a \hv{} is halved by growth of invading segments.
 
 \subsection{Tilted Algorithm Implementation}
 \label{sec:tilted-implementation}
@@ -126,5 +95,5 @@ In this final subsection, we establish an upper bound on gap size ratio $\colorg
 \input{thm/tilted-gap-size}
 
 During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/(\colorT - \colorTbar) \leq 4/\colorS$.
-Likewise, during the last supported epoch, where $\colortau = \colors$, $\colorG_{\colorT}(\colorTbar)/(\colorT - \colorTbar) \leq 2$.
+Likewise, during the last supported meta-epoch, where $\colortau = \colors - 1$, $\colorG_{\colorT}(\colorTbar)/(\colorT - \colorTbar) \leq 2$.
 Figure \ref{fig:hsurf-tilted-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$.
