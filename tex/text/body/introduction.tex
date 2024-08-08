@@ -8,12 +8,14 @@ Work with data streams assumes input greatly exceeds memory capacity, with strea
 Indeed, real-world computing often requires real-time operations on a continuous, indefinite basis \citep{cordeiro2016online}.
 Notable application domains involving data streams include sensor networks \citep{elnahrawy2003research}, big-data analytics \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems administration \citep{fischer2012real}, financial analytics \citep{rajeshwari2016real,agarwal2009faster}, environment monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
 
-Here, we focus on just one possible operation over data streams: subsampling, and develop $\mathcal{O}(1)$ operations for space-efficient curation of data subsets comprising either
-\begin{enumerate}
-\item even composition over sequence history (``\textit{steady}''),
-\item early-biased composition (``\textit{stretched}''), or
-\item recency-biased composition (``\textit{tilted}'').
-\end{enumerate}
+Here, we focus on just one possible operation over data streams: subsampling, and develop $\mathcal{O}(1)$ algorithms for space-efficient curation of data subsets with
+\begin{enumerate*}
+\item \textit{evenly covering} elapsed history (``\textit{steady}'' algorithm, Section \ref{sec:steady}),
+\item favoring \textit{older} data items (``\textit{stretched}'' algorithm, Section \ref{sec:stretched}), or
+\item favoring \textit{newer} data items (``\textit{tilted}'' algorithm, Section \ref{sec:tilted}).
+\end{enumerate*}
+Figure \ref{fig:criteria-intuition} compares steady, stretched, and tilted retention.
+
 For each algorithm, we demonstrate worst-case bounds on error in curated collection composition.
 We refer to this rolling subset problem as ``data stream curation,'' which we will define next.
 

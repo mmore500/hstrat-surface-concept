@@ -9,12 +9,11 @@ In practice, such fully-online curation can be necessary when either (a) stream 
 
 \input{fig/criteria-intuition}
 
-We consider three possible requirements on sampled data, as described above.
-\textit{{Steady}} retention seeks a sample spaced uniformly across elapsed stream history.
-\textit{{Stretched}} retention, by contrast, proportionally prioritizes early data items.
-\textit{{Tilted}} retention proportionally prioritizes recent data items.
-Formal definitons of these three criteria will be introduced in Section \ref{sec:notation-coverage}.
-Related objectives appear in a variety of related data stream work, reviewed in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
+% We consider three possible requirements on sampled data, as described above.
+% \textit{{Steady}} retention seeks a sample spaced uniformly across elapsed stream history.
+% \textit{{Stretched}} retention, by contrast, proportionally prioritizes early data items.
+% \textit{{Tilted}} retention proportionally prioritizes recent data items.
+% Related objectives appear in a variety of related data stream work, reviewed in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
 
 %Each contributed policy includes indexing schemes that simultaneously support both efficient update operations and efficient storage of retained stream values in a flat array, requiring only $\mathcal{O}(1)$ storage overhead --- a single counter value.
 
@@ -29,14 +28,14 @@ Extensions could be imagined to support more general aggregation and approximati
 % Existing work has largely applied rolling full retention of most recent data within available buffer space \citep{fincham1995use} or dismissal of incoming data after storage reaches capacity \citep{saunders1989portable,mahzan2017design}.
 % Strategies to maintain a cross-sectional time sample appear scant, although there has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
 
-Algorithm developments reported here originally stem from supporting work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for distributed tracking of digital ancestry trees --- for instance in analysis of highly-distributed agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, and computer viruses \citep{moreno2022hereditary}.
-Although separate from our objectives here, we will briefly motivate this particular use case of stream curation.
-Hereditary stratigraphy takes a reconstruction-based approach to tracking, annotating surveiled artifacts with checkpoint data, which is extended by a new ``fingerprint'' with each copy event.
-Comparing two artifacts' accreted records reveals the duration of their common ancestry, with the first mismatched fingerprints indicating the end of common descent.
+Algorithms reported here stem from work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for tracking of digital ancestry trees in highly-distributed systems --- for instance in analysis of many-processor agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, or computer viruses \citep{moreno2022hereditary}.
+Although beyond the scope of objectives here, we will briefly motivate this particular use case of stream curation.
+Hereditary stratigraphy annotates surveiled artifacts with checkpoint data, which is extended by a new ``fingerprint'' value with each copy event.
+Comparing two artifacts' accreted records reconstructs the duration of their common ancestry, with the first mismatched fingerprints indicating the end of common descent.
 
-Hereditary stratigraphy relies on stream curation to prevent unbounded growth of generational fingerprint records from bloating memory use.
+This use case relies on stream curation to prevent unbounded growth of generational fingerprint records.
 These records can be considered as a data stream, in that they accrue piece-by-piece, on an indefinite basis.
-Downsampling fingerprints saves memory, but introduces uncertainty as to the timing of lineage divergence.
-To this end, the manner in which retained checkpoints are spaced across generational history is crucial to inference quality.
-Recent work, for instance, finds that recency-biased ``\textit{tilted}'' retention --- as opposed to ``\textit{steady}'' retention --- maximizes phylogeny reconstruction accuracy for common evolutionary scenarios \citep{moreno2024guide}.
+Downsampling fingerprints saves memory, but introduces uncertainty in estimating the timing of lineage divergence.
+For this reason, the manner in which retained checkpoints are spaced across generational history is crucial to inference quality.
 Minimizing per-item storage overhead is also critical to hereditary stratigraphy, with \citet{moreno2024guide} finding that single-bit checkpoint values maximize reconstruction quality (i.e., by allowing more fingerprints to be retained).
+Both of these concerns are prioritized in present work.

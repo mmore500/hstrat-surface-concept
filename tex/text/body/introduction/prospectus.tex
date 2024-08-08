@@ -10,12 +10,11 @@ Put another way, curation policy is exercised solely through ``\textit{site sele
 
 Note that this operational scheme inherently forgoes any explicit data labeling, timestamping, or other structure (e.g., pointers).
 Instead, we require site selection to be computable \textit{a priori}.
-As a further consequence, efficient attribution of data items' origin time now requires support for straightforward ``inverse'' decoding of a stored data item's origin time based solely on its buffer index and how many items have been ingested from the data stream.
+As a further consequence, efficient attribution of data items' origin time hence requires support for efficient ``inverse'' decoding of a stored data item's origin time based solely on its buffer index and how many items have been ingested from the data stream.
 We term this operation ``\textit{site lookup}.''
+Figure \ref{fig:ingest-and-lookup} schematizes our ``site selection'' and ``site lookup'' operations.
 
 \input{fig/ingest-and-lookup.tex}
-
-Figure \ref{fig:ingest-and-lookup} schematizes our ``site selection'' and ``site lookup'' operations.
 
 \subsection{Major Results}
 

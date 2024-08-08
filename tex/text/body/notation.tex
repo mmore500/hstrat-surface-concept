@@ -9,8 +9,7 @@ We consider data items according only to their logical sequence position.
 We do not consider data items' actual semantic values or real-time arrival.
 We assume data item values as fixed size and thus interchangeable in memory buffer slots.
 
-The remainder of this section will proceed to overview foundational abstractions and notations used throughout this work.
-A summary of introduced notations can be found in Table \ref{tab:notation}.
+The remainder of this section will proceed to overview key notations used throughout this work, summarized in Table \ref{tab:notation}.
 
 \input{tab/notation.tex}
 
@@ -80,18 +79,6 @@ Gap size for record index $\colorTbar \in [0 \twodots \colorT]$ at time $\colorT
 \end{align}
 Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorTbar) = 0$.
 
-\subsection{Coverage Criteria}
-\label{sec:notation-coverage}
-
-Algorithms cover three main coverage criteria:
-\begin{enumerate}
-\item \textbf{steady criterion}: seeks to maintain data items \textit{evenly covering} elapsed history (Section \ref{sec:steady}),
-\item \textbf{stretched criterion}: proportionally favors \textit{older} data items (Section \ref{sec:stretched}), and
-\item \textbf{tilted criteiron}: proportionally favors \textit{newer} data items (Section \ref{sec:tilted}).
-\end{enumerate}
-Figure \ref{fig:criteria-intuition} compares example ideal retention distributions under each criterion.
-Formal definitions are provided in each criterion's corresponding section.
-
 \subsection{Time Hanoi Value $\colorh$}
 \label{sec:notation-hanoi}
 
@@ -145,7 +132,7 @@ For the \textit{steady algorithm}, epochs' first time point $\colorT = \min\colo
 For the \textit{stretched} and \textit{tilted algorithms}, epochs begin exactly at even powers of two (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 In both cases, note correction to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
 
-As described above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS - 1}$, so
+As mentioned above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS - 1}$, so
 \begin{align*}
 \colort &\leq \left\lfloor\log_2(2^{\colorS - 1} - 1)\right\rfloor - \colors + 1
 \leq \colorS - \colors - 1
