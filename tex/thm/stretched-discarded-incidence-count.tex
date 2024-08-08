@@ -46,9 +46,9 @@ Initial reservation segments are laid out with sizes drawn from the hanoi sequen
 By construction, retained reservations grow exactly one site per epoch.
 Because reservations are eliminated in increasing order of their initialized size $r$, we will always (over supported domain $\colorTbar < 2^{\colors}$) have the largest reservation segment $r=\colors$ to provide a site for the lone instances of our two highest hanoi values $\colorh=\colort+\colors$ and $\colorh=\colort+\colors-1$.
 Along these lines, we can store the two instances of the the next-smallest \hv{} $\colorh=\colort+\colors-2$ in the largest and second-largest reservations $r=\colors$ and $r=\colors-2$.
-Proceeding into deeper uninvaded segment layers, reserved site count doubles --- perfectly in step with \hv{} instance counts.
+Proceeding into deeper uninvaded segment layers, reserved site count doubles --- exactly in step with \hv{} instance counts.
 
-With segments $r \geq \colors - \colortau$ active, we can safely store all encountered \hv{} $\colorH(\colorTbar) = \colorh$ instances for the top $\colors - \colortau$ encountered hanoi values $\colorh$.
+With segments $r \geq \colors - \colortau$ active, we can safely store all encountered \hv{} $\colorH(\colorTbar) = \colorh$ instances for the largest $\colors - \colortau$ encountered \hv's.
 During epoch $\colort$, the highest-encountered \hv{} is $\colorh=\colors + \colort$.
 So, we can safely store all encountered instances for \hv{}'s
 \begin{align*}
@@ -63,7 +63,7 @@ With $(\colort = 2^{\colortau} - \colortau) \in \colortausetoft$, we can thus fu
 \end{proofpart}
 
 \begin{proofpart}[Have we accounted for all hanoi values?]
-Combining the above, the question of covering all encountered \hv{}'s $0\leq\colorh\leq\colors+\colort$ becomes whether $\exists \colorh \in \mathbb{N}$ such that $\colorh < 2^{\colortau}$ and $\colorh \geq 2^{\colortau}$.
+Combining the above, the question of covering all encountered \hv's $0\leq\colorh\leq\colors+\colort$ becomes whether $\exists \colorh \in \mathbb{N}$ such that $\colorh < 2^{\colortau}$ and $\colorh \geq 2^{\colortau}$.
 No such $\colorh$ exists, so we have accounted for all \hv{} in satisfying our requirements.
 \end{proofpart}
 
