@@ -15,9 +15,19 @@ Deriving an approximate bound without accounting for discretization effects, gap
 \colorT^{1/\colorS} - 1.
 \end{align}
 
-Working in discretization provides a strict lower bound on gap size ratio, presented next.
-
-\input{thm/stretched-ideal-strict}
+Lemma \ref{thm:stretched-ideal-strict} works in discretization provides a strict lower bound on gap size ratio,
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\geq
+\frac{
+  1
+}{
+  1 + \colorS
+  - \left\lfloor \colorS \log_{\colorT}\Big(
+    (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
+  \Big)\right\rfloor
+}.
+\end{align*}
 
 This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than,
 \begin{align*}
@@ -26,11 +36,10 @@ This section proposes a stream curation algorithm tailored to the stretched crit
 \min\Big(
   \frac{2(\colort + \colors)}{\colorS},\,
   \frac{4\colort}{\colorS}
-\Big).
+\Big)
 \end{align*}
 
-Unlike the steady algorithm presented in Section \ref{sec:steady}, which supports indefinitely many data ingestions $\colorT$, our proposed stretched algorithm support ingesting only up to $2^{\colorS} - 2$ data items.
-Extension of the stretched algorithm to support epochs $\colort > \colorS - \colors$ remains to future work.
+over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
 
 \subsection{Stretched Algorithm Strategy}
 \label{sec:stretched-strategy}
@@ -53,10 +62,7 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \end{align*}
 By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT]$.
 
-We next show setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
-
-\input{thm/stretched-first-n-space.tex}
-
+Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 % Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.
 
@@ -132,10 +138,7 @@ We will next show our definition of meta-epoch $\colortau$ corresponds precisely
 
 \input{thm/stretched-meta-epoch.tex}
 
-With relationship between segment subsumption and meta-epoch $\colortau$ thus established, we will now turn our attention to showing that our scheme maintains reservation layout sufficient to accomodate at least $n(\colorT) = 2^{\colors - 1 - \colortau}$ items of each hanoi value.
-
-\input{thm/stretched-discarded-incidence-count.tex}
-\input{thm/stretched-reservation-count}
+With relationship between segment subsumption and meta-epoch $\colortau$ thus established, Lemma \ref{thm:stretched-discarded-incidence-count} shows that our scheme maintains reservation layout sufficient to accomodate at least $n(\colorT) = 2^{\colors - 1 - \colortau}$ items of each hanoi value.
 
 \subsubsection{Stretched Algorithm Implementation}
 \label{sec:stretched-implementation}
@@ -145,7 +148,7 @@ Having determined reservation segment layout strategy by hanoi value, remaining 
 As we encounter data items with $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that item's \hv{} in descending order of initialized segment size $r$.
 Among same-size segments, we simply fill from left to right.
 As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items with $\colorH(\colorTbar) = \colorh$.
-We may thus reinterpret Lemma \ref{thm:stretched-discarded-incidence-count} and Corollary \ref{thm:stretched-reservation-count} as providing guarantees on the first $n$ instances of each \hv{} retained.
+We may thus reinterpret Lemma \ref{thm:stretched-discarded-incidence-count} as providing guarantees on the first $n$ instances of each \hv{} retained.
 Once sites reserved to \hv{} $\colorh$ fill, it is necessary to discard further instances $\colorH(\colorTbar) = \colorh$ without storage.
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates the resulting site selection process $\colorK(\colorT)$ over epochs $\colort \in \{0,1,2\}$ on an example buffer, size $\colorS=32$.
 
@@ -161,5 +164,5 @@ In this final subsection, we establish an upper bound on gap size ratio $\colorg
 \input{thm/stretched-gap-size}
 
 During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 4/\colorS$.
-Likewise, during the last supported epoch, where $\colortau = \colors$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$.
-Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$
+Likewise, during the last supported epoch, where $\colortau = \colors - 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$.
+Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$.
