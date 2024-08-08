@@ -31,7 +31,7 @@ Extensions could be imagined to support more general aggregation and approximati
 Algorithms reported here stem from work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for tracking of digital ancestry trees in highly-distributed systems --- for instance in analysis of many-processor agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, or computer viruses \citep{moreno2022hereditary}.
 Although beyond the scope of objectives here, we will briefly motivate this particular use case of stream curation.
 Hereditary stratigraphy annotates surveiled artifacts with checkpoint data, which is extended by a new ``fingerprint'' value with each copy event.
-Comparing two artifacts' accreted records reconstructs the duration of their common ancestry, with the first mismatched fingerprints indicating the end of common descent.
+Comparing two artifacts' accreted records reconstructs the duration of their common ancestry, with the first mismatched fingerprints signifying divergence from common descent.
 
 This use case relies on stream curation to prevent unbounded growth of generational fingerprint records.
 These records can be considered as a data stream, in that they accrue piece-by-piece, on an indefinite basis.
