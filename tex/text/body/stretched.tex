@@ -34,7 +34,7 @@ This section proposes a stream curation algorithm tailored to the stretched crit
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
 \min\Big(
-  \frac{2(\colort + \colors)}{\colorS},\,
+  \frac{2(\colort + \colors)}{\colorS},\;\;
   \frac{4\colort}{\colorS}
 \Big)
 \end{align*}
@@ -61,7 +61,6 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
 By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT]$.
-
 Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 % Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.
@@ -97,7 +96,7 @@ We can continue, and further augment $\colorS/8$ segments with \hv{} $\colorh=2$
 Continuing this pattern to place all encountered \hv{} $\colorh\leq\colors$ yields segment sizes that turn out to recapitulate the hanoi sequence.
 Special-casing the largest segment, constructed segment sizes can in fact be enumerated as
 \begin{align}
-\colors + 1,\, \colorH(0) + 1,\, \colorH(1) + 1,\, \ldots,\, \colorH(\colorS/2 - 2) + 1.
+\colors + 1,\;\; \colorH(0) + 1,\;\; \colorH(1) + 1,\;\; \ldots,\;\; \colorH(\colorS/2 - 2) + 1.
 \label{eqn:stretched-segment-sizes}
 \end{align}
 These segment sizes can be shown to exactly fill available buffer space $\colorS$,

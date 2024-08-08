@@ -97,7 +97,7 @@ Terms of this sequence, A007814 in the On-Line Encyclopedia of Integer Sequences
 \footnote{%
 As such, in implementation, $\colorH(\colorTbar)$ can be calculated in fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
 }
-The first terms are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \,\ldots \,$.
+The first terms are $0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 3,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 2,\allowbreak 0,\allowbreak 1,\allowbreak 0,\allowbreak 4,\allowbreak 0,\allowbreak \;\;\ldots \;\;$.
 We continue our zero-indexing convention, so $\colorH(0) = 0$, $\colorH(1) = 1$, $\colorH(2) = 0$, etc.
 
 Some intuition for the structure of the Hanoi sequence will benefit the reader.
@@ -118,7 +118,7 @@ We call this measure the \textbf{epoch} $\colort$ of time $\colorT$,
 \begin{equation}
 \colort
 \coloneq
-\max\Big(\left\lfloor \log_2(\colorT+x) \right\rfloor - \colors + 1,\, 0\Big)
+\max\Big(\left\lfloor \log_2(\colorT+x) \right\rfloor - \colors + 1,\;\; 0\Big)
 \text{ with }
 x =
 \begin{cases}
@@ -180,7 +180,7 @@ Recalling that stretched and tilted algorithms limit $\colort < \colorS - \color
 \colortau
 &\leq
 \min\Big(
-  \log_2(\colort + \colors),\,
+  \log_2(\colort + \colors),\;\;
   \log_2(\colort) + 1
 \Big)
 \text{ for } \colort \in [1 \twodots \colorS - \colors).

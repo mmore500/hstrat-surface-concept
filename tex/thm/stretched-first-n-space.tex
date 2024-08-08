@@ -15,11 +15,11 @@ Counting data items required by $\textsf{goal\_stretched}$,
 \begin{align*}
 |\textsf{goal\_stretched}|
 &=
-\sum_{\colorh} \min\Big(2^{\colors - 1 - \colortau},\, |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
+\sum_{\colorh} \min\Big(2^{\colors - 1 - \colortau},\;\; |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
 &=
-1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\, 2^{\colors + \colort - 1 - \colorh}\Big)\\
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big)\\
 &=
-1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\, 2^{\colors + \colort - 1 - \colorh}\Big).
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big).
 \end{align*}
 Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$ (i.e., $\colorh = \colort + \colortau$),
 \begin{align*}
