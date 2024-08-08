@@ -1,7 +1,7 @@
 \begin{lemma}[Last instance of a \hv{} within epoch $\colort$]
 \label{thm:tilted-last-touched}
 The final instance of each \hv{} encountered during an epoch is placed in the rightmost site reserved for that hanoi value.
-That is, during any epoch $\colort$,
+That is, during any epoch $\colort$
 \begin{align*}
 \colorK\Big(
   \max\{\colorT \in \colortsetofT : \colorH(\colorT) = \colorh\}
@@ -13,9 +13,23 @@ for all $\colorh \in \{\colorHcal_{\colort}(\colork) : \colork \in [0\twodots\co
 \end{lemma}
 
 \begin{proof}
-Because we are only concerned with pertinent \hv{} $\colorh \in \{\colorH(\colorT) : \colorT \in \colortsetofT\}$, we may assume $\colorh \leq \colors + \colort$.
-In traversing a hanoi value's ``ring buffer'' of reserved sites, the rightmost reservation segment is visited last, as it is positioned rightmost within the set of smallest size segments.
-Our proof objective can thus be fulfilled by showing that the number of sites $\colork$ reserved to \hv{} $\colorh$ evenly divides the number of \hv{} $\colorh$ instances encountered during epoch $\colort$.
+Hanoi value instances do not cycle back to leftmost reservation $r=\colors$ until the number of encountered \hv{} instances $2^{\colort + \colors - \colorh}$ exceeds space for $2^{\colors - \colortau - 1}$ items guaranteed by Lemma \ref{thm:stretched-discarded-incidence-count}.
+Before this point, $\colorh \geq \colort + \colortau + 1$.
+We will consider this case separately from $\colorh < \colort + \colortau + 1$.
+
+\begin{proofpart}[$\colorh \geq \colort + \colortau + 1$]
+\label{thm:hgeqttau}
+Order segment bunches by descending initial size $r$.
+Observe that bunches $0,1,\,\ldots,i$ contain a total of $2^i$ segments.
+Placing into segments belonging to bunch $i = \colort + \colors - \colorh$ sychronizes accrued reservations with net encountered \hv{} instances, $2^{\colort + \colors - \colorh}$.
+Filling a new, smaller $r$ bunch layer each epoch ensures the rightmost reserved site is filled last each epoch.
+\end{proofpart}
+
+\begin{proofpart}[$\colorh < \colort + \colortau + 1$]
+In this case, the number of sites reserved to a \hv{} $\colorh$ will be $2^{\colors - 1 - \colortau}$ or, if the current meta-epoch's pending invasion has not yet reached \hv{} $\colorh$, $2 \times 2^{\colors - 1 - \colortau}$.
+If, given the latter, reserved sites equal encountered \hv{} instances $2^{\colort + \colors - \colorh} = 2 \times 2^{\colors - 1 - \colortau}$, simply proceed to fill $i$th bunch $i=\colort + \colors - \colorh$ as in the above Part \ref{thm:hgeqttau}.
+
+Otherwise, to ensure completion of exactly full cycles around our ``ring buffer'' of sites reserved to \hv{} $\colorh$, we must show that the number of sites $\colork$ reserved to \hv{} $\colorh$ evenly divides the number of \hv{} $\colorh$ instances encountered during epoch $\colort$.
 That is, we wish to show
 \begin{align*}
 \\
@@ -40,33 +54,26 @@ How many instances of a hanoi value $\colorh$ are encountered during epoch $\col
 This is
 \begin{align*}
 \textsf{num\_items}_{\colorh}
-&=
-2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor.
+= 2^{\colort + \colors - \colorh} - \left\lfloor 2^{\colort + \colors - \colorh - 1}\right\rfloor.
 \end{align*}
-Observe that $\textsf{num\_items}_{\colorh} \in \{2^{\mathbb{N}}\}$ for encountered \hv{}'s $\colorh \leq \colors + \colort$.
 
 How many sites are reserved to a hanoi value $\colorh$ during epoch $\colort$?
-Recall from Lemma \ref{thm:stretched-discarded-incidence-count} that this is
+As established above, we only concern
 \begin{align*}
 \textsf{num\_sites}_{\colorh}
-&\geq
-\min\Big(
-2^{\colors - \colortau - 1},
-2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors + \colort - \colorh - 1} \right\rfloor
-\Big).
+&<
+2^{\colort + \colors - \colorh}\\
+&\leq
+2^{\colort + \colors - \colorh - 1}.
 \end{align*}
-Remark also that $\textsf{num\_sites}_{\colorh} \in \{2^{\mathbb{N}}\}$ for encountered \hv{}'s' $\colorh \leq \colors + \colort$.
-
-Because both $\textsf{num\_items}_{\colorh} \in \{2^{\mathbb{N}}\}$ and $\textsf{num\_sites}_{\colorh} \in \{2^{\mathbb{N}}\}$ for encountered \hv{}'s, all that remains to be shown is $\textsf{num\_items}_{\colorh} \geq \textsf{num\_sites}_{\colorh}$.
-Consider,
+Because both $\textsf{num\_items}_{\colorh}$ and $\textsf{num\_sites}_{\colorh}$ are $\in \{2^{\mathbb{N}}\}$, all that remains is to show
 \begin{align*}
-2^{\colort + \colors - \colorh} - \left\lfloor2^{\colort + \colors - \colorh - 1} \right\rfloor
+\textsf{num\_items}_{\colorh}
 &\stackrel{?}{\geq}
-\min\Big(
-2^{\colors - \colortau - 1},
-2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors - \colorh - 1} \right\rfloor
-\Big)\\
+\textsf{num\_sites}_{\colorh}\\
+2^{\colort + \colors - \colorh} - \left\lfloor 2^{\colort + \colors - \colorh - 1}\right\rfloor
 &\stackrel{\checkmark}{\geq}
-2^{\colors + \colort - \colorh} - \left\lfloor 2^{\colors - \colorh - 1} \right\rfloor.
+2^{\colort + \colors - \colorh - 1}.
 \end{align*}
+\end{proofpart}
 \end{proof}
