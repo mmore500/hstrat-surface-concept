@@ -16,7 +16,7 @@ def get_nth_bin_position(n: int, surface_size: int) -> int:
     n -= 1  # we've handled one bin
 
     # get the next all-1s number less than or equal to n
-    # subtract one from perfect square gets an all 1's number
+    # subtract one from perfect power of 2 gets an all 1's number
     completed_bins = bit_floor(n + 1) - 1
     assert completed_bins.bit_length() == completed_bins.bit_count()
     assert n // 2 <= completed_bins <= n
