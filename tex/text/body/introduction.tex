@@ -8,7 +8,7 @@ Work with data streams assumes input greatly exceeds memory capacity, with strea
 Indeed, real-world computing often requires real-time operations on a continuous, indefinite basis \citep{cordeiro2016online}.
 Notable application domains involving data streams include sensor networks \citep{elnahrawy2003research}, distributed big-data processing \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems log management \citep{fischer2012real}, fraud monitoring \citep{rajeshwari2016real}, trading in financial markets \citep{agarwal2009faster}, environmental monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
 
-Here, we focus specifically on subsampling over data streams and introduce three $\mathcal{O}(1)$ ``DownStream'' algorithms for space-efficient curation of data items:
+Here, we focus specifically on subsampling over data streams and introduce three $\mathcal{O}(1)$ ``DStream'' algorithms for space-efficient curation of data items:
 \begin{enumerate*}
 \item \textit{evenly covering} elapsed history (``\textit{steady}'' algorithm, Section \ref{sec:steady}),
 \item \textit{skewed older} over elapsed history (``\textit{stretched}'' algorithm, Section \ref{sec:stretched}), or
