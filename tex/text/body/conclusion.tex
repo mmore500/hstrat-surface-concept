@@ -6,8 +6,8 @@ We also outline steps to build out broad availability of developed algorithms as
 
 \subsection{Summary and Discussion}
 
-In this work, we have developed new strategies for fast and space-efficient ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points.
-Our ``DownStream'' approach, in particular, targets use cases that are fixed-capacity and resource-constrained.
+In this work, we have introduced new ``DownStream'' algorithms for fast and space-efficient data stream curation --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points.
+Our approach, in particular, targets use cases that are fixed-capacity and resource-constrained.
 
 As a simplifying assumption, we have reduced data ingestion to a sole update operation: ``site selection,'' picking a buffer index to write the $n$th received data item into --- overwriting any existing data item at that location.
 In the interest of concision and efficiency, we forgo any explicit metadata storage or data structure overhead (e.g., pointers).
