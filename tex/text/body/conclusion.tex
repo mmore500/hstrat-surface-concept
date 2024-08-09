@@ -1,6 +1,6 @@
 \section{Conclusions and Further Directions} \label{sec:conclusion}
 
-In closing, we will briefly review principal objectives and major results of presented work, then highlight potential impact of these contributions.
+In closing, we will briefly review principal objectives and major results of our presented work, then highlight potential impact of these contributions.
 We finish by laying out future work --- in yet-incomplete aspects of the presented work as well as opportunities for extension and elaboration.
 We also outline steps to build out broad availability of developed algorithms as an off-the-shelf, plug-and-play software tool.
 
@@ -18,7 +18,7 @@ Ultimately, the purpose of stream curation is to dictate what data to keep, and 
 As objectives in this regard depend heavily on use case, we have explored a suite of three possible retention strategies.
 
 The first is \textit{steady} curation, which calls for retention of evenly-spaced samples across data stream history.
-Our proposed algorithm guarantees worst-case even coverage within a factor of two of optimal.
+Our proposed algorithm guarantees worst-case even coverage within a factor of two of the optimum.
 
 The second two curation objectives explored --- \textit{stretched} and \textit{tilted} criteria --- bias retention to favor earlier or more recent data items, respectively.
 Proposed algorithms for these two criteria relate closely in structure, differing only in that the former freezes first encountered data items in place, while the latter uses a ring buffer approach to maintain the most-recently encountered data items.
@@ -26,11 +26,11 @@ Unlike the proposed steady curation algorithm, which handles indefinitely many d
 
 All three DStream algorithms provide formal description of buffer layout procedure, and indicate how site selection proceeds on this basis.
 As implemented, all algorithms provide $\mathcal{O}(1)$ site selection operations and are $\mathcal{O}(\colorS)$ to decode ingest times at all $\colorS$ buffer sites.
-Presentation for each constructs strict worst-case upper bounds on curation quality across elapsed data item ingests.
+Each algorithm also provides strict worst-case upper bounds on curation quality across elapsed stream history.
 
 \subsection{Future Algorithm Development}
 
-The core limitation of present work, as mentioned above, is restriction of stretched and tilted algorithms to $2^{\colorS} - 2$ data item ingests.
+The core limitation of this work, as mentioned above, is restriction of stretched and tilted algorithms to $2^{\colorS} - 2$ data item ingests.
 As such, work remains to design behavior past this point.
 One possibility is switching over at $\colorT = 2^{\colorS} - 1$ to apply steady curation on data item hanoi value $\colorH(\colorT)$ (i.e., rather than on $\colorT$ itself, as originally formulated).
 

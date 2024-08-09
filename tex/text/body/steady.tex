@@ -1,7 +1,7 @@
 \section{Steady Algorithm} \label{sec:steady}
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
-The criterion can be formulated as minimization of the largest gap size between retained data items.
+The criterion can be formulated as minimization of largest gap size between retained data items.
 For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized to at best $\left\lceil \colorT / \colorS \right\rceil$.
 This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
 (Disparity from ideal arises, in part, because maintaining uniform gap spacing on an ongoing basis is impossible on account of data item discards merging neighboring gaps.)
