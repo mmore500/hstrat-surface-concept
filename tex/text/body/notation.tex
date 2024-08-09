@@ -82,18 +82,16 @@ Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorT
 \subsection{Time Hanoi Value $\colorh$}
 \label{sec:notation-hanoi}
 
-As shown in Figure \ref{fig:hanoi-intuition} --- and discussed in greater detail later on --- it happens that the structure of proposed algorithms relies heavily on abstractions based around data items' ingestion time $\colorTbar$.
-One foundational abstraction is the corresponding value in the following integer sequence,
+Proposed algorithms make heavy use of OEIS integer sequence A007814 \citep{oeis}, forulated as
 \begin{align}
 \colorH(\colorTbar)
 \coloneq
 \max \{ n \in \mathbb{N} : (\colorTbar + 1) \bmod 2^n = 0 \}.
 \label{eqn:hanoi-defn}
 \end{align}
-Refer to $\colorH(\colorTbar) = \colorh$ as the ``\textbf{hanoi value}'' of $\colorTbar$, in reference to parallels with the famous ``tower of hanoi'' puzzle \citep{lucas1889jeux}.
-We frequently abbreviate this term as ``\textbf{\hv{}}''
+We refer to $\colorH(\colorTbar) = \colorh$ as the ``\textbf{hanoi value}'' (``\textbf{\hv{}}'') of $\colorTbar$, in reference to parallels with the famous ``Tower of Hanoi'' puzzle \citep{lucas1889jeux}.
 
-Terms of this sequence, A007814 in the On-Line Encyclopedia of Integer Sequences \citep{oeis}, correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.%
+Terms of this sequence correspond to the number of trailing zeros in the binary representation of $\colorTbar + 1$.%
 \footnote{%
 As such, in implementation, $\colorH(\colorTbar)$ can be calculated in fast $\mathcal{O}(1)$ using bit-level operations --- e.g., in Python \texttt{(~T \& T-1).bit\_length()} \citep{oeis}.
 }
@@ -107,6 +105,9 @@ So, a hanoi value $\colorh$ appears twice as often as value $\colorh + 1$.
 When hanoi value $\colorh$ appears for the first time, the value $\colorh - 1$ has appeared exactly once.
 So, we have seen exactly one instance of $\colorh$ and also exactly one instance of $\colorh - 1$.
 At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times.
+
+DStream algorithms use the \hv{} of data items' ingestion times $\colorH(\colorTbar)$ as the basis to prioritize items for retention.
+Figure \ref{fig:hanoi-intuition} provides intuition for how this core aspect of structure manifests in proposed \textit{steady}, \textit{stretched}, and \textit{tilted} algorithms.
 
 \input{fig/hanoi-intuition.tex}
 
