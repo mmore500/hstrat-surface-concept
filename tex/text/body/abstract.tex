@@ -7,7 +7,7 @@ Three temporal coverage criteria are targeted: (1) steady coverage, where retain
 For each algorithm, we prove worst-case bounds on rolling coverage quality.
 In contrast to previous work by Moreno, Rodriguez Papa, and Dolson (2024), which dynamically scales memory use to guarantee a specified level of coverage quality, here we focus on the more practical, application-driven case of maximizing coverage quality given a fixed memory capacity.
 As a core simplifying assumption, we restrict algorithm design to a single update operation: writing from the data stream to a calculated buffer site --- with data never being read back, no metadata stored (e.g., sample timestamps), and data eviction occurring only implicitly via overwrite.
-By drawing only on primitive, low-level operations and ensuring full, overhead-free use of allotted memory, this framework ideally suits domains that are resource-constrained (e.g., embedded systems), performance-critical (e.g., real-time), and fine-grained (e.g., individual data items as small as single bits or bytes).
+By drawing only on primitive, low-level operations and ensuring full, overhead-free use of allotted memory, our ``DownStream'' algorithms ideally suit domains that are resource-constrained (e.g., embedded systems), performance-critical (e.g., real-time), and fine-grained (e.g., individual data items as small as single bits or bytes).
 In particular, use of power-of-two-based buffer layout schemes ensures $\mathcal{O}(1)$ data ingestion, via concise bit-level operations.
 To further practical applications, we provide plug-and-play open-source implementations, targeting both scripted and compiled application domains.
 \end{abstract}

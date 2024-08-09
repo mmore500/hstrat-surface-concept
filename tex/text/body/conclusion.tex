@@ -7,7 +7,7 @@ We also outline steps to build out broad availability of developed algorithms as
 \subsection{Summary and Discussion}
 
 In this work, we have developed new strategies for fast and space-efficient ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points.
-Our approach, in particular, targets use cases that are fixed-capacity and resource-constrained.
+Our ``DownStream'' approach, in particular, targets use cases that are fixed-capacity and resource-constrained.
 
 As a simplifying assumption, we have reduced data ingestion to a sole update operation: ``site selection,'' picking a buffer index to write the $n$th received data item into --- overwriting any existing data item at that location.
 In the interest of concision and efficiency, we forgo any explicit metadata storage or data structure overhead (e.g., pointers).
@@ -24,7 +24,7 @@ The second two curation objectives explored --- \textit{stretched} and \textit{t
 Proposed algorithms for these two criteria relate closely in structure, differing only in that the former freezes first encountered data items in place, while the latter uses a ring buffer approach to maintain the most-recently encountered data items.
 Unlike the proposed steady curation algorithm, which handles indefinitely many data item ingestions, we leave behavior for time $\colorT \geq 2^{\colorS} - 2$ unspecified in defining the proposed stretched and tilted algorithms.
 
-All three algorithms provide formal description of buffer layout procedure, and indicate how site selection proceeds on this basis.
+All three ``DownStream'' algorithms provide formal description of buffer layout procedure, and indicate how site selection proceeds on this basis.
 As implemented, all algorithms provide $\mathcal{O}(1)$ site selection operations and are $\mathcal{O}(\colorS)$ to decode ingest times at all $\colorS$ buffer sites.
 Presentation for each constructs strict worst-case upper bounds on curation quality across elapsed data item ingests.
 
@@ -51,7 +51,7 @@ The stable buffer position of data items once stored raises the possibility of a
 \subsection{Algorithm Implementation}
 
 Ultimate motivation of this work is first and foremost application driven.
-We wish to put efficient stream curation procedures into production to address challenges in resource-constrained data management.
+We wish to put ``DownStream'' algorithms into production where they may contribute to addressing challenges in resource-constrained data management.
 
 Indeed, a key driver of this work has been in ``hereditary stratigraphy'' tooling to support distributed lineage tracking in large-scale digital evolution experiments.
 In this use case, stream curation downsamples randomly-generated lineage ``checkpoints'' that accrue as generations elapse, allowing divergence between lineages to be identified via mismatching checkpoints \citep{moreno2022hereditary}.
@@ -67,7 +67,7 @@ One challenge in supporting end-users is cross-language interoperation.
 Partial implementations are currently available in Python, Zig, and the closely-related Cerebras Software Language (CSL) \citep{moreno2024hsurf,moreno2024downstream,moreno2024wse}.
 For our own purposes, we plan to establish ports of stream curation algorithms for Rust and C++.
 
-We would be highly interested in collaborations in assembling implementations in other languages as needed --- whether incorporating new implementations into the \textit{downstream} software repository or linking to outside repositories from the \textit{downstream} documentation.
+We would be highly interested in collaborations in assembling ``DownStream'' implementations in other languages as needed --- whether incorporating new implementations into the \textit{downstream} software repository or linking to outside repositories from the \textit{downstream} documentation.
 In either case, care will need to be taken for consistency across implementations, as the semantics of stored data depends subtly upon exactly how site selection unfolded.
 One possible approach to this issue would simply be designation of a canonical implementation and development of language-agnostic means to validate other implementations.
 Alternately, effort could be invested in preparing and maintaining an explicit standard or specification.
