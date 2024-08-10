@@ -20,15 +20,16 @@ def steady_site_selection(S: int, T: int) -> typing.Optional[int]:
 
     i = T >> (h + 1)  # hanoi value incidence
     if i == 0:
+        k = 0  # Bunch position
+        o = 0  # Within-bunch offset
         w = s  # segment width
-        p = h % w  # within-segment offset
-        return p
+    else:
+        j = (1 << (i.bit_length() - 1)) - 1  # complete-bunch segments
+        b = j.bit_length()  # bunch index minus one
+        k = (1 << b) * (s - b + 1) - 1  # bunch position
+        w = h - t + 1  # segment width
+        assert w > 0
+        o = w * (i - j - 1)  # within-bunch offset
 
-    j = (1 << (i.bit_length() - 1)) - 1  # complete-bunch segments
-    b = j.bit_length()  # bunch index minus one
-    kb = (1 << b) * (s - b + 1) - 1  # bunch position
-    w = h - t + 1  # segment width
-    assert w > 0
-    o = w * (i - j - 1)  # within-bunch offset
     p = h % w  # within-segment offset
-    return kb + o + p
+    return k + o + p
