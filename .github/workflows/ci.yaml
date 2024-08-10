@@ -58,7 +58,6 @@ jobs:
           name: benchmark-python-hsurf
           path: bench/outdata/a=benchmark-python-hsurf+ext=.csv
 
-
   test-hsurf:
     runs-on: ubuntu-latest
     steps:
@@ -69,6 +68,15 @@ jobs:
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
       - run: python3 -m pytest -n auto -W ignore test_hsurf
+
+  test-implemented_pseudocode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          python3 -m pip install pip --upgrade
+          python3 -m pip install pytest
+      - run: python3 -m pytest -W ignore implemented_pseudocode
 
   test-packaging:
     runs-on: ubuntu-latest
