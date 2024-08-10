@@ -1,7 +1,8 @@
 \usepackage[dvipsnames,table,xcdraw]{xcolor}
 
 \usepackage{adjustbox}
-\usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 \usepackage{amsmath,amssymb,amsthm,amsfonts}
 \usepackage{annotate-equations}
 \usepackage{authblk}
@@ -141,3 +142,38 @@ parbox=false
 
 % adapted from https://tex.stackexchange.com/a/304667/316176
 \newcommand{\twodots}{\mathinner {\ldotp \ldotp}}
+
+
+% adapted from https://tex.stackexchange.com/a/657134/316176
+\makeatletter
+\newlength{\comment@width}
+
+\renewcommand{\Comment}[1]{%
+  \sbox0{#1}% measure
+  \ifdim\wd0>\comment@width
+    \setlength{\comment@width}{\wd0}%
+  \fi
+  \ifcsname comment@\arabic{algorithm}@width\endcsname
+    \algorithmiccomment{\makebox[\csname comment@\thealgorithm @width\endcsname][l]{#1}}%
+  \else
+    \algorithmiccomment{#1}%
+  \fi
+}
+\AtBeginEnvironment{algorithmic}{\setlength{\comment@width}{0pt}}
+\AtEndEnvironment{algorithmic}{%
+  \immediate\write\@auxout{%
+    \string\algcommentwidth{\thealgorithm}{\the\comment@width}%
+  }%
+}
+\newcommand{\algcommentwidth}[2]{%
+  \global\@namedef{comment@#1@width}{#2}%
+}
+\makeatother
+
+% adapted from https://tex.stackexchange.com/a/16060/316176
+% https://tex.stackexchange.com/a/373172/316176
+\MakeRobust{\Call}
+\makeatletter
+% Reinsert missing \algbackskip
+\def\algbackskip{\hskip-\ALG@thistlm}
+\makeatother
