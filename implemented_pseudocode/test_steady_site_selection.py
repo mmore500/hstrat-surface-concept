@@ -1,5 +1,6 @@
 import functools
 import itertools as it
+from random import randrange as rand
 import typing
 
 from .steady_site_selection import bit_floor, ctz, steady_site_selection
@@ -61,15 +62,14 @@ def test_steady_site_selection16():
 
 
 def test_steady_site_selection_fuzz():
-    for s in range(21):
-        S = 1 << s
-        for T in range(S - 1):
-            site_selection(S, T)  # Validated via wrapper
+    testS = (1 << s for s in range(33))
+    testT = it.chain(range(10**5), (rand(2**128) for _ in range(10**5)))
+    for S, T in it.product(testS, testT):
+        site_selection(S, T)  # Validated via wrapper
 
 
 def test_steady_site_selection_epoch0():
-    for s in range(21):
-        S = 1 << s
+    for S in (1 << s for s in range(21)):
         actual = {site_selection(S, T) for T in range(S - 1)}
         expected = set(range(S - 1))
         assert actual == expected
