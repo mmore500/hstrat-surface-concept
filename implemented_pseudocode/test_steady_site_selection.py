@@ -1,10 +1,6 @@
 import itertools as it
 
-from .steady_site_selection import (
-    ctz,
-    bit_floor,
-    steady_site_selection,
-)
+from .steady_site_selection import bit_floor, ctz, steady_site_selection
 
 
 def test_ctz():
