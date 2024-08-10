@@ -31,6 +31,8 @@
 \usepackage{subcaption}
 \usepackage{textcomp}
 \usepackage[most]{tcolorbox}
+\usepackage{xparse}
+\usepackage{pythonhighlight}
 
 % adapted from https://tex.stackexchange.com/a/512504
 \newtcolorbox{mybox}{
@@ -221,7 +223,7 @@ parbox=false
     % style=pythonhighlight-style,
 }
 
-\lstset{style=mystyle}
+\lstset{style=pythonhighlight-style}
 
 \DeclareCaptionFormat{listing}{\rule{\dimexpr\textwidth\relax}{0.4pt}\par\vskip1pt#1#2#3\par\vspace{-5pt}\rule{\dimexpr\textwidth\relax}{0.4pt}}
 \captionsetup[lstlisting]{format=listing,singlelinecheck=false, margin=0pt, ,labelsep=space,labelfont=bf}
