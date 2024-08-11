@@ -1,6 +1,12 @@
 import typing
 
 
+def ctz(x: int) -> int:
+    """Count trailing zeros."""
+    assert x > 0
+    return (x & -x).bit_length() - 1
+
+
 def get_hanoi_num_reservations(
     rank: int, surface_size: int, hanoi_value: typing.Optional[int] = None
 ) -> int:

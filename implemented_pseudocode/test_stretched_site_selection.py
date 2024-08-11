@@ -2,7 +2,17 @@ import functools
 import itertools as it
 import typing
 
-from .stretched_site_selection import stretched_site_selection
+from .stretched_site_selection import (
+    ctz,
+    stretched_site_selection,
+)
+
+
+def test_ctz():
+    # fmt: off
+    assert [*map(ctz, range(1, 17))] == [
+        0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4
+    ]
 
 
 def validate_stretched_site_selection(fn: typing.Callable) -> typing.Callable:
