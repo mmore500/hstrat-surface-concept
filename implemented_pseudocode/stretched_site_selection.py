@@ -41,7 +41,6 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
         epsilon_tau = (1 << tau_ansatz) - tau_ansatz > t  # Correction
         tau = tau_ansatz - epsilon_tau  # Current meta-epoch
         t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
-        assert t_0 <= t
         epsilon_b = h >= t - t_0  # Correction factor
         b = S >> (tau + epsilon_b)  # Num bunches
         if i >= b:
