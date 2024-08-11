@@ -406,5 +406,6 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
         if i >= b:
             return None
 
-    k = get_reservation_position_logical(i, S)
+    physical_reservation = get_longevity_mapped_position_of_index(i, S >> 1)
+    k = get_reservation_position_physical(physical_reservation, S)
     return k + h
