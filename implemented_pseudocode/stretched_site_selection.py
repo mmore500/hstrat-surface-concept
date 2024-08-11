@@ -35,28 +35,32 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
     s = S.bit_length() - 1
     t = max((T + 1).bit_length() - s, 0)  # Current epoch (or negative)
     h = ctz(T + 1)  # Current hanoi value
-    i = T >> (h + 1)  # Hanoi value incidence
+    i = T >> (h + 1)  # Hanoi value incidence (i.e., num seen)
 
-    tau_ansatz = t.bit_length()
-    epsilon_tau = ((1 << tau_ansatz) - tau_ansatz > t) * bool(t)  # Correction
-    tau = tau_ansatz - epsilon_tau  # Current meta-epoch
+    tau_prime = t.bit_length()  # Guess for current meta-epoch tau
+    epsilon_tau = ((1 << tau_prime) - tau_prime > t) * bool(t)  # Correction
+    tau = tau_prime - epsilon_tau  # Current meta-epoch
     t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
     epsilon_b = h >= t - t_0  # Correction factor
     b = S >> (tau + epsilon_b)  # Num bunches
-    if i >= b:
-        return None
+    if i >= b:  # If seen more than sties reserved to hanoi value...
+        return None  # ... discard without storing
 
-    level = i.bit_length()
-    position_within_level = i - bit_floor(i)
-    spacing = (S >> level) * bool(level)
-    offset = spacing >> 1
-    physical_reservation = offset + spacing * position_within_level
-    epsilon_k = bool(i)
-    k = (
-        (physical_reservation << 1)
-        + ((S << 1) - physical_reservation).bit_count()
-        - 1
-        - epsilon_k
+    b_l = i  # Logical bunch index
+    # ... i.e., in fill order of decreasing r
+
+    v = b_l.bit_length()  # Nestedness depth of physical bunch
+    w = (S >> v) * bool(v)  # Bunch spacing at nestedness layer
+    o = w >> 1  # Bunch offset at nestedness level
+    p = b_l - bit_floor(b_l)  # Bunch position w/in nest layer
+    b_p = o + w * p  # Physical bunch index...
+    # ... i.e., in left-to-right sequential bunch order
+
+    epsilon_k = bool(b_l)  # Correction factor for zeroth bunch...
+    # ... i.e., bunch r=s at site k=0
+    k = (  # Site index of bunch
+        (b_p << 1) + ((S << 1) - b_p).bit_count() - 1 - epsilon_k
     )
 
-    return k + h
+    return k + h  # Calculate placement site...
+    # ... where h.v. h is offset within bunch

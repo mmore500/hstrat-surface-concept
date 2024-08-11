@@ -34,7 +34,7 @@ def steady_site_selection(S: int, T: int) -> typing.Optional[int]:
     if h < t:  # If not a top n(T) hanoi value...
         return None  # ...discard without storing
 
-    i = T >> (h + 1)  # Hanoi value incidence
+    i = T >> (h + 1)  # Hanoi value incidence (i.e., num seen)
     if i == 0:  # Special case the 0th bunch
         k = 0  # Bunch position
         o = 0  # Within-bunch offset
