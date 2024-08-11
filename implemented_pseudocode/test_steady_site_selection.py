@@ -6,6 +6,20 @@ import typing
 from .steady_site_selection import bit_floor, ctz, steady_site_selection
 
 
+def test_ctz():
+    # fmt: off
+    assert [*map(ctz, range(1, 17))] == [
+        0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4
+    ]
+
+
+def test_bit_floor():
+    # fmt: off
+    assert [*map(bit_floor, range(1, 17))] == [
+        1, 2, 2, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 16
+    ]
+
+
 def validate_steady_site_selection(fn: typing.Callable) -> typing.Callable:
     """Decorator to validate pre- and post-conditions on site selection."""
 
@@ -21,20 +35,6 @@ def validate_steady_site_selection(fn: typing.Callable) -> typing.Callable:
 
 
 site_selection = validate_steady_site_selection(steady_site_selection)
-
-
-def test_ctz():
-    # fmt: off
-    assert [*map(ctz, range(1, 17))] == [
-        0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4
-    ]
-
-
-def test_bit_floor():
-    # fmt: off
-    assert [*map(bit_floor, range(1, 17))] == [
-        1, 2, 2, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 16
-    ]
 
 
 def test_steady_site_selection8():
