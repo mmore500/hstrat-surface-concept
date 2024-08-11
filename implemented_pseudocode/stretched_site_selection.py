@@ -393,17 +393,22 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
     """
     s = S.bit_length() - 1
     t = (T + 1).bit_length() - s  # Current epoch (or negative)
+    h = ctz(T + 1)  # Current hanoi value
+    i = T >> (h + 1)  # Hanoi value incidence
     if t > 0:
-        h = ctz(T + 1)  # Current hanoi value
         epsilon_tau = t != bit_floor(t) - t.bit_length() + 1  # Correction
         tau = t.bit_length() - epsilon_tau  # Current meta-epoch
         t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
         assert t_0 <= t
         epsilon_b = h >= t - t_0  # Correction factor
         b = S >> (tau + epsilon_b)  # Num bunches
-        i = T >> (h + 1)  # Hanoi value incidence
         if i >= b:
             return None
 
+    if t <= 0:
+        k = get_reservation_position_logical(i, S)
+        return k + h
+
     res = pick_ingest_site(T, S)
+    #  assert res != S  # fails!
     return None if res == S else res
