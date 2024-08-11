@@ -33,30 +33,30 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
         Selected site, if any.
     """
     s = S.bit_length() - 1
-    t = (T + 1).bit_length() - s  # Current epoch (or negative)
+    t = max((T + 1).bit_length() - s, 0)  # Current epoch (or negative)
     h = ctz(T + 1)  # Current hanoi value
     i = T >> (h + 1)  # Hanoi value incidence
-    if t > 0:
-        tau_ansatz = t.bit_length()
-        epsilon_tau = (1 << tau_ansatz) - tau_ansatz > t  # Correction
-        tau = tau_ansatz - epsilon_tau  # Current meta-epoch
-        t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
-        epsilon_b = h >= t - t_0  # Correction factor
-        b = S >> (tau + epsilon_b)  # Num bunches
-        if i >= b:
-            return None
+
+    tau_ansatz = t.bit_length()
+    epsilon_tau = ((1 << tau_ansatz) - tau_ansatz > t) * bool(t)  # Correction
+    tau = tau_ansatz - epsilon_tau  # Current meta-epoch
+    t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
+    epsilon_b = h >= t - t_0  # Correction factor
+    b = S >> (tau + epsilon_b)  # Num bunches
+    if i >= b:
+        return None
 
     level = i.bit_length()
     position_within_level = i - bit_floor(i)
-    num_reservations = S >> 1
-    offset = (num_reservations >> level) * bool(level)
-    spacing = offset << 1
+    spacing = (S >> level) * bool(level)
+    offset = spacing >> 1
     physical_reservation = offset + spacing * position_within_level
+    epsilon_k = bool(i)
     k = (
         (physical_reservation << 1)
         + ((S << 1) - physical_reservation).bit_count()
         - 1
-        - bool(i)
+        - epsilon_k
     )
 
     return k + h
