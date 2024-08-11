@@ -64,7 +64,9 @@ def bit_floor(n: int) -> int:
 
 # related to https://oeis.org/A181733
 # see also https://oeis.org/A139709 and https://oeis.org/A092323
-def get_longevity_mapped_position_of_index(index: int, num_indices: int) -> int:
+def get_longevity_mapped_position_of_index(
+    index: int, num_indices: int
+) -> int:
     """Which physical site in the sequence does the `index`th logical entry map
     to?"""
     longevity_level = get_longevity_level_of_index(index)
@@ -125,7 +127,9 @@ def get_reservation_position_logical(
     physical_reservation = get_longevity_mapped_position_of_index(
         reservation, num_reservations
     )
-    return get_reservation_position_physical(physical_reservation, surface_size)
+    return get_reservation_position_physical(
+        physical_reservation, surface_size
+    )
 
 
 def get_global_num_reservations(rank: int, surface_size: int) -> int:
