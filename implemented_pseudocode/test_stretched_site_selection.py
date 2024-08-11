@@ -50,13 +50,13 @@ def test_stretched_site_selection16():
 
 
 def test_stretched_site_selection_fuzz():
-    for S in (1 << s for s in range(3, 15)):
+    for S in (1 << s for s in range(3, 17)):
         for T in range(S - 1):
             site_selection(S, T)  # Validated via wrapper
 
 
 def test_stretched_site_selection_epoch0():
-    for S in (1 << s for s in range(3, 15)):
+    for S in (1 << s for s in range(3, 17)):
         actual = {site_selection(S, T) for T in range(S)}
         expected = set(range(S))
         assert actual == expected
