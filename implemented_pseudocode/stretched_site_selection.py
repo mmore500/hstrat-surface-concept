@@ -47,19 +47,17 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
         if i >= b:
             return None
 
-    if i == 0:
-        k = 0
-    else:
-        level = i.bit_length()
-        position_within_level = i - bit_floor(i)
-        num_reservations = S >> 1
-        offset = (num_reservations >> level) * bool(level)
-        spacing = offset << 1
-        physical_reservation = offset + spacing * position_within_level
-        k = (
-            (physical_reservation << 1)
-            + ((S << 1) - physical_reservation).bit_count()
-            - 2
-        )
+    level = i.bit_length()
+    position_within_level = i - bit_floor(i)
+    num_reservations = S >> 1
+    offset = (num_reservations >> level) * bool(level)
+    spacing = offset << 1
+    physical_reservation = offset + spacing * position_within_level
+    k = (
+        (physical_reservation << 1)
+        + ((S << 1) - physical_reservation).bit_count()
+        - 1
+        - bool(i)
+    )
 
     return k + h
