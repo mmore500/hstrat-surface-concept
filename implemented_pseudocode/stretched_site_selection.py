@@ -17,31 +17,6 @@ def bit_floor(n: int) -> int:
     return n & mask
 
 
-def get_reservation_position_physical(
-    reservation: int, surface_size: int
-) -> int:
-    """Return the zeroth site of the given reservation, indexed in physical
-    order at rank 0."""
-    assert surface_size.bit_count() == 1  # power of 2
-    assert 0 <= reservation < surface_size // 2 or surface_size <= 2
-
-    if reservation == 0:  # special case
-        return 0
-
-    base = 2 * reservation
-
-    # don't remember why isn't >>1 (halve)...
-    last_reservation = (surface_size << 1) - 1
-    offset = (last_reservation - reservation + 1).bit_count() - 1
-
-    # make first reservation one site longer, to fix elimination order with
-    # layering (i.e., delays invasion so that oldest values for a hanoi value
-    # are invaded into
-    layering_correction = bool(reservation)
-
-    return base + offset - 2 + layering_correction
-
-
 def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
     """Site selection algorithm for stretched curation.
 
@@ -72,12 +47,19 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
         if i >= b:
             return None
 
-    level = i.bit_length()
-    position_within_level = i - bit_floor(i)
-    num_reservations = S >> 1
-    offset = (num_reservations >> level) * bool(level)
-    spacing = offset << 1
-    physical_reservation = offset + spacing * position_within_level
+    if i == 0:
+        k = 0
+    else:
+        level = i.bit_length()
+        position_within_level = i - bit_floor(i)
+        num_reservations = S >> 1
+        offset = (num_reservations >> level) * bool(level)
+        spacing = offset << 1
+        physical_reservation = offset + spacing * position_within_level
+        k = (
+            (physical_reservation << 1)
+            + ((S << 1) - physical_reservation).bit_count()
+            - 2
+        )
 
-    k = get_reservation_position_physical(physical_reservation, S)
     return k + h
