@@ -76,7 +76,7 @@ jobs:
       - run: |
           python3 -m pip install pip --upgrade
           python3 -m pip install pytest
-      - run: python3 -m pytest -W ignore implemented_pseudocode/*.py
+      - run: python3 -m pytest -W ignore implemented_pseudocode
 
   test-packaging:
     runs-on: ubuntu-latest
