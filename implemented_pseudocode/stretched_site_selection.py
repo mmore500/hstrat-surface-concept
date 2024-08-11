@@ -38,7 +38,8 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
     i = T >> (h + 1)  # Hanoi value incidence (i.e., num seen)
 
     tau_prime = t.bit_length()  # Guess for current meta-epoch tau
-    epsilon_tau = ((1 << tau_prime) - tau_prime > t) * bool(t)  # Correction
+    epsilon_tau_prime = (1 << tau_prime) - tau_prime - t > 0  # Correction
+    epsilon_tau = epsilon_tau_prime * bool(t)  # Correct the correction
     tau = tau_prime - epsilon_tau  # Current meta-epoch
     t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
     epsilon_b = h >= t - t_0  # Correction factor
