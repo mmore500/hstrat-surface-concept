@@ -2,10 +2,7 @@ import functools
 import itertools as it
 import typing
 
-from .stretched_site_selection import (
-    ctz,
-    stretched_site_selection,
-)
+from .stretched_site_selection import ctz, stretched_site_selection
 
 
 def test_ctz():
