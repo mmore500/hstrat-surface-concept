@@ -47,7 +47,7 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
         return None  # ... discard without storing
 
     b_l = i  # Logical bunch index
-    # ... i.e., in fill order of decreasing r
+    # ... i.e., in order filled (increasing nestedness/decreasing init size r)
 
     v = b_l.bit_length()  # Nestedness depth of physical bunch
     w = (S >> v) * bool(v)  # Bunch spacing at nestedness layer
