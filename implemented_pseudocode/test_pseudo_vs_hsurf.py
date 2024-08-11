@@ -25,7 +25,7 @@ def test_pseudo_vs_hsurf_steady(S: int):
         assert expected
         expected -= expected != S
         actual = steady_site_selection(S, T)
-        assert opyt.or_value(actual, S) == expected, T
+        assert opyt.or_value(actual, S) == expected
 
 
 @pytest.mark.parametrize(
@@ -47,7 +47,7 @@ def test_pseudo_vs_hsurf_stretched(S: int):
     ):
         expected = algo.pick_ingest_site(T, S)
         actual = stretched_site_selection(S, T)
-        assert opyt.or_value(actual, S) == expected, T
+        assert opyt.or_value(actual, S) == expected
 
 
 @pytest.mark.parametrize(
@@ -69,4 +69,4 @@ def test_pseudo_vs_hsurf_tilted(S: int):
     ):
         expected = algo.pick_ingest_site(T, S)
         actual = tilted_site_selection(S, T)
-        assert opyt.or_value(actual, S) == expected, T
+        assert opyt.or_value(actual, S) == expected
