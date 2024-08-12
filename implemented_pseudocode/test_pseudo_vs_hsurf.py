@@ -10,7 +10,7 @@ from .stretched_site_selection import stretched_site_selection
 from .tilted_site_selection import tilted_site_selection
 
 
-@pytest.mark.parametrize("S", [2**s for s in range(3, 21)])
+@pytest.mark.parametrize("S", [2**s for s in range(2, 21)])
 def test_pseudo_vs_hsurf_steady(S: int):
     algo = hsurf.steady_try_algo
     T_max = min(opyt.or_value(algo.get_ingest_capacity(S), np.inf), 2**64 - 1)
@@ -32,7 +32,7 @@ def test_pseudo_vs_hsurf_steady(S: int):
     "S",
     [
         pytest.param(2**s, marks=pytest.mark.heavy if s >= 10 else [])
-        for s in range(3, 21)
+        for s in range(2, 21)
     ],
 )
 def test_pseudo_vs_hsurf_stretched(S: int):
@@ -54,7 +54,7 @@ def test_pseudo_vs_hsurf_stretched(S: int):
     "S",
     [
         pytest.param(2**s, marks=pytest.mark.heavy if s >= 10 else [])
-        for s in range(3, 21)
+        for s in range(2, 21)
     ],
 )
 def test_pseudo_vs_hsurf_tilted(S: int):
