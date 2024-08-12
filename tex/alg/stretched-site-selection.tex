@@ -25,7 +25,7 @@
         \Statex \Comment{\ldots i.e., among bunches left-to-right in buffer space}
         \Statex
         \State $\texttt{uint\_t} ~ ~ v \gets \Call{BitLength}{b_l}$ \Comment{Nestedness depth level for physical bunch}
-        \State $\texttt{uint\_t} ~ ~ w \gets \Call{RightShift}{S, v} \;\; \times \;\;\Call{Bool2Int}{v > 0}$ \Comment{Num bunches spaced between bunches in same nest level}
+        \State $\texttt{uint\_t} ~ ~ w \gets \Call{RightShift}{\colorS, v} \;\; \times \;\;\Call{Bool2Int}{v > 0}$ \Comment{Num bunches spaced between bunches in same nest level}
         \State $\texttt{uint\_t} ~ ~ o \gets 2w$  \Comment{Offset of nestedness level in physical bunch order}
         \State $\texttt{uint\_t} ~ ~ p \gets b_l - \Call{BitFloorSafe}{b_l}$ \Comment{Bunch position within nestedness level}
         \State $\texttt{uint\_t} ~ ~ b_p \gets o + wp$ \Comment{Physical bunch index\ldots}
