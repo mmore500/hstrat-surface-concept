@@ -3,7 +3,7 @@
 \label{alg:tilted-site-selection}
 \begin{minipage}{0.53\textwidth}
     \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
-    \hspace*{\algorithmicindent} \textbf{Output:} $\in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colork \in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
     \begin{algorithmic}[1]
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
         \State $\texttt{uint\_t} ~ ~ \colort \gets \max(0,\;\; \Call{BitLength}{\colorT+1} - \colors)$ \Comment{Current epoch}
