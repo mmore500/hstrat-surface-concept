@@ -1,0 +1,42 @@
+\begin{algorithm}[H]
+\caption{Stretched algorithm site selection $\colorK(\colorT)$.}
+\label{alg:stretched-site-selection}
+\begin{minipage}{0.5\textwidth}
+    \label{alg:example}
+    \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
+    \hspace*{\algorithmicindent} \textbf{Output:} $\in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
+    \begin{algorithmic}[1]
+        \State $\colors \gets \Call{BitLength}{\colorS} - 1$
+        \State $\colort \gets \max(0,\;\; \Call{BitLength}{\colorT+1} - \colors)$ \Comment{Current epoch (or negative)}
+        \State $\colorh \gets \Call{CountTrailingZeros}{\colorT + 1}$ \Comment{Current \hv{}}
+        \Statex
+        \State $i \gets \Call{RightShift}{\colorT, \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
+        \State $\epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colortau}$ \Comment{Correction factor}
+        \State $\colortau \gets  \Call{BitLength}{\colortau} - \Call{Bool2Int}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
+        \State $b \gets \min(1,\;\; \Call{RightShift}{\colorS, \colortau + 1})$ \Comment{Num bunches available to \hv}
+        \If{$i \geq b$} \Comment{If seen more than sites reserved to \hv{}\;\ldots}
+            \State \Return \nullval \Comment{\ldots discard without storing}
+        \EndIf
+        \Statex
+        \State $b_l \gets i$ \Comment{Logical bunch index, in order filled \ldots}
+        \Statex \Comment{\ldots i.e., increasing nestedness/decreasing init size $r$}
+        \Statex
+        \Statex \Comment{Need to calculate physical bunch index\ldots}
+        \Statex \Comment{\ldots i.e., among bunches left-to-right in buffer space}
+        \Statex
+        \State $v \gets \Call{BitLength}{b_l}$ \Comment{Nestedness depth level for physical bunch}
+        \State $w \gets \Call{RightShift}{S, v} \;\; \times \;\;\Call{Bool2Int}{v > 0}$ \Comment{Num bunches spaced between bunches in same nest level}
+        \State $o \gets 2w$  \Comment{Offset of nestedness level in physical bunch order}
+        \State $p \gets b_l - \Call{BitFloorSafe}{b_l}$ \Comment{Bunch position within nestedness level}
+        \State $b_p \gets o + wp$ \Comment{Physical bunch index\ldots}
+        \Statex \Comment{\ldots i.e., in left-to-right buffer space ordering}
+        \Statex
+        \Statex \Comment{Need to calculate buffer position of $b_p$\textsuperscript{th} bunch}
+        \Statex
+        \State $\epsilon_{\colork} = \Call{Bool2Int}{b_l > 0}$  \Comment{Correction factor for zeroth bunch (i.e., bunch $r=\colors$ at site $\colork=0$)}
+        \State $\colork \gets \Call{BitCount}{2b_p +(2S - b_p)} - 1 - \epsilon_{\colork}$  \Comment{Site index of bunch}
+        \Statex
+        \State \Return $\colork + \colorh$ \Comment{Calculate placement site, \hv{} $\colorh$ is offset within bunch}
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}
