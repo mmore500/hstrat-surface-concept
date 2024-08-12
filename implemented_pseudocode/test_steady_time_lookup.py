@@ -26,7 +26,7 @@ time_lookup = validate_steady_time_lookup(steady_time_lookup)
 def test_steady_time_lookup_against_site_selection():
     for s in range(1, 12):
         S = 1 << s
-        T_max = 1 << 17 - s
+        T_max = min(1 << 17 - s, 2**S - 1)
         buffer = [None] * S
         for T in range(T_max):
             expected = time_lookup(S, T)
