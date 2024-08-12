@@ -26,7 +26,7 @@ def steady_time_lookup(
         return
 
     s = S.bit_length() - 1
-    t = max((T + 1).bit_length() - s, 0)  # Current epoch
+    t = (T + 1).bit_length() - s  # Current epoch
 
     # these need to be special-cased anyways
     bunch = 0
@@ -38,36 +38,25 @@ def steady_time_lookup(
         segment_size = s - bunch
         bunch_remaining_segments = bunch_remaining_segments or (1 << bunch - 1)
         segment_remaining_sites = segment_remaining_sites or segment_size
+        segment = (1 << bunch) - bunch_remaining_segments
 
         if bunch_complete:
             max_hv = t + segment_size - 1
             hv = max_hv - max_hv % segment_size
 
-        segment = (1 << bunch) - bunch_remaining_segments
-
-        assert hv >= 0, locals()
-        assert max_hv >= segment_size
-        assert segment_remaining_sites
         segment_remaining_sites -= 1
         bunch_remaining_segments -= not segment_remaining_sites
         hv += not bunch_complete
         hv -= (hv > max_hv) * segment_size
-        assert hv >= 0, locals()
 
-        offset = (1 << hv) - 1
-        cadence = 1 << (hv + 1)
-        res = offset + cadence * segment
-
-        hv_ = hv - (res >= T) * (segment_size)
-        assert hv_ >= 0, locals()
-
-        offset_ = (1 << hv_) - 1
-        cadence_ = 1 << (hv_ + 1)
-        yield offset_ + cadence_ * segment
+        ansatz = ((segment << 1) + 1) * (1 << hv) - 1
+        epsilon = (ansatz >= T) * segment_size
+        yield ((segment << 1) + 1) * (1 << (hv - epsilon)) - 1
 
         bunch_complete = not (
             bunch_remaining_segments or segment_remaining_sites
         )
         bunch += bunch_complete
 
+    # last site is never filled
     yield None
