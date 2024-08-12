@@ -1,7 +1,7 @@
 \begin{algorithm}[H]
 \caption{Stretched algorithm site selection $\colorK(\colorT)$.}
 \label{alg:stretched-site-selection}
-\begin{minipage}{0.6\textwidth}
+\begin{minipage}{0.53\textwidth}
     \label{alg:example}
     \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
     \hspace*{\algorithmicindent} \textbf{Output:} $\in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
@@ -33,7 +33,7 @@
         \Statex
         \Statex \Comment{Need to calculate buffer position of $b_p$\textsuperscript{th} bunch}
         \Statex
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colork} = \Call{Bool2Int}{b_l > 0}$  \Comment{Correction factor for zeroth bunch (i.e., bunch $r=\colors$ at site $\colork=0$)}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colork} = \Call{Bool2Int}{b_l > 0}$  \Comment{Correction factor, 0\textsuperscript{th} bunch (i.e., bunch $r=\colors$ at site $\colork=0$)}
         \State $\texttt{uint\_t} ~ ~ \colork \gets \Call{BitCount}{2b_p +(2S - b_p)} - 1 - \epsilon_{\colork}$  \Comment{Site index of bunch}
         \Statex
         \State \Return $\colork + \colorh$ \Comment{Calculate placement site, \hv{} $\colorh$ is offset within bunch}
