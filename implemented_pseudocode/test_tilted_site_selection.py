@@ -3,8 +3,8 @@ import itertools as it
 import typing
 
 from .tilted_site_selection import (
-    ctz,
     bit_floor,
+    ctz,
     modpow2,
     tilted_site_selection,
 )
