@@ -40,7 +40,7 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
     epsilon_tau = bit_floor(t << 1) > t + blt  # Correction factor
     tau = blt - epsilon_tau  # Current meta-epoch
     b = S >> (tau + 1) or 1  # Num bunches available to h.v.
-    if i >= b:  # If seen more than sties reserved to hanoi value...
+    if i >= b:  # If seen more than sites reserved to hanoi value...
         return None  # ... discard without storing
 
     b_l = i  # Logical bunch index
