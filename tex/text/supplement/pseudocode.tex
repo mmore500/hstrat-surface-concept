@@ -2,6 +2,7 @@
 
 \begin{algorithmic}
   \Function{BitCount}{$x$}
+    \LComment{Equivalent \texttt{std::popcount}}
     \State \Return $|\{ n \in \mathbb{N} : x \bmod 2^n = 0 \}|$
   \EndFunction
   \Statex
@@ -10,18 +11,22 @@
   \EndFunction
   \Statex
   \Function{BitFloorSafe}{$x$}
+    \LComment{Equivalent \texttt{std::bit\_floor}}
     \State \Return \Call{BitFloor}{$x$} \text{ if } $x > 0$ \text{ else } 0
   \EndFunction
   \Statex
   \Function{BitLength}{$x$}
+    \LComment{Equivalent \texttt{std::bit\_width}}
     \State \Return $\left\lfloor\log_{2}(x)\right\rfloor + 1  \text{ if } x \text{ else } 0$
   \EndFunction
   \Statex
   \Function{Bool2Int}{$x$}
+    \LComment{Equivalent \texttt{static\_cast<bool>}}
     \State \Return 1 \text{ if } $x$ \text{ else } 0
   \EndFunction
   \Statex
   \Function{CountTrailingZeros}{$x$}
+    \LComment{Equivalent \texttt{std::countr\_zero}}
     \State \Return $\max \{ n \in \mathbb{N} : x \bmod 2^n = 0 \}$
   \EndFunction
   \Statex
