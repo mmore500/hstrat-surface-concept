@@ -75,7 +75,7 @@ repository = "https://github.com/mmore500/hstrat-surface-concept"
 include-package-data = true
 
 [tool.setuptools.packages.find]
-exclude = ["tests", "tests.*", "test_hsurf", "pylib.test", "pylib.test.*"]
+exclude = ["tests", "tests.*", "test_hsurf", "pylib.test", "pylib.test.*", "implemented_pseudocode", "implemented_pseudocode.*"]
 namespaces = false
 
 # adapted from https://tox.wiki/en/latest/example/package.html
