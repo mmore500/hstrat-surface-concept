@@ -12,7 +12,7 @@
         \If{$\colorh < \colort$} \Comment{If not a top $n(\colorT)$ \hv{}\;\ldots}
         \State \Return \nullval \Comment{\ldots discard without storing}
         \EndIf
-        \State $i \gets \Call{RightShift}{\colorT, \colorh + 1}$ \Comment{Hanoi value incidence}
+        \State $i \gets \Call{RightShift}{\colorT, \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
         \If{$i = 0$} \Comment{Special case the 0th bunch}
         \State $\colork \gets 0$ \Comment{Bunch position}
         \State $o \gets 0$ \Comment{Within-bunch offset}
