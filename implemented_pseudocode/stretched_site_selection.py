@@ -43,16 +43,19 @@ def stretched_site_selection(S: int, T: int) -> typing.Optional[int]:
     if i >= b:  # If seen more than sites reserved to hanoi value...
         return None  # ... discard without storing
 
-    b_l = i  # Logical bunch index
+    b_l = i  # Logical bunch index...
     # ... i.e., in order filled (increasing nestedness/decreasing init size r)
 
-    v = b_l.bit_length()  # Nestedness depth of physical bunch
-    w = (S >> v) * bool(v)  # Bunch spacing at nestedness layer
-    o = w >> 1  # Bunch offset at nestedness level
-    p = b_l - bit_floor(b_l)  # Bunch position w/in nest layer
+    # Need to calculate physical bunch index...
+    # ... i.e., position among bunches left-to-right in buffer space
+    v = b_l.bit_length()  # Nestedness depth level of physical bunch
+    w = (S >> v) * bool(v)  # Num bunches spaced between bunches in nest level
+    o = w >> 1  # Offset of nestedness level in physical bunch order
+    p = b_l - bit_floor(b_l)  # Bunch position within nestedness level
     b_p = o + w * p  # Physical bunch index...
     # ... i.e., in left-to-right sequential bunch order
 
+    # Need to calculate buffer position of b_p'th bunch
     epsilon_k = bool(b_l)  # Correction factor for zeroth bunch...
     # ... i.e., bunch r=s at site k=0
     k = (  # Site index of bunch
