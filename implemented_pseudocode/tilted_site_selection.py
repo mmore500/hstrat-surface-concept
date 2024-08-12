@@ -83,8 +83,5 @@ def tilted_site_selection(S: int, T: int) -> typing.Optional[int]:
         (b_p << 1) + ((S << 1) - b_p).bit_count() - 1 - epsilon_k
     )
 
-    if T == 39 and S == 16:
-        print(locals())
-
     return k + h  # Calculate placement site...
     # ... where h.v. h is offset within bunch
