@@ -10,22 +10,22 @@
         \State $\texttt{uint\_t} ~ ~ \colort \gets \max(0,\;\; \Call{BitLength}{\colorT+1} - \colors)$ \Comment{Current epoch}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \Call{CountTrailingZeros}{\colorT + 1}$ \Comment{Current \hv{}}
         \Statex
-        \State $\texttt{uint\_t} ~ ~ i \gets \Call{RightShift}{\colorT, \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
+        \State $\texttt{uint\_t} ~ ~ i \gets \Call{RightShift}{\colorT, \;\; \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
         \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colortau}$ \Comment{Correction factor}
         \State $\texttt{uint\_t} ~ ~ \colortau \gets  \Call{BitLength}{\colortau} - \Call{Bool2Int}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\tau} - \tau$ \Comment{First epoch of meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\tau + 1} - (\tau + 1)$ \Comment{First epoch of next meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \epsilon_b \gets \Call{Bool2Int}{\colort \;\; < \;\; \colorh + \colort_0 \;\; < \;\; \colort_1}$ \Comment{Uninvaded correction factor}
-        \State $\texttt{uint\_t} ~ ~ b \gets \max(1,\;\; \Call{RightShift}{\colorS, \colortau + 1 - \epsilon_b})$ \Comment{Num bunches available to \hv}
+        \State $\texttt{uint\_t} ~ ~ b \gets \max(1,\;\; \Call{RightShift}{\colorS, \;\; \colortau + 1 - \epsilon_b})$ \Comment{Num bunches available to \hv}
         \Statex
-        \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{ModPow2}{i, b}$ \Comment{Logical bunch index, in order filled \ldots}
+        \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{ModPow2}{i, \;\; b}$ \Comment{Logical bunch index, in order filled \ldots}
         \Statex \Comment{\ldots i.e., increasing nestedness/decreasing init size $r$}
         \Statex
         \Statex \Comment{Need to calculate physical bunch index\ldots}
         \Statex \Comment{\ldots i.e., among bunches left-to-right in buffer space}
         \Statex
         \State $\texttt{uint\_t} ~ ~ v \gets \Call{BitLength}{b_l}$ \Comment{Nestedness depth level for physical bunch}
-        \State $\texttt{uint\_t} ~ ~ w \gets \Call{RightShift}{\colorS, v} \;\; \times \;\;\Call{Bool2Int}{v > 0}$ \Comment{Num bunches spaced between bunches in same nest level}
+        \State $\texttt{uint\_t} ~ ~ w \gets \Call{RightShift}{\colorS, \;\; v} \;\; \times \;\;\Call{Bool2Int}{v > 0}$ \Comment{Num bunches spaced between bunches in same nest level}
         \State $\texttt{uint\_t} ~ ~ o \gets 2w$  \Comment{Offset of nestedness level in physical bunch order}
         \State $\texttt{uint\_t} ~ ~ p \gets b_l - \Call{BitFloorSafe}{b_l}$ \Comment{Bunch position within nestedness level}
         \State $\texttt{uint\_t} ~ ~ b_p \gets o + wp$ \Comment{Physical bunch index\ldots}

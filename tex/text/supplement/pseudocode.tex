@@ -7,7 +7,7 @@
   \EndFunction
   \Statex
   \Function{BitFloor}{$x$}
-    \State \Return \Call{LeftShift}{1, \Call{BitLength}{$x$} - 1}
+    \State \Return \Call{LeftShift}{1, \;\; \Call{BitLength}{$x$} - 1}
   \EndFunction
   \Statex
   \Function{BitFloorSafe}{$x$}
@@ -30,16 +30,16 @@
     \State \Return $\max \{ n \in \mathbb{N} : x \bmod 2^n = 0 \}$
   \EndFunction
   \Statex
-  \Function{LeftShift}{$x, n$}
+  \Function{LeftShift}{$x, \;\; n$}
     \State \Return $2^n x$
   \EndFunction
   \Statex
-  \Function{ModPow2}{$x, n$}
+  \Function{ModPow2}{$x, \;\; n$}
     \LComment{Equivalent $x \bmod n$, assuming $n \in 2^{\mathbb{N}}$}
     \State \Return $x \& (n - 1)$
   \EndFunction
   \Statex
-  \Function{RightShift}{$x, n$}
+  \Function{RightShift}{$x,  \;\;n$}
     \State \Return $\left\lfloor x/2^n \right\rfloor$
   \EndFunction
   \Statex
