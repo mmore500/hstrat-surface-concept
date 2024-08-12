@@ -1,6 +1,4 @@
 import functools
-import itertools as it
-from random import randrange as rand
 import typing
 
 from .steady_site_selection import steady_site_selection as site_selection

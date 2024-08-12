@@ -1,4 +1,3 @@
-import itertools as it
 import typing
 
 from .hsurf import hsurf

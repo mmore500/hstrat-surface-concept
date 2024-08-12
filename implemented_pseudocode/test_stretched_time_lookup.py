@@ -1,6 +1,4 @@
 import functools
-import itertools as it
-from random import randrange as rand
 import typing
 
 from .stretched_site_selection import (
