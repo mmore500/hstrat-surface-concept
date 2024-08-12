@@ -1,6 +1,10 @@
 \section{Pseudocode Helper Functions}
 
 \begin{algorithmic}
+  \Function{BitCount}{$x$}
+    \State \Return $|\{ n \in \mathbb{N} : x \bmod 2^n = 0 \}|$
+  \EndFunction
+  \Statex
   \Function{BitFloor}{$x$}
     \State \Return \Call{LeftShift}{1, \Call{BitLength}{$x$} - 1}
   \EndFunction
