@@ -40,7 +40,7 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     for k in range(S - 1):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
         w = s - b  # Number of sites in current segment (i.e., segment size)
-        g = (1 << b) - b_prime  # Overall index of current segment
+        g = (1 << b) - b_prime  # Calc left-to-right index of current segment
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
         # Calculate candidate hanoi value...
@@ -56,15 +56,14 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         yield T_bar
 
         # Update within-segment state for next site...
-        g_prime = g_prime or w
-        g_prime -= 1
+        g_prime = (g_prime or w) - 1  # Bump to next site within segment
 
         # Update h for next site...
         # ... only needed if not calculating h fresh every iter [[see above]]
         h += 1 - (h >= h_max) * w
 
         # Update within-bunch state for next site...
-        b_prime -= not g_prime
-        b_star = not (b_prime or g_prime)
-        b += b_star
+        b_prime -= not g_prime  # Bump to next segment within bunch
+        b_star = not (b_prime or g_prime)  # Should bump to next bunch?
+        b += b_star  # Do bump to next bunch, if any
         b_prime = b_prime or (1 << b - 1)
