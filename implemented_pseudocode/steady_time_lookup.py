@@ -48,11 +48,12 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         h += not b_star  # Incr h.v. if traversing within bunch
         h -= (h > h_max) * w  # Roll h.v. around back within segment bounds
 
-        # Decode ingest time of assigned h.v. from segment index, ...
+        # Decode ingest time of assigned h.v. from segment index g, ...
         # ... i.e., how many instances of that h.v. seen before
-        ansatz = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest time
-        epsilon_T = (ansatz >= T) * w  # Correction on h.v. if not yet seen
-        yield ((g << 1) + 1) * (1 << (h - epsilon_T)) - 1
+        T_bar_ = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest time
+        epsilon_T = (T_bar_ >= T) * w  # Correction on h.v. if not yet seen
+        T_bar = ((g << 1) + 1) * (1 << (h - epsilon_T)) - 1  # True ingest time
+        yield T_bar
 
         # Update within-segment state for next site...
         g_prime = g_prime or w
