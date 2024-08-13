@@ -43,21 +43,13 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
         # Calculate current hanoi value...
+        # OPTIONAL EXTENSION: reduce % usage
+        h_ = h_max - (h_max + g_prime) % w
         if b_star:  # Reset h when transitioning between bunches
-            h = h_max - h_max % w
-        h += not b_star  # Incr h.v. if traversing within bunch
-        h -= (h > h_max) * w  # Roll h.v. around back within segment bounds
-
-        # calculating h variant 1
-        h0_ = h_max - (h_max % w) + w - g_prime
-        h0 = h0_ - w * (h0_ > h_max)
-        assert h == h0
-
-        # calculating h variant 2
-        i = w - g_prime
-        h_max_loc_ = h_max % w
-        h_max_loc = h_max_loc_ + (h_max_loc_ < i) * w
-        assert h == h_max - (h_max_loc - i)
+            h = h_
+        else:
+            assert h == h_
+        del h_
 
         # Decode ingest time of assigned h.v. from segment index g, ...
         # ... i.e., how many instances of that h.v. seen before
@@ -69,6 +61,9 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # Update within-segment state for next site...
         g_prime = g_prime or w
         g_prime -= 1
+
+        # Update within-epoch state for next site...
+        h += 1 - (h >= h_max) * w  # OPTIONAL EXTENSION
 
         # Update within-bunch state for next site...
         b_prime -= not g_prime
