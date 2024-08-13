@@ -31,32 +31,35 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     s = S.bit_length() - 1
     t = (T + 1).bit_length() - s  # Current epoch
 
-    # these need to be special-cased anyways
     b = 0  # Bunch physical index (left-to right)
-    bunch_remaining_segments = 1
-    segment_remaining_sites = s
-    bunch_complete = True
+    b_prime = 1  # Countdown on segments traversed within bunch
+    g_prime = s  # Countdown on sites traversed within segment
+    b_star = True  # Have traversed all segments in bunch?
 
-    for k in range(S - 1):
-        segment_size = s - b
-        bunch_remaining_segments = bunch_remaining_segments or (1 << b - 1)
-        segment_remaining_sites = segment_remaining_sites or segment_size
-        segment = (1 << b) - bunch_remaining_segments
+    for k in range(S - 1):  # Iterate over buffer sites, except unused last one
+        # Calculate info about current segment...
+        w = s - b  # Number of sites in current segment (i.e., segment size)
+        g = (1 << b) - b_prime  # Overall index of current segment
+        h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
-        if bunch_complete:
-            h_max = t + segment_size - 1
-            h = h_max - h_max % segment_size
+        # Calculate current hanoi value...
+        if b_star:  # Reset h when transitioning between bunches
+            h = h_max - h_max % w
+        h += not b_star  # Incr h.v. if traversing within bunch
+        h -= (h > h_max) * w  # Roll h.v. around back within segment bounds
 
-        segment_remaining_sites -= 1
-        bunch_remaining_segments -= not segment_remaining_sites
-        h += not bunch_complete
-        h -= (h > h_max) * segment_size
+        # Decode ingest time of assigned h.v. from segment index, ...
+        # ... i.e., how many instances of that h.v. seen before
+        ansatz = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest time
+        epsilon_T = (ansatz >= T) * w  # Correction on h.v. if not yet seen
+        yield ((g << 1) + 1) * (1 << (h - epsilon_T)) - 1
 
-        ansatz = ((segment << 1) + 1) * (1 << h) - 1  # Guess ingest time
-        epsilon_T = (ansatz >= T) * segment_size  # Correction if not yet seen
-        yield ((segment << 1) + 1) * (1 << (h - epsilon_T)) - 1
+        # Update within-segment state for next site...
+        g_prime = g_prime or w
+        g_prime -= 1
 
-        bunch_complete = not (
-            bunch_remaining_segments or segment_remaining_sites
-        )
-        b += bunch_complete
+        # Update within-bunch state for next site...
+        b_prime -= not g_prime
+        b_star = not (b_prime or g_prime)
+        b += b_star
+        b_prime = b_prime or (1 << b - 1)
