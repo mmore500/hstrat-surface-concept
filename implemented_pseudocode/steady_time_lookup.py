@@ -51,8 +51,8 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # Decode ingest time of assigned h.v. from segment index g, ...
         # ... i.e., how many instances of that h.v. seen before
         T_bar_ = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest time
-        epsilon_T = (T_bar_ >= T) * w  # Correction on h.v. if not yet seen
-        T_bar = ((g << 1) + 1) * (1 << (h - epsilon_T)) - 1  # True ingest time
+        epsilon = (T_bar_ >= T) * w  # Correction on h.v. if not yet seen
+        T_bar = ((g << 1) + 1) * (1 << (h - epsilon)) - 1  # True ingest time
         yield T_bar
 
         # Update within-segment state for next site...
