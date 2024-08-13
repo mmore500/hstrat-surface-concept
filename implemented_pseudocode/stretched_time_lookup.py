@@ -53,19 +53,19 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
     tau1 = tau + 1
     t1 = (1 << tau1) - tau1  # Opening epoch of meta-epoch
-    num_segments = S >> (tau + 1)
+    num_segments = S >> (tau + 1) or 1
     min_seglen = 2 ** (tau1) - 1
     min_seglen0 = 2 ** (tau) - 1
 
-    for g in range(num_segments or 1):
+    for g in range(num_segments):
+        level = ctz(g + num_segments)
+        j_base = num_segments >> (level + 1)
+        j_level = g >> (level + 1)
+        j = j_base + j_level
+
         if g == 0:
-            j = 0
             seglen = s + t1
         else:
-            level = ctz(g + num_segments)
-            j_base = num_segments >> (level + 1)
-            j_level = g >> (level + 1)
-            j = j_base + j_level
             seglen = min_seglen + level
 
         for h in range(seglen):
