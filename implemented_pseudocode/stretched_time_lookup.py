@@ -1,3 +1,4 @@
+import itertools as it
 import typing
 
 
@@ -72,14 +73,15 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     j = 0
     seglen = s + t1
 
-    for k in range(seglen):
+    for k, h in zip(range(seglen), it.count()):
         ansatz = ((2 * j + 1) << h) - 1
         epsilon_h = (ansatz >= T) * (seglen - min_seglen0)
         epsilon_j = (ansatz >= T) * num_segments
         h_prime = h - epsilon_h
         j_prime = j + epsilon_j
-        yield ((2 * j_prime + 1) << h_prime) - 1, 0, k
-        h += 1
+        result = ((2 * j_prime + 1) << h_prime) - 1
+        assert result < T
+        yield result, 0, k
 
     for g in range(1, num_segments):
         level = ctz(g + num_segments)
