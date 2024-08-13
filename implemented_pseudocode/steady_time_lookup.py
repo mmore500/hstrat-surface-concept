@@ -33,8 +33,9 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
     b = 0  # Bunch physical index (left-to right)
     b_prime = 1  # Countdown on segments traversed within bunch
-    g_prime = s  # Countdown on sites traversed within segment
     b_star = True  # Have traversed all segments in bunch?
+    g_prime = s  # Countdown on sites traversed within segment
+    h = None  # Candidate hanoi value
 
     for k in range(S - 1):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
@@ -42,18 +43,14 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         g = (1 << b) - b_prime  # Overall index of current segment
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
-        # Calculate current hanoi value...
-        # OPTIONAL EXTENSION: reduce % usage
-        h_ = h_max - (h_max + g_prime) % w
-        if b_star:  # Reset h when transitioning between bunches
-            h = h_
-        else:
-            assert h == h_
-        del h_
+        # Calculate candidate hanoi value...
+        _h0, h = h, h_max - (h_max + g_prime) % w
+        assert (_h0 == h) or b_star  # Can skip h calc if b_star is False...
+        del _h0  # ... i.e., within each bunch [[see below]]
 
         # Decode ingest time of assigned h.v. from segment index g, ...
         # ... i.e., how many instances of that h.v. seen before
-        T_bar_ = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest time
+        T_bar_ = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest ti1me
         epsilon = (T_bar_ >= T) * w  # Correction on h.v. if not yet seen
         T_bar = ((g << 1) + 1) * (1 << (h - epsilon)) - 1  # True ingest time
         yield T_bar
@@ -62,8 +59,9 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         g_prime = g_prime or w
         g_prime -= 1
 
-        # Update within-epoch state for next site...
-        h += 1 - (h >= h_max) * w  # OPTIONAL EXTENSION
+        # Update h for next site...
+        # ... only needed if not calculating h fresh every iter [[see above]]
+        h += 1 - (h >= h_max) * w
 
         # Update within-bunch state for next site...
         b_prime -= not g_prime
