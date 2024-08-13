@@ -60,22 +60,34 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     #     yield (1 << k) - 1
     # ansatz = (1 << s + t - 1) - 1
     # epsilon = ansatz >= T
-    for k in range(s + t0):
-        yield 0
-        # yield (1 << k) - 1
-
-    print(k)
     assert tau
     tau0 = tau - 1
-    num_segments = S >> (tau0 + 1)
-    min_seglen = 2 ** (tau) - 1
+    tau1 = tau + 1
+    t1 = (1 << tau1) - tau1  # Opening epoch of meta-epoch
+    num_segments = S >> (tau + 1)
+    min_seglen = 2 ** (tau1) - 1
+    min_seglen0 = 2 ** (tau) - 1
+
+    h = 0
+    j = 0
+    seglen = s + t1
+
+    for k in range(seglen):
+        ansatz = ((2 * j + 1) << h) - 1
+        epsilon_h = (ansatz >= T) * (seglen - min_seglen0)
+        epsilon_j = (ansatz >= T) * num_segments
+        h_prime = h - epsilon_h
+        j_prime = j + epsilon_j
+        yield ((2 * j_prime + 1) << h_prime) - 1, 0, k
+        h += 1
 
     for g in range(1, num_segments):
         level = ctz(g + num_segments)
-        seglen = min_seglen + level
-        print(g, min_seglen, seglen)
+        seglen = min_seglen + level - 1
+        print(k, g, min_seglen, seglen)
 
-        for k in range(k, k + seglen + 1):
-            yield g
+        for k in range(k + 1, k + seglen + 2):
+            yield g, k
 
-    assert k == S - 1, locals()
+    print(locals())
+    # assert k == S - 1, locals()
