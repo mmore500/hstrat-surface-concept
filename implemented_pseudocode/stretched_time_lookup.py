@@ -48,33 +48,33 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
     blt = t.bit_length()  # Bit length of t
     epsilon_tau = bit_floor(t << 1) > t + blt  # Correction factor
-    tau = blt - epsilon_tau  # Current meta-epoch
+    tau0 = blt - epsilon_tau  # Current meta-epoch
+    tau1 = tau0 + 1  # Next meta-epoch
 
-    tau1 = tau + 1
-    t1 = (1 << tau1) - tau1  # Opening epoch of meta-epoch
-    num_segments = S >> (tau + 1) or 1
-    min_seglen = 2 ** (tau1) - 1
-    min_seglen0 = 2 ** (tau) - 1
+    G = S >> tau1 or 1  # Number of bunches
+    min_seglen = (1 << tau1) - 1
+    min_seglen0 = (1 << tau0) - 1
 
-    seglen = s + t1
-    h = 0
-    g = 0
-    for k in range(S):
-        level = ctz(g + num_segments)
-        j = (num_segments + g) >> (level + 1)
+    h_ = 0  # Assigned hanoi value of 0th site
+    g = 0  # Calc left-to-right index of 0th segment
+    for k in range(S):  # For each site in buffer...
+        b = ctz(g + G)  # Current segment bunch index (i.e., nestedness level)
+        w_epsilon = g == 0  # Correction factor for segment size
+        w = min_seglen + b + w_epsilon
 
-        if h == seglen:
-            seglen = min_seglen + level
-            h = 0
+        # Determine not-yet-seen correction factors
+        i_ = (G + g) >> (b + 1)  # Guess h.v. incidence (i.e., num seen)
+        Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
+        epsilon_h_ = (Tbar_ >= T) * (w - min_seglen0)
+        epsilon_i_ = (Tbar_ >= T) * (g + G - i_)
 
-        ansatz = ((2 * j + 1) << h) - 1
-        epsilon_h = (ansatz >= T) * (seglen - min_seglen0)
-        epsilon_j = (ansatz >= T) * (g + num_segments - j)
-        h_prime = h - epsilon_h
-        j_prime = j + epsilon_j
-        result = ((2 * j_prime + 1) << h_prime) - 1
-        assert result < T
-        yield result
+        # Decode ingest time for ith instance of assigned h.v.
+        h = h_ - epsilon_h_  # True hanoi value
+        i = i_ + epsilon_i_  # True h.v. incidence
+        Tbar = ((2 * i + 1) << h) - 1  # True ingest time
+        yield Tbar
 
-        h += 1
-        g += h == seglen
+        # Update state for next site...
+        h_ += 1  # Assigned h.v. increases within each segment
+        g += h_ == w  # Bump to next segment if current is filled
+        h_ *= h_ != w  # Reset h.v. if segment is filled
