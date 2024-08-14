@@ -31,8 +31,8 @@ def test_stretched_time_lookup_against_site_selection():
         T_max = min(1 << 17 - s, 2**S - 1)
         buffer = [None] * S
         for T in range(T_max):
-            expected = time_lookup(S, T)
-            assert all(x == y for x, y in zip(buffer, expected))
+            actual = time_lookup(S, T)
+            assert all(x == y for x, y in zip(buffer, actual))
 
             site = site_selection(S, T)
             if site is not None:
