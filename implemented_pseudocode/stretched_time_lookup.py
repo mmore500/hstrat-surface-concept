@@ -41,7 +41,7 @@ def stretched_time_lookup(
 
 def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     """Implementation detail for `stretched_time_lookup`."""
-    assert T >= S
+    assert T >= S  # T < S redirected to T = S by stretched_time_lookup
 
     s = S.bit_length() - 1
     t = (T).bit_length() - s  # Current epoch
@@ -51,28 +51,27 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     tau0 = blt - epsilon_tau  # Current meta-epoch
     tau1 = tau0 + 1  # Next meta-epoch
 
-    G = S >> tau1 or 1  # Number of bunches
-    min_seglen = (1 << tau1) - 1
-    min_seglen0 = (1 << tau0) - 1
+    G = S >> tau1 or 1  # Number of invading segments present at current epoch
+    w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
+    w1 = (1 << tau1) - 1  # Smallest segment size at current epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
     g = 0  # Calc left-to-right index of 0th segment
     for k in range(S):  # For each site in buffer...
         b = ctz(g + G)  # Current segment bunch index (i.e., nestedness level)
-        w_epsilon = g == 0  # Correction factor for segment size
-        w = min_seglen + b + w_epsilon
+        epsilon_w = g == 0  # Correction factor for segment size
+        w = w1 + b + epsilon_w  # Number of sites in current segment
 
-        # Determine not-yet-seen correction factors
+        # Determine correction factors for not-yet-seen data items, Tbar_ >= T
         i_ = (G + g) >> (b + 1)  # Guess h.v. incidence (i.e., num seen)
         Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
-        epsilon_h_ = (Tbar_ >= T) * (w - min_seglen0)
-        epsilon_i_ = (Tbar_ >= T) * (g + G - i_)
+        epsilon_h_ = (Tbar_ >= T) * (w - w0)  # Correction factor, h
+        epsilon_i_ = (Tbar_ >= T) * (g + G - i_)  # Correction factor, i
 
         # Decode ingest time for ith instance of assigned h.v.
         h = h_ - epsilon_h_  # True hanoi value
         i = i_ + epsilon_i_  # True h.v. incidence
-        Tbar = ((2 * i + 1) << h) - 1  # True ingest time
-        yield Tbar
+        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
