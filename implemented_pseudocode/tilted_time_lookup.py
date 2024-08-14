@@ -108,15 +108,30 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # why isnt this Tc - 1?
         j = (Tc + (1 << h)) >> (h + 1)  # Num seen
         assert j
-        assert g < j < T
+        # assert g < j < T
         i_prime = (T0 + (1 << h)) >> (h + 1)
         i_prime -= 1
         j -= 1
-        if j <= i_prime + G and (h < w0) and (t < s):  # ???
-            G <<= 1
+        # if j <= i_prime + G and (h < w0) and (t < s):  # ???
+        #     G <<= 1
 
         invader_epoch = t0 + h
-        if t < invader_epoch and (h < w0) and (t < s):  # ???
+        # if t < invader_epoch and (h < w0) and (t < S - s):  # ???
+        #     G <<= 1
+
+        # G = min(G, 2 * G_)
+
+        front = j - modpow2(j, G)
+        ansatz = front + g
+        if ansatz > j:
+            ansatz -= G
+
+        i = ansatz
+        assert 0 <= i <= j
+        Tbar__ = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
+
+        invader_time = 1 << (invader_epoch + s - 1)
+        if Tbar__ < invader_time and (h < w0) and (t < S - s):
             G <<= 1
 
         G = min(G, 2 * G_)
@@ -127,10 +142,10 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
             ansatz -= G
 
         i = ansatz
-        # i = j - o  # True h.v. incidence, WRONG?
         assert 0 <= i <= j
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
         print(locals())
+
         yield Tbar
 
         # Update state for next site...
