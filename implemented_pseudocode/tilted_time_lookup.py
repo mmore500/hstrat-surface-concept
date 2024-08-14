@@ -70,12 +70,14 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     epsilon_tau = bit_floor(t << 1) > t + blt  # Correction factor
     tau0 = blt - epsilon_tau  # Current meta-epoch
     tau1 = tau0 + 1  # Next meta-epoch
+    t0 = (1 << tau0) - tau0  # Opening epoch of current meta-epoch
+    t1 = (1 << tau1) - tau1  # Opening epoch of next meta-epoch
     T0 = 1 << (t + s - 1)  # Opening time of current meta-epoch
     T1 = 1 << (t + s)  # Opening time of current meta-epoch
 
     G_ = S >> tau1 or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
-    w1 = (1 << tau1) - 1  # Smallest segment size at current epoch start
+    w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
     g_ = 0  # Calc left-to-right index of 0th segment
@@ -111,6 +113,10 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         i_prime -= 1
         j -= 1
         if j <= i_prime + G and (h < w0) and (t < s):  # ???
+            G <<= 1
+
+        invader_epoch = t0 + h
+        if t < invader_epoch and (h < w0) and (t < s):  # ???
             G <<= 1
 
         G = min(G, 2 * G_)
