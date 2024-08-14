@@ -104,8 +104,10 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         j = (Tc + (1 << h)) >> (h + 1)  # Num seen
         assert j
         assert g < j < T
+        i_prime = (T0 + (1 << h)) >> (h + 1)
+        i_prime -= 1
         j -= 1
-        if j <= i_ + G and (h < w0):
+        if j <= i_prime + G and (h < w0) and (t < s):  # ???
             G <<= 1
 
         front = j - modpow2(j, G)
@@ -116,8 +118,9 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         i = ansatz
         # i = j - o  # True h.v. incidence, WRONG?
         assert 0 <= i <= j
+        Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
         print(locals())
-        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
+        yield Tbar
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
