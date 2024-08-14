@@ -105,8 +105,8 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         assert j
         assert g < j < T
         j -= 1
-        if j <= i_ + G:
-            G <<= 1  # double back out if haven't made full lap
+        if j <= i_ + G and (h < w0):
+            G <<= 1
 
         front = j - modpow2(j, G)
         ansatz = front + g
