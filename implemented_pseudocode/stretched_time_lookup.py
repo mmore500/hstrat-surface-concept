@@ -57,23 +57,28 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     min_seglen = 2 ** (tau1) - 1
     min_seglen0 = 2 ** (tau) - 1
 
-    for g in range(num_segments):
+    seglen = s + t1
+    h = 0
+    g = 0
+    for k in range(S):
+        g += h == seglen
+
         level = ctz(g + num_segments)
         j_base = num_segments >> (level + 1)
         j_level = g >> (level + 1)
         j = j_base + j_level
 
-        if g == 0:
-            seglen = s + t1
-        else:
+        if h == seglen:
             seglen = min_seglen + level
+            h = 0
 
-        for h in range(seglen):
-            ansatz = ((2 * j + 1) << h) - 1
-            epsilon_h = (ansatz >= T) * (seglen - min_seglen0)
-            epsilon_j = (ansatz >= T) * (g + num_segments - j)
-            h_prime = h - epsilon_h
-            j_prime = j + epsilon_j
-            result = ((2 * j_prime + 1) << h_prime) - 1
-            assert result < T
-            yield result
+        ansatz = ((2 * j + 1) << h) - 1
+        epsilon_h = (ansatz >= T) * (seglen - min_seglen0)
+        epsilon_j = (ansatz >= T) * (g + num_segments - j)
+        h_prime = h - epsilon_h
+        j_prime = j + epsilon_j
+        result = ((2 * j_prime + 1) << h_prime) - 1
+        assert result < T
+        yield result
+
+        h += 1
