@@ -70,7 +70,8 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     epsilon_tau = bit_floor(t << 1) > t + blt  # Correction factor
     tau0 = blt - epsilon_tau  # Current meta-epoch
     tau1 = tau0 + 1  # Next meta-epoch
-    T0 = 1 << (tau0 + s - 1)  # Opening time of current meta-epoch
+    T0 = 1 << (t + s - 1)  # Opening time of current meta-epoch
+    T1 = 1 << (t + s)  # Opening time of current meta-epoch
 
     G_ = S >> tau1 or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
@@ -90,7 +91,9 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
         epsilon_h_ = (Tbar_ >= T) * (w - w0)  # Correction factor, h
         epsilon_g_ = (Tbar_ >= T) * (g_ + G_ - i_)  # Correction factor, i
-        epsilon_T_ = (Tbar_ >= T) * (T - T0)  # Correction factor, T
+        epsilon_T_ = (Tbar_ >= T and Tbar_ <= T1) * (  # <?
+            T - T0
+        )  # Correction factor, T
         epsilon_G_ = (Tbar_ >= T) * G_
 
         # Decode ingest time for ith instance of assigned h.v.
@@ -109,6 +112,8 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         j -= 1
         if j <= i_prime + G and (h < w0) and (t < s):  # ???
             G <<= 1
+
+        G = min(G, 2 * G_)
 
         front = j - modpow2(j, G)
         ansatz = front + g
