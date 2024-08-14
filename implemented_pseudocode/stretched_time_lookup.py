@@ -60,12 +60,8 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     h = 0
     g = 0
     for k in range(S):
-        g += h == seglen
-
         level = ctz(g + num_segments)
-        j_base = num_segments >> (level + 1)
-        j_level = g >> (level + 1)
-        j = j_base + j_level
+        j = (num_segments + g) >> (level + 1)
 
         if h == seglen:
             seglen = min_seglen + level
@@ -81,3 +77,4 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         yield result
 
         h += 1
+        g += h == seglen
