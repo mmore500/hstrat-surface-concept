@@ -86,31 +86,30 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         w = w1 + b_ + epsilon_w  # Number of sites in current segment
 
         T_ = T
-        h = h_
-        g_l = (G_ >> (b_ + 1)) + (g_p_ >> (b_ + 1))
+        g_l = (G_ + g_p_) >> (b_ + 1)
 
-        refill_time = T0 + (2 * g_l + 1) * 2**h_ - 1
-        invasion_time = (2 * g_l + 1) * 2**h_ - 1
+        invasion_time = (2 * g_l + 1) * (1 << h_) - 1
+        refill_time = T0 + invasion_time
 
         X_A = h_ >= w - w0 and invasion_time >= T
-        X_B = (t - t0 < h < w0) and (t < S - s)
-        X_C = (h == t - t0) and (t < S - s) and (refill_time >= T)
+        X_B = (t - t0 < h_ < w0) and (t < S - s)
+        X_C = (h_ == t - t0) and (t < S - s) and (refill_time >= T)
         assert X_A + X_B + X_C <= 1
 
         epsilon_G = G_ * (X_A or X_B or X_C)
         G = G_ + epsilon_G
 
+        epsilon_h = X_A * (w - w0)
+        h = h_ - epsilon_h
+
         if X_A:
             g_l = G_ + g_p_
             T_ = min(bit_floor(invasion_time), T)
-            h = h_ - (w - w0)
         elif X_C:
             T_ = bit_floor(refill_time)
 
-        j = (T_ + (1 << h)) >> (h + 1)  # Num seen
-        j -= 1
-
-        i = j - modpow2(j - g_l + G, G)
+        j = (T_ + (1 << h)) >> (h + 1) - 1  # Num seen, less one
+        i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
 
         # Decode ingest time for ith instance of assigned h.v.
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
