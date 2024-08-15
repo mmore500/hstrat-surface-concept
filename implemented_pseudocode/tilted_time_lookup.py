@@ -108,10 +108,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         j = (T_ + (1 << h)) >> (h + 1)  # Num seen
         j -= 1
 
-        front = j - (j % G)
-        i = front + g_l
-        if i > j:
-            i -= G
+        i = j - ((j - g_l + G) % G)
 
         # Decode ingest time for ith instance of assigned h.v.
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
