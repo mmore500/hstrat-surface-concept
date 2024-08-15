@@ -73,48 +73,45 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     t0 = (1 << tau0) - tau0  # Opening epoch of current meta-epoch
     T0 = 1 << (t + s - 1)  # Opening time of current epoch
 
-    G = S >> tau1 or 1  # Number of invading segments present at current epoch
+    G_ = S >> tau1 or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
     w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g = 0  # Calc left-to-right index of 0th segment
+    g_p_ = 0  # Calc left-to-right index of 0th segment
     for k in range(S):  # For each site in buffer...
         # Current segment bunch index (i.e., nestedness level)
-        b = ctz(g + G)
-        epsilon_w = g == 0  # Correction factor for segment size
-        w = w1 + b + epsilon_w  # Number of sites in current segment
+        b_ = ctz(g_p_ + G_)
+        epsilon_w = g_p_ == 0  # Correction factor for segment size
+        w = w1 + b_ + epsilon_w  # Number of sites in current segment
 
-        G_ = G
+        G = G_
         T_ = T
         h = h_
+        g_l = (G_ >> (b_ + 1)) + (g_p_ >> (b_ + 1))
 
-        q = (G >> (b + 1)) + (g >> (b + 1))
         if h_ >= w - w0:  # eligible
-            invasion_time = (2 * q + 1) * 2**h_ - 1
+            invasion_time = (2 * g_l + 1) * 2**h_ - 1
             if invasion_time >= T:
-                G_ *= 2
-                q = G + g
+                G = G_ * 2
+                g_l = G_ + g_p_
                 T_ = min(bit_floor(invasion_time), T)
                 h = h_ - (w - w0)
         elif (t - t0 < h < w0) and (t < S - s):  # eligible
-            G_ *= 2
-            T_ = T
-            h = h_
+            G = G_ * 2
         elif (h == t - t0) and (t < S - s):  # eligible
-            refill_time = T0 + (2 * q + 1) * 2**h - 1
+            refill_time = T0 + (2 * g_l + 1) * 2**h_ - 1
             if refill_time >= T:
-                G_ *= 2
+                G = G_ * 2
                 T_ = bit_floor(refill_time)
-                h = h_
 
         j = (T_ + (1 << h)) >> (h + 1)  # Num seen
         j -= 1
 
-        front = j - (j % G_)
-        i = front + q
+        front = j - (j % G)
+        i = front + g_l
         if i > j:
-            i -= G_
+            i -= G
 
         # Decode ingest time for ith instance of assigned h.v.
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
@@ -122,5 +119,5 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
-        g += h_ == w  # Bump to next segment if current is filled
+        g_p_ += h_ == w  # Bump to next segment if current is filled
         h_ *= h_ != w  # Reset h.v. if segment is filled
