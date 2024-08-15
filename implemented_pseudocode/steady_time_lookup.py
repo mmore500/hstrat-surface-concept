@@ -69,4 +69,4 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         b_star = not (b_prime or g_prime)  # Should bump to next bunch?
         b += b_star  # Do bump to next bunch, if any
         # Set within-bunch segment countdown, if bumping to next bunch
-        b_prime = b_prime or (1 << b - 1)
+        b_prime = b_prime or (1 << (b - 1))
