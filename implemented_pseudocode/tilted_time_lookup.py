@@ -92,7 +92,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         h = h_
         fixed = False
 
-        q = (G >> (b + 1)) + g - bit_floor(g)
+        q = (G >> (b + 1)) + (g >> (b + 1))
         assert 0 <= q < G
 
         if (h_ >= w - w0) and (t < S - s):  # eligible
@@ -106,8 +106,17 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
                 T_ = min(bit_floor(invasion_time), T)
                 h = h_ - (w - w0)
                 assert h >= 0
-        elif (h >= t - t0) and (t < S - s):  # eligible
+        elif (t - t0 < h < w0) and (t < S - s):  # eligible
             fixed = "b"
+            # refill_time = T0 + (2 * q + 1) * 2**h - 1
+            # if refill_time >= T:
+            fixed = 2
+            G_ *= 2
+            T_ = T
+            h = h_
+            assert h >= 0
+        elif (h == t - t0) and (t < S - s):  # eligible
+            fixed = "c"
             refill_time = T0 + (2 * q + 1) * 2**h - 1
             if refill_time >= T:
                 fixed = 2
@@ -117,7 +126,6 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
                 assert h >= 0
 
         j = (T_ + (1 << h)) >> (h + 1)  # Num seen
-        print(j, T_, h, (T_ + (1 << h)))
         assert j
         assert q < j < T_, locals()
         j -= 1
@@ -132,8 +140,6 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
         assert Tbar < T, locals()
         yield Tbar
-
-        print(locals())
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
