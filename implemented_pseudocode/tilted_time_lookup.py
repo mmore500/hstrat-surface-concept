@@ -86,18 +86,29 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         epsilon_w = g_p_ == 0  # Correction factor for segment size
         w = w1 + b_l + epsilon_w  # Number of sites in current segment
 
+        # Guess...
         T_ = T
         g_l = (G_ + g_p_) >> (b_l + 1)
 
-        invasion_time = (2 * g_l + 1) * (1 << h_) - 1
-        refill_time = T0 + invasion_time
+        # Detect scenario...
+        # Scenario A: TODO
+        T_i = (2 * g_l + 1) * (1 << h_) - 1  # Invasion time
+        T0_i = bit_floor(T_i)
+        X_A = h_ >= w - w0 and T_i >= T
 
-        X_A = h_ >= w - w0 and invasion_time >= T
+        # Scenario B: TODO
         X_B = (t - t0 < h_ < w0) and (t < S - s)
-        X_C = (h_ == t - t0) and (t < S - s) and (refill_time >= T)
+
+        # Scenario C: TODO
+        T_r = T0 + T_i  # Refill time
+        T0_r = bit_floor(T_r)
+        X_C = (h_ == t - t0) and (t < S - s) and (T_r >= T)
+
+        # note that scenarios are mutually exclusive
         assert X_A + X_B + X_C <= 1
 
-        epsilon_G = G_ * (X_A or X_B or X_C)
+        # Calculate corrected values
+        epsilon_G = (X_A or X_B or X_C) * G_
         G = G_ + epsilon_G
 
         epsilon_h = X_A * (w - w0)
@@ -105,9 +116,9 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         if X_A:
             g_l = G_ + g_p_
-            T_ = min(bit_floor(invasion_time), T)
+            T_ = min(T0_i, T)
         elif X_C:
-            T_ = bit_floor(refill_time)
+            T_ = T0_r
 
         j = ((T_ + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
         i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
