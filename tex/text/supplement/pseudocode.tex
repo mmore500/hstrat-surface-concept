@@ -30,6 +30,11 @@
     \State \Return $\max \{ n \in \mathbb{N} : x \bmod 2^n = 0 \}$
   \EndFunction
   \Statex
+  \Function{Elvis}{$x, \;\; y$}
+    \LComment{Equivalent \texttt{?:}}
+    \State \Return $x \text{ if } x \neq 0 \text{ else } y$
+  \EndFunction
+  \Statex
   \Function{LeftShift}{$x, \;\; n$}
     \State \Return $2^n x$
   \EndFunction

@@ -1,0 +1,56 @@
+\begin{algorithm}[H]
+\caption{Steady algorithm ingest time lookup.}
+\label{alg:steady-time-lookup}
+\begin{minipage}{0.5\textwidth}
+    \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
+    \begin{algorithmic}[1]
+    \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
+        \ForAll{$v \in \Call{NaiveSteadyLookup}{\colorS, \colorT}}$
+            \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
+                \State \textbf{yield} $v$
+            \Else
+                \State \textbf{yield} $\nullval$
+            \EndIf
+        \EndFor
+    \Else \Comment{No filter needed once buffer is filled}
+        \ForAll{$v \in \Call{NaiveSteadyLookup}{\colorS, \colorT}$}
+            \State \textbf{yield} $v$
+        \EndFor
+    \EndIf
+    \State \textbf{yield} $\nullval$ \Comment{Last site is never filled}
+    \Statex
+    \Function{NaiveSteadyLookup}{$\colorS, \colorT$}\\
+        \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in [\colorS - 1 \twodots)\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
+        \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
+        \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT+1} - \colors $ \Comment{Current epoch}
+        \State $\texttt{uint\_t} ~ ~ b \gets 0$ \Comment{Bunch physical index (ordered left to right)}
+        \State $\texttt{uint\_t} ~ ~ b' \gets 1$ \Comment{Countdown on segments traversed within bunch}
+        \State $\texttt{bool\_t} ~ ~ b^{*} \gets \texttt{True}$ \Comment{Flag if have traversed all segments in bunch?}
+        \State $\texttt{uint\_t} ~ ~ g' \gets \colors$ \Comment{Countdown on sites traversed within segment}
+        \ForAll{$\colork \in [0\twodots \colorS - 1)$} \Comment{Iterate over buffer sites, except unused last one}
+        \Statex
+        \Statex \LComment{Calculate info about current segment\ldots}
+        \State $\texttt{uint\_t} ~ ~ w \gets \colors - b$ \Comment{Number of sites in current segment (i.e., segment size)}
+        \State $\texttt{uint\_t} ~ ~ g \gets 2^b - b'$ \Comment{Calc left-to-right index of current segment}
+        \State $\texttt{uint\_t} ~ ~ \colorh_{\max} \gets \colort + w - 1$ \Comment{Max possible h.v. in segment during current epoch $\colort$}
+        \State $\texttt{uint\_t} ~ ~ \colorh' \gets \colorh_{\max} - ((\colorh_{\max} + g') \bmod w)$ \Comment{Candidate hanoi value}
+        \Statex
+        \Statex \LComment{Decode ingest time of assigned h.v. from segment index $g$, which tells how many instances of that h.v. have been seen before\ldots}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh'}(2g + 1) - 1$ \Comment{Guess ingest time of data item at current site}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{Bool2Int}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on h.v. if assigned instance has not yet been seen}
+        \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident h.v. at site}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2g + 1) - 1$ \Comment{True ingest time}
+        \State \textbf{yield} $\colorTbar$
+        \Statex
+        \Statex \LComment{Update state for next site iterated over\ldots}
+        \State $b' \gets b' - \Call{Bool2Int}{g' = 0}$ \Comment{Bump to next segment within bunch}
+        \State $b^{*} \gets b' = g' = 0$ \Comment{Should bump to next bunch?}
+        \State $b \gets b + \Call{Bool2Int}{b^{*}}$ \Comment{Do bump to next bunch, if should}
+        \State $b' \gets \Call{Elvis}{b', 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
+        \EndFor
+    \EndFunction
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}
