@@ -108,7 +108,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         elif X_C:
             T_ = bit_floor(refill_time)
 
-        j = (T_ + (1 << h)) >> (h + 1) - 1  # Num seen, less one
+        j = ((T_ + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
         i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
 
         # Decode ingest time for ith instance of assigned h.v.
