@@ -103,16 +103,16 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
                 fixed = True
                 G_ *= 2
                 q = G + g
-                T_ = bit_floor(invasion_time)
+                T_ = min(bit_floor(invasion_time), T)
                 h = h_ - (w - w0)
                 assert h >= 0
-        elif (h == t - t0) and (t < S - s):  # eligible
+        elif (h >= t - t0) and (t < S - s):  # eligible
             fixed = "b"
             refill_time = T0 + (2 * q + 1) * 2**h - 1
             if refill_time >= T:
                 fixed = 2
                 G_ *= 2
-                T_ = bit_floor(refill_time)
+                T_ = min(bit_floor(refill_time), T)
                 h = h_
                 assert h >= 0
 
@@ -130,7 +130,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Decode ingest time for ith instance of assigned h.v.
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
-        assert Tbar < T
+        assert Tbar < T, locals()
         yield Tbar
 
         print(locals())
