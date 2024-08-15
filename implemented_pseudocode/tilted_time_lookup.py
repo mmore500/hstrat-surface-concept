@@ -80,13 +80,14 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     h_ = 0  # Assigned hanoi value of 0th site
     g_p_ = 0  # Calc left-to-right index of 0th segment
     for k in range(S):  # For each site in buffer...
-        # Current segment bunch index (i.e., nestedness level)
-        b_ = ctz(g_p_ + G_)
+        b_l = ctz(g_p_ + G_)  # Logical bunch index...
+        # ... REVERSE fill order (decreasing nestedness/increasing init size r)
+
         epsilon_w = g_p_ == 0  # Correction factor for segment size
-        w = w1 + b_ + epsilon_w  # Number of sites in current segment
+        w = w1 + b_l + epsilon_w  # Number of sites in current segment
 
         T_ = T
-        g_l = (G_ + g_p_) >> (b_ + 1)
+        g_l = (G_ + g_p_) >> (b_l + 1)
 
         invasion_time = (2 * g_l + 1) * (1 << h_) - 1
         refill_time = T0 + invasion_time

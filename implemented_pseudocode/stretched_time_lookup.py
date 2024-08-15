@@ -56,17 +56,19 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     w1 = (1 << tau1) - 1  # Smallest segment size at current epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g = 0  # Calc left-to-right index of 0th segment
+    g_p = 0  # Calc left-to-right index of 0th segment (physical segment idx)
     for k in range(S):  # For each site in buffer...
-        b = ctz(g + G)  # Current segment bunch index (i.e., nestedness level)
-        epsilon_w = g == 0  # Correction factor for segment size
-        w = w1 + b + epsilon_w  # Number of sites in current segment
+        b_l = ctz(G + g_p)  # Logical bunch index...
+        # ... REVERSE fill order (decreasing nestedness/increasing init size r)
+
+        epsilon_w = g_p == 0  # Correction factor for segment size
+        w = w1 + b_l + epsilon_w  # Number of sites in current segment
 
         # Determine correction factors for not-yet-seen data items, Tbar_ >= T
-        i_ = (G + g) >> (b + 1)  # Guess h.v. incidence (i.e., num seen)
+        i_ = (G + g_p) >> (b_l + 1)  # Guess h.v. incidence (i.e., num seen)
         Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
         epsilon_h_ = (Tbar_ >= T) * (w - w0)  # Correction factor, h
-        epsilon_i_ = (Tbar_ >= T) * (g + G - i_)  # Correction factor, i
+        epsilon_i_ = (Tbar_ >= T) * (g_p + G - i_)  # Correction factor, i
 
         # Decode ingest time for ith instance of assigned h.v.
         h = h_ - epsilon_h_  # True hanoi value
@@ -75,5 +77,5 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
-        g += h_ == w  # Bump to next segment if current is filled
+        g_p += h_ == w  # Bump to next segment if current is filled
         h_ *= h_ != w  # Reset h.v. if segment is filled
