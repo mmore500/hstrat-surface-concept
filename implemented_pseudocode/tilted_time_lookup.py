@@ -78,21 +78,16 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g_p_ = 0  # Calc left-to-right index of 0th segment
+    g_p_ = 0  # Left-to-right (physical) segment index
     for k in range(S):  # For each site in buffer...
-        b_l = ctz(g_p_ + G_)  # Logical bunch index...
-        # ... REVERSE fill order (decreasing nestedness/increasing init size r)
-
+        b_l = ctz(g_p_ + G_)  # Reverse fill order (logical) bunch index
         epsilon_w = g_p_ == 0  # Correction factor for segment size
         w = w1 + b_l + epsilon_w  # Number of sites in current segment
-
-        # Guess...
-        T_ = T
-        g_l = (G_ + g_p_) >> (b_l + 1)
+        g_l_ = (G_ + g_p_) >> (b_l + 1)  # Logical (fill order) segment index
 
         # Detect scenario...
         # Scenario A: TODO
-        T_i = (2 * g_l + 1) * (1 << h_) - 1  # Invasion time
+        T_i = (2 * g_l_ + 1) * (1 << h_) - 1  # Invasion time
         T0_i = bit_floor(T_i)
         X_A = h_ - (t - t0) > w - w0
         if X_A:
@@ -111,25 +106,21 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # note that scenarios are mutually exclusive
         assert X_A + X_D + X_B + X_C <= 1
 
-        # Calculate corrected values
-        epsilon_G = (X_A or X_B or X_C or X_D) * G_
-        G = G_ + epsilon_G
-
-        epsilon_h = (X_A or X_D) * (w - w0)
-        h = h_ - epsilon_h
-
-        g_l = (g_l, G_ + g_p_)[X_A or X_D]
-
+        # Calculate corrected values...
+        epsilon_G_ = (X_A or X_B or X_C or X_D) * G_
+        epsilon_h_ = (X_A or X_D) * (w - w0)
         epsilon_T = X_D * (T - T0_i) + X_C * (T - T0_r)
-        T_ = T - epsilon_T
 
-        # Decode what h.v. instance fell on site k
-        j = ((T_ + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
+        G = G_ + epsilon_G_
+        h = h_ - epsilon_h_
+        Tc = T - epsilon_T  # Corrected time
+        g_l = (g_l_, G_ + g_p_)[X_A or X_D]
+
+        # Decode what h.v. instance fell on site k...
+        j = ((Tc + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
         i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
-
-        # Decode ingest time for ith instance of assigned h.v.
-        Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
-        yield Tbar
+        # ... then decode ingest time for that ith h.v. instgance
+        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
