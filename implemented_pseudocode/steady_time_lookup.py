@@ -36,7 +36,7 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     b_prime = 1  # Countdown on segments traversed within bunch
     b_star = True  # Have traversed all segments in bunch?
     g_prime = s  # Countdown on sites traversed within segment
-    h = None  # Candidate hanoi value
+    h_ = None  # Candidate hanoi value
 
     for k in range(S - 1):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
@@ -45,15 +45,16 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
         # Calculate candidate hanoi value...
-        _h0, h = h, h_max - (h_max + g_prime) % w
-        assert (_h0 == h) or b_star  # Can skip h calc if b_star is False...
-        del _h0  # ... i.e., within each bunch [[see below]]
+        _h0, h_ = h_, h_max - (h_max + g_prime) % w
+        assert (_h0 == h_) or b_star  # Can skip h calc if b_star is False...
+        del _h0  # ... i.e., skip calc within each bunch [[see below]]
 
         # Decode ingest time of assigned h.v. from segment index g, ...
         # ... i.e., how many instances of that h.v. seen before
-        T_bar_ = ((g << 1) + 1) * (1 << h) - 1  # Guess ingest ti1me
-        epsilon = (T_bar_ >= T) * w  # Correction on h.v. if not yet seen
-        T_bar = ((g << 1) + 1) * (1 << (h - epsilon)) - 1  # True ingest time
+        T_bar_ = (2 * g + 1) * (1 << h_) - 1  # Guess ingest time
+        epsilon_h = (T_bar_ >= T) * w  # Correction on h.v. if not yet seen
+        h = h_ - epsilon_h  # Corrected true resident h.v.
+        T_bar = (2 * g + 1) * (1 << (h_ - epsilon_h)) - 1  # True ingest time
         yield T_bar
 
         # Update within-segment state for next site...
@@ -61,7 +62,7 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Update h for next site...
         # ... only needed if not calculating h fresh every iter [[see above]]
-        h += 1 - (h >= h_max) * w
+        h_ += 1 - (h_ >= h_max) * w
 
         # Update within-bunch state for next site...
         b_prime -= not g_prime  # Bump to next segment within bunch
