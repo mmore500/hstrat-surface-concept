@@ -125,9 +125,12 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         front = j - (j % G_)
         assert 0 <= front <= j
         i = front + q
+        if i > j:
+            i -= G_
 
         # Decode ingest time for ith instance of assigned h.v.
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
+        assert Tbar < T
         yield Tbar
 
         print(locals())
