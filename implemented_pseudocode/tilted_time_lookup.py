@@ -78,12 +78,12 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g_p_ = 0  # Left-to-right (physical) segment index
+    g_p = 0  # Left-to-right (physical) segment index
     for k in range(S):  # For each site in buffer...
-        b_l = ctz(g_p_ + G_)  # Reverse fill order (logical) bunch index
-        epsilon_w = g_p_ == 0  # Correction factor for segment size
+        b_l = ctz(G_ + g_p)  # Reverse fill order (logical) bunch index
+        epsilon_w = g_p == 0  # Correction factor for segment size
         w = w1 + b_l + epsilon_w  # Number of sites in current segment
-        g_l_ = (G_ + g_p_) >> (b_l + 1)  # Logical (fill order) segment index
+        g_l_ = (G_ + g_p) >> (b_l + 1)  # Logical (fill order) segment index
 
         # Detect scenario...
         # Scenario A: TODO
@@ -109,7 +109,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         G = G_ + epsilon_G
         h = h_ - epsilon_h
         Tc = T - epsilon_T  # Corrected time
-        g_l = (g_l_, G_ + g_p_)[X_A or X_A_]
+        g_l = (X_A or X_A_) * (G_ + g_p) or g_l_
 
         # Decode what h.v. instance fell on site k...
         j = ((Tc + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
@@ -119,5 +119,5 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
-        g_p_ += h_ == w  # Bump to next segment if current is filled
+        g_p += h_ == w  # Bump to next segment if current is filled
         h_ *= h_ != w  # Reset h.v. if segment is filled
