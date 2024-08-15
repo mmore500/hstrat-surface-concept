@@ -107,12 +107,12 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         assert X_A + X_D + X_B + X_C <= 1
 
         # Calculate corrected values...
-        epsilon_G_ = (X_A or X_B or X_C or X_D) * G_
-        epsilon_h_ = (X_A or X_D) * (w - w0)
+        epsilon_G = (X_A or X_B or X_C or X_D) * G_
+        epsilon_h = (X_A or X_D) * (w - w0)
         epsilon_T = X_D * (T - T0_i) + X_C * (T - T0_r)
 
-        G = G_ + epsilon_G_
-        h = h_ - epsilon_h_
+        G = G_ + epsilon_G
+        h = h_ - epsilon_h
         Tc = T - epsilon_T  # Corrected time
         g_l = (g_l_, G_ + g_p_)[X_A or X_D]
 
