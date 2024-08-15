@@ -72,83 +72,67 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     tau1 = tau0 + 1  # Next meta-epoch
     t0 = (1 << tau0) - tau0  # Opening epoch of current meta-epoch
     t1 = (1 << tau1) - tau1  # Opening epoch of next meta-epoch
-    T0 = 1 << (t + s - 1)  # Opening time of current meta-epoch
-    T1 = 1 << (t + s)  # Opening time of current meta-epoch
+    T0 = 1 << (t + s - 1)  # Opening time of current epoch
+    T1 = 1 << (t + s)  # Opening time of next epoch
 
-    G_ = S >> tau1 or 1  # Number of invading segments present at current epoch
+    G = S >> tau1 or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
     w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g_ = 0  # Calc left-to-right index of 0th segment
+    g = 0  # Calc left-to-right index of 0th segment
     for k in range(S):  # For each site in buffer...
-        b = ctz(
-            g_ + G_
-        )  # Current segment bunch index (i.e., nestedness level)
-        epsilon_w = g_ == 0  # Correction factor for segment size
+        # Current segment bunch index (i.e., nestedness level)
+        b = ctz(g + G)
+        epsilon_w = g == 0  # Correction factor for segment size
         w = w1 + b + epsilon_w  # Number of sites in current segment
 
-        # Determine correction factors for not-yet-seen data items, Tbar_ >= T
-        i_ = (G_ + g_) >> (b + 1)  # Guess h.v. incidence (i.e., num seen)
-        Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
-        epsilon_h_ = (Tbar_ >= T) * (w - w0)  # Correction factor, h
-        epsilon_g_ = (Tbar_ >= T) * (g_ + G_ - i_)  # Correction factor, i
-        epsilon_T_ = (Tbar_ >= T and Tbar_ <= T1) * (  # <?
-            T - T0
-        )  # Correction factor, T
-        epsilon_G_ = (Tbar_ >= T) * G_
+        G_ = G
+        T_ = T
+        h = h_
+        fixed = False
+
+        q = (G >> (b + 1)) + g - bit_floor(g)
+        assert 0 <= q < G
+
+        if (h_ >= w - w0) and (t < S - s):  # eligible
+            fixed = "a"
+            # invasion_epoch = t0 + h_
+            invasion_time = (2 * q + 1) * 2**h_ - 1
+            if invasion_time >= T:
+                fixed = True
+                G_ *= 2
+                q = G + g
+                T_ = bit_floor(invasion_time)
+                h = h_ - (w - w0)
+                assert h >= 0
+        elif (h == t - t0) and (t < S - s):  # eligible
+            fixed = "b"
+            refill_time = T0 + (2 * q + 1) * 2**h - 1
+            if refill_time >= T:
+                fixed = 2
+                G_ *= 2
+                T_ = bit_floor(refill_time)
+                h = h_
+                assert h >= 0
+
+        j = (T_ + (1 << h)) >> (h + 1)  # Num seen
+        print(j, T_, h, (T_ + (1 << h)))
+        assert j
+        assert q < j < T_, locals()
+        j -= 1
+
+        front = j - (j % G_)
+        assert 0 <= front <= j
+        i = front + q
 
         # Decode ingest time for ith instance of assigned h.v.
-        h = h_ - epsilon_h_  # True hanoi value
-        assert h >= 0
-        g = g_ + epsilon_g_  # True segment index
-        G = G_ + epsilon_G_
-        Tc = T - epsilon_T_  # Correct to
-
-        # why isnt this Tc - 1?
-        j = (Tc + (1 << h)) >> (h + 1)  # Num seen
-        assert j
-        # assert g < j < T
-        i_prime = (T0 + (1 << h)) >> (h + 1)
-        i_prime -= 1
-        j -= 1
-        # if j <= i_prime + G and (h < w0) and (t < s):  # ???
-        #     G <<= 1
-
-        invader_epoch = t0 + h
-        # if t < invader_epoch and (h < w0) and (t < S - s):  # ???
-        #     G <<= 1
-
-        # G = min(G, 2 * G_)
-
-        front = j - modpow2(j, G)
-        ansatz = front + g
-        if ansatz > j:
-            ansatz -= G
-
-        i = ansatz
-        assert 0 <= i <= j
-        Tbar__ = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
-
-        invader_time = 1 << (invader_epoch + s - 1)
-        if Tbar__ < invader_time and (h < w0) and (t < S - s):
-            G <<= 1
-
-        G = min(G, 2 * G_)
-
-        front = j - modpow2(j, G)
-        ansatz = front + g
-        if ansatz > j:
-            ansatz -= G
-
-        i = ansatz
-        assert 0 <= i <= j
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
-        print(locals())
-
         yield Tbar
+
+        print(locals())
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
-        g_ += h_ == w  # Bump to next segment if current is filled
+        g += h_ == w  # Bump to next segment if current is filled
         h_ *= h_ != w  # Reset h.v. if segment is filled
