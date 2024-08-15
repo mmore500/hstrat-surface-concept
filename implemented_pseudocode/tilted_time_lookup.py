@@ -85,25 +85,27 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         epsilon_w = g_p_ == 0  # Correction factor for segment size
         w = w1 + b_ + epsilon_w  # Number of sites in current segment
 
-        G = G_
         T_ = T
         h = h_
         g_l = (G_ >> (b_ + 1)) + (g_p_ >> (b_ + 1))
 
-        if h_ >= w - w0:  # eligible
-            invasion_time = (2 * g_l + 1) * 2**h_ - 1
-            if invasion_time >= T:
-                G = G_ * 2
-                g_l = G_ + g_p_
-                T_ = min(bit_floor(invasion_time), T)
-                h = h_ - (w - w0)
-        elif (t - t0 < h < w0) and (t < S - s):  # eligible
-            G = G_ * 2
-        elif (h == t - t0) and (t < S - s):  # eligible
-            refill_time = T0 + (2 * g_l + 1) * 2**h_ - 1
-            if refill_time >= T:
-                G = G_ * 2
-                T_ = bit_floor(refill_time)
+        refill_time = T0 + (2 * g_l + 1) * 2**h_ - 1
+        invasion_time = (2 * g_l + 1) * 2**h_ - 1
+
+        X_A = h_ >= w - w0 and invasion_time >= T
+        X_B = (t - t0 < h < w0) and (t < S - s)
+        X_C = (h == t - t0) and (t < S - s) and (refill_time >= T)
+        assert X_A + X_B + X_C <= 1
+
+        epsilon_G = G_ * (X_A or X_B or X_C)
+        G = G_ + epsilon_G
+
+        if X_A:
+            g_l = G_ + g_p_
+            T_ = min(bit_floor(invasion_time), T)
+            h = h_ - (w - w0)
+        elif X_C:
+            T_ = bit_floor(refill_time)
 
         j = (T_ + (1 << h)) >> (h + 1)  # Num seen
         j -= 1
