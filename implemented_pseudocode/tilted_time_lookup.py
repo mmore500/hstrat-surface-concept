@@ -96,15 +96,13 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         T_r = T0 + T_i  # When site refilled after ring buffer halves?
         X_B_ = (h_ == t - t0) and (t < S - s) and (T_r >= T)  # At this epoch?
 
-        # note that scenarios are mutually exclusive
+        # note that scenarios are mutually exclusive!
         assert X_A + X_A_ + X_B + X_B_ <= 1
 
         # Calculate corrected values...
         epsilon_G = (X_A or X_A_ or X_B or X_B_) * G_
         epsilon_h = (X_A or X_A_) * (w - w0)
-        T0_i = bit_floor(T_i)  # Opening time of epoch when invaded
-        T0_r = bit_floor(T_r)  # Opening time of epoch when refilled
-        epsilon_T = X_A_ * (T - T0_i) + X_B_ * (T - T0_r)
+        epsilon_T = (X_A_ or X_B_) * (T - T0)  # Snap back to start of epoch
 
         G = G_ + epsilon_G
         h = h_ - epsilon_h
