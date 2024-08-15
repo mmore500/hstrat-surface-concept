@@ -71,9 +71,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     tau0 = blt - epsilon_tau  # Current meta-epoch
     tau1 = tau0 + 1  # Next meta-epoch
     t0 = (1 << tau0) - tau0  # Opening epoch of current meta-epoch
-    t1 = (1 << tau1) - tau1  # Opening epoch of next meta-epoch
     T0 = 1 << (t + s - 1)  # Opening time of current epoch
-    T1 = 1 << (t + s)  # Opening time of next epoch
 
     G = S >> tau1 or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
@@ -90,13 +88,11 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         G_ = G
         T_ = T
         h = h_
-        fixed = False
 
         q = (G >> (b + 1)) + (g >> (b + 1))
         assert 0 <= q < G
 
         if (h_ >= w - w0) and (t < S - s):  # eligible
-            fixed = "a"
             # invasion_epoch = t0 + h_
             invasion_time = (2 * q + 1) * 2**h_ - 1
             if invasion_time >= T:
@@ -107,38 +103,30 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
                 h = h_ - (w - w0)
                 assert h >= 0
         elif (t - t0 < h < w0) and (t < S - s):  # eligible
-            fixed = "b"
             # refill_time = T0 + (2 * q + 1) * 2**h - 1
             # if refill_time >= T:
-            fixed = 2
             G_ *= 2
             T_ = T
             h = h_
             assert h >= 0
         elif (h == t - t0) and (t < S - s):  # eligible
-            fixed = "c"
             refill_time = T0 + (2 * q + 1) * 2**h - 1
             if refill_time >= T:
-                fixed = 2
                 G_ *= 2
                 T_ = min(bit_floor(refill_time), T)
                 h = h_
                 assert h >= 0
 
         j = (T_ + (1 << h)) >> (h + 1)  # Num seen
-        assert j
-        assert q < j < T_, locals()
         j -= 1
 
         front = j - (j % G_)
-        assert 0 <= front <= j
         i = front + q
         if i > j:
             i -= G_
 
         # Decode ingest time for ith instance of assigned h.v.
         Tbar = ((2 * i + 1) << h) - 1  # True ingest time, Tbar
-        assert Tbar < T, locals()
         yield Tbar
 
         # Update state for next site...
