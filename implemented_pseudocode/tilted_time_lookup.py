@@ -94,7 +94,11 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # Scenario A: TODO
         T_i = (2 * g_l + 1) * (1 << h_) - 1  # Invasion time
         T0_i = bit_floor(T_i)
-        X_A = h_ >= w - w0 and T_i >= T
+        X_A = h_ - (t - t0) > w - w0
+        if X_A:
+            assert T_i >= T
+
+        X_D = h_ - (t - t0) == w - w0 and T_i >= T
 
         # Scenario B: TODO
         X_B = (t - t0 < h_ < w0) and (t < S - s)
@@ -105,21 +109,21 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         X_C = (h_ == t - t0) and (t < S - s) and (T_r >= T)
 
         # note that scenarios are mutually exclusive
-        assert X_A + X_B + X_C <= 1
+        assert X_A + X_D + X_B + X_C <= 1
 
         # Calculate corrected values
-        epsilon_G = (X_A or X_B or X_C) * G_
+        epsilon_G = (X_A or X_B or X_C or X_D) * G_
         G = G_ + epsilon_G
 
-        epsilon_h = X_A * (w - w0)
+        epsilon_h = (X_A or X_D) * (w - w0)
         h = h_ - epsilon_h
 
-        if X_A:
-            g_l = G_ + g_p_
-            T_ = min(T0_i, T)
-        elif X_C:
-            T_ = T0_r
+        g_l = (g_l, G_ + g_p_)[X_A or X_D]
 
+        epsilon_T = X_D * (T - T0_i) + X_C * (T - T0_r)
+        T_ = T - epsilon_T
+
+        # Decode what h.v. instance fell on site k
         j = ((T_ + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
         i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
 
