@@ -86,17 +86,15 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         g_l_ = (G_ + g_p) >> (b_l + 1)  # Logical (fill order) segment index
 
         # Detect scenario...
-        # Scenario A: TODO
-        T_i = (2 * g_l_ + 1) * (1 << h_) - 1  # Invasion time
-        T0_i = bit_floor(T_i)
-        X_A = h_ - (t - t0) > w - w0
-        X_A_ = h_ - (t - t0) == w - w0 and T_i >= T
+        # Scenario A: site in invaded segment, h.v. ring buffer intact
+        X_A = h_ - (t - t0) > w - w0  # To be invaded in future epoch t in tau?
+        T_i = (2 * g_l_ + 1) * (1 << h_) - 1  # When overwritten by invader?
+        X_A_ = h_ - (t - t0) == w - w0 and T_i >= T  # To be invaded this epoch?
 
-        # Scenario B: TODO
-        T_r = T0 + T_i  # Refill time
-        T0_r = bit_floor(T_r)
-        X_B = (t - t0 < h_ < w0) and (t < S - s)
-        X_B_ = (h_ == t - t0) and (t < S - s) and (T_r >= T)
+        # Scenario A: site in invading segment, h.v. ring buffer intact
+        X_B = (t - t0 < h_ < w0) and (t < S - s)  # At future epoch t in tau?
+        T_r = T0 + T_i  # When site refilled after ring buffer halves?
+        X_B_ = (h_ == t - t0) and (t < S - s) and (T_r >= T)  # At this epoch?
 
         # note that scenarios are mutually exclusive
         assert X_A + X_A_ + X_B + X_B_ <= 1
@@ -104,6 +102,8 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # Calculate corrected values...
         epsilon_G = (X_A or X_A_ or X_B or X_B_) * G_
         epsilon_h = (X_A or X_A_) * (w - w0)
+        T0_i = bit_floor(T_i)  # Opening time of epoch when invaded
+        T0_r = bit_floor(T_r)  # Opening time of epoch when refilled
         epsilon_T = X_A_ * (T - T0_i) + X_B_ * (T - T0_r)
 
         G = G_ + epsilon_G
@@ -114,7 +114,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         # Decode what h.v. instance fell on site k...
         j = ((Tc + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
         i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
-        # ... then decode ingest time for that ith h.v. instgance
+        # ... then decode ingest time for that ith h.v. instance
         yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
 
         # Update state for next site...
