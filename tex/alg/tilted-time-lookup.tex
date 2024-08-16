@@ -41,7 +41,7 @@
         \Statex \Comment{\textbf{Scenario B}: site in invading segment, \hv{} ring buffer intact}
         \State $\texttt{bool\_t} ~ ~ X_B \gets (\colort - \colort_0 < \colorh' < w_0) \wedge (\colort < \colorS - \colors)$ \Comment{Will \hv{} ring buffer be invaded in future epoch $\in \colortau_{\mkern-5mu\scriptscriptstyle 0}$?}
         \State $\texttt{uint\_t} ~ ~ \colorT_r \gets \colorT_0 + \colorT_i$ \Comment{When will current site $\colork$ be refilled after ring buffer halves?}
-        \State $\texttt{bool\_t} ~ ~ X_B' \gets (\colorh' = \colort - \colort_0) \wedge (\colort < \colorS - \colors) \wedge (\colorT_r \geq \colorT)$ \Comment{This site $\colork$ to be refilled after invasion during current epoch?}
+        \State $\texttt{bool\_t} ~ ~ X_B' \gets (\colorh' = \colort - \colort_0) \wedge (\colorT_r \geq \colorT) \wedge (\colort < \colorS - \colors) $ \Comment{This site $\colork$ to be refilled after invasion during current epoch?}
         \Statex \texttt{/*} \textit{Note:} $\Call{I}{X_A} + \Call{I}{X_A'} + \Call{I}{X_B} + \Call{I}{X_B'} \in \{0,1\}$ \texttt{*/} \Comment{Apply corrections for complicating scenarios\ldots}
         \State $\texttt{uint\_t} ~ ~ \epsilon_G \gets \Call{I}{X_A \vee X_A' \vee X_B \vee X_B'} \;\; \times \;\; G'$ \Comment{Correction on guessed segment count $G'$}
         \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{X_A \vee X_A'} \;\; \times \;\; (w - w_0)$ \Comment{Correction on guessed reserved \hv{} $\colorh'$}
