@@ -13,17 +13,17 @@
   \Statex
   \Function{BitFloorSafe}{$x$}
     \LComment{Equivalent {\normalfont $\texttt{std::bit\_floor}(x)$}}
-    \State \Return \Call{BitFloor}{$x$} \text{ if } $x > 0$ \text{ else } 0
+    \State \Return \Call{BitFloor}{$x$} \textbf{if} $x > 0$ \textbf{else} 0
   \EndFunction
   \Statex
   \Function{BitLength}{$x$}
     \LComment{Equivalent {\normalfont $\texttt{std::bit\_width}(x)$}}
-    \State \Return $\left\lfloor\log_{2}(x)\right\rfloor + 1  \text{ if } x \text{ else } 0$
+    \State \Return $\left\lfloor\log_{2}(x)\right\rfloor + 1$  \textbf{if} $x$ \textbf{else} $0$
   \EndFunction
   \Statex
   \Function{I}{$x$} \Comment{``Indicator'' function $I$}
     \LComment{Equivalent {\normalfont $\texttt{static\_cast<bool>}(x)$}}
-    \State \Return 1 \text{ if } $x$ \text{ else } 0
+    \State \Return $1$ \textbf{if} $x$ \textbf{else} $0$
   \EndFunction
   \Statex
   \Function{CountTrailingZeros}{$x$}
@@ -33,7 +33,7 @@
   \Statex
   \Function{ElvisOp}{$x, \;\; y$}
     \LComment{Equivalent {\normalfont $x \;\; \texttt{?:} \;\; y$}}
-    \State \Return $x \text{ if } x \neq 0 \text{ else } y$
+    \State \Return $x$ \textbf{if} $x \neq 0$ \textbf{else} $y$
   \EndFunction
   \Statex
   \Function{LeftShift}{$x, \;\; n$}
