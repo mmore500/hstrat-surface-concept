@@ -22,8 +22,8 @@
   \EndFunction
   \Statex
   \Function{I}{$x$} \Comment{``Indicator'' function $I$}
-    \LComment{Equivalent {\normalfont $\texttt{static\_cast<bool>}(x)$}}
-    \State \Return $1$ \textbf{if} $x$ \textbf{else} $0$
+    \LComment{Equivalent {\normalfont $\texttt{static\_cast<unsigned int>}(x)$}}
+    \State \Return $1$ \textbf{if} $x > 0$ \textbf{else} $0$
   \EndFunction
   \Statex
   \Function{CountTrailingZeros}{$x$}
