@@ -27,7 +27,7 @@
         \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor}
         \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{Bool2Int}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
 \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 1} \gets \colortau_{\mkern-5mu\scriptscriptstyle 0} + 1$ \Comment{Next meta-epoch}
-        \State $\texttt{uint\_t} ~ ~ G \gets \Call{Elvis}{\Call{RightShift}{\colorS, \colortau_{\mkern-5mu\scriptscriptstyle 1}}, 1}$ \Comment{Number of invading segments present at current epoch}
+        \State $\texttt{uint\_t} ~ ~ G \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \colortau_{\mkern-5mu\scriptscriptstyle 1}}, 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at current epoch start}
         \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at next epoch start}
         \Statex

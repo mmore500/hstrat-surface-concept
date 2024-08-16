@@ -30,7 +30,7 @@
         \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\colortau_0} -- \colortau_0$ \Comment{Opening epoch of current meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colorT_0 \gets 2^{\colort + \colors - 1}$ \Comment{Opening time of current epoch}
         \Statex
-        \State $\texttt{uint\_t} ~ ~ G' \gets \Call{Elvis}{\Call{RightShift}{\colorS, \colortau_{\mkern-5mu\scriptscriptstyle 1}}, 1}$ \Comment{Number of invading segments present at current epoch}
+        \State $\texttt{uint\_t} ~ ~ G' \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \colortau_{\mkern-5mu\scriptscriptstyle 1}}, 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at current epoch start}
         \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at next epoch start}
         \Statex
@@ -61,7 +61,7 @@
         \State $\texttt{uint\_t} ~ ~ G \gets G' + \epsilon_G$
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$
         \State $\texttt{uint\_t} ~ ~ \colorT_c \gets \colorT - \epsilon_{\colorT}$
-        \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{Elvis}{\Call{Bool2Int}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), g_l'}$
+        \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{ElvisOp}{\Call{Bool2Int}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), g_l'}$
         \Statex
         \Statex \LComment{Decode what h.v. instance fell on site $\colork$\ldots}
         \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \colorh + 1} - 1$ \Comment{Num seen, less one}

@@ -48,7 +48,7 @@
         \State $b' \gets b' - \Call{Bool2Int}{g' = 0}$ \Comment{Bump to next segment within bunch}
         \State $b^{*} \gets b' = g' = 0$ \Comment{Should bump to next bunch?}
         \State $b \gets b + \Call{Bool2Int}{b^{*}}$ \Comment{Do bump to next bunch, if should}
-        \State $b' \gets \Call{Elvis}{b', 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
+        \State $b' \gets \Call{ElvisOp}{b', 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
         \EndFor
     \EndFunction
     \end{algorithmic}
