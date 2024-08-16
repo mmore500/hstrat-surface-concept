@@ -1,7 +1,7 @@
 \begin{table}[]
 \begin{tabular}{lllll}
 \hline
-\textit{Name} & \textit{Type} & \textit{Notation} & \textit{Definition} & \textit{Domain} \\ \hline
+\textit{Description} & \textit{Type} & \textit{Notation} & \textit{Definition} & \textit{Domain} \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Space}} \\ \hline
 Buffer Size & int & $\colorS$ & user-defined & $\in \{2^{\mathbb{N}}\}$ \\
@@ -19,8 +19,9 @@ Time Meta-epoch & int & $\colortau = \mathit{f}_{\!\Circled[fill color=orange!70
 & set & $\colortausetofT$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=orange!70!lightgray,inner color=white,outer color=orange!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\tau}} \circ \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT^{\prime}) = \colortau \}$ & $\subseteq [\colorT_{1} \twodots \colorT_{2}]$\\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Layout}} \\ \hline
-Storage Site Selected for Data Item & int & $\colorK(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorS) \cup \{\nullval\}$ \\
 Hanoi Value Reserved at Site & int & $\colorh = \colorHcal_{\colort}(\colork)$ & algorithm-defined & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
+Storage Site Selected for Data Item & int & $\colorK(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorS) \cup \{\nullval\}$ \\
+Ingest Times of Stored Data Items by Site & seq & $\colorTbar_{\colork} \in \colorL(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorT) \cup \{\nullval\}$ \\
 Initial Reservation Segment Size & int & $r$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}Formula \ref{eqn:stretched-segment-sizes} & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colors]$ \\
 Mature Reservation Segment Size & int & $R(r)$ & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl} $2^{r} - 1$ (Lemma \ref{thm:stretched-meta-epoch}) & \textsuperscript{\textdagger}N/A or \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colorS]$ \\ \hline
 \rowcolor{gray!20}

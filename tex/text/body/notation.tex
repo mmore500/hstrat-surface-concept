@@ -36,7 +36,12 @@ A schematic of site selection is provided in Figure \ref{fig:surface-site-ingest
 As a space-saving optimization, we store only the data items themselves in buffer space --- no metadata (e.g., ingestion time) or data structure components (e.g., indices or pointers) are stored.
 This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.
 Without metadata, however, identifying stored data items requires capability to deduce ingest time solely from buffer position $\colork$.
-Figure \ref{fig:ingest-rank-calculation} depicts the role of \textit{site lookup} in calculating ingest times of stored data.
+We denote \textit{site lookup} this operation as $\colorL(\colorT)$, yielding the data item ingest times $\colorTbar_{\colork=0}, \colorTbar_{\colork=1}, \;\;\ldots, \colorTbar_{\colork=\colorS-1}$.
+Note that if no data item has yet been stored at a stie (i.e., when first filling the buffer $\colorT < \colorS$), $\colorL(\colorT)$ may include $\nullval$ values.%
+\footnote{%
+As with site selection $\colorK$, although omitted for brevity it is the case that lookup depends on buffer size (i.e., as $\colorL_{\colorS}(\colorT)$).
+}
+Figure \ref{fig:ingest-rank-calculation} visualizes the relationship of \textit{site selection} and \textit{site lookup} operations.
 
 \subsection{Time $\colorT$}
 \label{sec:notation-time}
