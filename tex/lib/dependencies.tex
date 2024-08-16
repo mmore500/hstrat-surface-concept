@@ -35,6 +35,10 @@
 \usepackage{xparse}
 \usepackage{pythonhighlight}
 
+% adapted from https://tex.stackexchange.com/a/103898
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}} % inner command, used by \rchi
+
 % adapted from https://tex.stackexchange.com/a/512504
 \newtcolorbox{mybox}{
 enhanced,
