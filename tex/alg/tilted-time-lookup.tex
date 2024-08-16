@@ -6,14 +6,14 @@
     \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
     \begin{algorithmic}[1]
     \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
-        \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \;\; \colorT}}$
+        \ForAll{$v \in \Call{$\colorL'$}{\colorS, \;\; \colorT}}$
             \If{$v < \colorT$} \textbf{yield} $v$ \textbf{else} \textbf{yield} $\nullval$ \Comment{\ldots filter out not-yet-encountered values}
             \EndIf
         \EndFor
-    \Else ~ \textbf{yield from} $\Call{NaiveTiltedLookup}{\colorS, \;\;\colorT}$\Comment{No filter needed once buffer is filled}
+    \Else ~ \textbf{yield from} $\Call{$\colorL'$}{\colorS, \;\;\colorT}$\Comment{No filter needed once buffer is filled}
     \EndIf
     \Statex
-    \Function{NaiveTiltedLookup}{$\colorS, \colorT$} \Comment{Assume buffer has been filled} \\
+    \Function{$\colorL'$}{$\colorS, \;\; \colorT$} \Comment{Assume buffer has been filled} \\
         \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [\colorS - 1 \twodots 2^{\colorS} - 1)$ \Comment{Buffer size and current logical time}\\
         \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT)$ \Comment{Ingestion time of stored data item, if any}
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
