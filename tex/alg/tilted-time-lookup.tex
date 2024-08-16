@@ -34,30 +34,30 @@
         \State $\texttt{bool\_t} ~ ~ \epsilon_w \gets g_p = 0$ \Comment{Correction factor for segment size}
         \State $\texttt{uint\_t} ~ ~ w \gets w_1 + b_l + \epsilon_w$ \Comment{Number of sites in current segment (i.e., segment size)}
         \State $\texttt{uint\_t} ~ ~ g_l' \gets \Call{RightShift}{G + g_p, \;\; b_l + 1}$ \Comment{Guess logical (fill order) segment index}
-        \Statex \Comment{\textbf{Scenario A}: site in invaded segment, h.v. ring buffer intact}
+        \Statex \Comment{\textbf{Scenario A}: site in invaded segment, \hv{} ring buffer intact}
         \State $\texttt{bool\_t} ~ ~  X_A \gets \colorh' - (\colort - \colort_0) > w - w_0$ \Comment{To be invaded in future epoch during current meta-epoch?}
         \State $\texttt{uint\_t} ~ ~ \colorT_i \gets 2^{\colorh'}(2g_l' + 1) - 1$ \Comment{When overwritten by invader?}
         \State $\texttt{bool\_t} ~ ~ X_A' \gets (\colorh' - (\colort - \colort_0) = w - w_0) \wedge (\colorT_i \geq \colorT)$ \Comment{Invaded this current epoch?}
-        \Statex \Comment{\textbf{Scenario B}: site in invading segment, h.v. ring buffer intact}
+        \Statex \Comment{\textbf{Scenario B}: site in invading segment, \hv{} ring buffer intact}
         \State $\texttt{bool\_t} ~ ~ X_B \gets (\colort - \colort_0 < \colorh' < w_0) \wedge (\colort < \colorS - \colors)$ \Comment{At future epoch during current meta-epoch?}
         \State $\texttt{uint\_t} ~ ~ \colorT_r \gets \colorT_0 + \colorT_i$ \Comment{When is site refilled after ring buffer halves?}
         \State $\texttt{bool\_t} ~ ~ X_B' \gets (\colorh' = \colort - \colort_0) \wedge (\colort < \colorS - \colors) \wedge (\colorT_r \geq \colorT)$ \Comment{At this epoch?}
         \State \Comment{Apply corrections for complicating scenarios\ldots}
         \State $\texttt{uint\_t} ~ ~ \epsilon_G \gets \Call{I}{X_A \vee X_A' \vee X_B \vee X_B'} \;\; \times \;\; G'$ \Comment{Correction on guessed segment count $G'$}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{X_A \vee X_A'} \;\; \times \;\; (w - w_0)$ \Comment{Correction on guessed reserved h.v. $\colorh'$}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{X_A \vee X_A'} \;\; \times \;\; (w - w_0)$ \Comment{Correction on guessed reserved \hv{} $\colorh'$}
         \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorT} \gets \Call{I}{X_A' \vee X_B'} \;\; \times \;\; (\colorT - \colorT_0)$ \Comment{Need to snap back to start of epoch?}
         \State $\texttt{uint\_t} ~ ~ G \gets G' + \epsilon_G$ \Comment{Apply corrections \ldots}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$
         \State $\texttt{uint\_t} ~ ~ \colorT_c \gets \colorT - \epsilon_{\colorT}$ \Comment{Corrected lookup time}
         \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{ElvisOp}{\Call{I}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), \;\; g_l'}$ \Comment{Corrected logical segment index}
-        \State \Comment{Decode what h.v. instance fell on site $\colork$\ldots}
+        \State \Comment{Decode what \hv{} instance fell on site $\colork$\ldots}
         \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \;\; \colorh + 1} - 1$ \Comment{Num seen, less one}
         \State $\texttt{uint\_t} ~ ~ i \gets j - \Call{ModPow2}{j - g_l + G, \;\; G}$ \Comment{H.v. incidence resident at site $\colork$}
-        \State \textbf{yield} $2^{\colorh}(2i + 1) - 1$ \Comment{\ldots then decode ingest time $\colorTbar$ of assigned h.v.}
+        \State \textbf{yield} $2^{\colorh}(2i + 1) - 1$ \Comment{\ldots then decode ingest time $\colorTbar$ of assigned \hv{}}
         \State \Comment{Update state for next site iterated over\ldots}
         \State $\colorh' \gets \colorh' + 1$ \Comment{Increment next site's \hv{} guess}
         \State $g_p \gets g_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current segment is filled}
-        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset h.v. to zero if segment filled and starting new segment}
+        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset \hv{} to zero if segment filled and starting new segment}
         \EndFor
     \EndFunction
     \end{algorithmic}

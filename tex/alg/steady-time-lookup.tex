@@ -34,13 +34,13 @@
         \Statex \LComment{Calculate info about current segment\ldots}
         \State $\texttt{uint\_t} ~ ~ w \gets \colors - b$ \Comment{Number of sites in current segment (i.e., segment size)}
         \State $\texttt{uint\_t} ~ ~ g \gets 2^b - b'$ \Comment{Calc left-to-right index of current segment}
-        \State $\texttt{uint\_t} ~ ~ \colorh_{\max} \gets \colort + w - 1$ \Comment{Max possible h.v. in segment during current epoch $\colort$}
+        \State $\texttt{uint\_t} ~ ~ \colorh_{\max} \gets \colort + w - 1$ \Comment{Max possible \hv{} in segment during current epoch $\colort$}
         \State $\texttt{uint\_t} ~ ~ \colorh' \gets \colorh_{\max} - ((\colorh_{\max} + g') \bmod w)$ \Comment{Candidate hanoi value}
         \Statex
-        \Statex \LComment{Decode ingest time of assigned h.v. from segment index $g$, which tells how many instances of that h.v. have been seen before\ldots}
+        \Statex \LComment{Decode ingest time of assigned \hv{} from segment index $g$, which tells how many instances of that \hv{} have been seen before\ldots}
         \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh'}(2g + 1) - 1$ \Comment{Guess ingest time of data item at current site}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on h.v. if assigned instance has not yet been seen}
-        \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident h.v. at site}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on \hv{} if assigned instance has not yet been seen}
+        \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident \hv{} at site}
         \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2g + 1) - 1$ \Comment{True ingest time}
         \State \textbf{yield} $\colorTbar$
         \Statex
