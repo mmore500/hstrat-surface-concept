@@ -62,11 +62,28 @@ parbox=false
 \newcommand\smileacc[1]{\overset{\adjustedaccent{\smile}}{#1}}
 \newcommand\frownacc[1]{\overset{\adjustedaccent{\smallfrown}}{#1}}
 
+% make tau slightly larger
+% adapted from https://tex.stackexchange.com/a/413897
+\makeatletter
+\DeclareRobustCommand{\ctau}{{% capital tau
+  \mathpalette\cap@greek\tau
+}}
+\DeclareRobustCommand{\csigma}{{% capital sigma
+  \mathpalette\cap@greek\sigma
+}}
+\newcommand{\cap@greek}[2]{%
+  \begingroup
+  \sbox\z@{$#1t$}% measure a capital letter in the current style
+  \resizebox{!}{\ht\z@}{$\m@th#1#2$}% resize tau to match
+  \endgroup
+}
+\makeatother
+
 
 \newcommand{\colort}{\mathcolor{VioletRed}{\mathrm{t}}}
 \newcommand{\colortsetofT}{\lBrace \colort \rBrace}
 \newcommand{\colortsetofTone}{\lBrace \colort + 1 \rBrace}
-\newcommand{\colortau}{\mathcolor{orange}{\tau}}
+\newcommand{\colortau}{\mathcolor{orange}{\ctau}}
 \newcommand{\colortausetoft}{\lBrace \colortau \rBrace}
 \newcommand{\colortausetofT}{\{\!\!\lBrace \colortau \rBrace\!\!\}}
 \newcommand{\colorT}{\mathcolor{red}{T}}
