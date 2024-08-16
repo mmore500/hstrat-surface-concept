@@ -51,9 +51,9 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     tau0 = blt - epsilon_tau  # Current meta-epoch
     tau1 = tau0 + 1  # Next meta-epoch
 
-    G = S >> tau1 or 1  # Number of invading segments present at current epoch
+    G = (S >> tau1) or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
-    w1 = (1 << tau1) - 1  # Smallest segment size at current epoch start
+    w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
     g_p = 0  # Calc left-to-right index of 0th segment (physical segment idx)
