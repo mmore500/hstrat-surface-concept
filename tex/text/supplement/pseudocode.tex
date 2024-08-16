@@ -1,37 +1,38 @@
 \section{Pseudocode Helper Functions}
 
+\begin{minipage}{0.4\textwidth}
 \begin{algorithmic}
   \Function{BitCount}{$x$}
-    \LComment{Equivalent \texttt{std::popcount}}
+    \LComment{Equivalent {\normalfont \texttt{std::popcount}}}
     \State \Return $|\{ n \in \mathbb{N} : x \bmod 2^n = 0 \}|$
   \EndFunction
   \Statex
   \Function{BitFloor}{$x$}
-    \State \Return \Call{LeftShift}{1, \;\; \Call{BitLength}{$x$} - 1}
+    \State \Return $\Call{LeftShift}{1, \;\; \Call{BitLength}{x} - 1}$
   \EndFunction
   \Statex
   \Function{BitFloorSafe}{$x$}
-    \LComment{Equivalent \texttt{std::bit\_floor}}
+    \LComment{Equivalent {\normalfont \texttt{std::bit\_floor}}}
     \State \Return \Call{BitFloor}{$x$} \text{ if } $x > 0$ \text{ else } 0
   \EndFunction
   \Statex
   \Function{BitLength}{$x$}
-    \LComment{Equivalent \texttt{std::bit\_width}}
+    \LComment{Equivalent {\normalfont \texttt{std::bit\_width}}}
     \State \Return $\left\lfloor\log_{2}(x)\right\rfloor + 1  \text{ if } x \text{ else } 0$
   \EndFunction
   \Statex
-  \Function{$I$}{$x$} \Comment{``Indicator'' function $I$}
-    \LComment{Equivalent \texttt{static\_cast<bool>}}
+  \Function{I}{$x$} \Comment{``Indicator'' function $I$}
+    \LComment{Equivalent {\normalfont \texttt{static\_cast<bool>}}}
     \State \Return 1 \text{ if } $x$ \text{ else } 0
   \EndFunction
   \Statex
   \Function{CountTrailingZeros}{$x$}
-    \LComment{Equivalent \texttt{std::countr\_zero}}
+    \LComment{Equivalent {{\normalfont \texttt{std::countr\_zero}}}}
     \State \Return $\max \{ n \in \mathbb{N} : x \bmod 2^n = 0 \}$
   \EndFunction
   \Statex
   \Function{ElvisOp}{$x, \;\; y$}
-    \LComment{Equivalent \texttt{?:}}
+    \LComment{Equivalent {\normalfont \texttt{?:}}}
     \State \Return $x \text{ if } x \neq 0 \text{ else } y$
   \EndFunction
   \Statex
@@ -49,3 +50,4 @@
   \EndFunction
   \Statex
 \end{algorithmic}
+\end{minipage}
