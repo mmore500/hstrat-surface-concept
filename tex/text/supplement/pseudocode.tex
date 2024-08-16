@@ -1,9 +1,9 @@
 \section{Pseudocode Helper Functions}
 
-\begin{minipage}{0.4\textwidth}
+\begin{minipage}{0.45\textwidth}
 \begin{algorithmic}
   \Function{BitCount}{$x$}
-    \LComment{Equivalent {\normalfont \texttt{std::popcount}}}
+    \LComment{Equivalent {\normalfont $\texttt{std::popcount}(x)$}}
     \State \Return $|\{ n \in \mathbb{N} : x \bmod 2^n = 0 \}|$
   \EndFunction
   \Statex
@@ -12,40 +12,42 @@
   \EndFunction
   \Statex
   \Function{BitFloorSafe}{$x$}
-    \LComment{Equivalent {\normalfont \texttt{std::bit\_floor}}}
+    \LComment{Equivalent {\normalfont $\texttt{std::bit\_floor}(x)$}}
     \State \Return \Call{BitFloor}{$x$} \text{ if } $x > 0$ \text{ else } 0
   \EndFunction
   \Statex
   \Function{BitLength}{$x$}
-    \LComment{Equivalent {\normalfont \texttt{std::bit\_width}}}
+    \LComment{Equivalent {\normalfont $\texttt{std::bit\_width}(x)$}}
     \State \Return $\left\lfloor\log_{2}(x)\right\rfloor + 1  \text{ if } x \text{ else } 0$
   \EndFunction
   \Statex
   \Function{I}{$x$} \Comment{``Indicator'' function $I$}
-    \LComment{Equivalent {\normalfont \texttt{static\_cast<bool>}}}
+    \LComment{Equivalent {\normalfont $\texttt{static\_cast<bool>}(x)$}}
     \State \Return 1 \text{ if } $x$ \text{ else } 0
   \EndFunction
   \Statex
   \Function{CountTrailingZeros}{$x$}
-    \LComment{Equivalent {{\normalfont \texttt{std::countr\_zero}}}}
+    \LComment{Equivalent {{\normalfont $\texttt{std::countr\_zero}(x)$}}}
     \State \Return $\max \{ n \in \mathbb{N} : x \bmod 2^n = 0 \}$
   \EndFunction
   \Statex
   \Function{ElvisOp}{$x, \;\; y$}
-    \LComment{Equivalent {\normalfont \texttt{?:}}}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{?:} \;\; y$}}
     \State \Return $x \text{ if } x \neq 0 \text{ else } y$
   \EndFunction
   \Statex
   \Function{LeftShift}{$x, \;\; n$}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{<{}<} \;\; y$}}
     \State \Return $2^n x$
   \EndFunction
   \Statex
   \Function{ModPow2}{$x, \;\; n$}
-    \LComment{Equivalent $x \bmod n$, requires $n \in \{2^{\mathbb{N}}\}$}
-    \State \Return $x \& (n - 1)$
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{\&} \;\; (n - 1)$}, requiring $n \in \{2^{\mathbb{N}}\}$}
+    \State \Return $x \bmod n$
   \EndFunction
   \Statex
-  \Function{RightShift}{$x,  \;\;n$}
+  \Function{RightShift}{$x, \;\;n$}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{>{}>} \;\; y$}}
     \State \Return $\left\lfloor x/2^n \right\rfloor$
   \EndFunction
   \Statex
