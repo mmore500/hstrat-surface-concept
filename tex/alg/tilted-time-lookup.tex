@@ -26,7 +26,7 @@
         \State $\texttt{uint\_t} ~ ~ G' \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 0}$}
         \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 1}$}
-        \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ Comment{Reserved hanoi value at site $\colork=0$}
+        \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Reserved \hv{} for site $\colork=0$}
         \State $\texttt{uint\_t} ~ ~ g_p \gets 0$ \Comment{Physical segment index at site $\colork=0$ (i.e., left-to-right position)}
         \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over all buffer sites}
         \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{G + g_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
