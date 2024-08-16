@@ -7,73 +7,57 @@
     \begin{algorithmic}[1]
     \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
         \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \;\; \colorT}}$
-            \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
-                \State \textbf{yield} $v$
-            \Else
-                \State \textbf{yield} $\nullval$
+            \If{$v < \colorT$} \textbf{yield} $v$ \textbf{else} \textbf{yield} $\nullval$ \Comment{\ldots filter out not-yet-encountered values}
             \EndIf
         \EndFor
-    \Else \Comment{No filter needed once buffer is filled}
-        \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \;\;\colorT}$}
-            \State \textbf{yield} $v$
-        \EndFor
+    \Else ~ \textbf{yield from} $\Call{NaiveTiltedLookup}{\colorS, \;\;\colorT}$\Comment{No filter needed once buffer is filled}
     \EndIf
     \Statex
-    \Function{NaiveTiltedLookup}{$\colorS, \colorT$}\\
+    \Function{NaiveTiltedLookup}{$\colorS, \colorT$} \Comment{Assume buffer has been filled} \\
         \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [\colorS - 1 \twodots 2^{\colorS} - 1)$ \Comment{Buffer size and current logical time}\\
         \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT)$ \Comment{Ingestion time of stored data item, if any}
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
         \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch}
         \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor}
-        \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{Bool2Int}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
+        \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{I}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 1} \gets \colortau_{\mkern-5mu\scriptscriptstyle 0} + 1$ \Comment{Next meta-epoch}
-        \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\colortau_0} -- \colortau_0$ \Comment{Opening epoch of current meta-epoch}
+        \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - \colortau_{\mkern-5mu\scriptscriptstyle 0}$ \Comment{Opening epoch of current meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colorT_0 \gets 2^{\colort + \colors - 1}$ \Comment{Opening time of current epoch}
-        \Statex
         \State $\texttt{uint\_t} ~ ~ G' \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at current epoch start}
         \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at next epoch start}
-        \Statex
         \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Assigned hanoi value of 0th site}
-        \State $\texttt{uint\_t} ~ ~ g_p \gets 0$ \Comment{Calc left-to-right (phsysical) segment index}
+        \State $\texttt{uint\_t} ~ ~ g_p \gets 0$ \Comment{Left-to-right (physical) segment index}
         \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over buffer sites}
         \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{G + g_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
-        \State \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
+        \Statex \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
         \State $\texttt{bool\_t} ~ ~ \epsilon_w \gets g_p = 0$ \Comment{Correction factor for segment size}
         \State $\texttt{uint\_t} ~ ~ w \gets w_1 + b_l + \epsilon_w$ \Comment{Number of sites in current segment (i.e., segment size)}
         \State $\texttt{uint\_t} ~ ~ g_l' \gets \Call{RightShift}{G + g_p, \;\; b_l + 1}$ \Comment{Guess logical (fill order) segment index}
-        \Statex
-        \Statex \LComment{Determine scenario\ldots}
-        \Statex \LComment{Scenario A: site in invaded segment, h.v. ring buffer intact}
+        \Statex \Comment{\textbf{Scenario A}: site in invaded segment, h.v. ring buffer intact}
         \State $\texttt{bool\_t} ~ ~  X_A \gets \colorh' - (\colort - \colort_0) > w - w_0$ \Comment{To be invaded in future epoch during current meta-epoch?}
         \State $\texttt{uint\_t} ~ ~ \colorT_i \gets 2^{\colorh'}(2g_l' + 1) - 1$ \Comment{When overwritten by invader?}
         \State $\texttt{bool\_t} ~ ~ X_A' \gets (\colorh' - (\colort - \colort_0) = w - w_0) \wedge (\colorT_i \geq \colorT)$ \Comment{Invaded this current epoch?}
-        \Statex \LComment{Scenario B: site in invading segment, h.v. ring buffer intact}
+        \Statex \Comment{\textbf{Scenario B}: site in invading segment, h.v. ring buffer intact}
         \State $\texttt{bool\_t} ~ ~ X_B \gets (\colort - \colort_0 < \colorh' < w_0) \wedge (\colort < \colorS - \colors)$ \Comment{At future epoch during current meta-epoch?}
-        \State $\texttt{uint\_t} \colorT_r \gets \colorT_0 + \colorT_i$ \Comment{When is site refilled after ring buffer halves?}
-        \State $\texttt{bool\_t} ~ ~ X_B' \gets (\colorh' = \colort - \colort_0) \wedge (\colort < \colorS - \colors) \wedge (\colorT_r \geq \colorT)$ \Comment{GAt this epoch?}
-        \Statex
-        \Statex \LComment{Calculate corrected values\ldots}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_G \gets \Call{Bool2Int}{X_A \vee X_A' \vee X_B \vee X_B'} \;\; \times \;\; G'$ \Comment{Guess ingest time}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{Bool2Int}{X_A \vee X_A'} \;\; \times \;\; (w - w_0)$
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorT} \gets \Call{Bool2Int}{X_A' \vee X_B'} \;\; \times \;\; (\colorT - \colorT_0)$ \Comment{Snap back to start of epoch}
-        \Statex
-        \State $\texttt{uint\_t} ~ ~ G \gets G' + \epsilon_G$
+        \State $\texttt{uint\_t} ~ ~ \colorT_r \gets \colorT_0 + \colorT_i$ \Comment{When is site refilled after ring buffer halves?}
+        \State $\texttt{bool\_t} ~ ~ X_B' \gets (\colorh' = \colort - \colort_0) \wedge (\colort < \colorS - \colors) \wedge (\colorT_r \geq \colorT)$ \Comment{At this epoch?}
+        \State \Comment{Apply corrections for complicating scenarios\ldots}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_G \gets \Call{I}{X_A \vee X_A' \vee X_B \vee X_B'} \;\; \times \;\; G'$ \Comment{Correction on guessed segment count $G'$}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{X_A \vee X_A'} \;\; \times \;\; (w - w_0)$ \Comment{Correction on guessed reserved h.v. $\colorh'$}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorT} \gets \Call{I}{X_A' \vee X_B'} \;\; \times \;\; (\colorT - \colorT_0)$ \Comment{Need to snap back to start of epoch?}
+        \State $\texttt{uint\_t} ~ ~ G \gets G' + \epsilon_G$ \Comment{Apply corrections \ldots}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$
-        \State $\texttt{uint\_t} ~ ~ \colorT_c \gets \colorT - \epsilon_{\colorT}$
-        \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{ElvisOp}{\Call{Bool2Int}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), \;\; g_l'}$
-        \Statex
-        \Statex \LComment{Decode what h.v. instance fell on site $\colork$\ldots}
+        \State $\texttt{uint\_t} ~ ~ \colorT_c \gets \colorT - \epsilon_{\colorT}$ \Comment{Corrected lookup time}
+        \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{ElvisOp}{\Call{I}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), \;\; g_l'}$ \Comment{Corrected logical segment index}
+        \State \Comment{Decode what h.v. instance fell on site $\colork$\ldots}
         \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \;\; \colorh + 1} - 1$ \Comment{Num seen, less one}
         \State $\texttt{uint\_t} ~ ~ i \gets j - \Call{ModPow2}{j - g_l + G, \;\; G}$ \Comment{H.v. incidence resident at site $\colork$}
-        \Statex \LComment{\ldots then decode ingest time of assigned hanoi value}
-        \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2i + 1) - 1$ \Comment{True ingest time}
-        \State \textbf{yield} $\colorTbar$
-        \Statex
-        \Statex \LComment{Update state for next site iterated over\ldots}
-        \State $\colorh' \gets \colorh' + 1$ \Comment{True hanoi value}
-        \State $g_p \gets g_p + \Call{Bool2Int}{\colorh' = w}$ \Comment{Bump to next segment if current is filled}
-        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{Bool2Int}{\colorh' \neq w}$ \Comment{Reset to h.v. if segment is filled}
+        \State \textbf{yield} $2^{\colorh}(2i + 1) - 1$ \Comment{\ldots then decode ingest time $\colorTbar$ of assigned h.v.}
+        \State \Comment{Update state for next site iterated over\ldots}
+        \State $\colorh' \gets \colorh' + 1$ \Comment{Increment next site's \hv{} guess}
+        \State $g_p \gets g_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current segment is filled}
+        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset h.v. to zero if segment filled and starting new segment}
         \EndFor
     \EndFunction
     \end{algorithmic}

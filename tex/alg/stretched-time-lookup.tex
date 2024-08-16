@@ -25,7 +25,7 @@
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
         \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch}
         \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor}
-        \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{Bool2Int}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
+        \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{I}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
 \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 1} \gets \colortau_{\mkern-5mu\scriptscriptstyle 0} + 1$ \Comment{Next meta-epoch}
         \State $\texttt{uint\_t} ~ ~ G \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at current epoch start}
@@ -41,8 +41,8 @@
         \Statex \LComment{Determine correction factors for not-yet-seen data items $\colorTbar \geq \colorT$}
         \State $\texttt{uint\_t} ~ ~ i' \gets \Call{RightShift}{G + g_p, \;\; b_l + 1}$ \Comment{Guess h.v. incidence (i.e., num seen)}
         \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh}(2i' + 1) - 1$ \Comment{Guess ingest time}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{Bool2Int}{\colorTbar' \geq \colorT} \;\; \times \;\; (w - w_0)$ \Comment{Correction factor, $\colorh$}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{i} \gets \Call{Bool2Int}{\colorTbar' \geq \colorT} \;\; \times \;\; (g_p + G - i')$ \Comment{Correction factor, $i$}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar' \geq \colorT} \;\; \times \;\; (w - w_0)$ \Comment{Correction factor, $\colorh$}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{i} \gets \Call{I}{\colorTbar' \geq \colorT} \;\; \times \;\; (g_p + G - i')$ \Comment{Correction factor, $i$}
         \Statex
         \Statex \LComment{Decode ingest time of assigned hanoi value \ldots}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Guess ingest time of data item at current site}
@@ -52,8 +52,8 @@
         \Statex
         \Statex \LComment{Update state for next site iterated over\ldots}
         \State $\colorh' \gets \colorh' + 1$ \Comment{True hanoi value}
-        \State $g_p \gets g_p + \Call{Bool2Int}{\colorh' = w}$ \Comment{Bump to next segment if current is filled}
-        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{Bool2Int}{\colorh' \neq w}$ \Comment{Reset to h.v. if segment is filled}
+        \State $g_p \gets g_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current is filled}
+        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset to h.v. if segment is filled}
         \EndFor
     \EndFunction
     \end{algorithmic}

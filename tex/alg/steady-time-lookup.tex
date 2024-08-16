@@ -39,15 +39,15 @@
         \Statex
         \Statex \LComment{Decode ingest time of assigned h.v. from segment index $g$, which tells how many instances of that h.v. have been seen before\ldots}
         \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh'}(2g + 1) - 1$ \Comment{Guess ingest time of data item at current site}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{Bool2Int}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on h.v. if assigned instance has not yet been seen}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on h.v. if assigned instance has not yet been seen}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident h.v. at site}
         \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2g + 1) - 1$ \Comment{True ingest time}
         \State \textbf{yield} $\colorTbar$
         \Statex
         \Statex \LComment{Update state for next site iterated over\ldots}
-        \State $b' \gets b' - \Call{Bool2Int}{g' = 0}$ \Comment{Bump to next segment within bunch}
+        \State $b' \gets b' - \Call{I}{g' = 0}$ \Comment{Bump to next segment within bunch}
         \State $b^{*} \gets b' = g' = 0$ \Comment{Should bump to next bunch?}
-        \State $b \gets b + \Call{Bool2Int}{b^{*}}$ \Comment{Do bump to next bunch, if should}
+        \State $b \gets b + \Call{I}{b^{*}}$ \Comment{Do bump to next bunch, if should}
         \State $b' \gets \Call{ElvisOp}{b', \;\; 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
         \EndFor
     \EndFunction
