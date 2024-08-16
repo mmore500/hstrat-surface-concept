@@ -6,7 +6,7 @@
     \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
     \begin{algorithmic}[1]
     \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
-        \ForAll{$v \in \Call{NaiveSteadyLookup}{\colorS, \colorT}}$
+        \ForAll{$v \in \Call{NaiveSteadyLookup}{\colorS,\;\; \colorT}}$
             \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
                 \State \textbf{yield} $v$
             \Else
@@ -14,7 +14,7 @@
             \EndIf
         \EndFor
     \Else \Comment{No filter needed once buffer is filled}
-        \ForAll{$v \in \Call{NaiveSteadyLookup}{\colorS, \colorT}$}
+        \ForAll{$v \in \Call{NaiveSteadyLookup}{\colorS,\;\; \colorT}$}
             \State \textbf{yield} $v$
         \EndFor
     \EndIf
@@ -48,7 +48,7 @@
         \State $b' \gets b' - \Call{Bool2Int}{g' = 0}$ \Comment{Bump to next segment within bunch}
         \State $b^{*} \gets b' = g' = 0$ \Comment{Should bump to next bunch?}
         \State $b \gets b + \Call{Bool2Int}{b^{*}}$ \Comment{Do bump to next bunch, if should}
-        \State $b' \gets \Call{ElvisOp}{b', 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
+        \State $b' \gets \Call{ElvisOp}{b', \;\; 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
         \EndFor
     \EndFunction
     \end{algorithmic}

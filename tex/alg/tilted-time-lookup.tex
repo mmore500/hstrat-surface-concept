@@ -6,7 +6,7 @@
     \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
     \begin{algorithmic}[1]
     \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
-        \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \colorT}}$
+        \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \;\; \colorT}}$
             \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
                 \State \textbf{yield} $v$
             \Else
@@ -14,7 +14,7 @@
             \EndIf
         \EndFor
     \Else \Comment{No filter needed once buffer is filled}
-        \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \colorT}$}
+        \ForAll{$v \in \Call{NaiveTiltedLookup}{\colorS, \;\;\colorT}$}
             \State \textbf{yield} $v$
         \EndFor
     \EndIf
@@ -30,7 +30,7 @@
         \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\colortau_0} -- \colortau_0$ \Comment{Opening epoch of current meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colorT_0 \gets 2^{\colort + \colors - 1}$ \Comment{Opening time of current epoch}
         \Statex
-        \State $\texttt{uint\_t} ~ ~ G' \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \colortau_{\mkern-5mu\scriptscriptstyle 1}}, 1}$ \Comment{Number of invading segments present at current epoch}
+        \State $\texttt{uint\_t} ~ ~ G' \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at current epoch start}
         \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at next epoch start}
         \Statex
@@ -41,7 +41,7 @@
         \State \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
         \State $\texttt{bool\_t} ~ ~ \epsilon_w \gets g_p = 0$ \Comment{Correction factor for segment size}
         \State $\texttt{uint\_t} ~ ~ w \gets w_1 + b_l + \epsilon_w$ \Comment{Number of sites in current segment (i.e., segment size)}
-        \State $\texttt{uint\_t} ~ ~ g_l' \gets \Call{RightShift}{G + g_p, b_l + 1}$ \Comment{Guess logical (fill order) segment index}
+        \State $\texttt{uint\_t} ~ ~ g_l' \gets \Call{RightShift}{G + g_p, \;\; b_l + 1}$ \Comment{Guess logical (fill order) segment index}
         \Statex
         \Statex \LComment{Determine scenario\ldots}
         \Statex \LComment{Scenario A: site in invaded segment, h.v. ring buffer intact}
@@ -61,11 +61,11 @@
         \State $\texttt{uint\_t} ~ ~ G \gets G' + \epsilon_G$
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$
         \State $\texttt{uint\_t} ~ ~ \colorT_c \gets \colorT - \epsilon_{\colorT}$
-        \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{ElvisOp}{\Call{Bool2Int}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), g_l'}$
+        \State $\texttt{uint\_t} ~ ~ g_l \gets \Call{ElvisOp}{\Call{Bool2Int}{X_A \vee X_A'} \;\; \times \;\; (G' + g_p), \;\; g_l'}$
         \Statex
         \Statex \LComment{Decode what h.v. instance fell on site $\colork$\ldots}
-        \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \colorh + 1} - 1$ \Comment{Num seen, less one}
-        \State $\texttt{uint\_t} ~ ~ i \gets j - \Call{ModPow2}{j - g_l + G, G}$ \Comment{H.v. incidence resident at site $\colork$}
+        \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \;\; \colorh + 1} - 1$ \Comment{Num seen, less one}
+        \State $\texttt{uint\_t} ~ ~ i \gets j - \Call{ModPow2}{j - g_l + G, \;\; G}$ \Comment{H.v. incidence resident at site $\colork$}
         \Statex \LComment{\ldots then decode ingest time of assigned hanoi value}
         \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2i + 1) - 1$ \Comment{True ingest time}
         \State \textbf{yield} $\colorTbar$
