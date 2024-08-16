@@ -46,7 +46,7 @@
         \Statex
         \Statex \LComment{Decode ingest time of assigned hanoi value \ldots}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Guess ingest time of data item at current site}
-        \State $\texttt{uint\_t} ~ ~ i \gets \epsilon_{i}$ \Comment{True \hv{} incidence}
+        \State $\texttt{uint\_t} ~ ~ i \gets i' + \epsilon_{i}$ \Comment{True \hv{} incidence}
         \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2i + 1) - 1$ \Comment{True ingest time}
         \State \textbf{yield} $\colorTbar$
         \Statex
