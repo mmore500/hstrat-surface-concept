@@ -24,14 +24,14 @@
         \State $\texttt{uint\_t} ~ ~ \colort_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - \colortau_{\mkern-5mu\scriptscriptstyle 0}$ \Comment{Opening epoch of current meta-epoch}
         \State $\texttt{uint\_t} ~ ~ \colorT_0 \gets 2^{\colort + \colors - 1}$ \Comment{Opening time of current epoch}
         \State $\texttt{uint\_t} ~ ~ G' \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
-        \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at current epoch start}
-        \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at next epoch start}
-        \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Assigned hanoi value of 0th site}
-        \State $\texttt{uint\_t} ~ ~ g_p \gets 0$ \Comment{Left-to-right (physical) segment index}
-        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over buffer sites}
+        \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 0}$}
+        \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 1}$}
+        \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Reserved hanoi value, $\colork=0$}
+        \State $\texttt{uint\_t} ~ ~ g_p \gets 0$ \Comment{Reserved hanoi value, $\colork=0$}
+        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over all buffer sites}
         \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{G + g_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
         \Statex \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
-        \State $\texttt{bool\_t} ~ ~ \epsilon_w \gets g_p = 0$ \Comment{Correction factor for segment size}
+        \State $\texttt{bool\_t} ~ ~ \Call{I}{\epsilon_w \gets g_p = 0}$ \Comment{Correction factor for segment size}
         \State $\texttt{uint\_t} ~ ~ w \gets w_1 + b_l + \epsilon_w$ \Comment{Number of sites in current segment (i.e., segment size)}
         \State $\texttt{uint\_t} ~ ~ g_l' \gets \Call{RightShift}{G + g_p, \;\; b_l + 1}$ \Comment{Guess logical (fill order) segment index}
         \Statex \Comment{\textbf{Scenario A}: site in invaded segment, \hv{} ring buffer intact}
@@ -54,7 +54,7 @@
         \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \;\; \colorh + 1} - 1$ \Comment{Num seen, less one}
         \State $\texttt{uint\_t} ~ ~ i \gets j - \Call{ModPow2}{j - g_l + G, \;\; G}$ \Comment{H.v. incidence resident at site $\colork$}
         \State \textbf{yield} $2^{\colorh}(2i + 1) - 1$ \Comment{\ldots then decode ingest time $\colorTbar$ of assigned \hv{}}
-        \State \Comment{Update state for next site iterated over\ldots}
+        \Statex \Comment{Update state for next site $\colork+1$ to iterate over\ldots}
         \State $\colorh' \gets \colorh' + 1$ \Comment{Increment next site's \hv{} guess}
         \State $g_p \gets g_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current segment is filled}
         \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset \hv{} to zero if segment filled and starting new segment}
