@@ -22,10 +22,11 @@
       \caption{%
       \textbf{Core stream curation algorithm operations.}
       \footnotesize
-      The ingest site selection operation (item ``a'') takes the current time $\colorT$ and determines the buffer site $\colork$ to store the ingested data item.
+      The ingest site selection operation (operation shown as \textit{item ``a''}) takes the current time $\colorT$ and determines the buffer site $\colork$ to store the ingested data item.
+      Data items may also be discarded without storage, as are $\colorTbar=4$ and $\colorTbar=6$ in this example.
       This operation is performed when storing data into a curated buffer, once for each data item received from the data stream.
       Data is not moved after it is stored.
-      The ingested time calculation operation (item ``b'') provides the previous time $\colorTbar$ when the data item present at buffer site $\colork$ was ingested, given the current time $\colorT$.
+      The ingested time calculation operation (operation shown as \textit{item ``b''}) provides the previous time $\colorTbar$ when the data item present at buffer site $\colork$ was ingested, given the current time $\colorT$.
       This operation is performed when reading data from a curated buffer, in order to identify the provenance of stored data.
       Note that which data item $\colorTbar$ occupies a buffer site $\colork$ at time $\colorT$ results solely from the sequence of ingest storage sites selected up to that point.
       As such, the site lookup operation $\colorL$ can be considered, in a loose sense, as ``decoding'' or ``inverse'' to the site selection operation $\colorK$.

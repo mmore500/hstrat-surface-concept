@@ -3,12 +3,12 @@
 % In this work, we have developed new strategies for ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points, focusing in particular on fixed-capacity procedures amenable to resource-constrained use cases.
 
 Our proposed DStream approach adopts a strong simplifying constraint: we assume a fixed number of buffer sites where items ingested from a data stream may be written and, once stored, we do not allow them to be subsequently inspected or moved.
-Only one further event may occur after a data item is stored, in that it may be overwritten by a later data item.
+The only further event that may occur after a data item is stored is being overwritten by a later data item.
 We also allow ingested data items to be discarded without storage.
 Under this regime, the composition of retained data emerges implicitly as a consequence of items targeted for overwrite.
 Put another way, curation policy is exercised solely through ``\textit{site selection}'' when picking a buffer index for the $n$th received data item.
 
-Note that this operational scheme inherently forgoes any explicit data labeling, timestamping, or other structure (e.g., pointers).
+Note that this operational scheme supports particularly efficient storage of fine-grained data tiems, as it inherently forgoes overhead from explicit data labeling, timestamping, or other structure (e.g., pointers).
 Instead, we require site selection to be computable \textit{a priori}.
 As a further consequence, efficient attribution of data items' origin time hence requires support for efficient ``inverse'' decoding of a stored data item's origin time based solely on its buffer index and how many items have been ingested from the data stream.
 We term this operation ``\textit{site lookup}.''
