@@ -42,8 +42,8 @@
         \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh'}(2m_p + 1) - 1$ \Comment{Guess ingest time of data item at current site}
         \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on \hv{} if assigned instance not yet seen (i.e., $\colorTbar \geq \colorT$)}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident \hv{} at site}
-        \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2m_p + 1) - 1$ \Comment{True ingest time}
-        \State \textbf{yield} $\colorTbar$
+        \State $\texttt{uint\_t} ~ ~ \colorTbar_k \gets 2^{\colorh}(2m_p + 1) - 1$ \Comment{True ingest time}
+        \State \textbf{yield} $\colorTbar_k$
         \Statex
         \Statex \Comment{Update state for next site iterated over\ldots}
         \State ${\colork}^{\scriptscriptstyle\shortdownarrow}_m \gets \Call{ElvisOp}{{\colork}^{\scriptscriptstyle\shortdownarrow}_m, \;\; w} - 1$ \Comment{Bump to next site in segment, or reset for new segment}

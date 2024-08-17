@@ -112,7 +112,7 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         j = ((Tc + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
         i = j - modpow2(j - m_l + M, M)  # H.v. incidence resident at site k
         # ... then decode ingest time for that ith h.v. instance
-        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
+        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar_k
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment

@@ -66,14 +66,14 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Determine correction factors for not-yet-seen data items, Tbar_ >= T
         i_ = (M + m_p) >> (b_l + 1)  # Guess h.v. incidence (i.e., num seen)
-        Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
-        epsilon_h = (Tbar_ >= T) * (w - w0)  # Correction factor, h
-        epsilon_i = (Tbar_ >= T) * (m_p + M - i_)  # Correction factor, i
+        Tbar_k_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
+        epsilon_h = (Tbar_k_ >= T) * (w - w0)  # Correction factor, h
+        epsilon_i = (Tbar_k_ >= T) * (m_p + M - i_)  # Correction factor, i
 
         # Decode ingest time for ith instance of assigned h.v.
         h = h_ - epsilon_h  # True hanoi value
         i = i_ + epsilon_i  # True h.v. incidence
-        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
+        yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar_k
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
