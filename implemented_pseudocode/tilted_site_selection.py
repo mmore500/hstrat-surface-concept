@@ -51,7 +51,7 @@ def tilted_site_selection(S: int, T: int) -> typing.Optional[int]:
         Selected site, if any.
     """
     s = S.bit_length() - 1
-    t = max((T + 1).bit_length() - s, 0)  # Current epoch
+    t = max((T).bit_length() - s, 0)  # Current epoch
     h = ctz(T + 1)  # Current hanoi value
     i = T >> (h + 1)  # Hanoi value incidence (i.e., num seen)
 
