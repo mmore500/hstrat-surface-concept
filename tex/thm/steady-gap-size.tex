@@ -4,10 +4,10 @@ Under the steady curation algorithm, no gap size $\colorg$ exceeds $\left\lceil 
 \end{theorem}
 \begin{proof}
 Recall that the time between instances of a data item with \hv{} $\colorH(\colorTbar) = \colorh$ is $2^{\colorh + 1}$ data items.
-Recall also that the time elapsed between a \hv{} $\colorh$ and a data item with \hv{} $>\colorh$ is is $2^{\colorh}$ data items.
+Recall also that the time elapsed between a \hv{} $\colorh$ and a data item with \hv{} $>\colorh$ is $2^{\colorh}$ data items.
 
 Under the proposed algorithm, we retain all data items for hanoi values $\colorh = \max (\colort - \colors, 0)$ and greater.
-So, then retained data items occur at most $2^{\max(\colort - \colors, 0)}$ time steps apart.
+So, retained data items occur at most $2^{\max(\colort - \colors, 0)}$ time steps apart.
 This corresponds to gap size at most $2^{\max(\colort - \colors, 0)} - 1$.
 Finally, we test
 \begin{align*}

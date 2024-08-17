@@ -86,9 +86,9 @@ Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing the ti
 
 \input{alg/tilted-site-selection}
 
-Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
-Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
-Tilted site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:tilted-time-lookup}.
+The data item $\colorTbar$ present at buffer site $\colork$ at time $\colorT$ can be determined by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+Both site selection $\colorK$ and lookup $\colorL$ can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
+Tilted site lookup is provided in supplementary material, as Algorithm \ref{alg:tilted-time-lookup}.
 Reference Python implementations appear in Supplementary Listings \ref{lst:tilted_site_selection.py} and \ref{lst:tilted_time_lookup.py}, as well as accompanying tests.
 
 \subsection{Tilted Algorithm Criterion Satisfaction}

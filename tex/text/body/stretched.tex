@@ -5,8 +5,8 @@ The criterion can be formulated as minimization of the largest ratio of gap size
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
-For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items geometrically by ratio $\colorT^{1/\colorS}$ so that gap size grows proportionally to $\colorTbar$.
-Counting from zero, under such a layout the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
+For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items so that gap size grows proportionally to $\colorTbar$.
+Under such a layout spacing between data items would scale exponentially, and --- counting from zero --- the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
 Deriving an approximate bound without accounting for discretization effects, gap size ratio would be minimized at best,
 \begin{align}
 \label{eqn:approx-gap-bound}
@@ -46,7 +46,7 @@ Notably, guarantees cap gap size ratio ${\colorG_{\colorT}(\colorTbar)}/{\colorT
 \label{sec:stretched-strategy}
 
 As with the steady algorithm, processing data items $\colorTbar$ based on their hanoi value $\colorH(\colorTbar)$ provides the backbone of our approach to stretched curation.
-However, instead of keeping just the $n$ highest \hv{}'s encountered, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered \hv{}'s.
+However, instead of keeping just the $m$ highest \hv{}'s encountered, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered \hv{}'s.
 Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each \hv{} approximates stretched distribution.
 
 To respect fixed buffer capacity, per-\hv{} capacity $n$ must degrade as we encounter new \hv{}'s.
@@ -55,10 +55,11 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
 \textsf{goal\_stretched}
 &\coloneq
 \bigcup_{\colorh \geq 0}
-\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \leq \colorT \}
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \leq \colorT \}.
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
+The set $\textsf{goal\_stretched}$ is constructed as a union of the smallest $n(\colorT)$ instances of each \hv{}, excluding those not yet encountered at current time $\colorTbar$
 By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT]$.
 Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
@@ -72,7 +73,7 @@ Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\c
 
 \input{fig/hsurf-stretched-implementation.tex}
 
-Be reminded that our stretched retention goal is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+Be reminded that our stretched retention plan is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
 A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ \hv{}'s $\colorh$ encountered through epoch $\colort$ with $\colorT \in \colortsetofT$.
 However, such a naive approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
@@ -115,7 +116,7 @@ These segment sizes can be shown to exactly fill available buffer space $\colorS
 
 Thus far, we have only considered segment sizes --- and not discussed arrangement of segment order within buffer space $\colorS$.
 One naive approach would simply order segments by length, as previously in Section \ref{sec:steady}.
-However, adopting the hanoi sequence's natural ordering, as done in Formula \ref{eqn:stretched-segment-sizes}, will turn out to serve our objectives.
+However, as we will see shortly, it turns out that adopting the hanoi sequence's natural ordering (as done in Formula \ref{eqn:stretched-segment-sizes}) better serves our objectives.
 The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer, with segments sized and arranged directly as enumerated in Formula \ref{eqn:stretched-segment-sizes}.
 
 \subsubsection{Stretched Algorithm Layout at $\colort,\colortau\geq1$}
@@ -135,7 +136,7 @@ In subsequent epochs $\colort>1$, we can continue dissolving the smallest, inner
 Figure \ref{fig:hsurf-stretched-intuition-reservations} shows several steps through this ``invasion'' process on a 32-site buffer.
 At final epoch $\colort=\colorS-\colors - 1$ (i.e., $\colorT \approx 2^{\colorS - 1}$), the proposed process of progressive, nested segment subsumption culminates to a single reservation segment containing one site for each \hv{} $0 \leq \colorh < \colorS$.
 
-We will next show our definition of meta-epoch $\colortau$ corresponds precisely to the timing with which successive inner segments are subsumed.
+We will next show that meta-epochs $\colortau$, as defined earlier in Section \ref{sec:notation-meta-epoch}, correspond precisely to the timing with which successive inner segments are subsumed.
 
 \input{thm/stretched-meta-epoch.tex}
 
@@ -158,7 +159,7 @@ Algorithm \ref{alg:stretched-site-selection} provides a step-by-step listing of 
 
 Stretched site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:stretched-time-lookup}.
 Reference Python implementations appear in Supplementary Listings \ref{lst:stretched_site_selection.py} and \ref{lst:stretched_time_lookup.py}, as well as accompanying tests.
-Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+The data item $\colorTbar$ present at buffer site $\colork$ at time $\colorT$ can be determined by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
 
 \subsection{Stretched Algorithm Criterion Satisfaction}
@@ -169,5 +170,5 @@ In this final subsection, we establish an upper bound on gap size ratio $\colorg
 \input{thm/stretched-gap-size}
 
 During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 4/\colorS$.
-Likewise, during the last supported meta-epoch $\colortau = \colors - 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$.
+Likewise, at the opposite extremum, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$ during the last supported meta-epoch $\colortau = \colors - 1$.
 Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$.

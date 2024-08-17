@@ -9,18 +9,19 @@ The timing of meta-epoch $\colortau$, defined in Section \ref{sec:notation-metae
 Recall that under the stretched algorithm's proposed layout strategy, buffer space is filled without any overwrites during epoch 0.
 Then, during subsequent epochs, half of segments (designated ``invading'' segments) grow by addition of new high-\hv{} sites.
 The other half of reservation segments are subsumed one site at a time, successively losing low-\hv{} sites to their invading neighbors.
-Note that ``invaded'' reservations are not allowed to add high-\hv{} sites --- during the invasion process, they are frozen while being eliminated.
+Note that ``invaded'' segments are not allowed to add high-\hv{} sites --- during the invasion process, they are frozen while being eliminated.
 
 By specification, ``invaded'' segments are always those of smallest remaining size.
 Owing to the recursively nested structure of segment layout, smallest-remaining segments are always interspersed every second and always constitute half of active segments.
 
 Because invading segments grow by exactly one buffer site per epoch, the number of epochs $\colort$ it takes for a reservation segment to be invaded to elimination corresponds exactly to the invaded segment's reservation size at invasion outset.
-Our proof objective can thus be recast as determining the mature, frozen-for-elimination size $R(r)$ of segments initialized size $r$ at epoch $\colort=0$.
+Our proof objective can thus be recast as determining the maximal ``mature''' size $R(r)$ reached by segments initialized size $r$ at epoch $\colort=0$ before frozen for elimination.
 
-For reservation segments with $r=1$ invaded beginning epoch $\colort=1$ and meta-epoch $\colortau = 1$, our goal is therefore to show $|\colort \in \colortausetoft| = 2^{\colortau} - 1$ matches $R(r)$ by showing $R(r) = 2^{r} - 1$.
+Recall from Section \ref{sec:notation-metaepoch} that the duration of meta-epoch $\tau$, $|\colort \in \colortausetoft|$, is $2^{\colortau} - 1$.
+For reservation segments with $r=1$ (which are invaded in epoch $\colort=1$ and meta-epoch $\colortau = 1$), our goal is therefore to show $|\colort \in \colortausetoft| = 2^{\colortau} - 1$ matches $R(r)$ by showing $R(r) = 2^{r} - 1$.
 As already mentioned, initialized-singleton $r=1$ segments are always invaded first, in epoch $\colort=1$.
-Trivially, these segments also have $R(1) = 1$. on account of never having the opportunity to act as invader.
-Segments initialized size $r=2$ are invaded next.
+Trivially, these segments also have $R(1) = 1$. on account of never having the opportunity to act as an invader.
+Segments initialized at size $r=2$ are invaded next.
 These segments acted as invader during epoch $\colort=1$, so grew to size $R(2) = 3$.
 Note that $R(1) \stackrel{\checkmark}{=} 2^1 - 1$ and $R(2) \stackrel{\checkmark}{=} 2^2 - 1$.
 
