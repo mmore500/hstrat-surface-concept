@@ -73,22 +73,22 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     t0 = (1 << tau0) - tau0  # Opening epoch of current meta-epoch
     T0 = 1 << (t + s - 1)  # Opening time of current epoch
 
-    G_ = S >> tau1 or 1  # Number of invading segments present at current epoch
+    M_ = S >> tau1 or 1  # Number of invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
     w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g_p = 0  # Left-to-right (physical) segment index
+    m_p = 0  # Left-to-right (physical) segment index
     for k in range(S):  # For each site in buffer...
-        b_l = ctz(G_ + g_p)  # Reverse fill order (logical) bunch index
-        epsilon_w = g_p == 0  # Correction factor for segment size
+        b_l = ctz(M_ + m_p)  # Reverse fill order (logical) bunch index
+        epsilon_w = m_p == 0  # Correction factor for segment size
         w = w1 + b_l + epsilon_w  # Number of sites in current segment
-        g_l_ = (G_ + g_p) >> (b_l + 1)  # Logical (fill order) segment index
+        m_l_ = (M_ + m_p) >> (b_l + 1)  # Logical (fill order) segment index
 
         # Detect scenario...
         # Scenario A: site in invaded segment, h.v. ring buffer intact
         X_A = h_ - (t - t0) > w - w0  # To be invaded in future epoch t in tau?
-        T_i = ((2 * g_l_ + 1) << h_) - 1  # When overwritten by invader?
+        T_i = ((2 * m_l_ + 1) << h_) - 1  # When overwritten by invader?
         X_A_ = h_ - (t - t0) == w - w0 and T_i >= T  # Invaded at this epoch?
 
         # Scenario B site in invading segment, h.v. ring buffer intact
@@ -99,22 +99,22 @@ def tilted_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         assert X_A + X_A_ + X_B + X_B_ <= 1  # scenarios are mutually exclusive
 
         # Calculate corrected values...
-        epsilon_G = (X_A or X_A_ or X_B or X_B_) * G_
+        epsilon_G = (X_A or X_A_ or X_B or X_B_) * M_
         epsilon_h = (X_A or X_A_) * (w - w0)
         epsilon_T = (X_A_ or X_B_) * (T - T0)  # Snap back to start of epoch
 
-        G = G_ + epsilon_G
+        M = M_ + epsilon_G
         h = h_ - epsilon_h
         Tc = T - epsilon_T  # Corrected time
-        g_l = (X_A or X_A_) * (G_ + g_p) or g_l_
+        m_l = (X_A or X_A_) * (M_ + m_p) or m_l_
 
         # Decode what h.v. instance fell on site k...
         j = ((Tc + (1 << h)) >> (h + 1)) - 1  # Num seen, less one
-        i = j - modpow2(j - g_l + G, G)  # H.v. incidence resident at site k
+        i = j - modpow2(j - m_l + M, M)  # H.v. incidence resident at site k
         # ... then decode ingest time for that ith h.v. instance
         yield ((2 * i + 1) << h) - 1  # True ingest time, Tbar
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
-        g_p += h_ == w  # Bump to next segment if current is filled
+        m_p += h_ == w  # Bump to next segment if current is filled
         h_ *= h_ != w  # Reset h.v. if segment is filled

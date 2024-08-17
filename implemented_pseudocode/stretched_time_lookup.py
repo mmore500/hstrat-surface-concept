@@ -51,24 +51,24 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     tau0 = blt - epsilon_tau  # Current meta-epoch
     tau1 = tau0 + 1  # Next meta-epoch
 
-    G = (S >> tau1) or 1  # Num invading segments present at current epoch
+    M = (S >> tau1) or 1  # Num invading segments present at current epoch
     w0 = (1 << tau0) - 1  # Smallest segment size at current epoch start
     w1 = (1 << tau1) - 1  # Smallest segment size at next epoch start
 
     h_ = 0  # Assigned hanoi value of 0th site
-    g_p = 0  # Calc left-to-right index of 0th segment (physical segment idx)
+    m_p = 0  # Calc left-to-right index of 0th segment (physical segment idx)
     for k in range(S):  # For each site in buffer...
-        b_l = ctz(G + g_p)  # Logical bunch index...
+        b_l = ctz(M + m_p)  # Logical bunch index...
         # ... REVERSE fill order (decreasing nestedness/increasing init size r)
 
-        epsilon_w = g_p == 0  # Correction factor for segment size
+        epsilon_w = m_p == 0  # Correction factor for segment size
         w = w1 + b_l + epsilon_w  # Number of sites in current segment
 
         # Determine correction factors for not-yet-seen data items, Tbar_ >= T
-        i_ = (G + g_p) >> (b_l + 1)  # Guess h.v. incidence (i.e., num seen)
+        i_ = (M + m_p) >> (b_l + 1)  # Guess h.v. incidence (i.e., num seen)
         Tbar_ = ((2 * i_ + 1) << h_) - 1  # Guess ingest time
         epsilon_h = (Tbar_ >= T) * (w - w0)  # Correction factor, h
-        epsilon_i = (Tbar_ >= T) * (g_p + G - i_)  # Correction factor, i
+        epsilon_i = (Tbar_ >= T) * (m_p + M - i_)  # Correction factor, i
 
         # Decode ingest time for ith instance of assigned h.v.
         h = h_ - epsilon_h  # True hanoi value
@@ -77,5 +77,5 @@ def stretched_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
         # Update state for next site...
         h_ += 1  # Assigned h.v. increases within each segment
-        g_p += h_ == w  # Bump to next segment if current is filled
+        m_p += h_ == w  # Bump to next segment if current is filled
         h_ *= h_ != w  # Reset h.v. if segment is filled

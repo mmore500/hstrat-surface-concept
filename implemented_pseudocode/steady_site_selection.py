@@ -41,8 +41,8 @@ def steady_site_selection(S: int, T: int) -> typing.Optional[int]:
         w = s  # Segment width
     else:
         j = bit_floor(i) - 1  # Num full-bunch segments
-        b = j.bit_length()  # Num full bunches
-        k = (1 << b) * (s - b + 1) - 1  # Bunch position
+        B = j.bit_length()  # Num full bunches
+        k = (1 << B) * (s - B + 1) - 1  # Bunch position
         w = h - t + 1  # Segment width
         assert w > 0
         o = w * (i - j - 1)  # Within-bunch offset

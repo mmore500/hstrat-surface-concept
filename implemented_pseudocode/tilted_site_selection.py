@@ -61,9 +61,9 @@ def tilted_site_selection(S: int, T: int) -> typing.Optional[int]:
     t_0 = (1 << tau) - tau  # Opening epoch of meta-epoch
     t_1 = (1 << (tau + 1)) - (tau + 1)  # Opening epoch of next meta-epoch
     epsilon_b = t < h + t_0 < t_1  # Uninvaded correction factor
-    b = S >> (tau + 1 - epsilon_b) or 1  # Num bunches available to h.v.
+    B = S >> (tau + 1 - epsilon_b) or 1  # Num bunches available to h.v.
 
-    b_l = modpow2(i, b)  # Logical bunch index...
+    b_l = modpow2(i, B)  # Logical bunch index...
     # ... i.e., in order filled (increasing nestedness/decreasing init size r)
 
     # Need to calculate physical bunch index...
