@@ -53,7 +53,7 @@
         \State \Comment{Decode what \hv{} instance fell on site $\colork$\ldots}
         \State $\texttt{uint\_t} ~ ~ j \gets \Call{RightShift}{\colorT_c + 2^{\colorh}, \;\; \colorh + 1} - 1$ \Comment{Most recent instance of \hv, zero-indexed (i.e., num seen less 1)}
         \State $\texttt{uint\_t} ~ ~ i \gets j - \Call{ModPow2}{j - m_l + M, \;\; M}$ \Comment{Hanoi value incidence resident at site $\colork$}
-        \State \textbf{yield} $2^{\colorh}(2i + 1) - 1$ \Comment{Decode ingest time $\colorTbar_k$ of assigned \hv{}}
+        \State \textbf{yield} $2^{\colorh}(2i + 1) - 1$ \Comment{Decode ingest time $\colorTbar_{\colork}$ of assigned \hv{}}
         \Statex \Comment{Update state for next site $\colork+1$ to iterate over\ldots}
         \State $\colorh' \gets \colorh' + 1$ \Comment{Increment next site's \hv{} guess}
         \State $m_p \gets m_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current segment is filled}
