@@ -1,5 +1,7 @@
 { pkgs }: {
     deps = [
+      pkgs.python311Packages.pytest
+      pkgs.python310Packages.pytest
       pkgs.vim
       pkgs.pandoc
       pkgs.texlive.combined.scheme-full
