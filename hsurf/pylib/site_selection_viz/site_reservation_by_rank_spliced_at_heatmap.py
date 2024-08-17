@@ -63,6 +63,14 @@ def site_reservation_by_rank_spliced_at_heatmap(
             reservation_mode=reservation_mode,
         )
         ax.set_ylim(*panel_lim)
+        ymin, ymax = panel_lim
+        yticks = [
+            ymin,
+            *(y for y in range(ymin + 3, ymax - 2) if y % 8 == 0),
+            ymax - 1,
+        ]
+        ax.set_yticks(np.array(yticks) + 0.5)
+        ax.set_yticklabels(yticks)
 
     for ax, splice_from_rank in tqdm(zip(splice_axs, splice_from_ranks)):
         ax = site_reservation_at_rank_heatmap(
