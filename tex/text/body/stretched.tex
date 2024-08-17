@@ -152,10 +152,14 @@ As invasion eliminates smallest initialized segments first, this approach guaran
 We may thus reinterpret Lemma \ref{thm:stretched-discarded-incidence-count} as providing guarantees on the first $n$ instances of each \hv{} retained.
 Once sites reserved to \hv{} $\colorh$ fill, it is necessary to discard further instances $\colorH(\colorTbar) = \colorh$ without storage.
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates the resulting site selection process $\colorK(\colorT)$ over epochs $\colort \in \{0,1,2\}$ on an example buffer, size $\colorS=32$.
+Algorithm \ref{alg:stretched-site-selection} provides a step-by-step listing of the stretched site selection procedure, which is $\mathcal{O}(1)$.
 
+\input{alg/stretched-site-selection}
+
+Stretched site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:stretched-time-lookup}.
+Reference Python implementations appear in Supplementary Listings \ref{lst:stretched_site_selection.py} and \ref{lst:stretched_time_lookup.py}, as well as accompanying tests.
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
-We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the stretched algorithm.
 
 \subsection{Stretched Algorithm Criterion Satisfaction}
 \label{sec:stretched-satisfaction}

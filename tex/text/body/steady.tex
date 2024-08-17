@@ -71,8 +71,12 @@ In determining storage site $\colork$ for ingest $\colorTbar$, we map incoming d
 Calculating the number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be stored.
 Lemma \ref{thm:steady-hv-elimination} verifies the behavior of this procedure.
 
-We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of this procedure, which comprises a handful of fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
-Also implemented fully in accompanying materials, ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+\input{alg/steady-site-selection}
+
+Algorithm \ref{alg:steady-site-selection} provides a step-by-step listing of site selection calculation $\colorK(\colorT)$, which is $\mathcal{O}(1)$.
+Site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:steady-time-lookup}.
+Reference Python implementations appear in Supplementary Listings \ref{lst:steady_site_selection.py} and \ref{lst:steady_time_lookup.py}, as well as accompanying tests.
+Ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Batch calculation of ingestion times of all data items stored in a buffer proceeds with time complexity $\mathcal{O}(1)$ per item.
 
 \subsection{Steady Algorithm Criterion Satisfaction}

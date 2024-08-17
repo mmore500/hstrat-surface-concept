@@ -81,11 +81,15 @@ We take particular care in considering transitions where the ``ring buffer'' of 
 
 Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched} -- with the exception that, instead of discarding data items once available sites reserved to that \hv{} have filled, we simply cycle back and overwrite data items within that \hv{}'s reservations in the order that they were added.
 In practice, the target index among available sites reserved to a \hv{} can be calculated as the number of previous times a \hv{} has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
-Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
+Figure \ref{fig:hsurf-tilted-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
+Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing the tilted site selection procedure, which is $\mathcal{O}(1)$.
+
+\input{alg/tilted-site-selection}
 
 Ingestion time calculation for lookup of the data item at buffer site $\colork$ at time $\colorT$ can be accomplished by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
 Both site selection and ingest time calculation can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
-We refer the reader to our supplemental Python-language implementation for an exact step-by-step listing of both operations for the tilted algorithm.
+Tilted site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:tilted-time-lookup}.
+Reference Python implementations appear in Supplementary Listings \ref{lst:tilted_site_selection.py} and \ref{lst:tilted_time_lookup.py}, as well as accompanying tests.
 
 \subsection{Tilted Algorithm Criterion Satisfaction}
 \label{sec:tilted-satisfaction}
