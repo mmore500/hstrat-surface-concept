@@ -46,6 +46,7 @@
         \State \textbf{yield} $\colorTbar$
         \Statex
         \Statex \Comment{Update state for next site iterated over\ldots}
+        \State ${\colork}^{\scriptscriptstyle\shortdownarrow}_m \gets \Call{ElvisOp}{{\colork}^{\scriptscriptstyle\shortdownarrow}_m, \;\; w} - 1$ \Comment{Bump to next site in segment, or reset for new segment}
         \State $m^{\scriptscriptstyle\shortdownarrow}_b \gets m^{\scriptscriptstyle\shortdownarrow}_b - \Call{I}{{\colork}^{\scriptscriptstyle\shortdownarrow}_m  = 0}$ \Comment{Bump to next segment within bunch}
         \State $b^{*} \gets (m^{\scriptscriptstyle\shortdownarrow}_b = 0) \wedge ({\colork}^{\scriptscriptstyle\shortdownarrow}_m = 0)$ \Comment{Should bump to next bunch?}
         \State $b \gets b + \Call{I}{b^{*}}$ \Comment{Do bump to next bunch, if should}
