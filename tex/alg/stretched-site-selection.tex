@@ -12,8 +12,8 @@
         \State $\texttt{uint\_t} ~ ~ i \gets \Call{RightShift}{\colorT, \;\; \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
         \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor}
         \State $\texttt{uint\_t} ~ ~ \colortau \gets  \Call{BitLength}{\colort} - \Call{I}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
-        \State $\texttt{uint\_t} ~ ~ b \gets \min(1,\;\; \Call{RightShift}{\colorS, \;\; \colortau + 1})$ \Comment{Num bunches available to \hv}
-        \If{$i \geq b$} \Comment{If seen more than sites reserved to \hv{}\;\ldots}
+        \State $\texttt{uint\_t} ~ ~ B \gets \min(1,\;\; \Call{RightShift}{\colorS, \;\; \colortau + 1})$ \Comment{Num bunches available to \hv}
+        \If{$i \geq B$} \Comment{If seen more than sites reserved to \hv{}\;\ldots}
             \State \Return \nullval \Comment{\ldots discard without storing}
         \EndIf
         \Statex
