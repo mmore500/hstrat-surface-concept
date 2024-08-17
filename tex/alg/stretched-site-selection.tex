@@ -32,10 +32,10 @@
         \Statex
         \Statex \Comment{Need to calculate buffer position of $b_p$\textsuperscript{th} bunch}
         \Statex
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colork} = \Call{I}{b_l > 0}$  \Comment{Correction factor, 0\textsuperscript{th} bunch (i.e., bunch $r=\colors$ at site $\colork=0$)}
-        \State $\texttt{uint\_t} ~ ~ \colork \gets \Call{BitCount}{2b_p +(2\colorS - b_p)} - 1 - \epsilon_{\colork}$  \Comment{Site index of bunch}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colork_b} = \Call{I}{b_l > 0}$  \Comment{Correction factor, 0\textsuperscript{th} bunch (i.e., bunch $r=\colors$ at site $\colork=0$)}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets \Call{BitCount}{2b_p +(2\colorS - b_p)} - 1 - \epsilon_{\colork_b}$  \Comment{Site index of bunch}
         \Statex
-        \State \Return $\colork + \colorh$ \Comment{Calculate placement site, \hv{} $\colorh$ is offset within bunch}
+        \State \Return $\colork_b + \colorh$ \Comment{Calculate placement site, \hv{} $\colorh$ is offset within bunch}
     \end{algorithmic}
 \end{minipage}
 \end{algorithm}

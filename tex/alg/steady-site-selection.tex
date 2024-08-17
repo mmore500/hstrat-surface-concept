@@ -13,7 +13,7 @@
         \EndIf
         \State $\texttt{uint\_t} ~ ~ i \gets \Call{RightShift}{\colorT, \;\; \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
         \If{$i = 0$} \Comment{Special case the 0th bunch}
-        \State $\texttt{uint\_t} ~ ~ \colork \gets 0$ \Comment{Bunch position}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets 0$ \Comment{Bunch position}
         \State $\texttt{uint\_t} ~ ~ o \gets 0$ \Comment{Within-bunch offset}
         \State $\texttt{uint\_t} ~ ~ w \gets \colors$ \Comment{Segment width}
         \Else
@@ -23,13 +23,13 @@
         % \State $k_{b} \gets 2^{b}(\colors - 1) - (\colors - 1) - b2^{b} + 2^{b + 1} - 2$ \Comment{Bunch position}
         % \State $k_{b} \gets 2^{b}\colors - 2^{b} - \colors + 1 - b2^{b} + 2^{b + 1} - 2$ \Comment{Bunch position}
         % \State $k_{b} \gets 2^{b}(\colors - 1 - b + 2) - \colors + 1 - 2$ \Comment{Bunch position}
-        \State $\texttt{uint\_t} ~ ~ \colork \gets 2^{b}(\colors - b + 1) - 1$ \Comment{Bunch position}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets 2^{b}(\colors - b + 1) - 1$ \Comment{Bunch position}
         % \State $k_{b} \gets 2^{b}(\colors - b) + 2^{b + 1} - 2$ \Comment{Bunch position}
         \State $\texttt{uint\_t} ~ ~ w \gets \colorh - \colort + 1$ \Comment{Segment width}
         \State $\texttt{uint\_t} ~ ~ o \gets w (i - j - 1)$ \Comment{Within-bunch offset}
         \EndIf
         \State $\texttt{uint\_t} ~ ~ p \gets \colorh \bmod w$ \Comment{Within-segment offset}
-        \State \Return $\colork + o + p$ \Comment{Calculate placement site}
+        \State \Return $\colork_b + o + p$ \Comment{Calculate placement site}
     \end{algorithmic}
 \end{minipage}
 \end{algorithm}
