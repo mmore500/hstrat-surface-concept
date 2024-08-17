@@ -76,11 +76,11 @@ def tilted_site_selection(S: int, T: int) -> typing.Optional[int]:
     # ... i.e., in left-to-right sequential bunch order
 
     # Need to calculate buffer position of b_p'th bunch
-    epsilon_k = bool(b_l)  # Correction factor for zeroth bunch...
+    epsilon_k_b = bool(b_l)  # Correction factor for zeroth bunch...
     # ... i.e., bunch r=s at site k=0
-    k = (  # Site index of bunch
-        (b_p << 1) + ((S << 1) - b_p).bit_count() - 1 - epsilon_k
+    k_b = (  # Site index of bunch
+        (b_p << 1) + ((S << 1) - b_p).bit_count() - 1 - epsilon_k_b
     )
 
-    return k + h  # Calculate placement site...
+    return k_b + h  # Calculate placement site...
     # ... where h.v. h is offset within bunch
