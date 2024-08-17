@@ -33,19 +33,19 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     t = (T + 1).bit_length() - s  # Current epoch
 
     b = 0  # Bunch physical index (left-to right)
-    b_prime = 1  # Countdown on segments traversed within bunch
+    m_b__ = 1  # Countdown on segments traversed within bunch
     b_star = True  # Have traversed all segments in bunch?
-    m_prime = s  # Countdown on sites traversed within segment
-    h_ = None  # Candidate hanoi value
+    k_m__ = s  # Countdown on sites traversed within segment
+    h_ = None  # Candidate hanoi value__
 
     for k in range(S - 1):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
         w = s - b  # Number of sites in current segment (i.e., segment size)
-        m = (1 << b) - b_prime  # Calc left-to-right index of current segment
+        m = (1 << b) - m_b__  # Calc left-to-right index of current segment
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
         # Calculate candidate hanoi value...
-        _h0, h_ = h_, h_max - (h_max + m_prime) % w
+        _h0, h_ = h_, h_max - (h_max + k_m__) % w
         assert (_h0 == h_) or b_star  # Can skip h calc if b_star is False...
         del _h0  # ... i.e., skip calc within each bunch [[see below]]
 
@@ -58,15 +58,15 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
         yield T_bar
 
         # Update within-segment state for next site...
-        m_prime = (m_prime or w) - 1  # Bump to next site within segment
+        k_m__ = (k_m__ or w) - 1  # Bump to next site within segment
 
         # Update h for next site...
         # ... only needed if not calculating h fresh every iter [[see above]]
         h_ += 1 - (h_ >= h_max) * w
 
         # Update within-bunch state for next site...
-        b_prime -= not m_prime  # Bump to next segment within bunch
-        b_star = not (b_prime or m_prime)  # Should bump to next bunch?
+        m_b__ -= not k_m__  # Bump to next segment within bunch
+        b_star = not (m_b__ or k_m__)  # Should bump to next bunch?
         b += b_star  # Do bump to next bunch, if any
         # Set within-bunch segment countdown, if bumping to next bunch
-        b_prime = b_prime or (1 << (b - 1))
+        m_b__ = m_b__ or (1 << (b - 1))
