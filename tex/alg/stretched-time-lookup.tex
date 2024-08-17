@@ -27,22 +27,22 @@
         \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor for calculating meta-epoch $\colortau$}
         \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{I}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
 \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 1} \gets \colortau_{\mkern-5mu\scriptscriptstyle 0} + 1$ \Comment{Next meta-epoch}
-        \State $\texttt{uint\_t} ~ ~ G \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
+        \State $\texttt{uint\_t} ~ ~ M \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
         \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 0}$}
         \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 1}$}
         \Statex
         \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Reserved hanoi value at site $\colork=0$}
-        \State $\texttt{uint\_t} ~ ~ g_p \gets 0$ \Comment{Physical segment index at site $\colork=0$ (i.e., left-to-right position)}
+        \State $\texttt{uint\_t} ~ ~ m_p \gets 0$ \Comment{Physical segment index at site $\colork=0$ (i.e., left-to-right position)}
         \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate overall buffer sites}
-        \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{G + g_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
+        \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{M + m_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
         \State \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_w \gets \Call{I}{g_p = 0}$ \Comment{Correction factor for segment size}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_w \gets \Call{I}{m_p = 0}$ \Comment{Correction factor for segment size}
         \State $\texttt{uint\_t} ~ ~ w \gets w_1 + b_l + \epsilon_w$ \Comment{Number of sites in current segment (i.e., segment size)}
         \Statex \Comment{Calc corrections for not-yet-seen data items $\colorTbar \geq \colorT$}
-        \Statex $\texttt{uint\_t} ~ ~ i' \gets \Call{RightShift}{G + g_p, \;\; b_l + 1}$ \Comment{Guess \hv{} incidence (i.e., num seen)}
+        \Statex $\texttt{uint\_t} ~ ~ i' \gets \Call{RightShift}{M + m_p, \;\; b_l + 1}$ \Comment{Guess \hv{} incidence (i.e., num seen)}
         \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh}(2i' + 1) - 1$ \Comment{Guess ingest time}
         \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar' \geq \colorT} \;\; \times \;\; (w - w_0)$ \Comment{Correction factor, reserved \hv{} $\colorh$}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{i} \gets \Call{I}{\colorTbar' \geq \colorT} \;\; \times \;\; (g_p + G - i')$ \Comment{Correction factor, \hv{} instance $i$ (i.e., num seen)}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{i} \gets \Call{I}{\colorTbar' \geq \colorT} \;\; \times \;\; (m_p + M - i')$ \Comment{Correction factor, \hv{} instance $i$ (i.e., num seen)}
         \Statex
         \Statex \Comment{Decode ingest time of reserved hanoi value \ldots}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{True reserved \hv{}}
@@ -52,7 +52,7 @@
         \Statex
         \Statex \Comment{Update state for next site $\colork+1$ to iterate over\ldots}
         \State $\colorh' \gets \colorh' + 1$ \Comment{Increment next site's \hv{} guess}
-        \State $g_p \gets g_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current is filled}
+        \State $m_p \gets m_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current is filled}
         \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset \hv{} to zero if segment is filled to start new segment}
         \EndFor
     \EndFunction
