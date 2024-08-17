@@ -45,7 +45,7 @@
         \State $\texttt{uint\_t} ~ ~ \colorTbar \gets 2^{\colorh}(2m_p + 1) - 1$ \Comment{True ingest time}
         \State \textbf{yield} $\colorTbar$
         \Statex
-        \Statex \LComment{Update state for next site iterated over\ldots}
+        \Statex \Comment{Update state for next site iterated over\ldots}
         \State $m^{\scriptscriptstyle\shortdownarrow}_b \gets m^{\scriptscriptstyle\shortdownarrow}_b - \Call{I}{{\colork}^{\scriptscriptstyle\shortdownarrow}_m  = 0}$ \Comment{Bump to next segment within bunch}
         \State $b^{*} \gets (m^{\scriptscriptstyle\shortdownarrow}_b = 0) \wedge ({\colork}^{\scriptscriptstyle\shortdownarrow}_m = 0)$ \Comment{Should bump to next bunch?}
         \State $b \gets b + \Call{I}{b^{*}}$ \Comment{Do bump to next bunch, if should}
