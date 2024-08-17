@@ -2,7 +2,7 @@
 
 % In this work, we have developed new strategies for ``data stream curation'' --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points, focusing in particular on fixed-capacity procedures amenable to resource-constrained use cases.
 
-Our proposed DStream approach revolves around a strong simplifying constraint: we assume a fixed number of buffer sites where items ingested from a data stream may be written and, once stored, we do not allow them to be subsequently inspected or moved.
+Our proposed DStream approach adopts a strong simplifying constraint: we assume a fixed number of buffer sites where items ingested from a data stream may be written and, once stored, we do not allow them to be subsequently inspected or moved.
 Only one further event may occur after a data item is stored, in that it may be overwritten by a later data item.
 We also allow ingested data items to be discarded without storage.
 Under this regime, the composition of retained data emerges implicitly as a consequence of items targeted for overwrite.

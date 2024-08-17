@@ -18,7 +18,7 @@ This action would drop every other item, and increase gap size from 0 to $\color
 Then, removing items with $\colorH(\colorTbar) = 1$ would again drop every other item, and increase gap size to $\colorg \leq 3$.
 Continuing this pattern to prune successive hanoi values provides well-behaved transitions gradually increasing gap size while maintaining even spacing.
 
-We thus define our algorithm as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$ for some threshold $n(\colorT)$.
+We thus define our algorithm as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$.
 (The threshold $n(\colorT)$ must increase over time to ensure space for new high h.v. data items as we encounter them.)
 Formally,
 \begin{align*}
@@ -28,13 +28,13 @@ Formally,
 : \colorH(\colorTbar) > n(\colorT)
 \}.
 \end{align*}
-In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as time elapses elapse.
-Lemma \ref{thm:steady-hv-geq-epoch} shows that $n(\colorT) = \colort - 1$ fills available buffer space $\colorS$.%
-\footnote{%
-More exactly, $\colorS - 1$ sites are required.
-So, \textit{nearly} all buffer space is needed to store $\{\colorTbar : \colorH(\colorT) \geq \colort\}$.
-In practice, the surplus site can be convenient to store the very first or the very most recent data item.
-}
+In practice, this requires repeatedly discarding all items with lowest hanoi value $\colorH(\colorTbar) = n(\colorT)$ as time elapses.
+Lemma \ref{thm:steady-hv-geq-epoch} shows that using a threshold of $n(\colorT) = \colort - 1$ fills available buffer space $\colorS$.%
+% \footnote{%
+% More exactly, $\colorS - 1$ sites are required.
+% So, \textit{nearly} all buffer space is needed to store $\{\colorTbar : \colorH(\colorT) \geq \colort\}$.
+% In practice, the surplus site can be convenient to store the very first or the very most recent data item.
+% }
 
 \subsection{Steady Algorithm Mechanism}
 \label{sec:steady-mechanism}
@@ -46,29 +46,31 @@ Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to o
 We divide buffer space into $\colors$ ``bunches,'' themselves divided into ``segments.''
 Bunch $i=0$ contains one segment of length $\colors$ sites.
 Then, for $i > 0$, bunch $i$ contains $2^{i-1}$ segments.
-Although segment count increases across bunch, we define segment length as $\colors - i$, decreasing by 1 each bunch.
+Although segment count increases across bunches $i$, decreases by 1 each bunch as $\colors - i$.
 So, segments in the last bunch contain only one site.
 With $\colors$ bunches, available buffer space $\colorS$ is nearly filled by this reservation layout,
 \begin{align*}
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.
 \end{align*}
 
-For each hanoi value $\colorh$, if we store one data item $\colorH(\colorTbar) = \colorh$ per segment, each epoch $\colort$ will fill one segment bunch.
+For each hanoi value $\colorh$, if we store one data item $\colorH(\colorTbar) = \colorh$ per segment, during epoch $\colort$ data items with hanoi value $\colorh$ will touch all segments within exactly one bunch.
 Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
-Bunch 1 contains the data item with that \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 2$, bunch 2 contains the two data items $\{ \colorTbar \in \lBrace \colort = \colorh - \colors + 2 \rBrace : \colorH(\colorTbar) = \colorh \}$, and so forth.
-Because only one not-yet-encountered \hv{} surfaces each epoch, each epoch only takes data item instances from only the top $\colors$ \hv's $\colorh \geq \colort$ into storage.
-% Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - n$ \hv's $\colorh$ that have ``progressed'' to bunch $n$ can be stored within each segment in that bunch.
+Bunch 1 contains the one data item with that \hv{} from epoch $\colort=\colorh - \colors + 2$.
+Bunch 2 contains the two data items with \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 3$.
+In general, bunch $i$ will contain data items $\{ \colorTbar \in \lBrace \colort = \colorh - \colors + i + 1 \rBrace : \colorH(\colorTbar) = \colorh \}$.
+Segment size (decreasing by one each bunch) is arranged so that one instance of all $\colors - i$ \hv's that have ``progressed'' to bunch $i$ can be stored within each segment in that bunch.
 
 \input{fig/hsurf-steady-implementation}
 
-The particulars of our layout become useful in managing elimination of data items with \hv{} $\colorh$ during epoch $\colort=\colorh + 1$.
-We have that \hv{} $\colorh + \colors$ will store one data item in bunch 0 during epoch $\colort=\colorh + 1$.
-This is the same number of data items left by \hv{} $\colorh$ in bunch 0.
-The same holds for all bunches, with data items left by \hv{} $\colorh$ equivalent in number to those to be stored in bunch $n$ from \hv{} $\colorh + \colors - n$ during epoch $\colort = \colorh + 1$.
+The particulars of our layout become useful in managing elimination of data items with \hv{} $\colorh = \colort - 1$ during epoch $\colort$.
+As noted above, \hv{} $\colort + \colors$ will store exactly one data item in bunch 0 during epoch $\colort$.
+This is the same number of data items left by \hv{} $\colort - 1$ in bunch 0 during earlier epoch $\colort - 1 - \colors$.
+The same correspondence holds in bunch 1, between \hv{} $\colort + \colors - 1$ and \hv{} $\colort - 1$.
+Indeed, across all bunches $i$, the number of data items left by \hv{} $\colort + \colors - i$ in bunch $i$ equals those left earlier by \hv{} $\colort - 1$.
 
 As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh=\colort-1$ by overwrites each epoch.
 In determining storage site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = \colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
-Calculating the number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$ identifies the segment where data item $\colorTbar$ should be stored.
+The number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$, which can be calculated $\mathcal{O}(1)$, identifies the segment where data item $\colorTbar$ should be stored.
 Lemma \ref{thm:steady-hv-elimination} verifies the behavior of this procedure.
 
 \input{alg/steady-site-selection}
@@ -76,8 +78,8 @@ Lemma \ref{thm:steady-hv-elimination} verifies the behavior of this procedure.
 Algorithm \ref{alg:steady-site-selection} provides a step-by-step listing of site selection calculation $\colorK(\colorT)$, which is $\mathcal{O}(1)$.
 Site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:steady-time-lookup}.
 Reference Python implementations appear in Supplementary Listings \ref{lst:steady_site_selection.py} and \ref{lst:steady_time_lookup.py}, as well as accompanying tests.
-Ingestion time calculation for lookup of the data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
-Batch calculation of ingestion times of all data items stored in a buffer proceeds with time complexity $\mathcal{O}(1)$ per item.
+Lookup of ingest time $\colorTbar$ for data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+Batch calculation of ingestion times of all data items stored in a buffer proceeds in $\mathcal{O}(\colorS)$ time.
 
 \subsection{Steady Algorithm Criterion Satisfaction}
 \label{sec:stready-satisfaction}

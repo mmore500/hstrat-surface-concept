@@ -1,33 +1,34 @@
 \begin{figure*}[htbp!]
   \centering
-  \begin{subfigure}[b]{0.4\linewidth}
-    \includegraphics[width=0.025\textwidth, trim={0.2cm 2.8cm 16.0cm 2.8cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}%
-    \includegraphics[width=0.975\textwidth, trim={0.7cm 0cm 1.4cm 5.6cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
-    \caption{\footnotesize Site \hv{} reservations $\colorHcal_{\colort}(\colork)$ for epochs $\colort=0$ to $\colort=5$.}
-    \label{fig:hsurf-steady-intuition-heatmap}
-  \end{subfigure}%
-  \vline%
   \begin{subfigure}[b]{0.59\linewidth}
     \includegraphics[width=\textwidth, trim={0cm 0cm 0.3cm 1cm}, clip]{img/hsurf-steady-intuition}
     \caption{\footnotesize Site selection $\colorK(\colorT)$ for data items of one \hv{}, $\colorH(\colorT) = \colorh$.}
     \label{fig:hsurf-steady-intuition-diagram}
   \end{subfigure}
+  \vline%
+  \begin{subfigure}[b]{0.4\linewidth}
+    \includegraphics[width=0.025\textwidth, trim={0.2cm 2.8cm 16.0cm 2.8cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}%
+    \includegraphics[width=0.975\textwidth, trim={0.7cm 0cm 1.4cm 5.6cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+    \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=5$.}
+    \label{fig:hsurf-steady-intuition-heatmap}
+  \end{subfigure}%
   \caption{
     \textbf{Steady algorithm strategy.}
     \footnotesize
-    Left panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal_{\colort}(\colork)$ over from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
-    Segments are separated by black dividers; segment bunches are not explicitly indicated.
-    Note that site $\colork=0$ is unused.
-    Right panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for a hanoi value $\colorh$ from its first occurance during epoch $\colort=\colorh-3$ to epoch $\colort=\colorh+1$, when stored instances of that \hv{} are overwritten.
+    Left panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for itmes with \hv{} $\colorh$ from their first occurance during epoch $\colort=\colorh-3$ to epoch $\colort=\colorh+1$, when stored instances of that \hv{} are overwritten.
     Available memory buffer sites are shown across the bottom of the schematic.
     Data items's vertical span provides a timeline from when they are stored to when they are overwritten.
-    The first data item with $\colorH(\colorT) = \colorh$ is placed in segment $\colort=\colorh-3$.
+    The first data item with hanoi value $\colorH(\colorT) = \colorh$ is placed in segment $\colort=\colorh-3$.
     The next data item with \hv{} $\colorh$ is encountered in the following epoch, and it is placed in bunch 1.
     In epoch $\colort=\colorh-1$, two data items with \hv{} $\colorh$ are encountered and placed into segments within bunch 2.
-    In the epoch 4, four \hv{} $\colorh$ data items (twice as many) are encountered.
+    In epoch $\colort=\colorh$, four \hv{} $\colorh$ data items (twice as many) are encountered.
     We place them in bunch 3's one-site segments.
-    Finally, during epoch $\colort=\colorh+1$, no more \hv{} $\colorh$ data items are stored and all stored \hv{} $\colorh$ items are overwritten.
-    In this manner, data items with highest hanoi value are retained on a rolling basis to provide uniformly-spaced gaps --- as laid out in Figure \ref{fig:hanoi-intuition-steady}.
+    Finally, during epoch $\colort=\colorh+1$, incoming data items with \hv{} $\colorh$ discarded and all stored \hv{} $\colorh$ items are overwritten.
+    In this manner, data items with highest \hv{} are retained on a rolling basis to provide uniformly-spaced gaps --- as laid out in Figure \ref{fig:hanoi-intuition-steady}.
+    Right panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal_{\colort}(\colork)$ from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
+    Numbering/color coding corresponds to \hv{} a site is reserved for.
+    Segments are separated by black dividers; bunches are not explicitly indicated.
+    Note that site $\colork=0$ is unused.
   }
   \label{fig:hsurf-steady-intuition}
 \end{figure*}

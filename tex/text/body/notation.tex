@@ -43,10 +43,10 @@ As with site selection $\colorK$, although omitted for brevity it is the case th
 }
 Figure \ref{fig:ingest-rank-calculation} visualizes the relationship of \textit{site selection} and \textit{site lookup} operations.
 
-\subsection{Time $\colorT$}
+\subsection{Current Time $\colorT$ and Item Ingest Time $\colorTbar$}
 \label{sec:notation-time}
 
-We will refer to each data item's stream sequence index as its \textbf{ingestion time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
+We will refer to each data item's stream sequence index as its \textbf{ingest time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
 We use a zero-indexing convention (the first element of the data stream has ingestion time $\colorTbar=0$).
 We assume $\colorT$ to be known for each data ingestion.
 Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
@@ -55,7 +55,7 @@ Ideally, data stream curation would support indefinite ingestions, $\colorT \in 
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
 However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS} - 2$ ingestions.
 We expect this capacity to suffice for many applications using even moderately sized buffers.
-For instance, a 64-site buffer suffices to ingest items continuously at 5GHz for over 100 years.
+For instance, a buffer with space for 64 data items suffices to ingest items continuously at 5GHz for over 100 years.
 As such, we leave behavior for stretched and tilted curation past $2^{\colorS} - 2$ ingests to future work.
 
 For convenience in exposition, note that we formally define and characterize these algorithms only for $\colorT \in [0 \twodots 2^{\colorS - 1})$.
@@ -134,9 +134,9 @@ x =
 \label{eqn:epoch-defn}
 \end{equation}
 
-For the \textit{steady algorithm}, epochs' first time point $\colorT = \min\colortsetofT$  sits one less than an even power of two (e.g.,  $\colorT = 15$).
+For the \textit{steady algorithm}, an epochs' first time point $\colorT = \min\colortsetofT$  sits one less than an even power of two (e.g.,  $\colorT = 15$).
 For the \textit{stretched} and \textit{tilted algorithms}, epochs begin exactly at even powers of two (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
-In both cases, note correction to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
+In both cases, correction is applied to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
 
 As mentioned above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS - 1}$, so
 \begin{align*}
@@ -144,7 +144,7 @@ As mentioned above, stretched and tilted algorithms limit consideration to $\col
 \leq \colorS - \colors - 1
 \end{align*}
 assuming $\colorS \geq 4$.
-This relation can be understood as arising due to delay of epoch $\colort=1$ to time $\colort=2^{\colors}$.
+The $\colorS - \colors$ relation can be understood as arising due to delay of epoch $\colort=1$ to time $\colorT = \colorS = 2^{\colors}$.
 
 \subsection{Site Reservations $\colorHcal_{\colort}(\colork)$}
 \label{sec:notation-reservation}
