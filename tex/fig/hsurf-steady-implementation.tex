@@ -113,6 +113,7 @@ binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+v
   During each subsequent epoch $\colort>0$, segments within bunch $i$ each accept one data item with h.v. $\colorh=\colort + \colors - 1 - i$.
   All newly-assigned sites were previously assigned to the overall now-lowest hanoi value $\colorh=\colort - 1$.
   In this way, all instances of the overall lowest hanoi value are overwritten each epoch.
+  Note that rightmost site $\colork=\colorS-1$ is unused.
   Panel \label{fig:hsurf-steady-implementation-site-selection} enumerates initial steady policy site selection on a 32-site buffer.
   Heatmap panel \ref{fig:hsurf-steady-implementation-heatmap} shows evolution of data item age at each site on a 256-bit field over the course of 4,096 time steps.
   Dripplot panel \ref{fig:hsurf-steady-implementation-dripplot} shows retention spans for 3,000 ingested time points.
