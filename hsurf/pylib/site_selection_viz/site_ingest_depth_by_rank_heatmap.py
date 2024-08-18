@@ -57,6 +57,7 @@ def site_ingest_depth_by_rank_heatmap(
         cmap="viridis",
         norm=cnorm,
     )
+    ax.figure.set_dpi(500)
     ax.figure.axes[-1].set_rasterized(True)
 
     if ynorm == "log":
