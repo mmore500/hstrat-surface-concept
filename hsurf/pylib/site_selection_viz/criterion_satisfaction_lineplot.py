@@ -7,8 +7,8 @@ import more_itertools as mit
 import pandas as pd
 import seaborn as sns
 
-from ._adjust_font_size import adjust_font_size
 from ._LegendPatchHandler import LegendPatchHandler
+from ._adjust_font_size import adjust_font_size
 
 
 @adjust_font_size(15)

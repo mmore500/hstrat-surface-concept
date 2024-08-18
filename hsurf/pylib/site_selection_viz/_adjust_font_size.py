@@ -1,5 +1,6 @@
-import matplotlib.pyplot as plt
 from functools import wraps
+
+import matplotlib.pyplot as plt
 
 
 def adjust_font_size(new_fontsize: float):
