@@ -1,6 +1,8 @@
+import typing
 import string
 
 from matplotlib import axes as mpl_axes
+from matplotlib import pyplot as plt
 from matplotlib.ticker import StrMethodFormatter as mpl_StrMethodFormatter
 import more_itertools as mit
 import pandas as pd
@@ -45,8 +47,8 @@ def criterion_satisfaction_lineplot(
         *sns.color_palette("husl", len(hue_order) - 1)[:-1],
     ]
 
-    # LINEPLOT ################################################################
-    ax = sns.lineplot(
+    # DUMMY LINEPLOT ##########################################################
+    frozen_ylim = sns.lineplot(
         data=data[~data[hue].isin([lower_bound, upper_bound])],
         x=x,
         y=y,
@@ -54,23 +56,25 @@ def criterion_satisfaction_lineplot(
         hue_order=hue_order,
         style=hue,
         style_order=[hue_order[1], hue_order[0], *hue_order[2:]],
+        alpha=0.0,
         errorbar=lambda xs: (0.1, 10),
         palette=palette,
-    )
-    frozen_ylim = ax.get_ylim()
+    ).get_ylim()
+    plt.cla()
+    plt.clf()
+    plt.close()
 
     # FILLED BOUNDS ###########################################################
     filtered = data[data[hue] == upper_bound]
     # sns err needs at least two observations...
     duplicated = pd.concat([filtered] * 2, ignore_index=True)
-    sns.lineplot(
+    ax = sns.lineplot(
         data=duplicated,
         x=x,
         y=y,
         hue=hue,
         hue_order=hue_order,
-        ax=ax,
-        errorbar=lambda xs: (mit.one(set(xs)), ax.get_ylim()[1]),
+        errorbar=lambda xs: (mit.one(set(xs)), frozen_ylim[1]),
         linewidth=0.0,
         legend=False,
         palette=palette,
@@ -87,11 +91,30 @@ def criterion_satisfaction_lineplot(
         hue=hue,
         hue_order=hue_order,
         ax=ax,
-        errorbar=lambda xs: (min(-1, ax.get_ylim()[0]), mit.one(set(xs))),
+        errorbar=lambda xs: (min(-1, frozen_ylim[0]), mit.one(set(xs))),
         legend=False,
         linewidth=0.0,
         palette=palette,
         zorder=-10,
+    )
+
+    # rasterize error bands to work around pdf rendering bug
+    for poly in ax.collections:
+        poly.set_rasterized(True)
+
+
+    # LINEPLOT ################################################################
+    sns.lineplot(
+        data=data[~data[hue].isin([lower_bound, upper_bound])],
+        x=x,
+        y=y,
+        hue=hue,
+        hue_order=hue_order,
+        style=hue,
+        style_order=[hue_order[1], hue_order[0], *hue_order[2:]],
+        ax=ax,
+        errorbar=lambda xs: (0.1, 10),
+        palette=palette,
     )
 
     # AXES TWEAKS #############################################################
