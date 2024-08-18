@@ -1,15 +1,6 @@
 \begin{figure*}[htbp!]
   \centering
 
-\begin{subfigure}[b]{\linewidth}
-\includegraphics[width=\linewidth]{
-binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
-\vspace{-4ex}\caption{
-  Buffer composition across time, split by epoch with data items color-coded by hanoi value of ingestion time $\colorH(\colorTbar)$.
-}
-\label{fig:hsurf-steady-implementation-schematic}
-\end{subfigure}
-
 \begin{minipage}{0.7\textwidth}
   \footnotesize
   \setlength{\tabcolsep}{2.5pt}
@@ -51,6 +42,15 @@ binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+v
 \begin{subfigure}{0.3\textwidth}
 \caption{Steady policy site selection $\colorK(\colorT)$ with buffer size $\colorS=32$.}
 \label{fig:hsurf-steady-implementation-site-selection}
+\end{subfigure}
+
+\begin{subfigure}[b]{\linewidth}
+\includegraphics[width=\linewidth]{
+binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=}
+\vspace{-4ex}\caption{
+  Buffer composition across time, split by epoch with data items color-coded by hanoi value of ingestion time $\colorH(\colorTbar)$.
+}
+\label{fig:hsurf-steady-implementation-schematic}
 \end{subfigure}
 
 \vspace{1ex}\begin{minipage}[]{\textwidth}
@@ -104,7 +104,8 @@ binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+v
 \vspace{-2ex}\caption{%
   \textbf{Steady algorithm implementation.}
   \footnotesize
-  Top panel \ref{fig:hsurf-steady-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' hanoi values $\colorH(\colorT)$.
+  Top panel \label{fig:hsurf-steady-implementation-site-selection} enumerates initial steady policy site selection on a 32-site buffer.
+  Panel \ref{fig:hsurf-steady-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' hanoi values $\colorH(\colorT)$.
   Between $\colorT=0$ and $\colorT=127$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$.
   Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into ``reservation'' segments by vertical black lines.
   Reservation segments occur in five ``bunches'' --- (1) one 5-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
@@ -114,7 +115,6 @@ binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+v
   All newly-assigned sites were previously assigned to the overall now-lowest hanoi value $\colorh=\colort - 1$.
   In this way, all instances of the overall lowest hanoi value are overwritten each epoch.
   Note that rightmost site $\colork=\colorS-1$ is unused.
-  Panel \label{fig:hsurf-steady-implementation-site-selection} enumerates initial steady policy site selection on a 32-site buffer.
   Heatmap panel \ref{fig:hsurf-steady-implementation-heatmap} shows evolution of data item age at each site on a 256-bit field over the course of 4,096 time steps.
   Dripplot panel \ref{fig:hsurf-steady-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
