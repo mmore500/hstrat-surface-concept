@@ -16,9 +16,9 @@ Deriving an approximate bound without accounting for discretization effects, gap
 \end{align}
 
 Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict lower bound on gap size ratio,
-\begin{align*}
+\begin{align}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
-&\geq
+\geq
 \frac{
   1
 }{
@@ -26,21 +26,32 @@ Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict
   - \left\lfloor \colorS \log_{\colorT}\Big(
     (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
   \Big)\right\rfloor
+}
+\geq
+\frac{
+  1
+}{
+  1 + \colorS
 }.
-\end{align*}
+\label{eqn:stretched-best}
+\end{align}
 
 This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
 \min\Big(
-  \left\lceil 2^{\colortau + 1 - \colors}\right\rceil,\;\;
+  \left\lceil 2^{\colortau + 1}{\colorS}\right\rceil,\;\;
   \frac{2(\colort + \colors)}{\colorS},\;\;
   \frac{4\colort}{\colorS}
 \Big)
 \end{align*}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
-Notably, these guarantees ensure gap size ratio ${\colorG_{\colorT}(\colorTbar)}/{\colorTbar} \leq 1$.
+Notably, this bound ensures gap size ratio ${\colorG_{\colorT}(\colorTbar)}/{\colorTbar} \leq 1$.
+By Equation \ref{eqn:stretched-best}, the stretched curation algorithm guarantees gap size ratio within a factor of $(1 + 1/S)\min(2t + 2s, \;\; 4t, \;\; 2^{\colortau + 1})$ times optimal.
+
+% (X/S) / (1 / (1 + S))
+% X(1 + 1/S)
 
 \subsection{Stretched Algorithm Strategy}
 \label{sec:stretched-strategy}
