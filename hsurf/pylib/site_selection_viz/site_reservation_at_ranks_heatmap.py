@@ -70,7 +70,7 @@ def site_reservation_at_ranks_heatmap(
             )
             for tick in ax2.get_yticklabels():
                 tick.set_rotation(0)
-            if meta_epoch:
+            if "steady" not in reservation_mode and meta_epoch:
                 ax2.axhline(
                     1.5,
                     0,
