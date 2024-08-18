@@ -48,6 +48,7 @@ def site_hanoi_value_by_rank_heatmap(
         plt.figure(figsize=figsize)
     cmap = prepend_cmap_with_color("viridis", "white")
     ax = sns.heatmap(reshaped_df, cmap=cmap, annot=False)
+    ax.figure.axes[-1].set_rasterized(True)
 
     if ynorm == "log":
         ax = apply_pseudo_log_yticks(ax)
