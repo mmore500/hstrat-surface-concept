@@ -11,7 +11,7 @@ from ._LegendPatchHandler import LegendPatchHandler
 from ._adjust_font_size import adjust_font_size
 
 
-@adjust_font_size(15)
+@adjust_font_size(13.5)
 def criterion_satisfaction_lineplot(
     data: pd.DataFrame,
     x: str,
