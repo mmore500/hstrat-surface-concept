@@ -56,6 +56,7 @@ def site_ingest_rank_by_rank_heatmap(
         cmap="viridis",
         norm=cnorm,
     )
+    ax.figure.axes[-1].set_rasterized(True)
 
     if ynorm == "log":
         ax = apply_pseudo_log_yticks(ax)

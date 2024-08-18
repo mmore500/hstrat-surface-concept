@@ -45,6 +45,7 @@ def site_differentia_by_rank_heatmap(
     if figsize is not None:
         plt.figure(figsize=figsize)
     ax = sns.heatmap(reshaped_df, cmap="viridis", annot=False)
+    ax.figure.axes[-1].set_rasterized(True)
 
     if ynorm == "log":
         ax = apply_pseudo_log_yticks(ax)

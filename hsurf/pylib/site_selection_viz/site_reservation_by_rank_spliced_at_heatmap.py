@@ -2,6 +2,7 @@ import itertools as it
 import typing
 
 from matplotlib import figure as mpl_figure
+from matplotlib import patheffects as mpl_fx
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
@@ -63,6 +64,35 @@ def site_reservation_by_rank_spliced_at_heatmap(
             reservation_mode=reservation_mode,
         )
         ax.set_ylim(*panel_lim)
+        ymin, ymax = panel_lim
+        yticks = [
+            ymin,
+            *(y for y in range(ymin + 3, ymax - 2) if y % 8 == 0),
+            ymax - 1,
+        ]
+        ax.set_yticks(np.array(yticks) + 0.5)
+        ax.set_yticklabels(yticks)
+
+        for __, row in surface_history_df[
+            (surface_history_df["rank"] == surface_history_df["ingest rank"])
+            & surface_history_df["rank"]
+            .astype(int)
+            .isin(range(ymin, ymax + 1))
+        ].iterrows():
+            offset = -3
+            ax.text(
+                row["site"] + 0.5,
+                row["rank"] + offset,
+                int(row["rank"]),
+                clip_on=False,
+                horizontalalignment="center",
+                verticalalignment="center",
+            ).set_path_effects(
+                [
+                    mpl_fx.Stroke(linewidth=3, foreground="1.0"),
+                    mpl_fx.Normal(),
+                ],
+            )
 
     for ax, splice_from_rank in tqdm(zip(splice_axs, splice_from_ranks)):
         ax = site_reservation_at_rank_heatmap(
