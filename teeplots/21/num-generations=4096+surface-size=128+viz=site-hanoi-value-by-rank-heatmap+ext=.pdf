@@ -1352,10 +1352,10 @@ endobj
 <x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='XMP toolkit 2.9.1-13, framework 1.6'>
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:iX='http://ns.adobe.com/iX/1.0/'>
 <rdf:Description rdf:about="" xmlns:pdf='http://ns.adobe.com/pdf/1.3/' pdf:Producer='GPL Ghostscript 9.55.0'/>
-<rdf:Description rdf:about="" xmlns:xmp='http://ns.adobe.com/xap/1.0/'><xmp:ModifyDate>2024-08-18T20:58:56Z</xmp:ModifyDate>
-<xmp:CreateDate>2024-08-18T20:58:56Z</xmp:CreateDate>
-<xmp:CreatorTool>Matplotlib v3.8.3, https://matplotlib.org</xmp:CreatorTool></rdf:Description>
-<rdf:Description rdf:about="" xmlns:xapMM='http://ns.adobe.com/xap/1.0/mm/' xapMM:DocumentID='uuid:3ba13853-95c1-11fa-0000-2f71c1bc5830'/>
+<rdf:Description rdf:about="" xmlns:xmp='http://ns.adobe.com/xap/1.0/'><xmp:ModifyDate>2024-08-18T22:57:22Z</xmp:ModifyDate>
+<xmp:CreateDate>2024-08-18T22:57:22Z</xmp:CreateDate>
+<xmp:CreatorTool>Matplotlib v3.9.2, https://matplotlib.org</xmp:CreatorTool></rdf:Description>
+<rdf:Description rdf:about="" xmlns:xapMM='http://ns.adobe.com/xap/1.0/mm/' xapMM:DocumentID='uuid:c722c59a-95d1-11fa-0000-2f71c1bc5830'/>
 <rdf:Description rdf:about="" xmlns:dc='http://purl.org/dc/elements/1.1/' dc:format='application/pdf'><dc:title><rdf:Alt><rdf:li xml:lang='x-default'>Untitled</rdf:li></rdf:Alt></dc:title></rdf:Description>
 </rdf:RDF>
 </x:xmpmeta>
@@ -1366,9 +1366,9 @@ endstream
 endobj
 2 0 obj
 <</Producer(GPL Ghostscript 9.55.0)
-/CreationDate(D:20240818205856Z00'00')
-/ModDate(D:20240818205856Z00'00')
-/Creator(Matplotlib v3.8.3, https://matplotlib.org)>>endobj
+/CreationDate(D:20240818225722Z00'00')
+/ModDate(D:20240818225722Z00'00')
+/Creator(Matplotlib v3.9.2, https://matplotlib.org)>>endobj
 xref
 0 21
 0000000000 65535 f 
@@ -1394,7 +1394,7 @@ xref
 0000106248 00000 n 
 trailer
 << /Size 21 /Root 1 0 R /Info 2 0 R
-/ID [<BE1CE5725FAE61FD8C0CE40E55104909><BE1CE5725FAE61FD8C0CE40E55104909>]
+/ID [<8FB506C333C2BC57A092242008D739A6><8FB506C333C2BC57A092242008D739A6>]
 >>
 startxref
 107697
