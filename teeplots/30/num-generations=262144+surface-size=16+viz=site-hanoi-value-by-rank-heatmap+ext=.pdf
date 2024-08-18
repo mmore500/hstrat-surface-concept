@@ -278,10 +278,10 @@ endobj
 <x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='XMP toolkit 2.9.1-13, framework 1.6'>
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:iX='http://ns.adobe.com/iX/1.0/'>
 <rdf:Description rdf:about="" xmlns:pdf='http://ns.adobe.com/pdf/1.3/' pdf:Producer='GPL Ghostscript 9.55.0'/>
-<rdf:Description rdf:about="" xmlns:xmp='http://ns.adobe.com/xap/1.0/'><xmp:ModifyDate>2024-08-18T22:55:04Z</xmp:ModifyDate>
-<xmp:CreateDate>2024-08-18T22:55:04Z</xmp:CreateDate>
-<xmp:CreatorTool>Matplotlib v3.9.2, https://matplotlib.org</xmp:CreatorTool></rdf:Description>
-<rdf:Description rdf:about="" xmlns:xapMM='http://ns.adobe.com/xap/1.0/mm/' xapMM:DocumentID='uuid:74e1a499-95d1-11fa-0000-eb89669a40ec'/>
+<rdf:Description rdf:about="" xmlns:xmp='http://ns.adobe.com/xap/1.0/'><xmp:ModifyDate>2024-08-18T23:07:14Z</xmp:ModifyDate>
+<xmp:CreateDate>2024-08-18T23:07:14Z</xmp:CreateDate>
+<xmp:CreatorTool>Matplotlib v3.8.3, https://matplotlib.org</xmp:CreatorTool></rdf:Description>
+<rdf:Description rdf:about="" xmlns:xapMM='http://ns.adobe.com/xap/1.0/mm/' xapMM:DocumentID='uuid:27fecda0-95d3-11fa-0000-eb89669a40ec'/>
 <rdf:Description rdf:about="" xmlns:dc='http://purl.org/dc/elements/1.1/' dc:format='application/pdf'><dc:title><rdf:Alt><rdf:li xml:lang='x-default'>Untitled</rdf:li></rdf:Alt></dc:title></rdf:Description>
 </rdf:RDF>
 </x:xmpmeta>
@@ -292,9 +292,9 @@ endstream
 endobj
 2 0 obj
 <</Producer(GPL Ghostscript 9.55.0)
-/CreationDate(D:20240818225504Z00'00')
-/ModDate(D:20240818225504Z00'00')
-/Creator(Matplotlib v3.9.2, https://matplotlib.org)>>endobj
+/CreationDate(D:20240818230714Z00'00')
+/ModDate(D:20240818230714Z00'00')
+/Creator(Matplotlib v3.8.3, https://matplotlib.org)>>endobj
 xref
 0 21
 0000000000 65535 f 
@@ -320,7 +320,7 @@ xref
 0000017803 00000 n 
 trailer
 << /Size 21 /Root 1 0 R /Info 2 0 R
-/ID [<71E45EAC1E8B025B75FA029767491219><71E45EAC1E8B025B75FA029767491219>]
+/ID [<58E081E477FB98238F657EAEFB8E09E3><58E081E477FB98238F657EAEFB8E09E3>]
 >>
 startxref
 19252
