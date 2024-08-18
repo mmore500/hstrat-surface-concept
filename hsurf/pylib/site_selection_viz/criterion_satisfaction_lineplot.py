@@ -7,9 +7,11 @@ import more_itertools as mit
 import pandas as pd
 import seaborn as sns
 
+from ._adjust_font_size import adjust_font_size
 from ._LegendPatchHandler import LegendPatchHandler
 
 
+@adjust_font_size(15)
 def criterion_satisfaction_lineplot(
     data: pd.DataFrame,
     x: str,
@@ -141,7 +143,9 @@ def criterion_satisfaction_lineplot(
             handles[hue_order.index(lower_bound)]: LegendPatchHandler(),
         },
         frameon=False,
+        fontsize=8,
         title=string.capwords(y),
+        title_fontsize=12,
     )
 
     sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
