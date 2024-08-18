@@ -70,6 +70,16 @@ def site_reservation_at_ranks_heatmap(
             )
             for tick in ax2.get_yticklabels():
                 tick.set_rotation(0)
+            if meta_epoch:
+                ax2.axhline(
+                    1.5,
+                    0,
+                    1,
+                    color="black",
+                    linewidth=1,
+                    linestyle="--",
+                    clip_on=False,
+                )
 
     # Draw labels onto edge axes...
     # Left edge, epoch
