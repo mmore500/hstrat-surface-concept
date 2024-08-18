@@ -57,7 +57,7 @@ def site_ingest_rank_by_rank_heatmap(
         norm=cnorm,
     )
     ax.figure.set_dpi(500)
-    ax.figure.axes[-1].set_rasterized(True)
+    ax.figure.axes[-1].get_children()[1].set_rasterized(True)
 
     if ynorm == "log":
         ax = apply_pseudo_log_yticks(ax)
