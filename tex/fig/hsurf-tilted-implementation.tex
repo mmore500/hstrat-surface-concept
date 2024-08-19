@@ -123,7 +123,7 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
 \vspace{-2ex}\caption{%
   \textbf{Tilted algorithm implementation.}
   \footnotesize
-  Top panel \label{fig:hsurf-tilted-implementation-site-selection} enumerates initial tilted policy site selection on a 32-site buffer.
+  Top panel \ref{fig:hsurf-tilted-implementation-site-selection} enumerates initial tilted policy site selection on a 32-site buffer.
   Panel \ref{fig:hsurf-tilted-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' hanoi values $\colorH(\colorTbar)$.
   Between $\colorT=0$ and $\colorT=127$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$.
   Spliced-in strips show hanoi values assigned to each buffer site for the upcoming epoch, separated into ``reservation segments'' by vertical black lines.
@@ -132,7 +132,7 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   In epoch 0, all sites are filled with a first data item.
   At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high \hv{} sites added to other segments.
   Low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{}, ensuring the most recent data items corresponding to that hanoi value are retained.
-  The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-tilted-intuition-reservations}.
+  The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
   Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
   Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
