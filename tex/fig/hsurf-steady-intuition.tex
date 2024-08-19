@@ -8,7 +8,61 @@
   \end{subfigure}
   \begin{subfigure}[b]{\linewidth}
     \includegraphics[width=0.011\textwidth, trim={0.2cm 2.8cm 31.8cm 2.8cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=32+viz=site-reservation-at-ranks-heatmap+ext=}%
-    \includegraphics[width=0.989\textwidth, trim={0.7cm 0cm 1.4cm 5.6cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=32+viz=site-reservation-at-ranks-heatmap+ext=}
+    \begin{tikzpicture}
+
+    % Include the image in a node
+    \node [
+      above right,
+      inner sep=0] (image) at (0,0) {\includegraphics[width=0.989\textwidth, trim={0.7cm 0cm 1.4cm 5.6cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=32+viz=site-reservation-at-ranks-heatmap+ext=}};
+
+    % Create scope with normalized axes
+    \begin{scope}[
+      x={($0.1*(image.south east)$)},
+      y={($0.1*(image.north west)$)}]
+
+    % Grid
+      % \draw[lightgray,step=0.5] (image.south west) grid (image.north east);
+    % Axes' labels
+      % \foreach \x in {0,1,...,10} { \node [below] at (\x,0) {\x}; }
+      % \foreach \y in {0,1,...,10} { \node [left] at (0,\y) {\y};}
+
+      \draw[stealth-, ultra thick,seabornBrown] (0.37,2.72) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (2.21,3.79) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (3.74,4.86) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (4.66,4.86) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (5.27,5.96) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (5.88,5.96) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (6.5,5.96) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (7.12,5.96) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (7.41,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (7.72,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (8.02,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (8.32,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (8.61,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (8.94,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (9.25,7.06) -- ++(0, -0.5)node{};
+      \draw[stealth-, ultra thick,seabornBrown] (9.55,7.06) -- ++(0, -0.5)node{};
+
+      \draw[Bar-, very thick,seabornBrown] (0.37,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (2.21,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (3.74,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (4.66,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (5.27,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (5.88,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (6.5,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (7.12,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (7.41,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (7.72,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (8.02,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (8.32,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (8.61,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (8.94,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (9.25,7.9) -- ++(0, -0.3)node{};
+      \draw[Bar-, very thick,seabornBrown] (9.55,7.9) -- ++(0, -0.3)node{};
+
+    \end{scope}
+
+    \end{tikzpicture}
     \vspace{-4.5ex}
     \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=5$.}
     \label{fig:hsurf-steady-intuition-heatmap}
@@ -30,6 +84,7 @@
     Bottom panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal_{\colort}(\colork)$ from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
     Numbering/color coding corresponds to \hv{} a site is reserved for.
     Segments are separated by black dividers; bunches are not explicitly indicated.
+    Annotations highlight ingest/overwrite lifecycle of \hv{} $\colorh=5$
     Note that rightmost site $\colork=\colorS-1$ is unused.
   }
   \label{fig:hsurf-steady-intuition}
