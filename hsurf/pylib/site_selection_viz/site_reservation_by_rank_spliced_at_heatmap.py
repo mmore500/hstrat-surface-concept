@@ -77,7 +77,7 @@ def site_reservation_by_rank_spliced_at_heatmap(
             (surface_history_df["rank"] == surface_history_df["ingest rank"])
             & surface_history_df["rank"]
             .astype(int)
-            .isin(range(ymin, ymax + 1))
+            .isin(range(ymin, ymax))
         ].iterrows():
             offset = -3
             ax.text(
