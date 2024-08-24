@@ -1,12 +1,14 @@
 \begin{figure*}[htbp!]
-  \centering
-  \begin{subfigure}[b]{\linewidth}
+  \flushleft
+  \begin{subfigure}[b]{0.972\linewidth}
     \includegraphics[width=\textwidth, trim={0cm 0cm 0.3cm 1cm}, clip]{img/hsurf-steady-intuition}
-    \vspace{-4.5ex}
+    \vspace{-4ex}
     \caption{\footnotesize Site selection $\colorK(\colorT)$ for data items of one \hv{}, $\colorH(\colorT) = \colorh$.}
     \label{fig:hsurf-steady-intuition-diagram}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+\vspace{-2ex}
+  \flushright
+  \begin{subfigure}[b]{0.98\linewidth}
     \includegraphics[width=0.011\textwidth, trim={0.2cm 2.8cm 31.8cm 2.8cm}, clip]{binder/teeplots/11/reservation-mode=steady+surface-size=32+viz=site-reservation-at-ranks-heatmap+ext=}%
     \begin{tikzpicture}
 
@@ -45,10 +47,11 @@
     \end{scope}
 
     \end{tikzpicture}
-    \vspace{-4.5ex}
+    \vspace{-5ex}
     \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=5$. H.v.{} $\colorh=5$ annotated as example.}
     \label{fig:hsurf-steady-intuition-heatmap}
   \end{subfigure}%
+  \vspace{-2ex}
   \caption{
     \textbf{Steady algorithm strategy.}
     \footnotesize
