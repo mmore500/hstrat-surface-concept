@@ -1,12 +1,12 @@
 \section{Stretched Algorithm} \label{sec:stretched}
 
 The stretched criterion favors early data items, targeting a record with gap sizes proportional to data item ingest time $\colorTbar$.
-The criterion can be formulated as minimization of the largest ratio of gap size to ingest time,
+The criterion can be formulated as minimizing the largest ratio of gap size to ingest time,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
 For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items so that gap size grows proportionally to $\colorTbar$.
-Under such a layout spacing between data items would scale exponentially, and --- counting from zero --- the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
+Under such a layout, spacing between data items would scale exponentially, and --- counting from zero --- the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
 Deriving an approximate bound without accounting for discretization effects, gap size ratio would be minimized at best,
 \begin{align}
 \label{eqn:approx-gap-bound}
@@ -57,7 +57,7 @@ More generally, guarantees gap size ratio can be shown guaranteed within a facto
 \label{sec:stretched-strategy}
 
 As with the steady algorithm, processing data items $\colorTbar$ based on their hanoi value $\colorH(\colorTbar)$ provides the backbone of our approach to stretched curation.
-However, instead of keeping just the $m$ highest \hv{}'s encountered, to achieve a stretched distribution we instead keep the first $n$ instances of all encountered \hv{}'s.
+However, instead of keeping just the $m$ highest \hv{}'s encountered, we approximate a stretched distribution by keeping the first $n$ instances of all encountered \hv{}'s.
 Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each \hv{} approximates stretched distribution.
 
 To respect fixed buffer capacity, per-\hv{} capacity $n$ must degrade as we encounter new \hv{}'s.
@@ -104,11 +104,11 @@ In motivating a more apt stretched layout strategy, begin by restricting focus t
 Assume that we assign one site to each data item $0\leq \colorTbar < \colorS$ and arrange site assignments according to \hv{} $\colorh = \colorH(\colorTbar)$.
 Suppose organization of reserved sites into contiguous segments, with no two items in the same segment allowed to share the same hanoi value $\colorh$.
 
-Under this scheme, we will have at least $\colorS/2$ segments, one per \hv{} $\colorh=0$ instance encountered.
+Under this scheme, we will have at least $\colorS/2$ segments --- one per \hv{} $\colorh=0$ instance encountered.
 In constructing segments, half of these $\colorh=0$ segments can be augmented with a site to house one of the $\colorS/4$ \hv{} $\colorh=1$ data items.
 We can continue, and further augment $\colorS/8$ segments with \hv{} $\colorh=2$, etc.
 Continuing this pattern to place all encountered \hv{} $\colorh\leq\colors$ yields segment sizes that turn out to recapitulate the hanoi sequence.
-Special-casing the largest segment, constructed segment sizes can in fact be enumerated as
+Special-casing the largest segment, constructed segment sizes can be enumerated as
 \begin{align}
 \colors + 1,\;\; \colorH(0) + 1,\;\; \colorH(1) + 1,\;\; \ldots,\;\; \colorH(\colorS/2 - 2) + 1.
 \label{eqn:stretched-segment-sizes}
@@ -125,7 +125,7 @@ These segment sizes can be shown to exactly fill available buffer space $\colorS
 \colorS.
 \end{align*}
 
-Thus far, we have only considered segment sizes --- and not discussed arrangement of segment order within buffer space $\colorS$.
+Thus far, we have only considered segment sizes --- and not discussed the arrangement of segment order within buffer space $\colorS$.
 One naive approach would simply order segments by length, as previously in Section \ref{sec:steady}.
 However, as we will see shortly, it turns out that adopting the hanoi sequence's natural ordering (as done in Formula \ref{eqn:stretched-segment-sizes}) better serves our objectives.
 The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reservations} shows application of this layout strategy to a 32-site buffer, with segments sized and arranged directly as enumerated in Formula \ref{eqn:stretched-segment-sizes}.
@@ -135,7 +135,7 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
 At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
 To satisfy $\textsf{goal\_stretched}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
-So, half of our $S/2$ sites that are reserved to \hv{} $\colorh=0$ may be freed up.
+So, half of our $S/2$ sites reserved to \hv{} $\colorh=0$ may be freed up.
 One way to do this is by releasing all singleton segments containing \textit{only} \hv{} $\colorh=0$.
 
 Because singleton segments intersperse all other segments, their elimination makes space for all remaining segments to ``invade'' by growing one site.
@@ -151,16 +151,16 @@ We will next show that meta-epochs $\colortau$, as defined earlier in Section \r
 
 \input{thm/stretched-meta-epoch.tex}
 
-With relationship between segment subsumption and meta-epoch $\colortau$ thus established, Lemma \ref{thm:stretched-discarded-incidence-count} shows that our scheme maintains reservation layout sufficient to accomodate at least $n(\colorT) = 2^{\colors - 1 - \colortau}$ items of each hanoi value.
+With relationship between segment subsumption and meta-epoch $\colortau$ thus established, Lemma \ref{thm:stretched-discarded-incidence-count} shows that our scheme maintains reservation layout sufficient to accommodate at least $n(\colorT) = 2^{\colors - 1 - \colortau}$ items of each hanoi value.
 
 \subsubsection{Stretched Algorithm Implementation}
 \label{sec:stretched-implementation}
 
-Having determined reservation segment layout strategy by hanoi value, remaining details of site selection can be addressed succinctly.
+Having determined reservation segment layout strategy, the remaining details of site selection can be addressed succinctly.
 
 As we encounter data items with $\colorH(\colorTbar) = \colorh$, we fill reserved sites for that item's \hv{} in descending order of initialized segment size $r$.
 Among same-size segments, we simply fill from left to right.
-As invasion eliminates smallest initialized segments first, this approach guarantees retention of oldest data items with $\colorH(\colorTbar) = \colorh$.
+As invasion eliminates the smallest initialized segments first, this approach guarantees retention of the oldest data items with $\colorH(\colorTbar) = \colorh$.
 We may thus reinterpret Lemma \ref{thm:stretched-discarded-incidence-count} as providing guarantees on the first $n$ instances of each \hv{} retained.
 Once sites reserved to \hv{} $\colorh$ fill, it is necessary to discard further instances $\colorH(\colorTbar) = \colorh$ without storage.
 Figure \ref{fig:hsurf-stretched-implementation-schematic} illustrates the resulting site selection process $\colorK(\colorT)$ over epochs $\colort \in \{0,1,2\}$ on an example buffer, size $\colorS=32$.
