@@ -9,7 +9,7 @@ The tilted criterion can be formulated as minimization of the largest ratio of g
 
 The approximate lower bound on best-case gap size ratio provided in Equation \ref{eqn:approx-gap-bound} for the stretched curation can also be applied to tilted curation, as can the strict bound on best-case gap size ratio acounting for discretiztion effects established in Theorem \ref{thm:stretched-ideal-strict}.
 In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than
-\begin{align*}
+\begin{align}
   \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
   &\leq
   \frac{
@@ -22,7 +22,8 @@ In this section, we present a stream curation algorithm tailored to the tilted c
     \Big)
     - 1/2
   }
-\end{align*}
+  \label{eqn:tilted-gap-size-bound}
+\end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
 By Equation \ref{eqn:stretched-best}, the tilted curation algorithm guarantees gap size ratio within a factor of $(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times optimal.
 Because $\min(2\colort + 2\colors,\;\; 4\colort,\;\; 2^{\colors - \colortau - 1}) \leq \colorS$, we have from Equation \ref{eqn:stretched-best} that the tilted curation algorithm guarantees gap size ratio within a factor of $2(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times optimal.
@@ -38,7 +39,7 @@ Additionally, gap size ratio is bounded ${\colorG_{\colorT}(\colorTbar)}/{\color
 \input{fig/hsurf-tilted-intuition.tex}
 
 The retention strategy for the tilted algorithm strongly resembles that of the stretched algorithm.
-Recall that under the stretched algorithm the first $n(\colorT)$ data items of each hanoi value $\colorH(\colorTbar)$ are retained, with $n(\colorT)$ degrading with time in shifting from many copies of few encountered hanoi values to few copies of many encountered hanoi values.
+Recall that under the stretched algorithm the first $n(\colorT)$ data items of each hanoi value $\colorH(\colorTbar)$ are retained, with $n(\colorT)$ decreasing so as to shift from many copies of few encountered hanoi values to few copies of many encountered hanoi values.
 Under the tilted algorithm, we instead keep the \textit{last} $n(\colorT)$ data items of each hanoi value.
 Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances of each \hv{} approximates tilted distribution.
 
@@ -70,14 +71,14 @@ It can be shown analogously to the stretched algorithm's Lemma \ref{thm:stretche
 \subsection{Tilted Algorithm Mechanism}
 \label{sec:tilted-mechanism}
 
-Because the tilted algorithm, like the stretched algorithm, also follows an equal-$n$-per-\hv{} scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
+Because the tilted algorithm, like the stretched algorithm, also approximates an equal-$n$-per-\hv{} scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
 Refer to Section \ref{sec:stretched-mechanism} for a detailed description and justification of this hanoi value reservation layout, and how it is unfolds across epochs $0 \leq \colort \leq \colorS - \colors$.
 
-A pertinent result of the stretched layout, though, is that the at least $2^{\colors - 1 - \colortau}$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
+A pertinent result of the stretched layout is that the at least $2^{\colors - 1 - \colortau}$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
 However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last} $n$ rather than the \textit{first} $n$ instances of each hanoi value.
 We can do that by continuing to write data items for each \hv{} into buffer sites reserved for that \hv{} after they initially fill --- overwriting older instances of the \hv{} to keep a ``ring buffer'' of fresh \hv{} instances.
 
-Supplemental materials prove several results related to the tilted algorithm's ring buffer mechanism --- notably, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
+Supplemental materials prove several results related to the tilted algorithm's ring buffer mechanism, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
 These results build to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
 We take particular care in considering transitions where the ``ring buffer'' of sites reserved to a \hv{} is halved by growth of invading segments.
 
@@ -86,10 +87,10 @@ We take particular care in considering transitions where the ``ring buffer'' of 
 
 \input{fig/hsurf-tilted-implementation.tex}
 
-Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched} -- with the exception that, instead of discarding data items once available sites reserved to that \hv{} have filled, we simply cycle back and overwrite data items within that \hv{}'s reservations in the order that they were added.
+Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched}. However, instead of discarding data items after available sites reserved to that \hv{} fill, we simply cycle back and overwrite the first data items within that \hv{}'s reservations.
 In practice, the target index among available sites reserved to a \hv{} can be calculated as the number of previous times a \hv{} has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
 Figure \ref{fig:hsurf-tilted-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
-Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing the tilted site selection procedure, which is $\mathcal{O}(1)$.
+Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing of the tilted site selection procedure, which is $\mathcal{O}(1)$.
 
 \input{alg/tilted-site-selection}
 

@@ -1,21 +1,9 @@
 \begin{theorem}[Tilted algorithm gap size ratio upper bound]
 \label{thm:tilted-gap-size}
-Under the tilted curation algorithm, gap size ratio is bounded
-\begin{align*}
-  \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
-  &\leq
-  \Big[
-    \max\Big(
-      \frac{\colorS}{2^{\colortau + 1}},\;\;
-      \frac{\colorS}{2(\colort + \colors)},\;\;
-      \frac{\colorS}{4\colort}
-    \Big)
-    - 1/2
-  \Big]^{-1}.
-\end{align*}
+Under the tilted curation algorithm, gap size ratio is bounded per Equation \ref{eqn:tilted-gap-size-bound}.
 \end{theorem}
 \begin{proof}
 
-From Lemma \ref{thm:gap-size-ratio-tilted}, we have that if the first $n$ instances of each \hv{} $\colorh$ are retained that gap size ratio is bounded below by $1/(n - 1/2)$.
+From Lemma \ref{thm:gap-size-ratio-tilted}, we have that if the first $n$ instances of each \hv{} $\colorh$ are retained then gap size ratio is bounded below by $1/(n - 1/2)$.
 Substituting expressions for the number of sites reserved per \hv{} $n$ from Lemma \ref{thm:stretched-discarded-incidence-count} and Corollary \ref{thm:stretched-reservation-count} gives the result.
 \end{proof}
