@@ -25,13 +25,12 @@ In this section, we present a stream curation algorithm tailored to the tilted c
   \label{eqn:tilted-gap-size-bound}
 \end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
-By Equation \ref{eqn:stretched-best}, the tilted curation algorithm guarantees gap size ratio within a factor of $(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times optimal.
-Because $\min(2\colort + 2\colors,\;\; 4\colort,\;\; 2^{\colors - \colortau - 1}) \leq \colorS$, we have from Equation \ref{eqn:stretched-best} that the tilted curation algorithm guarantees gap size ratio within a factor of $2(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times optimal.
+Because $\min(2\colort + 2\colors,\;\; 4\colort,\;\; 2^{\colors - \colortau - 1}) \leq \colorS$, tilted gap size ratio is no greater than a factor of $2(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times the optimal bound established in Equation \ref{eqn:stretched-best}.
 Additionally, gap size ratio is bounded ${\colorG_{\colorT}(\colorTbar)}/{\colorTbar} \leq 2$.
 
 % (1/((S/X) - 1/2)) / (1 / (1 + S))
 % (2/((S/X))) / (1 / (1 + S))
-% 2X(1 + 1/S)
+% 2(1 + 1/S) * X / S
 
 \subsection{Tilted Algorithm Strategy}
 \label{sec:tilted-strategy}
