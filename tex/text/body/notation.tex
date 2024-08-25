@@ -7,7 +7,7 @@ As mentioned above, we term this scenario the \textbf{data stream curation probl
 
 We consider data items according only to their logical sequence position.
 We do not consider data items' actual semantic values or real-time arrival.
-We assume data item values as fixed size and thus interchangeable in memory buffer slots.
+We assume data items to be fixed size and thus interchangeable in memory buffer slots.
 
 The remainder of this section will proceed to overview key notations used throughout this work, summarized in Table \ref{tab:notation}.
 
@@ -37,9 +37,9 @@ As a space-saving optimization, we store only the data items themselves in buffe
 This optimization is critical, in particular, when data items are small --- such as single bits or single bytes \citep{moreno2022hereditary}.
 Without metadata, however, identifying stored data items requires capability to deduce ingest time solely from buffer position $\colork$.
 We denote \textit{site lookup} this operation as $\colorL(\colorT)$, yielding the data item ingest times $\colorTbar_{\colork=0}, \colorTbar_{\colork=1}, \;\;\ldots, \colorTbar_{\colork=\colorS-1}$.
-Note that if no data item has yet been stored at a stie (i.e., when first filling the buffer $\colorT < \colorS$), $\colorL(\colorT)$ may include $\nullval$ values.%
+Note that if no data item has yet been stored at a site (i.e., when first filling the buffer $\colorT < \colorS$), $\colorL(\colorT)$ may include $\nullval$ values.%
 \footnote{%
-As with site selection $\colorK$, although omitted for brevity it is the case that lookup depends on buffer size (i.e., as $\colorL_{\colorS}(\colorT)$).
+Although omitted for brevity, it is the case that lookup depends on buffer size (i.e., as $\colorL_{\colorS}(\colorT)$).
 }
 Figure \ref{fig:ingest-rank-calculation} visualizes the relationship of \textit{site selection} and \textit{site lookup} operations.
 
@@ -49,7 +49,7 @@ Figure \ref{fig:ingest-rank-calculation} visualizes the relationship of \textit{
 We will refer to each data item's stream sequence index as its \textbf{ingest time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
 We use a zero-indexing convention (the first element of the data stream has ingestion time $\colorTbar=0$).
 We assume $\colorT$ to be known for each data ingestion.
-Because we are only concerned with the sequence order of data items, and not the values of data items themselves, we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
+Because we are only concerned with the sequence order of data items (and not their actual data values), we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
 
 Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
@@ -87,7 +87,7 @@ Note that if $\colorTbar \in \colorB_{\colorT}$, then $\colorG_{\colorT}(\colorT
 \subsection{Time Hanoi Value $\colorh$}
 \label{sec:notation-hanoi}
 
-Proposed algorithms make heavy use of OEIS integer sequence A007814 \citep{oeis}, forulated as
+Proposed algorithms make heavy use of OEIS integer sequence A007814 \citep{oeis}, formulated as
 \begin{align}
 \colorH(\colorTbar)
 \coloneq
@@ -108,7 +108,7 @@ As depicted in Figure \ref{fig:hanoi-intuition}, the hanoi sequence exhibits rec
 Element 0 appears every 2nd entry, element 1 appears every 4th entry, and in the general case element $\colorh$ appears every $2^{\colorh+1}$th entry.
 So, a hanoi value $\colorh$ appears twice as often as value $\colorh + 1$.
 When hanoi value $\colorh$ appears for the first time, the value $\colorh - 1$ has appeared exactly once.
-So, we have seen exactly one instance of $\colorh$ and also exactly one instance of $\colorh - 1$.
+So, we have seen precisely one instance of $\colorh$ and also precisely one instance of $\colorh - 1$.
 At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times.
 
 DStream algorithms use the \hv{} of data items' ingestion times $\colorH(\colorTbar)$ as the basis to prioritize items for retention.
@@ -119,7 +119,7 @@ Figure \ref{fig:hanoi-intuition} provides intuition for how this core aspect of 
 \subsection{Time Epoch $\colort$}
 \label{sec:notation-epoch}
 
-Owing to our algorithms' incorporation of \hv{}-based abstractions, it is useful to track a measure related to binary magnitude of elapsed time $\colorT$ (i.e., $\sim \log_2(\colorT)$).
+Owing to our algorithms' incorporation of \hv{}-based abstractions, it is useful to track a measure related to the binary magnitude of elapsed time $\colorT$ (i.e., $\sim \log_2(\colorT)$).
 We call this measure the \textbf{epoch} $\colort$ of time $\colorT$,
 \begin{equation}
 \colort
@@ -134,7 +134,7 @@ x =
 \label{eqn:epoch-defn}
 \end{equation}
 
-For the \textit{steady algorithm}, an epochs' first time point $\colorT = \min\colortsetofT$  sits one less than an even power of two (e.g.,  $\colorT = 15$).
+For the \textit{steady algorithm}, an epochs' opening time point $\colorT = \min\colortsetofT$  sits one less than an even power of two (e.g.,  $\colorT = 15$).
 For the \textit{stretched} and \textit{tilted algorithms}, epochs begin exactly at even powers of two (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 In both cases, correction is applied to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
 
@@ -152,7 +152,7 @@ The $\colorS - \colors$ relation can be understood as arising due to delay of ep
 Algorithm design is structured around ``reserving'' (setting aside) buffer sites $\colork \in [0 \twodots \colorS)$ to host data items whose time index $\colorTbar$ has a specific \hv{}, $\{\colorTbar : \colorH(\colorTbar) = \colorh \}$, on an epoch-to-epoch-basis.
 Denote site $\colork$'s \textbf{hanoi value reservation} during epoch $\colort$ as $\colorHcal_{\colort}(\colork)$.%
 \footnote{
-A careful reader may wonder if notation for site $\colork$'s hanoi value reservation $\colorHcal_{\colort}(\colork)$ should also be qualified by overall buffer size $\colorS$ as $\colorHcal_{\colort,\colorS}(\colork)$, in addition to current epoch $\colort$.
+A careful reader may wonder if the notation for site $\colork$'s hanoi value reservation $\colorHcal_{\colort}(\colork)$ should also be qualified by overall buffer size $\colorS$ as $\colorHcal_{\colort,\colorS}(\colork)$, in addition to current epoch $\colort$.
 Although omitted from our notation for brevity, this is indeed the case.
 }
 Note that a data item $\colorTbar \not\in \colortsetofT$ may occupy site $\colork$ during epoch $\colort$ with $\colorHcal_{\colort}(\colork) \neq \colorH(\colorTbar)$, having been held over from the previous epoch $\colort - 1$ before being overwriten with an instance of \hv{} $\colorh = \colorHcal_{\colort}(\colork)$ during the current epoch $\colort$.
