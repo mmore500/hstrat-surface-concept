@@ -1,12 +1,97 @@
 \begin{figure*}[htbp!]
   \centering
+  \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\textwidth, clip, trim={0 1.25cm 1.25cm 0}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\textwidth, clip, trim={1.25cm 1.25cm 0 0}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+  \end{subfigure}
+
+\begin{subfigure}{\linewidth}
+\begin{tikzpicture}[scale=\linewidth/50cm]
+  % Define the total width and height
+
+  % Create scope with normalized axes
+  \begin{scope}
+    % Grid
+    % \draw[lightgray,step=1] (0,0) grid (50,4);
+
+    % Axes' labels
+    % \foreach \x in {1,5,...,49} { \node [below] at (\x,0) {\x}; }
+    % \foreach \y in {0,1,...,4} { \node [left] at (0,\y) {\y}; }
+
+% Add text
+\node[anchor=west] (texta) at (0, 3.5) {$r=1$};
+% Left side arrows
+
+% Triangles are drawn with the tip pointing downwards and base flush with y=5
+\filldraw[draw=white,ultra thick,fill=black!90] (8.5,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\node[anchor=center] (textaa) at (9, 3.5) {0};
+\filldraw[draw=white,ultra thick,fill=black!90] (12.75,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\node[anchor=center] (textab) at (13.25, 3.5) {1};
+\filldraw[draw=white,ultra thick,fill=black!90] (18.5,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\node[anchor=center] (textac) at (19, 3.5) {2};
+\filldraw[draw=white,ultra thick,fill=black!90] (22.75,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\node[anchor=center] (textad) at (23.25, 3.5) {3};
+
+\draw[-stealth, thick, draw=MidnightBlue!80](texta.east) -- (textaa.west);
+\draw[-stealth, thick, draw=MidnightBlue!80](textaa.east) -- (textab.west);
+\draw[-stealth, thick, draw=MidnightBlue!80](textab.east) -- (textac.west);
+\draw[-stealth, thick, draw=MidnightBlue!80](textac.east) -- (textad.west);
+
+
+% Add text
+\node[anchor=west] (textb) at (0, 2.5) {$r=2$};
+\filldraw[draw=white,ultra thick,fill=black!50] (10,5) -- ++(1.25,-2) -- ++(1.25,2) -- cycle;
+\node[anchor=center] (textba) at (11.25, 2.5) {Seg.{} 0};
+\filldraw[draw=white,ultra thick,fill=black!50] (20,5) -- ++(1.25,-2) -- ++(1.25,2) -- cycle;
+\node[anchor=center] (textbb) at (21.25, 2.5) {Seg.{} 1};
+
+
+\draw[-stealth, thick,draw=MidnightBlue!60](textb.east) -- (textba.west);
+\draw[-stealth, thick,draw=MidnightBlue!60](textba.east) -- (textbb.west);
+
+
+\node[anchor=west] (textc) at (0, 1.5) {$r=3$};
+\filldraw[draw=white,ultra thick,fill=black!25] (14,5) -- ++(2.15,-3) -- ++(2.15,3) -- cycle;
+\node[anchor=center] (textca) at (16, 1.5) {Seg.{} 0};
+
+\draw[-stealth, thick,draw=MidnightBlue!40]
+(textc.east) -- (textca.west);
+
+\node[anchor=west] (textd) at (0, 0.5) {$r=4$};
+\filldraw[draw=white,ultra thick,fill=black!10] (1.5,5) -- ++(3.25,-4) -- ++(3.25,4) -- cycle;
+\node[anchor=center] (textda) at (5, 0.5) {Seg.{} 0};
+
+\draw[-stealth, thick,draw=MidnightBlue!20]
+(textd.east) -- (textda.west);
+
+
+\node[anchor=west] (textbunch) at (-1, 4.2) {Bunch};
+  \draw [draw=MidnightBlue!30, -to, very thick, shorten >=0.5mm] (textd.west) to[out=180, in=215, looseness=1.5] (textc.west);
+  \draw [draw=MidnightBlue!50, -to, very thick, shorten >=0.5mm] (textc.west) to[out=180, in=215, looseness=1.5] (textb.west);
+  \draw [draw=MidnightBlue!70, -to, very thick] (textb.west) to[out=180, in=215, looseness=1.5] (texta.west);
+
+\filldraw[draw=white,ultra thick,fill=black!90] (23+8.5,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!90] (23+12.75,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!90] (23+18.5,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!90] (23+22.75,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!50] (23+10,5) -- ++(1.25,-2) -- ++(1.25,2) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!50] (23+20,5) -- ++(1.25,-2) -- ++(1.25,2) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!25] (23+14,5) -- ++(2.15,-3) -- ++(2.15,3) -- cycle;
+\filldraw[draw=white,ultra thick,fill=black!10] (23+1.5,5) -- ++(3.25,-4) -- ++(3.25,4) -- cycle;
+
+  \end{scope}
+\end{tikzpicture}
+\end{subfigure}
+
 \begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 0}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
 \caption{\footnotesize Sites numbered by reserved hanoi value $\colorHcal_{\colort}(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
 \label{fig:hsurf-stretched-intuition-reservations}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\textwidth, clip, trim={1.25cm 0 0 0}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
+\includegraphics[width=\textwidth, clip, trim={1.25cm 0 0 11.2cm}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=}
 \caption{\footnotesize Initialized $r$ and mature $R$ reservation segment sizes.}
 \label{fig:hsurf-stretched-intuition-reservations-size}
 \end{subfigure}
