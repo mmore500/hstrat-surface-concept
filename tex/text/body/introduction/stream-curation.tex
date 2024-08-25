@@ -4,8 +4,8 @@ Our work concerns online sampling of discrete data items from a one-dimensional 
 In selecting retained data items, we seek to ``curate'' a collection containing samples spanning the first items ingested from the data stream through the most recently ingested items \citep{moreno2024algorithms}.
 The objective, ultimately, is to preserve a representative, approximate record of stream history.
 
-We assume curation as an online process, with new data items being ingested on an ongoing basis, with a properly curated archive also needed on a continual basis.
-In practice, such fully-online curation can be necessary when either (a) stream records are consulted on a frequent basis or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
+We assume curation as an online process where new items are ingested on an ongoing basis, and a properly curated archive is needed at all times.
+In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
 
 \input{fig/criteria-intuition}
 
@@ -20,22 +20,22 @@ In practice, such fully-online curation can be necessary when either (a) stream 
 \subsection{Applications of Stream Curation}
 
 Efficient stream curation operations benefit a variety of use cases requiring synopses of data stream history.
-A straightforward application of stream curation is in unattended or sporadically-uplinked sensor devices, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
+A straightforward application of stream curation is in unattended or sporadically uplinked sensor devices, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
 In practice, however, even well-resourced centralized systems require thinning of full fidelity data --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
-Checkpoint-rollback state might also be managed through stream curation in scenarios where the possibility of non-halting silent errors require support for arbitrary rollback extents \citep{aupy2013combination}.
+Checkpoint-rollback state might also be managed through stream curation in scenarios where the possibility of non-halting silent errors requires support for arbitrary rollback extents \citep{aupy2013combination}.
 Extensions could be imagined to support more general aggregation and approximation operations over stream history besides sampling \citep{schoellhammer2024lightweight}, although we do not directly investigate these possibilities here.
 
 % Existing work has largely applied rolling full retention of most recent data within available buffer space \citep{fincham1995use} or dismissal of incoming data after storage reaches capacity \citep{saunders1989portable,mahzan2017design}.
 % Strategies to maintain a cross-sectional time sample appear scant, although there has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
 
-Algorithms reported here stem from work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for tracking of digital ancestry trees in highly-distributed systems --- for instance in analysis of many-processor agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, or computer viruses \citep{moreno2022hereditary}.
+Algorithms reported here stem from work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for tracking of digital ancestry trees in highly-distributed systems --- for instance, in analysis of many-processor agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, or computer viruses \citep{moreno2022hereditary}.
 Although beyond the scope of objectives here, we will briefly motivate this particular use case of stream curation.
-Hereditary stratigraphy annotates surveiled artifacts with checkpoint data, which is extended by a new ``fingerprint'' value with each copy event.
+Hereditary stratigraphy annotates surveilled artifacts with checkpoint data, which is extended by a new ``fingerprint'' value with each copy event.
 Comparing two artifacts' accreted records reconstructs the duration of their common ancestry, with the first mismatched fingerprints signifying divergence from common descent.
 
 This use case relies on stream curation to prevent unbounded growth of generational fingerprint records.
-These records can be considered as a data stream, in that they accrue piece-by-piece, on an indefinite basis.
+These records can be considered a data stream in that they accrue indefinitely, piece by piece.
 Downsampling fingerprints saves memory, but introduces uncertainty in estimating the timing of lineage divergence.
-For this reason, the manner in which retained checkpoints are spaced across generational history is crucial to inference quality.
+For this reason, spacing of retained checkpoints across generational history is crucial to inference quality.
 Minimizing per-item storage overhead is also critical to hereditary stratigraphy, with \citet{moreno2024guide} finding that single-bit checkpoint values maximize reconstruction quality (i.e., by allowing more fingerprints to be retained).
 Both of these concerns are prioritized in present work.

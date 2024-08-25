@@ -9,7 +9,7 @@ Stream curation involves two general data stream processing patterns:
 \end{enumerate}
 Further, stream curation pertains to logical time \citep{sibai2016sampling}, as retention objectives are organized vis-a-vis sequence index rather than real time.
 
-Owing to the fundamental role of dimension-reduction in supporting more advanced data stream operations, downsampling over logical bins has received robust algorithmic attention.
+Owing to dimension reduction's fundamental role in supporting more advanced data stream operations, downsampling over logical bins has received robust algorithmic attention.
 Notably, schemes for fixed-capacity steady (``equi-segmented'') and tilted (``vari-segmented'') retention appear in \citep{zhao2005generalized}, with the latter resembling additional ``pyramidal,'' ``logarithmic,'' and ``tilted'' time window schemes appearing elsewhere \citep{aggarwal2003framework,han2005stream,giannella2003mining,phithakkitnukoon2010recent}.
 Although congruities exist in objectives and aspects of algorithm structure, no existing work prescribes non-iterative layout and update procedures that emphasize minimization of representational overhead (e.g., avoiding storage of timestamps, segment length values, etc.) --- as pursued here.
 Work on ``amnesic approximation,'' a generalized scheme for downsampling satisfying an arbitrary temporal cost function, has related objectives but caters to a substantially more resource-intensive use case \citep{palpanas2004online}.

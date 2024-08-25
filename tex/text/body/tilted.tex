@@ -1,8 +1,8 @@
 \section{Tilted Algorithm} \label{sec:tilted}
 
-The tilted criterion favors recent data items, mandating a record spaced proportionally to time elapsed since data item's ingest time, $\colorT - \colorTbar$.
+The tilted criterion favors recent data items, mandating a record spaced proportionally to time elapsed since data item's inges time, $\colorT - \colorTbar$.
 This is opposite the stretched criterion, which favors early data items.
-The tilted criterion can be formulated as minimization of the largest ratio of gap size to ingest time,
+The tilted criterion can be formulated as minimization of the lrgest ratio of gap size to ingest time,
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} \text{ for } \colorTbar < \colorT.
 \end{align*}
@@ -71,7 +71,7 @@ It can be shown analogously to the stretched algorithm's Lemma \ref{thm:stretche
 \label{sec:tilted-mechanism}
 
 Because the tilted algorithm, like the stretched algorithm, also approximates an equal-$n$-per-\hv{} scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
-Refer to Section \ref{sec:stretched-mechanism} for a detailed description and justification of this hanoi value reservation layout, and how it is unfolds across epochs $0 \leq \colort \leq \colorS - \colors$.
+Refer to Section \ref{sec:stretched-mechanism} for a detailed description and justification of this hanoi value reservation layout, and how it unfolds across epochs $0 \leq \colort \leq \colorS - \colors$.
 
 A pertinent result of the stretched layout is that the at least $2^{\colors - 1 - \colortau}$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
 However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last} $n$ rather than the \textit{first} $n$ instances of each hanoi value.
@@ -86,7 +86,8 @@ We take particular care in considering transitions where the ``ring buffer'' of 
 
 \input{fig/hsurf-tilted-implementation.tex}
 
-Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched}. However, instead of discarding data items after available sites reserved to that \hv{} fill, we simply cycle back and overwrite the first data items within that \hv{}'s reservations.
+Site selection for data ingest proceeds similarly to that of the stretched algorithm, described in Section \ref{sec:stretched}.
+However, instead of discarding data items after available sites reserved to that \hv{} fill, we simply cycle back and overwrite the first data items within that \hv{}'s reservations.
 In practice, the target index among available sites reserved to a \hv{} can be calculated as the number of previous times a \hv{} has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
 Figure \ref{fig:hsurf-tilted-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
 Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing of the tilted site selection procedure, which is $\mathcal{O}(1)$.
