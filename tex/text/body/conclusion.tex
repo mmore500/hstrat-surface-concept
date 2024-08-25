@@ -9,10 +9,10 @@ We also outline steps to build out broad availability of developed algorithms as
 In this work, we have introduced new ``DStream'' algorithms for fast and space-efficient data stream curation --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points.
 Our approach, in particular, targets use cases that are fixed-capacity and resource-constrained.
 
-As a simplifying assumption, we have reduced data ingestion to a sole update operation: ``site selection,'' picking a buffer index to write the $n$th received data item into --- overwriting any existing data item at that location.
+As a simplifying assumption, we have reduced data ingestion to a sole update operation: ``site selection,'' picking a buffer indices for the $n$th received data item --- overwriting any existing data item at that location.
 In the interest of concision and efficiency, we forgo any explicit metadata storage or data structure overhead (e.g., pointers).
 Instead, we require site selection for the $n$th ingested item to be computable \textit{a priori}.
-Interpereting stored data, therefore, additionally requires support for ``inverse'' decoding of provenance based solely on an item's buffer index the number of items that have been ingested from the data stream.
+Interpereting stored data, therefore, additionally requires support for ``inverse'' decoding of ingest time based solely on an item's buffer index $\colork$ and current time $\colorT$.
 
 Ultimately, the purpose of stream curation is to dictate what data to keep, and for how long.
 As objectives in this regard depend heavily on use case, we have explored a suite of three possible retention strategies.
@@ -20,11 +20,12 @@ As objectives in this regard depend heavily on use case, we have explored a suit
 The first is \textit{steady} curation, which calls for retention of evenly-spaced samples across data stream history.
 Our proposed algorithm guarantees worst-case even coverage within a factor of two of the optimum.
 
-The second two curation objectives explored --- \textit{stretched} and \textit{tilted} criteria --- bias retention to favor earlier or more recent data items, respectively.
+The next two curation objectives explored (\textit{stretched} and \textit{tilted} criteria) bias retention to favor earlier or more recent data items, respectively.
 Proposed algorithms for these two criteria relate closely in structure, differing only in that the former freezes first encountered data items in place, while the latter uses a ring buffer approach to maintain the most-recently encountered data items.
 Unlike the proposed steady curation algorithm, which handles indefinitely many data item ingestions, we leave behavior for time $\colorT \geq 2^{\colorS} - 2$ unspecified in defining the proposed stretched and tilted algorithms.
+As noted earlier, we expect support for $2^{\colorS} - 2$ ingests to suffice for most use cases.
 
-All three DStream algorithms provide formal description of buffer layout procedure, and indicate how site selection proceeds on this basis.
+All three DStream algorithms provide formal description of buffer layout procedure and indicate how site selection proceeds on this basis.
 As implemented, all algorithms provide $\mathcal{O}(1)$ site selection operations and are $\mathcal{O}(\colorS)$ to decode ingest times at all $\colorS$ buffer sites.
 Each algorithm also provides strict worst-case upper bounds on curation quality across elapsed stream history.
 
@@ -41,7 +42,7 @@ Several interesting openings exist for extension of additional operations on cur
 Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ would be useful, as would fast ingest-order iteration over buffer sites $\colork \in [0 \twodots \colorS)$.
 
 A final unexplored direction is fast comparison between curated collections --- critical for applications that rely on identification of discrepancies between stream histories, such as hereditary stratigraphy.
-To these ends, fast operations to identify common retained time points $\colorTbar$ between records differing in elapsed ingest count $\colorT$ would be valuable.
+These use cases would benefit from fast operations to identify the retained data items $\colorTbar$ shared in common between two time points $\colorT_1$ and $\colorT_2$.
 The stable buffer position of data items once stored raises the possibility of applying vectorized operations for record-to-record comparison (e.g., masked bitwise equality tests).
 
 % of comparing two records to find the first mismatch.
@@ -55,12 +56,12 @@ Ultimately, motivation for this work is first and foremost application driven: w
 Indeed, a key driver of this work has been in ``hereditary stratigraphy'' tooling to support distributed lineage tracking in large-scale digital evolution experiments.
 In this use case, stream curation downsamples randomly-generated lineage ``checkpoints'' that accrue as generations elapse, allowing divergence between lineages to be identified via mismatching checkpoints \citep{moreno2022hereditary}.
 Prototype implementations of presented algorithms have already seen successfully deployment in lineage tracking over massively-distributed, agent-based evolution experiments conducted on the 850,000 core Cerebras Wafer-Scale Engine (WSE) device \citep{moreno2024trackable}.
-Promisingly, empirical microbenchmark experiments reported in that work corroborate order-of-magnitude efficiency gains from the algorithms presented here, compared to existing approaches.
+Promisingly, empirical microbenchmark experiments reported in that work corroborate order-of-magnitude efficiency gains from the algorithms presented here, compared to existing approaches used for hereditary stratigraphy.
 
 However, we also anticipate broader use cases beyond hereditary stratigraphy.
 This possibility warrants standalone software implementations of algorithms proposed herein, independent of infrastructure developed to support hereditary stratigraphy \citep{moreno2022hstrat}.
-As described in Section \ref{sec:materials}, we have organized stream-curation specific components --- including all three algorithms presented here --- as the standalone software library \textit{downstream} \citep{moreno2024downstream}.
-Going forward, we intend for stream curation algorithms to support lineage tracking implementation as an public-facing external dependency rather than as an opaque internal utility.
+As described in Section \ref{sec:materials}, we have organized stream-curation specific components --- including all three algorithms presented here --- as the standalone software library \citep{moreno2024downstream}.
+Going forward, we intend for stream curation algorithms to support lineage tracking implementation as a public-facing external dependency rather than as an opaque internal utility.
 
 One challenge in supporting end-users is cross-language interoperation.
 Partial implementations are currently available in Python, Zig, and the closely-related Cerebras Software Language (CSL) \citep{moreno2024hsurf,moreno2024downstream,moreno2024wse}.
@@ -68,5 +69,5 @@ For our own purposes, we plan to establish ports of stream curation algorithms f
 
 We would be highly interested in collaborations in assembling DStream implementations in other languages as needed --- whether incorporating new implementations into the \textit{downstream} software repository or linking to outside repositories from the \textit{downstream} documentation.
 In either case, care will need to be taken for consistency across implementations, as the semantics of stored data depends subtly upon exactly how site selection unfolded.
-One possible approach to this issue would simply be designation of a canonical implementation and development of language-agnostic means to validate other implementations.
+One possible approach to this issue would simply be designation of a canonical implementation and development of language-agnostic tests to validate other implementations.
 Alternately, effort could be invested in preparing and maintaining an explicit standard or specification.
