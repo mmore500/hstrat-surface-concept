@@ -48,14 +48,14 @@
 
     \end{tikzpicture}
     \vspace{-5ex}
-    \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=5$. H.v.{} $\colorh=5$ annotated as example.}
+    \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=5$. H.v.{} $\colorh=5$ annotated as an example.}
     \label{fig:hsurf-steady-intuition-heatmap}
   \end{subfigure}%
   \vspace{-2ex}
   \caption{
     \textbf{Steady algorithm strategy.}
     \footnotesize
-    Top panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for itmes with \hv{} $\colorh$ from their first occurance during epoch $\colort=\colorh-4$ to epoch $\colort=\colorh+1$, when stored instances of that \hv{} are overwritten.
+    Top panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for items with \hv{} $\colorh$ from their first occurrence during epoch $\colort=\colorh-4$ to epoch $\colort=\colorh+1$, when stored instances of that \hv{} are overwritten.
     Available memory buffer sites are shown across the bottom of the schematic.
     Data items' vertical span provides a timeline from when they are stored to when they are overwritten.
     The first data item with hanoi value $\colorH(\colorT) = \colorh$ is placed in bunch 0 during epoch $\colort=\colorh-4$.
@@ -68,8 +68,8 @@
     In this manner, data items with highest \hv{} are retained on a rolling basis to provide uniformly-spaced gaps --- as laid out in Figure \ref{fig:hanoi-intuition-steady}.
     Bottom panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal_{\colort}(\colork)$ from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
     Numbering/color coding corresponds to which \hv{} a site is reserved for.
-    Segments are separated by black dividers; bunches are not explicitly indicated.
-    Annotations highlight ingest/overwrite lifecycle of \hv{} $\colorh=5$.
+    Black dividers separate segments; bunches are not explicitly indicated.
+    Annotations highlight the lifecycle of data items with \hv{} $\colorh=5$.
     Note that the rightmost site $\colork=\colorS-1$ is unused.
   }
   \label{fig:hsurf-steady-intuition}

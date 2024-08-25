@@ -130,7 +130,7 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
   At each epoch, data items are filled into sites newly assigned for their ingestion-order hanoi value from left to right.
   In epoch 0, all sites are filled with a first data item.
-  At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high \hv{} sites added to other segments.
+  At subsequent epochs, the first site of all innermost-nested segments is ``invaded'' by new high \hv{} sites added to other segments.
   Low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{}, ensuring the most recent data items corresponding to that hanoi value are retained.
   The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
   Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.

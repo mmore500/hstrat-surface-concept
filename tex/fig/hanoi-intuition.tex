@@ -100,13 +100,13 @@
   \textbf{Hanoi value retention strategies.}
   \footnotesize
   Data item retention can be prioritized based on ``hanoi value'' of ingestion time $\colorT$.
-  Here, ``lollipop'' bars show hanoi values of data item ingestion time, $\colorH(\colorTbar)$.
-  To satisfy the steady criterion, our proposed strategy discards data items with hanoi value below a threshold $n(\colorT)$ (\ref{fig:hanoi-intuition-steady}).
-  As time elapses, the threshold $n$ increases and excludes more low hanoi value data items to respect available buffer space --- shown by red arrows above.
-  Our strategy for the stretched criterion retains the first $n'(\colorT)$ data item instances of all observed hanoi values (\ref{fig:hanoi-intuition-stretched}).
-  As time elapses, $n'(\colorT)$ is halved across hanoi values in a rolling fashion --- also shown by red arrows above.
-  Our strategy to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n'(\colorT)$ data item instances of each hanoi value are retained (\ref{fig:hanoi-intuition-tilted}).
-  Bottom and top panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
+  Here, ``lollipop'' bars show data item hanoi values, $\colorH(\colorTbar)$.
+  To satisfy the steady criterion, our proposed strategy discards data items with \hv{} below a threshold $n(\colorT)$ (\ref{fig:hanoi-intuition-steady}).
+  Red arrows show the threshold $n$ increasing as time elapses, purging low \hv{} data items to respect available buffer space.
+  Our strategy for the stretched criterion retains the first $n'(\colorT)$ data item instances of all observed \hv{}'s (\ref{fig:hanoi-intuition-stretched}).
+  As time elapses, $n'(\colorT)$ is halved across \hv{}'s' in a rolling fashion --- also shown by red arrows above.
+  Our strategy to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n'(\colorT)$ data item instances of each \hv{} are retained (\ref{fig:hanoi-intuition-tilted}).
+  The bottom and top panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
   Green boxes indicate retained data items.
   }
 \label{fig:hanoi-intuition}

@@ -130,13 +130,13 @@ binder/teeplots/41/num-generations=128+surface-size=32+viz=site-reservation-by-r
   Reservation segments occur in five recursively nested ``bunches'' --- (1) one 6-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
   At each epoch, data items are filled into sites newly assigned for their ingestion-order hanoi value from left to right.
   In epoch 0, all sites are filled with a first data item.
-  At subsequent epochs, the first site of all innermost-nested segments are ``invaded'' by new high \hv{} sites added to other segments.
+  At subsequent epochs, the first site of all innermost-nested segments is ``invaded'' by new high \hv{} sites added to other segments.
   When data items are placed, they remain retained until invaded by a higher-\hv{} data item.
   This process continues until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
-  Heatmap panel \ref{fig:hsurf-stretched-implementation-heatmap} shows evolution of data item age at each site on a 256-bit field over the course of 4,096 time steps.
+  Heatmap panel \ref{fig:hsurf-stretched-implementation-heatmap} shows the evolution of data item age at each site on a 256-bit field over the course of 4,096 time steps.
   Dripplot panel \ref{fig:hsurf-stretched-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
-  Time points previously eliminated are marked in red, although in this case they largely obscured by crowding in small $\colorTbar$.
+  Time points previously eliminated are marked in red, although in this case they are largely obscured by crowding in small $\colorTbar$.
   Lineplot panel \ref{fig:hsurf-stretched-implementation-satisfaction} shows stretched criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
   Lower and upper shaded areas are best- and worst-case bounds, respectively.
   }

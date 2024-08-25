@@ -127,15 +127,15 @@
     The rightmost axis, in the right panel, indicates meta-epoch $\colortau$.
     Color coding reflects assigned \hv{}
     Observe, for instance, that four sites, colored dark blue, are reserved for \hv{} $\colorh=0$ during epoch $\colort=0$.
-    As shown in right panel \ref{fig:hsurf-stretched-intuition-reservations-size}, reservation segment bunches are nested recursively, with inner bunches having shorter segments.
-    Reservation segments are separated by black lines in both diagram.
-    On left, inverted triangles schematize layout of segment bunches, which are nested and discontiguous.
+    As shown in the right panel \ref{fig:hsurf-stretched-intuition-reservations-size}, reservation segment bunches are nested recursively, with inner bunches having shorter segments.
+    Reservation segments are separated by black lines in both diagrams.
+    On the left, inverted triangles schematize the layout of segment bunches, which are nested and discontiguous.
     Bunches are indicated by color code in the right diagram, with segments having same initial size $r$ belonging to the same bunch.
     As epochs elapse, segments grow from initial size $r$ to mature size $R$ and are then invaded to elimination by their larger left neighbor.
     Note how recursive nesting ensures that the shortest segments are eliminated first.
     Note also how sites invaded during the same epoch all share the same reserved \hv{}, causing available sites for that \hv{} to instantaneously halve.
     To ensure it lasts longest, the first item with \hv{} $\colorH(\colorT) = 0$ is placed in the leftmost (and largest) segment $r=5$.
-    Subsequent \hv{} instances are accomodated in segment $r=3$, the two $r=2$ segments, and then the four $r=1$ segments.
+    Subsequent \hv{} instances are accommodated in segment $r=3$, the two $r=2$ segments, and then the four $r=1$ segments.
     Once available segment reservations are filled, subsequent \hv{} instances are discarded without storage.
     Because the segment sizes $r$ mirror the hanoi sequence, expansion of invading segments by one site per epoch $\colort$ ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$.
   In this manner, layout approximates the first-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-stretched}, with $n$ progressively decreasing as segments are invaded and lost.

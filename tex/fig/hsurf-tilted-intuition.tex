@@ -20,9 +20,9 @@
     \footnotesize
     Tilted algorithm strategy relates closely to stretched algorithm strategy.
     In particular, the tilted algorithm uses \hv{} reservation layout $\colorHcal_{\colort}(\colork)$ exactly identical to the stretched algorithm ( shown in Figure \ref{fig:hsurf-stretched-intuition}).
-    As contrasted between left and right panels, the tilted and stretched algorithms differ in their handling of \hv{} instances after available reservation segments have been filled.
+    As contrasted between left and right panels, the tilted and stretched algorithms differ in how they handle \hv{} instances after available reservation segments have been filled.
     Schematics show site selection strategy for items with \hv{} $\colorH(\colorTbar) = 0$ on a buffer of size $\colorS=8$.
-    Whereas the stretched algorithm discards these items, the tilted algorithm treats reserved segments as a ring buffer by ``wrapping around'' and beginning again from largest (and leftmost) segment $r=\colors$.
+    Whereas the stretched algorithm discards these items, the tilted algorithm treats reserved segments as a ring buffer by ``wrapping around'' and beginning again from the largest (and leftmost) segment $r=\colors$.
     In this way, the most recent $n$ (as opposed to the first $n$) data items corresponding to each hanoi value are kept, satisfying the tilted retention objective depicted in Figure \ref{fig:hanoi-intuition-tilted}.
   % Because the distribution of segment lengths mirrors the hanoi sequence, buffer space becomes available for the first-seen instances of high hanoi values as they are encountered.
     So, placements for a particular \hv{} cycle around available reservation sites, and then continue cycling around remaining sites after the \hv{} is invaded and half of reservation sites for that \hv{} are ceded.
