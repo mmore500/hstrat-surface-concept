@@ -22,12 +22,12 @@ For reservation segments with $r=1$ (which are invaded in epoch $\colort=1$ and 
 As already mentioned, initialized-singleton $r=1$ segments are always invaded first, in epoch $\colort=1$.
 Trivially, these segments also have $R(1) = 1$. on account of never having the opportunity to act as an invader.
 Segments initialized at size $r=2$ are invaded next.
-These segments acted as invader during epoch $\colort=1$, so grew to size $R(2) = 3$.
+These segments acted as invader during epoch $\colort=1$, and so grew to size $R(2) = 3$.
 Note that $R(1) \stackrel{\checkmark}{=} 2^1 - 1$ and $R(2) \stackrel{\checkmark}{=} 2^2 - 1$.
 
 Subsequent segments $r>2$ grow exponentially --- having invaded segments that themselves already grew by invasion.
 For instance, segments $r=3$ begin by invading their singleton neighbors $r=1$ during epoch $\colort=1$.
-Then they invade segments that began as $r=2$.
+Then $r=3$ segments invade segments that began as $r=2$.
 Thus, for $r=3$,
 \begin{align*}
 R(3)
