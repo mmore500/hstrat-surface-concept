@@ -12,7 +12,7 @@ rm -rf binder/teeplots/0*
 rm -rf binder/teeplots/{10,21,30,40}
 
 # copy symlinks, see https://stackoverflow.com/a/17882368/17332200
-cp -r implemented_pseudocode implemented_pseudocode_copy
+cp -rL implemented_pseudocode implemented_pseudocode_copy
 rm -rf implemented_pseudocode
 mv implemented_pseudocode_copy implemented_pseudocode
 
