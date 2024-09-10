@@ -58,11 +58,10 @@ We thus define our algorithmic goal as maintaining --- for a declining threshold
   - 1
 }
 - i2^{\colorh + 1} \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \geq 0 \}.
-\end{align*}
-
 \annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
   \colorTbar' \in [0 \twodots \colorT] : \colorH(\colorTbar') = \colorh
 \}$}
+\end{align*}
 
 Note also that by construction, $\textsf{goal\_tilted} \subset \{ \colorTbar \in [0 \twodots \colorT] \}$.
 It can be shown analogously to the stretched algorithm's Lemma \ref{thm:stretched-first-n-space} that setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$ under the tilted algorithm.

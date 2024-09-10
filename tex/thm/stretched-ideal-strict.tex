@@ -51,11 +51,10 @@ Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b} and solving for the num
   (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
 \Big) - 1
 \right\rfloor.
-\end{align*}
-
 \annotate[yshift=1em]{above,left}{numgapsgeq}{%
 Integer floor ensures lower bound on $\textsf{num\_gaps}$.
 }
+\end{align*}
 
 Counting discarded time steps and retained ``fence posts,'' the smallest gap (of at least size 1) will be located $\mathsf{num\_gaps} + \mathsf{gap\_space}$ time steps back from the most recent observed time $\colorT$.
 Note that the $\mathsf{num\_gaps}$ term accounts for the time steps occupied by retained data between gaps (i.e., ``fence posts'').
