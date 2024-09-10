@@ -5,8 +5,11 @@ shopt -s globstar
 
 for binderpath in binder*; do
     echo "binderpath ${binderpath}"
-    find "${binderpath}" -type f ! \( -name "*.png" -o -name "*.pdf" -o -name "*.tex" -o -name "*.bib" \) -exec rm -f {} +
+    find "${binderpath}" -type f ! \( -name "cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=.png" -o -name "*.pdf" -o -name "*.tex" -o -name "*.bib" \) -exec rm -f {} +
 done
+
+rm -rf binder/teeplots/0*
+rm -rf binder/teeplots/{10,21,30,40}
 
 # copy symlinks, see https://stackoverflow.com/a/17882368/17332200
 cp -r implemented_pseudocode implemented_pseudocode_copy
