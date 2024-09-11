@@ -40,6 +40,7 @@ def site_reservation_at_rank_heatmap(
     reservation_indices = extract_reservation_indices_at_rank(
         slice_df, rank, reservation_mode=reservation_mode
     )
+    last_diff = None
     for last_site, site in it.pairwise((None, *reservation_indices, nsite)):
         ax.axvline(site, color="white", linewidth=12)
         if site == 0:
@@ -61,8 +62,12 @@ def site_reservation_at_rank_heatmap(
                     linewidth=2,
                     clip_on=False,
                 )
-        elif site != nsite:
-            ax.axvline(site, color="black", linewidth=2)
+        elif (
+            (last_site != 0 and site - last_site != last_diff)
+            or (site == nsite)
+        ):
+            ax.axvline(last_site, color="black", linewidth=2)
+        last_diff = site - last_site
     # ... end of mess
 
     ax.axvline(slice_df["site"].max() + 1, color="white", linewidth=4)
