@@ -46,7 +46,7 @@ Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to o
 We divide buffer space into $\colors$ ``bunches,'' themselves divided into ``segments.''
 Bunch $i=0$ contains one segment of length $\colors$ sites.
 Then, for $i > 0$, bunch $i$ contains $2^{i-1}$ segments.
-Although segment count increases across bunches $i$, it decreases by 1 each bunch as $\colors - i$.
+Although segment count increases across bunches $i$, segment length decreases by 1 each bunch as $\colors - i$.
 So, segments in the last bunch contain only one site.
 With $\colors$ bunches, available buffer space $\colorS$ is nearly filled by this reservation layout,
 \begin{align*}
