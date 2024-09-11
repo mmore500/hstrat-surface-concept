@@ -65,6 +65,16 @@ def site_reservation_by_rank_heatmap(
         alpha=0.8,
         cbar=False,
     )
+    empty_mask_cmap = mpl.colors.ListedColormap([(0,0,0,0)])
+    empty_mask_cmap.set_bad(color='white', alpha=1)
+    sns.heatmap(
+        data=surface_history_df.pivot(
+            index="rank", columns="site", values="hanoi value"
+        ),
+        cmap=empty_mask_cmap,
+        ax=ax,
+        cbar=False,
+    )
     ax.invert_yaxis()
     for rank, group in surface_history_df.groupby("rank"):
         reservation_sites = extract_reservation_indices_at_rank(
