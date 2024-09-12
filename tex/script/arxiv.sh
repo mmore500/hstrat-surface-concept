@@ -5,7 +5,7 @@ shopt -s globstar
 
 for binderpath in binder*; do
     echo "binderpath ${binderpath}"
-    find "${binderpath}" -type f ! \( -name "cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=.png" -o -name "*.pdf" -o -name "*.tex" -o -name "*.bib" \) -exec rm -f {} +
+    find "${binderpath}" -type f ! \( -name "cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=.png" -o -name "*viz=site-reservation-by-rank-spliced-at-heatmap+ext=.png" -o -name "*.pdf" -o -name "*.tex" -o -name "*.bib" \) -exec rm -f {} +
 done
 
 rm -rf binder/teeplots/0*
