@@ -3,7 +3,7 @@
   \begin{subfigure}[b]{0.972\linewidth}
     \includegraphics[width=\textwidth, trim={0cm 0cm 0.3cm 1cm}, clip]{img/hsurf-steady-intuition}
     \vspace{-4ex}
-    \caption{\footnotesize Site selection $\colorK(\colorT)$ for data items of one \hv{}, $\colorH(\colorT) = \colorh$.}
+    \caption{\footnotesize Site selection $\colorK(\colorT)$ for data items of one \hv{}, $\colorH(\colorT) = 6$.}
     \label{fig:hsurf-steady-intuition-diagram}
   \end{subfigure}
 \vspace{-2ex}
@@ -48,16 +48,16 @@
 
     \end{tikzpicture}
     \vspace{-5ex}
-    \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=5$. H.v.{} $\colorh=5$ annotated as an example.}
+    \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=7$. H.v.{} $\colorh=6$ annotated as an example.}
     \label{fig:hsurf-steady-intuition-heatmap}
   \end{subfigure}%
   \vspace{-2ex}
   \caption{
     \textbf{Steady algorithm strategy.}
     \footnotesize
-    Top panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for items with \hv{} $\colorh$ from their first occurrence during epoch $\colort=\colorh-4$ to epoch $\colort=\colorh+1$, when stored instances of that \hv{} are overwritten.
+    Top panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for items with \hv{} $\colorh=6$ from their first occurrence during epoch $\colort=2$ to epoch $\colort=7$, when stored instances of that \hv{} are overwritten.
     Available memory buffer sites are shown across the bottom of the schematic.
-    Data items' vertical span provides a timeline from when they are stored to when they are overwritten.
+    Data items' vertical span stretches across time from the epoch when they are stored to the epoch when they are overwritten.
     The first data item with hanoi value $\colorH(\colorT) = \colorh$ is placed in bunch 0 during epoch $\colort=\colorh-4$.
     The next data item with \hv{} $\colorh$ is encountered in the following epoch, and it is placed in bunch 1.
     In epoch $\colort=\colorh-2$, two data items with \hv{} $\colorh$ are encountered and placed into segments within bunch 2.
@@ -68,8 +68,8 @@
     In this manner, data items with highest \hv{} are retained on a rolling basis to provide uniformly-spaced gaps --- as laid out in Figure \ref{fig:hanoi-intuition-steady}.
     Bottom panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal_{\colort}(\colork)$ from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
     Numbering/color coding corresponds to which \hv{} a site is reserved for.
-    Black dividers separate segments; bunches are not explicitly indicated.
-    Annotations highlight the lifecycle of data items with \hv{} $\colorh=5$.
+    Black dividers separate bunches; white space divides segments within bunches.
+    Annotations highlight the lifecycle of data items with \hv{} $\colorh=6$.
     Note that the rightmost site $\colork=\colorS-1$ is unused.
   }
   \label{fig:hsurf-steady-intuition}
