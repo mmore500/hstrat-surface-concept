@@ -1,4 +1,4 @@
-cff-version: 1.0.0
+cff-version: 1.0.1
 message: "If you use this software, please cite it as below. Also consider citing the mainline hstrat package."
 title: 'hstrat-surface-concept: Python software protyping fixed-buffer hereditary stratigraphy instrumentation'
 abstract: "hsurf provides efficient, constant-space instrumentation for heredity stratigraphic phylogenetic inference over distributed digital evolution populations."
