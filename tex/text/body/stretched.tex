@@ -61,7 +61,7 @@ However, instead of keeping just the $m$ highest \hv{}'s encountered, we approxi
 Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each \hv{} approximates stretched distribution.
 
 To respect fixed buffer capacity, per-\hv{} capacity $n$ must degrade as we encounter new \hv{}'s.
-We thus define our algorithmic goal as maintaining --- for a declining threshold $n(\colorT)$ --- the set of data items,
+We thus set out to maintain -- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
 \textsf{goal\_stretched}
 &\coloneq

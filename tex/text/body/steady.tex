@@ -18,7 +18,7 @@ This action would drop every other item, and increase gap size from 0 to $\color
 Then, removing items with $\colorH(\colorTbar) = 1$ would again drop every other item, and increase gap size to $\colorg \leq 3$.
 Continuing this pattern to prune successive hanoi values provides well-behaved transitions that gradually increase gap size while maintaining even spacing.
 
-We thus define our algorithm as maintaining, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$.
+We thus set out to maintain, for a ratcheting threshold $n(\colorT)$, all items $\colorH(\colorTbar) > n(\colorT)$.
 (The threshold $n(\colorT)$ must increase over time to ensure space for new high h.v. data items as we encounter them.)
 Formally,
 \begin{align*}
