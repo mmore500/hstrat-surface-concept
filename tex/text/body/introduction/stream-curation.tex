@@ -1,11 +1,23 @@
 \subsection{Stream Curation Problem}
+\label{sec:stream-curation-problem}
 
 Our work concerns online sampling of discrete data items from a one-dimensional data stream.
 In selecting retained data items, we seek to ``curate'' a collection containing samples spanning the first items ingested from the data stream through the most recently ingested items \citep{moreno2024algorithms}.
 The objective, ultimately, is to preserve a representative, approximate record of stream history.
-We consider a retained collection's coverage over history solely in terms of the chronological positions retained data items were encountered in the data stream.
-Note that we disregard data items' semantic values in this work, as they are immaterial under this framing.
+We consider a retained collection's coverage over history solely in terms of the timepoints (i.e., sequence positions) of retained data items.
+Note that we disregard data items' semantic values in this work, as they are immaterial under this timepoint-based framing.
 
+We define three cost functions on the timepoints of discarded data items:
+\begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) = \max_{\colorTbar \in [0\twodots\colorT)} \empheqlbrace}]{align}
+  &\colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~ \label{eqn:steady-cost} \\
+  &\frac{\colorG_{\colorT}(\colorTbar)}{\max(\colorTbar,\;\; 1)} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
+  &\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} &&\text{for \textit{``tilted''} curation;}  &&& ~ &&& ~ \label{eqn:tilted-cost}
+\end{empheq}
+where $\colorT$ is ``logical time'' (how many data items have been ingested), $\colorTbar$ is the timepoints of ab encountered data item, and $\colorG_{\colorT}(\colorTbar)$ is ``gap size'' in the curated record surrounding encountered timepoint $\colorTbar$.
+Section \ref{sec:notation} provides a full introduction of notation, with formal definitions.
+Analysis of these cost functions, including best-case lower bounds on cost, accompanies presentation of steady, stretched, and tilted algorithms targeting each in Sections \cref{sec:steady,sec:stretched,sec:tilted}.
+
+Formally, our objective is to maintain $\mathsf{cost}(\colorT)$ below a bound $\mathsf{bound}(\colorT)$, specified on a per-algorithm basis, across logical time $\colorT$.
 We assume curation as an online process where new items are ingested on an ongoing basis, and a properly curated archive is needed at all times.
 In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
 

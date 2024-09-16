@@ -1,9 +1,9 @@
 \section{Stretched Algorithm} \label{sec:stretched}
 
 The stretched criterion favors early data items, targeting a record with gap sizes proportional to data item ingest time $\colorTbar$.
-The criterion can be formulated as minimizing the largest ratio of gap size to ingest time,
+As given in Equation \ref{eqn:stretched-cost} in Section \ref{sec:stream-curation-problem}, the stretched criterion's cost function is the largest ratio of gap size to ingest time,
 \begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
+\max_{\colorTbar} \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
 \end{align*}
 For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items so that gap size grows proportionally to $\colorTbar$.
 Under such a layout, spacing between data items would scale exponentially, and --- counting from zero --- the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
