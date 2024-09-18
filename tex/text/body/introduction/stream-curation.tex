@@ -13,11 +13,12 @@ We define three cost functions on the timepoints of discarded data items:
   &\frac{\colorG_{\colorT}(\colorTbar)}{\max(\colorTbar,\;\; 1)} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
   &\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} &&\text{for \textit{``tilted''} curation;}  &&& ~ &&& ~ \label{eqn:tilted-cost}
 \end{empheq}
-where $\colorT$ is ``logical time'' (how many data items have been ingested), $\colorTbar$ is the timepoints of ab encountered data item, and $\colorG_{\colorT}(\colorTbar)$ is ``gap size'' in the curated record surrounding encountered timepoint $\colorTbar$.
+where $\colorT$ is ``logical time'' (how many data items have been ingested), $\colorTbar$ is the timepoints of an ingested data item, and $\colorG_{\colorT}(\colorTbar)$ is ``gap size'' in the curated record around timepoint $\colorTbar$ at logical time $\colorT$.
 Section \ref{sec:notation} provides a full introduction of notation, with formal definitions.
 Analysis of these cost functions, including best-case lower bounds on cost, accompanies presentation of steady, stretched, and tilted algorithms targeting each in Sections \cref{sec:steady,sec:stretched,sec:tilted}.
 
-Formally, our objective is to maintain $\mathsf{cost}(\colorT)$ below an upper bound $\mathsf{bound}(\colorT)$, specified on a per-algorithm basis, across logical time $\colorT$.
+Formally, our objective is to maintain cost function $\mathsf{cost}(\colorT)$ below an upper bound $\mathsf{bound}(\colorT)$ across logical time $\colorT$.
+We specify $\mathsf{bound}(\colorT)$ on a per-algorithm basis,
 We assume curation as an online process where new items are ingested on an ongoing basis, and a properly curated archive is needed at all times.
 In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
 
