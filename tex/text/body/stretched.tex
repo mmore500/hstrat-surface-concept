@@ -37,7 +37,7 @@ Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict
 \end{align}
 
 This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than
-\begin{align*}
+\begin{align}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
 \min\Big(
@@ -45,7 +45,8 @@ This section proposes a stream curation algorithm tailored to the stretched crit
   \frac{2(\colort + \colors)}{\colorS},\;\;
   \frac{4\colort}{\colorS}
 \Big)
-\end{align*}
+\label{eqn:stretchednoworse}
+\end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
 This bound ensures gap size ratio ${\colorG_{\colorT}(\colorTbar)}/{\colorTbar} \leq 1$.
 More generally, guarantees gap size ratio can be shown guaranteed within a factor of $(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times the optimal bound established in Equation \ref{eqn:stretched-best}.
@@ -85,7 +86,7 @@ Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\c
 \input{fig/hsurf-stretched-implementation.tex}
 
 Be reminded that our stretched retention plan is to guarantee space for the first $n(\colorT) =  2^{\colors - 1 - \colortau}$ instances of each hanoi value.
-A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ \hv{}'s $\colorh$ encountered through epoch $\colort$ with $\colorT \in \colortsetofT$.
+A naive layout might reserve a full $n(\colorT)$ sites for all $2^{\colors + \colort}$ \hv{}'s $\colorh$ that have been encountered by time $\colorT$.
 However, such a naive approach would exceed available buffer capacity.
 For example, at $\colortau=\colort=0$,
 \begin{align*}
