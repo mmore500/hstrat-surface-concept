@@ -46,17 +46,18 @@
  & {\tiny \texttt{\textbf{null\hphantom{}}}} & \textbf{25} & {\tiny \texttt{\textbf{null\hphantom{}}}} & \textbf{9} & {\tiny \texttt{\textbf{null\hphantom{}}}}  &\ldots
   \end{tabularx}
 \end{minipage}
+\vspace{-0.5ex}
 \begin{subfigure}{\textwidth}
-\vspace{-1ex}
 \caption{\footnotesize Steady policy site selection $\colorK(\colorT)$ with buffer size $\colorS=32$. Ingests marked \nullval{} indicate item discarded without storing.}
 \label{fig:hsurf-steady-implementation-site-selection}
 \end{subfigure}
+\vspace{-0.5ex}
 
 \begin{subfigure}[b]{\linewidth}
 \includegraphics[width=\linewidth]{
 binder/teeplots/11/num-generations=128+reservation-mode=steady+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=.png}
 \vspace{-4.5ex}\caption{
-  Buffer composition across time, split by epoch with data items color-coded by hanoi value of ingestion time $\colorH(\colorTbar)$.
+  Buffer composition across time, split by epoch with data items color-coded by hanoi value $\colorH(\colorTbar)$.
 }
 \label{fig:hsurf-steady-implementation-schematic}
 \end{subfigure}

@@ -43,10 +43,10 @@ Although omitted for brevity, it is the case that lookup depends on buffer size 
 }
 Figure \ref{fig:ingest-rank-calculation} visualizes the relationship of \textit{site selection} and \textit{site lookup} operations.
 
-\subsection{Current Time $\colorT$ and Item Ingest Time $\colorTbar$}
+\subsection{Logical Time $\colorT$ and Item Ingest Time $\colorTbar$}
 \label{sec:notation-time}
 
-We will refer to each data item's stream sequence index as its \textbf{ingest time} $\colorTbar$ and the most recent ingestion time as the \textbf{current time} $\colorT$.
+We will refer to each data item's stream sequence index as its \textbf{ingest time} $\colorTbar$ and the number of items ingested as the \textbf{current logical time} $\colorT$.
 We use a zero-indexing convention (the first element of the data stream has ingestion time $\colorTbar=0$).
 We assume $\colorT$ to be known for each data ingestion.
 Because we are only concerned with the sequence order of data items (and not their actual data values), we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).

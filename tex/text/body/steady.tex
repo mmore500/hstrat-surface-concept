@@ -70,7 +70,7 @@ Indeed, across all bunches $i$, the number of data items left by \hv{} $\colort 
 
 As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh=\colort-1$ by overwrites each epoch.
 In determining storage site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = \colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
-The number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen $\colorTbar < \colorT$, which can be calculated $\mathcal{O}(1)$, identifies the segment where data item $\colorTbar$ should be stored.
+The number of \hv{} instances $\colorh = \colorH(\colorTbar)$ already seen, which can be calculated $\mathcal{O}(1)$, identifies the segment where data item $\colorTbar$ should be stored.
 Lemma \ref{thm:steady-hv-elimination} verifies the behavior of this procedure.
 
 \input{alg/steady-site-selection}
