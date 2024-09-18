@@ -41,7 +41,7 @@ Lemma \ref{thm:steady-hv-geq-epoch} shows that using a threshold of $n(\colorT) 
 
 \input{fig/hsurf-steady-intuition}
 
-Each epoch $\colort$, all items with $\colorH(\colorT) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
+Each epoch $\colort$, all items with $\colorH(\colorTbar) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
 Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with \hv{} $\colorh = \colort - 1$ each epoch.
 We divide buffer space into $\colors$ ``bunches,'' themselves divided into ``segments.''
 Bunch $i=0$ contains one segment of length $\colors$ sites.
