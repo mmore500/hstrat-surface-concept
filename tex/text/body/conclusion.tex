@@ -33,7 +33,7 @@ Each algorithm also provides strict worst-case upper bounds on curation quality 
 
 As mentioned above, the core limitation of this work is the restriction of stretched and tilted algorithms to $2^{\colorS} - 2$ data item ingests.
 As such, work remains to design behavior past this point.
-One possibility is switching over at $\colorT = 2^{\colorS} - 1$ to apply steady curation on data item hanoi value $\colorH(\colorT)$ (i.e., rather than on $\colorT$ itself, as originally formulated).
+One possibility is switching over at $\colorT = 2^{\colorS} - 1$ to apply steady curation on logical time hanoi value $\colorH(\colorT)$ (i.e., rather than on logical time $\colorT$ itself, as originally formulated).
 
 Another enhancement would be random-access lookup calculation.
 Current implementations assume an $\mathcal{O}(\colorS)$ pass over all all stored data items.
