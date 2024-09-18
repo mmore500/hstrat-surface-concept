@@ -1,16 +1,16 @@
 \section{Tilted Algorithm} \label{sec:tilted}
 
-The tilted criterion favors recent data items, mandating a record spaced proportionally to time elapsed since ingest, $\colorT - \colorTbar$.
+The tilted criterion favors recent data items, mandating a record spaced proportionally to time elapsed since ingest, $\colorT - 1 - \colorTbar$.
 This is opposite to the stretched criterion, which favors early data items.
 As given in Equation \ref{eqn:tilted-cost} in Section \ref{sec:stream-curation-problem}, the tilted criterion's cost function is the largest ratio of gap size to ingest time,
 \begin{align*}
-\max_{\colorTbar} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} \text{ for } \colorTbar < \colorT.
+\max\{\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} : \colorTbar \in [0 \twodots \colorT-1).
 \end{align*}
 
 The approximate lower bound on best-case gap size ratio provided in Equation \ref{eqn:approx-gap-bound} for the stretched curation can also be applied to tilted curation, as can the strict bound on best-case gap size ratio accounting for discretization effects established in Theorem \ref{thm:stretched-ideal-strict}.
 In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than
 \begin{align}
-  \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
+  \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar}
   &\leq
   \frac{
     1
@@ -22,11 +22,13 @@ In this section, we present a stream curation algorithm tailored to the tilted c
     \Big)
     - 1/2
   }
+  \text{ for }
+  \colorTbar < \colorT - 1
   \label{eqn:tilted-gap-size-bound}
 \end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
 Because $\min(2\colort + 2\colors,\;\; 4\colort,\;\; 2^{\colors - \colortau - 1}) \leq \colorS$, tilted gap size ratio is no greater than a factor of $2(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times the optimal bound established in Equation \ref{eqn:stretched-best}.
-Additionally, gap size ratio is bounded $\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} \leq 2$.
+Additionally, gap size ratio is bounded $\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} \leq 2$.
 
 % (1/((S/X) - 1/2)) / (1 / (1 + S))
 % (2/((S/X))) / (1 / (1 + S))
@@ -59,7 +61,7 @@ We thus set out to maintain --- for a declining threshold $n(\colorT)$ --- the s
 }
 - i2^{\colorh + 1} \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \geq 0 \}.
 \annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
-  \colorTbar' \in [0 \twodots \colorT] : \colorH(\colorTbar') = \colorh
+  \colorTbar' \in [0 \twodots \colorT) : \colorH(\colorTbar') = \colorh
 \}$}
 \end{align*}
 
@@ -94,17 +96,17 @@ Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing of the
 \input{alg/tilted-site-selection}
 
 The data item $\colorTbar$ present at buffer site $\colork$ at time $\colorT$ can be determined by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
-Both site selection $\colorK$ and lookup $\colorL$ can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros).
+Both site selection $\colorK$ and lookup $\colorL$ can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros, popcount).
 Tilted site lookup is provided in supplementary material, as Algorithm \ref{alg:tilted-time-lookup}.
 Reference Python implementations appear in Supplementary Listings \ref{lst:tilted_site_selection.py} and \ref{lst:tilted_time_lookup.py}, as well as accompanying tests.
 
 \subsection{Tilted Algorithm Criterion Satisfaction}
 \label{sec:tilted-satisfaction}
 
-In this final subsection, we establish an upper bound on gap size ratio $\colorg/(\colorT - \colorTbar)$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed tilted curation algorithm.
+In this final subsection, we establish an upper bound on gap size ratio $\colorg/(\colorT - 1 - \colorTbar)$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed tilted curation algorithm.
 
 \input{thm/tilted-gap-size}
 
-During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/(\colorT - \colorTbar) \leq 4/\colorS$.
-Likewise, during the last supported meta-epoch $\colortau = \colors - 1$, $\colorG_{\colorT}(\colorTbar)/(\colorT - \colorTbar) \leq 2$.
+During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/(\colorT - 1 - \colorTbar) \leq 4/\colorS$.
+Likewise, during the last supported meta-epoch $\colortau = \colors - 1$, $\colorG_{\colorT}(\colorTbar)/(\colorT - 1 - \colorTbar) \leq 2$.
 Figure \ref{fig:hsurf-tilted-implementation-satisfaction} shows algorithm performance on the tilted criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$.

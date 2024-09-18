@@ -3,7 +3,7 @@
 The stretched criterion favors early data items, targeting a record with gap sizes proportional to data item ingest time $\colorTbar$.
 As given in Equation \ref{eqn:stretched-cost} in Section \ref{sec:stream-curation-problem}, the stretched criterion's cost function is the largest ratio of gap size to ingest time,
 \begin{align*}
-\max_{\colorTbar} \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} \text{ for } \colorTbar > 0.
+\max\{\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} : \colorTbar \in [1 \twodots \colorT)\}.
 \end{align*}
 For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items so that gap size grows proportionally to $\colorTbar$.
 Under such a layout, spacing between data items would scale exponentially, and --- counting from zero --- the $n$th retained data item would have ingestion time $\colorT^{n/(\colorS - 1)}$.
@@ -12,7 +12,9 @@ Deriving an approximate bound without accounting for discretization effects, gap
 \label{eqn:approx-gap-bound}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\stackrel{\sim}{\geq}
-\colorT^{1/\colorS} - 1.
+\colorT^{1/\colorS} - 1
+\text{ for }
+\colorTbar > 0.
 \end{align}
 
 Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict lower bound on gap size ratio,
@@ -32,7 +34,9 @@ Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict
   1
 }{
   1 + \colorS
-}.
+}
+\text{ for }
+\colorTbar > 0.
 \label{eqn:stretched-best}
 \end{align}
 
@@ -45,6 +49,8 @@ This section proposes a stream curation algorithm tailored to the stretched crit
   \frac{2(\colort + \colors)}{\colorS},\;\;
   \frac{4\colort}{\colorS}
 \Big)
+\text{ for }
+\colorTbar > 0
 \label{eqn:stretchednoworse}
 \end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
@@ -67,12 +73,12 @@ We thus set out to maintain -- for a declining threshold $n(\colorT)$ --- the se
 \textsf{goal\_stretched}
 &\coloneq
 \bigcup_{\colorh \geq 0}
-\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \leq \colorT \}.
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar < \colorT \}.
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
 The set $\textsf{goal\_stretched}$ is constructed as a union of the smallest $n(\colorT)$ instances of each \hv{}, excluding those not yet encountered at current time $\colorTbar$.
-By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT]$.
+By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT)$.
 Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 % Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.

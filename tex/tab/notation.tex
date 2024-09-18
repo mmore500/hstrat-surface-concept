@@ -10,7 +10,7 @@ Buffer Site & int & $\colork$ & index position in buffer & $\in [0\twodots\color
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Time}} \\ \hline
 Current Time & int & $\colorT$ & num elapsed data item ingests & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots 2^{\colorS - 1})$ \\
-Data Item Ingest Time & int & $\colorTbar$ & num ingests preceding data item & $\in [0 \twodots \colorT]$ \\
+Data Item Ingest Time & int & $\colorTbar$ & num ingests preceding data item & $\in [0 \twodots \colorT)$ \\
 Hanoi Value (\hv{}) of Time & int & $\colorh = \colorH(\colorT)$ & Formula \ref{eqn:hanoi-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
 Time Epoch & int & $\colort = \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT)$ & Formula \ref{eqn:epoch-defn} & $\in$ \textsuperscript{\textdagger}$\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS - \colors)$ \\
 & set & $\colortsetofT$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\!\Circled[fill color=VioletRed!70!lightgray,inner color=white,outer color=VioletRed!70!lightgray,inner xsep=1pt,inner ysep=1pt]{\mathrm{t}}}(\colorT^{\prime}) = \colort \}$ & $\subseteq [\colorT' \twodots \colorT' + n]$  \\
@@ -27,8 +27,8 @@ Mature Reservation Segment Size & int & $R(r)$ & \textsuperscript{\textdagger}N/
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Curation Quality}} \\ \hline
 Retained Data Items & set & $\colorB_{\colorT}$ & algorithm-consequent & $\subseteq [0\twodots\colorT]$ \\
-Discarded Data Items & set & $\colorBnot_{\colorT}$ & $[0\twodots\colorT] \setminus \colorB_{\colorT}$ & $\subseteq [0\twodots\colorT]$ \\
-Gap Size in Curated Collection & int & $\colorg = \colorG_{\colorT}(\colorTbar)$ & Formula \ref{eqn:gap-size-defn} & $\in [0 \twodots \colorT]$
+Discarded Data Items & set & $\colorBnot_{\colorT}$ & $[0\twodots\colorT) \setminus \colorB_{\colorT}$ & $\subseteq [0\twodots\colorT)$ \\
+Gap Size in Curated Collection & int & $\colorg = \colorG_{\colorT}(\colorTbar)$ & Formula \ref{eqn:gap-size-defn} & $\in [0 \twodots \colorT)$
 \end{tabular}
 \centering
 \caption{

@@ -8,10 +8,10 @@ We consider a retained collection's coverage over history solely in terms of the
 Note that we disregard data items' semantic values in this work, as they are immaterial under this timepoint-based framing.
 
 We define three cost functions on the timepoints of discarded data items:
-\begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) = \max_{\colorTbar \in [0\twodots\colorT)} \empheqlbrace}]{align}
-  &\colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~ \label{eqn:steady-cost} \\
-  &\frac{\colorG_{\colorT}(\colorTbar)}{\max(\colorTbar,\;\; 1)} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
-  &\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar} &&\text{for \textit{``tilted''} curation;}  &&& ~ &&& ~ \label{eqn:tilted-cost}
+\begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) \coloneq \empheqlbrace}]{align}
+  &\max_{\colorTbar \in [0\twodots\colorT)} \colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~ \label{eqn:steady-cost} \\
+  &\max_{\colorTbar \in [1\twodots\colorT)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
+  &\max_{\colorTbar \in [0\twodots\colorT - 1)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} &&\text{for \textit{``tilted''} curation,}  &&& ~ &&& ~ \label{eqn:tilted-cost}
 \end{empheq}
 where $\colorT$ is ``logical time'' (how many data items have been ingested), $\colorTbar$ is the timepoints of an ingested data item, and $\colorG_{\colorT}(\colorTbar)$ is ``gap size'' in the curated record around timepoint $\colorTbar$ at logical time $\colorT$.
 Section \ref{sec:notation} provides a full introduction of notation, with formal definitions.
