@@ -1,25 +1,36 @@
 \begin{theorem}[Steady algorithm gap size upper bound]
 \label{thm:steady-gap-size}
-Under the steady curation algorithm, no gap size $\colorg$ exceeds $\left\lceil 2 \colorT / \colorS \right\rceil$.
+Under the steady curation algorithm, no gap size $\colorg$ exceeds
+\begin{align*}
+2 \frac{\colorS + 1}{\colorS} \hat{\colorg} + 1
+\end{align*}
+where $\hat{\colorg}$ is the optimal lower bound on gap size given in Equation \ref{eqn:steady-optimal-gap-size}.
 \end{theorem}
 \begin{proof}
 Recall that the time between instances of a data item with \hv{} $\colorH(\colorTbar) = \colorh$ is $2^{\colorh + 1}$ data items.
 Recall also that the time elapsed between a \hv{} $\colorh$ and a data item with \hv{} $>\colorh$ is $2^{\colorh}$ data items.
 
-Under the proposed algorithm, we retain all data items for hanoi values $\colorh = \max (\colort - \colors, 0)$ and greater.
-So, retained data items occur at most $2^{\max(\colort - \colors, 0)}$ time steps apart.
-This corresponds to gap size at most $2^{\max(\colort - \colors, 0)} - 1$.
+Under the proposed algorithm, we retain all data items for hanoi values $\colorh \geq \colort$.
+So, retained data items occur at most $2^{\colort}$ time steps apart.
+This corresponds to gap size at most $2^{\colort} - 1$.
 Finally, we test
 \begin{align*}
-\left\lceil 2 \colorT / \colorS \right\rceil
+2 \frac{\colorS + 1}{\colorS} \left\lceil \frac{\colorT - \colorS}{\colorS + 1} \right\rceil + 1
 &\stackrel{?}{\geq}
-2^{\max(\colort - \colors, 0)} - 1\\
+2^{\colort} - 1\\
+2 \frac{\colorS + 1}{\colorS} \left\lceil \frac{\colorT - \colorS}{\colorS + 1} \right\rceil
 &\stackrel{?}{\geq}
-\max(2^{\colort} / 2^{\colors}, 1) - 1\\
+2^{\left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1} - 2 \tag{definition $\colort$, Equation \ref{eqn:epoch-defn}}\\
 &\stackrel{?}{\geq}
-\max(2^{\colort} / \colorS - 1, 0)\\
+2^{\left\lfloor \log_2(\colorT) - \log_2(\colorS) \right\rfloor + 1} - 2\\
+&\stackrel{?}{\geq}
+2\left\lfloor \frac{\colorT}{\colorS} \right\rfloor_{\mathrm{bin}} - 2\frac{\colorS}{\colorS}\\
+\frac{\colorS + 1}{\colorS} \frac{\colorT - \colorS}{\colorS + 1}
+&\stackrel{?}{\geq}
+\frac{\colorT - \colorS}{\colorS}\\
+\frac{\colorT - \colorS}{\colorS + 1}
 &\stackrel{\checkmark}{\geq}
-\max(2\colorT / \colorS - 1, 0).
+\frac{\colorT - \colorS}{\colorS + 1}.
 \end{align*}
 \end{proof}
 
