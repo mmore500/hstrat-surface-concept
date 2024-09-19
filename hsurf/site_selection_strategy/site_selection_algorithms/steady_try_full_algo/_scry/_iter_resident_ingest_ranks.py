@@ -1,9 +1,5 @@
 import typing
 
-from ...steady_algo._impl import (
-    calc_resident_ingest_rank_wrt_bin,
-    iter_bin_coords,
-)
 
 
 def iter_resident_ingest_ranks(

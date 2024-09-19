@@ -2,6 +2,7 @@ import warnings
 
 from ...steady_algo._meta import has_ingest_capacity
 
+
 def ctz(x: int) -> int:
     """Count trailing zeros."""
     assert x > 0
