@@ -3,7 +3,7 @@ import typing
 
 import pytest
 
-from hsurf.hsurf import stretched_algo as algo
+from hsurf.hsurf import stretched_try_algo as algo
 from hsurf.pylib import hanoi
 from hsurf.site_selection_strategy.site_selection_algorithms.tilted_algo._impl import (
     get_site_genesis_reservation_index_physical,
