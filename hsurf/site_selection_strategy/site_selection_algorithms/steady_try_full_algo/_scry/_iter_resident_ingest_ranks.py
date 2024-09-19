@@ -1,7 +1,6 @@
 import typing
 
 
-
 def iter_resident_ingest_ranks(
     surface_size: int, num_ingests: int
 ) -> typing.Iterable[int]:
