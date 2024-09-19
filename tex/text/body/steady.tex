@@ -2,7 +2,17 @@
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
 As given in Equation \ref{eqn:steady-cost} in Section \ref{sec:stream-curation-problem}, the steady criterion's cost function is the largest gap size between retained data items, $\max\{\colorG_{\colorT}(\colorTbar) : \colorTbar \in [0 \twodots \colorT)\}$.
-For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can at best be minimized to $\left\lceil \colorT / \colorS \right\rceil$.
+For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized no lower than
+\begin{align}
+\left\lceil
+\frac{\colorT - \colorS}{\colorS + 1}
+\right\rceil.
+% =
+% \left\lfloor
+% \frac{\colorT}{\colorS + 1}
+% \right\rfloor.
+\label{eqn:steady-optimal-gap-size}
+\end{align}
 This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
 (Disparity from ideal arises because maintaining uniform gap spacing on an ongoing basis is impossible on account of data item discards merging neighboring gaps.)
 
@@ -79,7 +89,7 @@ Algorithm \ref{alg:steady-site-selection} provides a step-by-step listing of sit
 Site lookup $\colorL(\colorT)$ is provided in supplementary material, as Algorithm \ref{alg:steady-time-lookup}.
 Reference Python implementations appear in Supplementary Listings \ref{lst:steady_site_selection.py} and \ref{lst:steady_time_lookup.py}, as well as accompanying tests.
 Lookup of ingest time $\colorTbar$ for data item at $\colork$ at time $\colorT$ boils down to decoding its segment/bunch indices and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
-Calculation of site lookup $\colorL(\colorTbar) = \colorTbar_{\colork=0}, \colorTbar_{\colork=1}, \ldots, \colorTbar_{\colork=\colorS-1}$ proceeds in $\mathcal{O}(\colorS)$ time.
+Calculation of site lookup $\colorL(\colorTbar) = \colorTbar_{\colork=0},\;\; \colorTbar_{\colork=1},\;\; \ldots,\;\; \colorTbar_{\colork=\colorS-1}$ proceeds in $\mathcal{O}(\colorS)$ time.
 
 \subsection{Steady Algorithm Criterion Satisfaction}
 \label{sec:stready-satisfaction}
