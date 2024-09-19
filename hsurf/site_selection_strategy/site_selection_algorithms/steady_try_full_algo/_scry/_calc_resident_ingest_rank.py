@@ -21,5 +21,6 @@ def calc_resident_ingest_rank(
             "Num ingests exceed capacity. Either surface size is not "
             "supported or too many ingestions have elapsed.",
         )
+    assert 0 <= site < surface_size
     gen = iter_resident_ingest_ranks(surface_size, num_ingests)
-    next(it.islice(gen, site, None))
+    return next(it.islice(gen, site, None))

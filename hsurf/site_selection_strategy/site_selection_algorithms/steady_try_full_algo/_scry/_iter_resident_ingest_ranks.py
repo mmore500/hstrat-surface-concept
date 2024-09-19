@@ -16,14 +16,14 @@ def iter_resident_ingest_ranks(
     """
     S = surface_size
     T = num_ingests
-    yield from (v if v < T else 0 for v in steady_lookup_impl(S, S))
+    yield from (v if v < T else 0 for v in steady_lookup_impl(S, max(T, S)))
 
 
 def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     """Implementation detail for `steady_time_lookup`."""
     assert T >= S  # T < S redirected to T = S by steady_time_lookup
     s = S.bit_length() - 1
-    t = (T + 1).bit_length() - s  # Current epoch
+    t = T.bit_length() - s  # Current epoch
 
     b = 0  # Bunch physical index (left-to right)
     m_b__ = 1  # Countdown on segments traversed within bunch
@@ -33,7 +33,9 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
 
     for k in range(S):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
-        w = s - b  # Number of sites in current segment (i.e., segment size)
+        epsilon_w = b == 0  # Correction on segment width if first segment
+        # Number of sites in current segment (i.e., segment size)
+        w = s - b + epsilon_w
         m = (1 << b) - m_b__  # Calc left-to-right index of current segment
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
