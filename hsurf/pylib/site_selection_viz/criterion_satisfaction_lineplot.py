@@ -103,7 +103,6 @@ def criterion_satisfaction_lineplot(
     for poly in ax.collections:
         poly.set_rasterized(True)
 
-
     # LINEPLOT ################################################################
     sns.lineplot(
         data=data[~data[hue].isin([lower_bound, upper_bound])],

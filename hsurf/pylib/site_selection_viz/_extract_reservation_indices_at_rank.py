@@ -23,6 +23,7 @@ def _steady_extract_reservation_indices_at_rank(
     assert res[-1] == surface_size
     return res[:-1]
 
+
 def _steady_extract_reservation_indices_at_rank_(
     surface_history_df: pd.DataFrame, rank: int
 ) -> typing.List[int]:
@@ -42,6 +43,7 @@ def _steady_extract_reservation_indices_at_rank_(
     assert res[-1] < surface_size
     return res
 
+
 def _steady_full_extract_reservation_indices_at_rank(
     surface_history_df: pd.DataFrame, rank: int
 ) -> typing.List[int]:
@@ -60,6 +62,7 @@ def _steady_full_extract_reservation_indices_at_rank(
 
     assert res[-1] == surface_size
     return res[:-1]
+
 
 def _tilted_extract_reservation_indices_at_rank(
     surface_history_df: pd.DataFrame, rank: int
