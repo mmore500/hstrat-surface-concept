@@ -18,7 +18,7 @@ Ultimately, the purpose of stream curation is to dictate what data to keep, and 
 As objectives in this regard differ by use case, we have explored a suite of three possible retention strategies.
 
 The first is \textit{steady} curation, which calls for retention of evenly-spaced samples across data stream history.
-Our proposed algorithm guarantees worst-case even coverage within a factor of two of the optimum.
+Our proposed algorithm guarantees worst-case even coverage within a constant factor of the optimum.
 
 The next two curation objectives explored (\textit{stretched} and \textit{tilted} criteria) bias retention to favor earlier or more recent data items, respectively.
 Proposed algorithms for these two criteria relate closely in structure, differing only in that the former freezes the first encountered data items in place, while the latter uses a ring buffer approach to maintain the most recently encountered data items.

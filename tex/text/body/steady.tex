@@ -13,7 +13,12 @@ For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be 
 % \right\rfloor.
 \label{eqn:steady-optimal-gap-size}
 \end{align}
-This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than $2\left\lceil \colorT / \colorS \right\rceil$.
+This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than
+\begin{align*}
+2^{\colort}
+% = 2^{\left\lfloor \log_2(\colorT/\colorS) \right\rfloor + 1} - 1
+&= 2 \left\lfloor \frac{\colorT}{\colorS} \right\rfloor_{\mathrm{bin}} - 1.
+\end{align*}
 (Disparity from ideal arises because maintaining uniform gap spacing on an ongoing basis is impossible on account of data item discards merging neighboring gaps.)
 
 \subsection{Steady Algorithm Strategy}

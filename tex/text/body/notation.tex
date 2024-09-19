@@ -124,19 +124,15 @@ We call this measure the \textbf{epoch} $\colort$ of time $\colorT$,
 \begin{equation}
 \colort
 \coloneq
-\max\Big(\left\lfloor \log_2(\colorT+x) \right\rfloor - \colors + 1,\;\; 0\Big)
-\text{ with }
-x =
 \begin{cases}
-1 & \text{for steady algorithm and} \\
-0 & \text{for stretched and tilted algorithms.}
+\left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1 & \text{if $\colorT \geq \colorS$} \\
+0 & \text{otherwise.}
 \end{cases}
 \label{eqn:epoch-defn}
 \end{equation}
 
-For the \textit{steady algorithm}, an epochs' opening time point $\colorT = \min\colortsetofT$  sits one less than an even power of two (e.g.,  $\colorT = 15$).
-For the \textit{stretched} and \textit{tilted algorithms}, epochs begin exactly at even powers of two (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
-In both cases, correction is applied to begin epoch $\colort=1$ at $\colorT \approx \colorS$.
+Under this definition, epochs begin exactly at even powers of two (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
+Correction is applied to begin epoch $\colort=1$ at $\colorT = \colorS$.
 
 As mentioned above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS - 1}$, so
 \begin{align*}
