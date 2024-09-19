@@ -64,7 +64,7 @@ def site_reservation_at_rank_heatmap(
                 )
         elif (
             (last_site != 0 and site - last_site != last_diff)
-            or (site == nsite)
+            or (site == nsite and "steady_full" not in reservation_mode)
         ):
             ax.axvline(last_site, color="black", linewidth=2)
         last_diff = site - last_site
