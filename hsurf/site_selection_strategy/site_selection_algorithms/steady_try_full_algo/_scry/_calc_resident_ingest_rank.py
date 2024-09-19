@@ -1,6 +1,7 @@
 import itertools as it
 import warnings
 
+from .._meta import has_ingest_capacity
 from ._iter_resident_ingest_ranks import iter_resident_ingest_ranks
 
 
