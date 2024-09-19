@@ -1,3 +1,6 @@
+import math
+
+
 def calc_gap_size_lower_bound(surface_size: int, num_ingests: int) -> int:
     """Calculate the lower bound of gap size at time step `rank`.
 
@@ -18,4 +21,7 @@ def calc_gap_size_lower_bound(surface_size: int, num_ingests: int) -> int:
     # aka
     res = num_ingests // (surface_size + 1)
     assert res <= naive
+    assert res == math.ceil(
+        max(num_ingests - surface_size, 0) / (surface_size + 1),
+    )
     return res
