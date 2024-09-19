@@ -45,7 +45,7 @@ def pick_ingest_site(rank: int, surface_size: int) -> int:
     t = T.bit_length() - s  # Current epoch (or negative)
     h = ctz(T + 1)  # Current hanoi value
     if h < t:  # If not a top n(T) hanoi value...
-        return None  # ...discard without storing
+        return surface_size  # ...discard without storing
 
     i = T >> (h + 1)  # Hanoi value incidence (i.e., num seen)
     if i == 0:  # Special case the 0th bunch
@@ -55,7 +55,7 @@ def pick_ingest_site(rank: int, surface_size: int) -> int:
     else:
         j = bit_floor(i) - 1  # Num full-bunch segments
         B = j.bit_length()  # Num full bunches
-        k_b = (1 << B) * (s - B + 1) - 1  # Bunch position
+        k_b = (1 << B) * (s - B + 1)  # Bunch position
         w = h - t + 1  # Segment width
         assert w > 0
         o = w * (i - j - 1)  # Within-bunch offset
