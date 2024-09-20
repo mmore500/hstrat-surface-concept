@@ -52,24 +52,24 @@ That is, we wish to show
 How many instances of a hanoi value $\colorh$ are encountered during epoch $\colort$?
 This is
 \begin{align*}
-\textsf{num\_items}_{\colorh}
+\mathsf{num\_items}_{\colorh}
 = 2^{\colort + \colors - \colorh} - \left\lfloor 2^{\colort + \colors - \colorh - 1}\right\rfloor.
 \end{align*}
 
 How many sites are reserved to a hanoi value $\colorh$ during epoch $\colort$?
 As established above, we only concern
 \begin{align*}
-\textsf{num\_sites}_{\colorh}
+\mathsf{num\_sites}_{\colorh}
 &<
 2^{\colort + \colors - \colorh}\\
 &\leq
 2^{\colort + \colors - \colorh - 1}.
 \end{align*}
-Because both $\textsf{num\_items}_{\colorh}$ and $\textsf{num\_sites}_{\colorh}$ are $\in \{2^{\mathbb{N}}\}$, all that remains is to show
+Because both $\mathsf{num\_items}_{\colorh}$ and $\mathsf{num\_sites}_{\colorh}$ are $\in \{2^{\mathbb{N}}\}$, all that remains is to show
 \begin{align*}
-\textsf{num\_items}_{\colorh}
+\mathsf{num\_items}_{\colorh}
 &\stackrel{?}{\geq}
-\textsf{num\_sites}_{\colorh}\\
+\mathsf{num\_sites}_{\colorh}\\
 2^{\colort + \colors - \colorh} - \left\lfloor 2^{\colort + \colors - \colorh - 1}\right\rfloor
 &\stackrel{\checkmark}{\geq}
 2^{\colort + \colors - \colorh - 1}.

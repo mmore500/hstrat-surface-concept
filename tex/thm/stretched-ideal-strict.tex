@@ -20,7 +20,7 @@ At time $\colorT > \colorS$, we have discarded at least $\colorT - \colorS$ data
 Hence, total gap space is $\sum \colorg \geq \colorT - \colorS$.
 For optimal minimization of gap size ratio, we may assume
 \begin{align}
-\textsf{gap\_space} = \colorT - \colorS.
+\mathsf{gap\_space} = \colorT - \colorS.
 \label{eqn:gap-space-a}
 \end{align}
 
@@ -28,13 +28,13 @@ Due to discretization, the smallest possible gap size is 1 data item.
 Optimal retention grows successive gap sizes by a factor of $\colorT^{1/\colorS}$.
 Calculating total gap space as a sum of gap sizes,
 \begin{align}
-\textsf{gap\_space}
+\mathsf{gap\_space}
 &=
-\sum_{i = 0}^{\textsf{num\_gaps}} \colorT^{i/\colorS} % +1?
+\sum_{i = 0}^{\mathsf{num\_gaps}} \colorT^{i/\colorS} % +1?
 \nonumber \\
 &=
 \frac{
-  \colorT^{(\textsf{num\_gaps} + 1)/\colorS} - 1
+  \colorT^{(\mathsf{num\_gaps} + 1)/\colorS} - 1
 }{
   \colorT^{1/\colorS} - 1
 }.
@@ -44,7 +44,7 @@ Calculating total gap space as a sum of gap sizes,
 Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b} and solving for the number of discrete gaps instantiated,
 \begin{align*}
 \\
-\textsf{num\_gaps}
+\mathsf{num\_gaps}
 &\eqnmarkbox[gray]{numgapsgeq}{\geq}
 \left\lfloor
 \colorS \log_{\colorT}\Big(
@@ -52,7 +52,7 @@ Equating \ref{eqn:gap-space-a} and \ref{eqn:gap-space-b} and solving for the num
 \Big) - 1
 \right\rfloor.
 \annotate[yshift=1em]{above,left}{numgapsgeq}{%
-Integer floor ensures lower bound on $\textsf{num\_gaps}$.
+Integer floor ensures lower bound on $\mathsf{num\_gaps}$.
 }
 \end{align*}
 

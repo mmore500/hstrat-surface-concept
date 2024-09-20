@@ -65,19 +65,19 @@ To reach our proof objective, we will analyze the sequence of timepoints $\maths
 :
 i \in [1 \twodots 2^{\colors - 1 - \colortau} - 1].
 \end{align*}
-First, we should confirm $\textsf{invader\_hv\_times}_{\colort} \subseteq \colort$.
+First, we should confirm $\mathsf{invader\_hv\_times}_{\colort} \subseteq \colort$.
 With $\colort + \colortau \geq 2$ for all invasions because both $\colort > 0$ and $\colortau > 0$, we readily have
 \begin{align*}
-\min(\textsf{invader\_hv\_times}_{\colort})
+\min(\mathsf{invader\_hv\_times}_{\colort})
 &\stackrel{?}{\geq}
 \min(\colorT \in \colortsetofT)\\
 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1
 &\stackrel{\checkmark}{\geq}
 2^{\colort + \colors - 1}.
 \end{align*}
-Testing $\textsf{invader\_hv\_times}_{\colort}$ against the upper bound of $\colort$,
+Testing $\mathsf{invader\_hv\_times}_{\colort}$ against the upper bound of $\colort$,
 \begin{align*}
-\max(\textsf{invader\_hv\_times}_{\colort})
+\max(\mathsf{invader\_hv\_times}_{\colort})
 &\stackrel{?}{\leq}
 \max(\colorT \in \colortsetofT)
 \\
@@ -100,7 +100,7 @@ Our final step is to establish that $\mathsf{invader\_hv\_times}_{\colort}$ capt
 Remark that $\colorT$ such that $\colorH(\colorT) \geq \colort + \colortau$ occur are spaced $2^{\colort + \colortau}$ items apart.
 Because $\mathsf{invader\_hv\_times}_{\colort}$ have an identical cadence, our question boils down to whether
 \begin{align*}
-\min(\textsf{invader\_hv\_times}_{\colort})
+\min(\mathsf{invader\_hv\_times}_{\colort})
 - 2^{\colort + \colortau}
 &\stackrel{?}{<}
 \min(\colorT \in \colortsetofT)\\
@@ -110,7 +110,7 @@ Because $\mathsf{invader\_hv\_times}_{\colort}$ have an identical cadence, our q
 \end{align*}
 and
 \begin{align*}
-\max(\textsf{invader\_hv\_times}_{\colort})
+\max(\mathsf{invader\_hv\_times}_{\colort})
 + 2^{\colort + \colortau}
 &\stackrel{?}{>}
 \max(\colorT \in \colortsetofT)\\

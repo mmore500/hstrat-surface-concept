@@ -1,7 +1,7 @@
-\begin{lemma}[Space required to store $\textsf{goal\_stretched}$]
+\begin{lemma}[Space required to store $\mathsf{goal\_stretched}$]
 \label{thm:stretched-first-n-space}
 
-Buffer space $\colorS$ suffices to store set $\textsf{goal\_stretched}$.
+Buffer space $\colorS$ suffices to store set $\mathsf{goal\_stretched}$.
 That is,
 \begin{align*}
 |\bigcup_{\colorh \geq 0}
@@ -11,10 +11,10 @@ for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
 \end{lemma}
 \begin{proof}
 As defined over supported $\colorT < 2^{\colorS - 1}$, all meta-epochs $\colortau<\colors$.
-Counting data items required by $\textsf{goal\_stretched}$,
+Counting data items required by $\mathsf{goal\_stretched}$,
 \begin{align*}
 \\
-|\textsf{goal\_stretched}|
+|\mathsf{goal\_stretched}|
 &=
 \sum_{\colorh} \min\Big(
 \eqnmarkbox[gray]{sonetau}{2^{\colors - 1 - \colortau}},\;\; |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
@@ -29,7 +29,7 @@ The set $\textsf{goal\_stretched}$ only requires $2^{\colors - 1 - \colortau}$ o
 
 Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$ (i.e., $\colorh = \colort + \colortau$),
 \begin{align*}
-|\textsf{goal\_stretched}|
+|\mathsf{goal\_stretched}|
 &=
 1 + \sum_{\colorh=0}^{\colort + \colortau} 2^{\colors - 1 - \colortau} + \sum_{\colorh=\colort + \colortau + 1}^{\colors + \colort - 1} 2^{\colors + \colort - 1 - \colorh}\\
 &=

@@ -70,15 +70,15 @@ Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ insta
 To respect fixed buffer capacity, per-\hv{} capacity $n$ must degrade as we encounter new \hv{}'s.
 We thus set out to maintain -- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
-\textsf{goal\_stretched}
+\mathsf{goal\_stretched}
 &\coloneq
 \bigcup_{\colorh \geq 0}
 \{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar < \colorT \}.
 % \quad
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
-The set $\textsf{goal\_stretched}$ is constructed as a union of the smallest $n(\colorT)$ instances of each \hv{}, excluding those not yet encountered at current time $\colorTbar$.
-By construction, $\textsf{goal\_stretched} \subseteq [0 \twodots \colorT)$.
+The set $\mathsf{goal\_stretched}$ is constructed as a union of the smallest $n(\colorT)$ instances of each \hv{}, excluding those not yet encountered at current time $\colorTbar$.
+By construction, $\mathsf{goal\_stretched} \subseteq [0 \twodots \colorT)$.
 Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 % Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.
@@ -141,7 +141,7 @@ The bottom row (``epoch 0'') of Figure \ref{fig:hsurf-stretched-intuition-reserv
 
 What about $\colorT \geq \colorS$ (i.e., $\colort \geq 1$)?
 At epoch $\colort=\colortau=0$, we have successfully guaranteed $n(\colorT) = 2^{\colors - 1 - \colortau} = \colorS / 2$ reserved sites per hanoi value.
-To satisfy $\textsf{goal\_stretched}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
+To satisfy $\mathsf{goal\_stretched}$ at $\colort=\colortau=1$, we only need to guarantee $n(\colorT) = \colorS/4$ reserved sites --- half as many as at $\colort=\colortau=0$.
 So, half of our $S/2$ sites reserved to \hv{} $\colorh=0$ may be freed up.
 One way to do this is by releasing all singleton segments containing \textit{only} \hv{} $\colorh=0$.
 
