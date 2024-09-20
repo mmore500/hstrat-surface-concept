@@ -6,7 +6,7 @@
     \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
     \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
     \begin{algorithmic}[1]
-    \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
+    \If{$\colorT < \colorS$} \Comment{If buffer not yet filled\ldots}
         \ForAll{$v \in \Call{$\colorL'$}{\colorS,\;\; \colorT}}$
             \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
                 \State \textbf{yield} $v$
@@ -19,21 +19,21 @@
             \State \textbf{yield} $v$
         \EndFor
     \EndIf
-    \State \textbf{yield} $\nullval$ \Comment{Last site is never filled}
     \Statex
     \Function{$\colorL'$}{$\colorS, \;\; \colorT$}\\
-        \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [\colorS - 1 \twodots)$ \Comment{Buffer size and current logical time}\\
+        \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [\colorS \twodots)$ \Comment{Buffer size and current logical time}\\
         \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT)$ \Comment{Ingestion time of stored data item, if any}
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
-        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT+1} - \colors $ \Comment{Current epoch}
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch}
         \State $\texttt{uint\_t} ~ ~ b \gets 0$ \Comment{Bunch logical/physical index (ordered left to right)}
         \State $\texttt{uint\_t} ~ ~ m^{\scriptscriptstyle\shortdownarrow}_b \gets 1$ \Comment{Countdown on segments traversed within bunch}
         \State $\texttt{bool\_t} ~ ~ b^{*} \gets \texttt{True}$ \Comment{Flag if have traversed all segments in bunch?}
-        \State $\texttt{uint\_t} ~ ~ {\colork}^{\scriptscriptstyle\shortdownarrow}_m \gets \colors$ \Comment{Countdown on sites traversed within segment}
-        \ForAll{$\colork \in [0\twodots \colorS - 1)$} \Comment{Iterate over buffer sites, except unused last one}
+        \State $\texttt{uint\_t} ~ ~ {\colork}^{\scriptscriptstyle\shortdownarrow}_m \gets \colors + 1$ \Comment{Countdown on sites traversed within segment}
+        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over buffer sites}
         \Statex
         \Statex \Comment{Calculate info about current segment\ldots}
-        \State $\texttt{uint\_t} ~ ~ w \gets \colors - b$ \Comment{Number of sites in current segment (i.e., segment size)}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{w} \gets \Call{I}{b == 0}$ \Comment{Correction on seg width for first bunch}
+        \State $\texttt{uint\_t} ~ ~ w \gets \colors - b + \epsilon_{w}$ \Comment{Number of sites in current segment (i.e., segment size)}
         \State $\texttt{uint\_t} ~ ~ m_p \gets 2^b -m^{\scriptscriptstyle\shortdownarrow}_b$ \Comment{Calc left-to-right index of current segment}
         \State $\texttt{uint\_t} ~ ~ \colorh_{\max} \gets \colort + w - 1$ \Comment{Max possible \hv{} in segment during current epoch $\colort$}
         \State $\texttt{uint\_t} ~ ~ \colorh' \gets \colorh_{\max} - ((\colorh_{\max} + {\colork}^{\scriptscriptstyle\shortdownarrow}_m) \bmod w)$ \Comment{Candidate hanoi value}

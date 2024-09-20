@@ -6,7 +6,7 @@
     \hspace*{\algorithmicindent} \textbf{Output:} $\colork \in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
     \begin{algorithmic}[1]
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
-        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT+1} - \colors $ \Comment{Current epoch (or negative)}
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch (or negative)}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \Call{CountTrailingZeros}{\colorT + 1}$ \Comment{Current \hv{}}
         \If{$\colorh < \colort$} \Comment{If not a top $n(\colorT)$ \hv{}\;\ldots}
         \State \Return \nullval \Comment{\ldots discard without storing}
@@ -15,7 +15,7 @@
         \If{$i = 0$} \Comment{Special case the 0th bunch}
         \State $\texttt{uint\_t} ~ ~ \colork_b \gets 0$ \Comment{Bunch position}
         \State $\texttt{uint\_t} ~ ~ o \gets 0$ \Comment{Within-bunch offset}
-        \State $\texttt{uint\_t} ~ ~ w \gets \colors$ \Comment{Segment width}
+        \State $\texttt{uint\_t} ~ ~ w \gets \colors + 1$ \Comment{Segment width}
         \Else
         % \State $j \gets \left\lfloor i \right\rfloor_{\mathrm{bin}} - 1$ \Comment{Completed segments}
         \State $\texttt{uint\_t} ~ ~ j \gets \Call{BitFloor}{i} - 1$ \Comment{Num full-bunch segments}
@@ -23,7 +23,7 @@
         % \State $k_{b} \gets 2^{b}(\colors - 1) - (\colors - 1) - b2^{b} + 2^{b + 1} - 2$ \Comment{Bunch position}
         % \State $k_{b} \gets 2^{b}\colors - 2^{b} - \colors + 1 - b2^{b} + 2^{b + 1} - 2$ \Comment{Bunch position}
         % \State $k_{b} \gets 2^{b}(\colors - 1 - b + 2) - \colors + 1 - 2$ \Comment{Bunch position}
-        \State $\texttt{uint\_t} ~ ~ \colork_b \gets 2^{b}(\colors - b + 1) - 1$ \Comment{Bunch position}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets 2^{b}(\colors - b + 1)$ \Comment{Bunch position}
         % \State $k_{b} \gets 2^{b}(\colors - b) + 2^{b + 1} - 2$ \Comment{Bunch position}
         \State $\texttt{uint\_t} ~ ~ w \gets \colorh - \colort + 1$ \Comment{Segment width}
         \State $\texttt{uint\_t} ~ ~ o \gets w (i - j - 1)$ \Comment{Within-bunch offset}
