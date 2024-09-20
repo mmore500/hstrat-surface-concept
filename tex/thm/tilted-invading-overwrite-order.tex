@@ -35,7 +35,7 @@ Recall also that $\min(\colort \in \colortausetoft) = 2^{\colortau} - \colortau$
 There are $2^{\colors - 1 - \colortau}$ uninvaded reservation segments at meta-epoch $\colortau$.
 From left to right across buffer space, invader \hv{}'s during epoch $\colort \geq 1$ are
 \begin{align*}
-\colort + \colors, \colorH(0) + \colort + \colortau, \colorH(1) + \colort + \colortau, \;\;\ldots, \colorH(2^{\colors - 1 - \colortau} - 2) + \colort + \colortau.
+\colort + \colors, \;\; \colorH(0) + \colort + \colortau, \;\; \colorH(1) + \colort + \colortau, \;\;\ldots, \;\; \colorH(2^{\colors - 1 - \colortau} - 2) + \colort + \colortau.
 \end{align*}
 
 Rewritten based on properties of the hanoi sequence and excluding the leftmost invader (characterized separately in Lemma \ref{thm:tilted-last-overwritten}),
@@ -43,11 +43,11 @@ Rewritten based on properties of the hanoi sequence and excluding the leftmost i
 \\
 \colorH\Big(
 \eqnmarkbox[gray]{hanoitime1}{1}
-\times 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1\Big),
+\times 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1\Big),\;\;
 \colorH\Big(
 \eqnmarkbox[gray]{hanoitime2}{2} \times 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1
 \Big),
-\;\;\ldots,
+\;\;\ldots,\;\;
 \colorH\Big(
 \eqnmarkbox[gray]{hanoitime3}{
 (2^{\colors - 1 - \colortau} - 1)

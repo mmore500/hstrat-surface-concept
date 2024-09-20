@@ -20,14 +20,14 @@ We will consider this case separately from $\colorh < \colort + \colortau + 1$.
 \begin{proofpart}[$\colorh \geq \colort + \colortau + 1$]
 \label{thm:hgeqttau}
 Order segment bunches by descending initial size $r$.
-Observe that bunches $0,1,\;\;\ldots,i$ contain a total of $2^i$ segments.
+Observe that bunches $0,\;\;1,\;\;\ldots,\;\;i$ contain a total of $2^i$ segments.
 Placing into segments belonging to bunch $i = \colort + \colors - \colorh$ sychronizes accrued reservations with net encountered \hv{} instances, $2^{\colort + \colors - \colorh}$.
 Filling a new, smaller $r$ bunch layer each epoch ensures the rightmost reserved site is filled last each epoch.
 \end{proofpart}
 
 \begin{proofpart}[$\colorh < \colort + \colortau + 1$]
 In this case, the number of sites reserved to a \hv{} $\colorh$ will be $2^{\colors - 1 - \colortau}$ or, if the current meta-epoch's pending invasion has not yet reached \hv{} $\colorh$, $2 \times 2^{\colors - 1 - \colortau}$.
-If, given the latter, reserved sites equal encountered \hv{} instances $2^{\colort + \colors - \colorh} = 2 \times 2^{\colors - 1 - \colortau}$, simply proceed to fill $i$th bunch $i=\colort + \colors - \colorh$ as in the above Part \ref{thm:hgeqttau}.
+If, given the latter, reserved sites equal encountered \hv{} instances $2^{\colort + \colors - \colorh} = 2 \times 2^{\colors - 1 - \colortau}$, simply proceed to fill $i$th bunch $i=\colort + \colors - \colorh$ as in Part \ref{thm:hgeqttau} above.
 
 Otherwise, to ensure completion of exactly full cycles around our ``ring buffer'' of sites reserved to \hv{} $\colorh$, we must show that the number of sites $\colork$ reserved to \hv{} $\colorh$ evenly divides the number of \hv{} $\colorh$ instances encountered during epoch $\colort$.
 That is, we wish to show
