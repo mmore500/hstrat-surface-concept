@@ -141,6 +141,20 @@ Although omitted from our notation for brevity, this is indeed the case.
 }
 Note that a data item $\colorTbar \not\in \colortsetofT$ may occupy site $\colork$ during epoch $\colort$ with $\colorHcal_{\colort}(\colork) \neq \colorH(\colorTbar)$, having been held over from the previous epoch $\colort - 1$ before being overwriten with an instance of \hv{} $\colorh = \colorHcal_{\colort}(\colork)$ during the current epoch $\colort$.
 
+A substantial fraction of implementation for presented algorithms relates to how hanoi value reservations $\colorHcal_{\colort}$ are arranged over buffer space $\colork \in [0\twodots\colorS)$ as epochs $\colort$ elapse.
+Each algorithm organizes buffer space into contiguous \textbf{reservation segments}.
+Within a single reservation segment, all hanoi value reservations are distinct.
+That is, no two sites share the same reserved hanoi value.
+Reservation segments are themselves further organized into \textbf{segment bunches}.
+All segments within a bunch are the same length and have the same left-to-right hanoi value reservation layout.
+However, unlike sites in a segment, segments in a bunch may not be laid out contiguously.
+Reservation segments in a bunch are contiguous in buffer space under the steady algorithm, but are not under the stretched and tilted algorithms.
+
+Beyond the commonalities above, the precise makeup and layout of segments and segment bunches differs between the steady algorithm versus the stretched and tilted algorithms.
+(The latter two algorithms share large commonalities.)
+Figures \ref{fig:hsurf-steady-intuition-heatmap} and \ref{fig:hsurf-stretched-intuition-reservations} sketch the makeup of hanoi value reservations, reservation segments, and segment bunches in buffer space over time for the steady algorithm and stretched/tilted algorithms, respectively.
+Further details are covered separately for each algorithm in Sections \cref{sec:steady,sec:stretched,sec:tilted}.
+
 \subsection{Time Meta-epoch $\colortau$}
 \label{sec:notation-metaepoch}
 
