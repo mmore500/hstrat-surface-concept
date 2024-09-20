@@ -47,9 +47,15 @@ Figure \ref{fig:ingest-rank-calculation} visualizes the relationship of \textit{
 \label{sec:notation-time}
 
 We will refer to each data item's stream sequence index as its \textbf{ingest time} $\colorTbar$ and the number of items ingested as the \textbf{current logical time} $\colorT$.
-We use a zero-indexing convention (the first element of the data stream has ingestion time $\colorTbar=0$).
-We assume $\colorT$ to be known for each data ingestion.
-Because we are only concerned with the sequence order of data items (and not their actual data values), we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (the data item ingested at that time).
+In other contexts, a data item's ingest time $\colorTbar$ might be referred to as its ``sequence position'' within the data stream.
+However, we avoid that terminology to prevent confusion of sequence position with buffer position $\colork$.
+
+We use a zero-indexing convention.
+Logical time begins at $\colorT=0$, when no data items have yet been ingested.
+The first element of the data stream $v_0$ is assigned ingestion time $\colorTbar=0$.
+After the first item $v_0$ is ingested, logical time advances to $\colorT=1$.
+We assume $\colorT$ to be known at every point, which can be accomplished trivially in practice with a simple counter.
+Because we are only concerned with the sequence order of data items (and not their actual data values), we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (i.e., the data item ingested at that time).
 
 Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
 Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
