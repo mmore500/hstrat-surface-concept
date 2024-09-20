@@ -12,7 +12,7 @@ from .tilted_site_selection import tilted_site_selection
 
 @pytest.mark.parametrize("S", [2**s for s in range(2, 21)])
 def test_pseudo_vs_hsurf_steady(S: int):
-    algo = hsurf.steady_try_algo
+    algo = hsurf.steady_try_full_algo
     T_max = min(
         opyt.or_value(algo.get_ingest_capacity(S), np.inf), 2**64 - 1
     )
@@ -26,8 +26,6 @@ def test_pseudo_vs_hsurf_steady(S: int):
         ),
     ):
         expected = algo.pick_ingest_site(T, S)
-        assert expected
-        expected -= expected != S
         actual = steady_site_selection(S, T)
         assert opyt.or_value(actual, S) == expected
 

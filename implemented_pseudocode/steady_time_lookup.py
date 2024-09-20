@@ -35,12 +35,14 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     b = 0  # Bunch physical index (left-to right)
     m_b__ = 1  # Countdown on segments traversed within bunch
     b_star = True  # Have traversed all segments in bunch?
-    k_m__ = s  # Countdown on sites traversed within segment
+    k_m__ = s + 1  # Countdown on sites traversed within segment
     h_ = None  # Candidate hanoi value__
 
     for k in range(S - 1):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
-        w = s - b  # Number of sites in current segment (i.e., segment size)
+        epsilon_w = b == 0  # Correction on segment width if first segment
+        # Number of sites in current segment (i.e., segment size)
+        w = s - b + epsilon_w
         m = (1 << b) - m_b__  # Calc left-to-right index of current segment
         h_max = t + w - 1  # Max possible hanoi value in segment during epoch
 
