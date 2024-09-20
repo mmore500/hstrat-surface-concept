@@ -29,7 +29,7 @@ def steady_site_selection(S: int, T: int) -> typing.Optional[int]:
         Selected site, if any.
     """
     s = S.bit_length() - 1
-    t = (T + 1).bit_length() - s  # Current epoch (or negative)
+    t = T.bit_length() - s  # Current epoch (or negative)
     h = ctz(T + 1)  # Current hanoi value
     if h < t:  # If not a top n(T) hanoi value...
         return None  # ...discard without storing

@@ -18,19 +18,17 @@ def steady_time_lookup(
     typing.Optional[int]
         Ingest time, if any.
     """
-    if T < S - 1:  # Patch for before buffer is filled...
-        yield from (v if v < T else None for v in steady_lookup_impl(S, S - 1))
+    if T < S:  # Patch for before buffer is filled...
+        yield from (v if v < T else None for v in steady_lookup_impl(S, S))
     else:  # ... assume buffer has been filled
         yield from steady_lookup_impl(S, T)
-
-    yield None  # Last site is never filled
 
 
 def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     """Implementation detail for `steady_time_lookup`."""
     assert T >= S - 1  # T <= S redirected to T = S - 1 by steady_time_lookup
     s = S.bit_length() - 1
-    t = (T + 1).bit_length() - s  # Current epoch
+    t = T.bit_length() - s  # Current epoch
 
     b = 0  # Bunch physical index (left-to right)
     m_b__ = 1  # Countdown on segments traversed within bunch
@@ -38,7 +36,7 @@ def steady_lookup_impl(S: int, T: int) -> typing.Iterable[int]:
     k_m__ = s + 1  # Countdown on sites traversed within segment
     h_ = None  # Candidate hanoi value__
 
-    for k in range(S - 1):  # Iterate over buffer sites, except unused last one
+    for k in range(S):  # Iterate over buffer sites, except unused last one
         # Calculate info about current segment...
         epsilon_w = b == 0  # Correction on segment width if first segment
         # Number of sites in current segment (i.e., segment size)
