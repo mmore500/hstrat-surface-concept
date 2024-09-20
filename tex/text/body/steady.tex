@@ -62,11 +62,12 @@ Supplementary Lemma \ref{thm:steady-hv-geq-epoch} shows that using a threshold o
 Each epoch $\colort$, all items with $\colorH(\colorTbar) = \colort - 1$ must be overwritten to make space for new items with \hv{} $\colorh \geq \colort$.
 Figure \ref{fig:hsurf-steady-intuition} overviews the layout procedure used to orchestrate replacement of data items with \hv{} $\colorh = \colort - 1$ each epoch.
 We divide buffer space into $\colors$ ``bunches,'' themselves divided into ``segments.''
-Bunch $i=0$ contains one segment of length $\colors$ sites.
-Then, for $i > 0$, bunch $i$ contains $2^{i-1}$ segments.
-Although segment count increases across bunches $i$, segment length decreases by 1 each bunch as $\colors - i$.
+Bunch $i=0$ contains one segment of length $\colors + 1$ sites.
+The layout of bunch $i=0$ is a special case, relative to the layout of subsequent bunches $i>0$.
+For $i > 0$, bunch $i$ contains $2^{i-1}$ segments.
+Although segment count increases across bunches $i > 0$, segment length decreases by 1 each bunch as $\colors - i$.
 So, segments in the last bunch contain only one site.
-With $\colors$ bunches, available buffer space $\colorS$ is nearly filled by this reservation layout,
+With $\colors$ bunches, available buffer space $\colorS$ is filled by this reservation layout,
 \begin{align*}
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.
 \end{align*}

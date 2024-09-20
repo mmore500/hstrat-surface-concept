@@ -125,13 +125,12 @@ binder/teeplots/12/num-generations=128+reservation-mode=steady-full+surface-size
   Time increases along the $y$ axis.
   Rectangles with small white ``$\blkhorzoval$'' symbol denote buffer site where the ingested data item from each timestep $\colorT$ is placed.
   Buffer space is split into ``reservation segments.''
-  Reservation segments occur in five ``bunches'' --- (1) one 5-site reservation segment, (2) one 4-site reservation segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
+  Reservation segments occur in five ``bunches'' --- (1) one 6-site segment, (2) one 4-site segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
   At each epoch, data items are filled into sites newly assigned for their ingestion-order hanoi value from left to right.
   In epoch $\colort=0$, all sites are filled with a first data item.
   During each subsequent epoch $\colort>0$, segments within bunch $i$ each accept one data item with h.v. $\colorh=\colort + \colors - 1 - i$.
   All newly-assigned sites were previously assigned to the overall now-lowest hanoi value $\colorh=\colort - 1$.
   In this way, all instances of the overall lowest hanoi value are overwritten each epoch.
-  Note that the rightmost site $\colork=\colorS-1$ is unused.
   Heatmap panel \ref{fig:hsurf-steady-implementation-heatmap} shows the evolution of data item age at each site on a 256-bit field over the course of 4,096 time steps.
   Dripplot panel \ref{fig:hsurf-steady-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   Vertical lines span durations between ingestion and elimination for data items from successive time points.
