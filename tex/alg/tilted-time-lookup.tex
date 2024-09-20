@@ -7,7 +7,7 @@
     \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
     \begin{algorithmic}[1]
     \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
-        \ForAll{$v \in \Call{$\colorL'$}{\colorS, \;\; \colorT}}$
+        \ForAll{$v \in \Call{$\colorL'$}{\colorS, \;\; \colorS}}$
             \If{$v < \colorT$} \textbf{yield} $v$ \textbf{else} \textbf{yield} $\nullval$ \Comment{\ldots filter out not-yet-encountered values}
             \EndIf
         \EndFor
