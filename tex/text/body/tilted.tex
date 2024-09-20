@@ -47,7 +47,7 @@ Under the tilted algorithm, we instead keep the \textit{last} $n(\colorT)$ data 
 Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances of each \hv{} approximates tilted distribution.
 
 We thus set out to maintain --- for a declining threshold $n(\colorT)$ --- the set of data items,
-\begin{align*}
+\begin{align}
 \\
 \mathsf{goal\_tilted}
 &\coloneq
@@ -65,7 +65,8 @@ We thus set out to maintain --- for a declining threshold $n(\colorT)$ --- the s
 \annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
   \colorTbar' \in [0 \twodots \colorT) : \colorH(\colorTbar') = \colorh
 \}$}
-\end{align*}
+\label{eqn:goal-tilted-set}
+\end{align}
 
 It can be shown analogously to the stretched algorithm's Lemma \ref{thm:stretched-first-n-space} that setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$ under the tilted algorithm.
 

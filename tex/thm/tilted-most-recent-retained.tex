@@ -1,11 +1,7 @@
 \begin{lemma}[Minimum recent items retained per \hv{}]
 \label{thm:tilted-most-recent-retained}
-At least the most recent $2^{\colors - 1 - \colortau}$ encountered instances of every \hv{} $\colorh$ are retained.
-Concretely,
-\begin{align*}
-\\
-\textsf{goal\_tilted} \subseteq \colorB_{\colorT}.
-\end{align*}
+At least the most recent $2^{\colors - 1 - \colortau}$ encountered instances of every \hv{} $\colorh$ are retained under tilted curation.
+Concretely, we wish to show $\mathsf{goal\_tilted} \subseteq \colorB_{\colorT}$, with $\mathsf{goal\_tilted}$ defined per Equation \ref{eqn:goal-tilted-set}.
 \end{lemma}
 \begin{proof}
 From Lemma \ref{thm:stretched-discarded-incidence-count}, we have reservations available to store at least the first $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
