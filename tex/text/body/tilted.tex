@@ -51,17 +51,17 @@ We thus set out to maintain --- for a declining threshold $n(\colorT)$ --- the s
 \\
 \mathsf{goal\_tilted}
 &\coloneq
-\bigcup_{\colorh \in [0 \twodots \left\lfloor \log_2(\colorT + 1) \right\rfloor]}
+\bigcup_{\colorh \geq 0}
 \{ \colorTbar =
 \eqnmarkbox[gray]{maxhanoi}{
   \left\lfloor
-  \frac{\colorT - 2^{\colorh} + 1}{2^{\colorh + 1}}
+  \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}
   \right\rfloor
   2^{\colorh + 1}
   + 2^{\colorh}
   - 1
 }
-- i2^{\colorh + 1} \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \geq 0 \}.
+- i2^{\colorh + 1} \text{ for } i \in [0 \twodots n(\colorT) - 1] : 0 \leq \colorTbar < \colorT \}.
 \annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
   \colorTbar' \in [0 \twodots \colorT) : \colorH(\colorTbar') = \colorh
 \}$}

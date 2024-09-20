@@ -5,7 +5,7 @@ Buffer space $\colorS$ suffices to store set $\mathsf{goal\_stretched}$.
 That is,
 \begin{align*}
 |\bigcup_{\colorh \geq 0}
-\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar \leq \colorT \}| \leq \colorS
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar < \colorT \}| \leq \colorS
 \end{align*}
 for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
 \end{lemma}
@@ -17,7 +17,7 @@ Counting data items required by $\mathsf{goal\_stretched}$,
 |\mathsf{goal\_stretched}|
 &=
 \sum_{\colorh} \min\Big(
-\eqnmarkbox[gray]{sonetau}{2^{\colors - 1 - \colortau}},\;\; |\{ \colorTbar \leq \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
+\eqnmarkbox[gray]{sonetau}{2^{\colors - 1 - \colortau}},\;\; |\{ \colorTbar < \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
 &=
 1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big)\\
 &=

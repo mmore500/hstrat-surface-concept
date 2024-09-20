@@ -13,7 +13,7 @@ From Lemma \ref{thm:retained-equivalence-tilted}, we have retained data items
 \begin{align*}
 \mathsf{want\_retained} =
 \{
-2^{\colorh'}\Big(\left\lfloor (\colorT + 1) / 2^{\colorh'} \right\rfloor - j\Big) - 1
+2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
   :
   j' \in [0 \twodots 2n-1]
   \text{ and }
@@ -23,41 +23,42 @@ From Lemma \ref{thm:retained-equivalence-tilted}, we have retained data items
 
 Begin by finding the smallest $m \in 2^{\mathbb{N}}$ such that
 \begin{align*}
-m\Big( \left\lfloor (\colorT + 1)/m \right\rfloor - (2n - 1)\Big) - 1
+m\Big( \left\lfloor \colorT /m \right\rfloor - (2n - 1)\Big) - 1
 &\leq
 \colorTbar.
 \end{align*}
 Solving for $m$,
 \begin{align*}
-m \left\lfloor (\colorT + 1)/m \right\rfloor - m(2n - 1)
+m \left\lfloor \colorT/m \right\rfloor - m(2n - 1)
 &\leq \colorTbar + 1\\
 m
 &\geq \frac{
-m \left\lfloor (\colorT + 1)/m \right\rfloor - \colorTbar - 1
+m \left\lfloor \colorT/m \right\rfloor - \colorTbar - 1
 }{2n - 1}\\
 m
 &\geq \frac{
-\colorT + 1 - \colorTbar - 1
+\colorT - \colorTbar - 1
 }{2n - 1}\\
 m
-&= \left\lceil \frac{\colorT - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}}.
+&= \left\lceil \frac{\colorT - 1 - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}}.
 \end{align*}
 
-So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorT - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1$ and gap size ratio can be bounded
+So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorT - 1 - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1$.
+Thus, over $\colorTbar < \colorT - 1$, $\mathsf{cost\_tilted}(\colorT)$ can be bounded
 \begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - \colorTbar}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar}
 &\leq
 \frac{
-\left\lceil \frac{\colorT - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1
+\left\lceil \frac{\colorT - 1 - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1
 }{
-\colorT - \colorTbar
+\colorT - 1 - \colorTbar
 }\\
 &\leq
 \frac{
-2\frac{\colorT - \colorTbar}{2n - 1}
+2\frac{\colorT - 1 - \colorTbar}{2n - 1}
  - 1
 }{
-\colorT - \colorTbar
+\colorT - 1 - \colorTbar
 }\\
 &\leq
 \frac{1
@@ -65,7 +66,7 @@ So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorT - \colorTbar}{
 -
 \frac{1
 }{
-\colorT - \colorTbar
+\colorT - 1 - \colorTbar
 }\\
 &\stackrel{\checkmark}{\leq}
 \frac{1}{n - 1/2}.
