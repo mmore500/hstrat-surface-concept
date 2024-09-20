@@ -7,7 +7,7 @@ Under the stretched curation algorithm, gap size ratio is bounded according to E
 Lemma \ref{thm:gap-size-ratio-stretched} establishes that gap size ratio is bounded below by $1/n$ if the first $n$ instances of each \hv{} $\colorh$ are retained.
 Substituting expressions for the number of sites reserved per \hv{} derived in Lemma \ref{thm:stretched-discarded-incidence-count} and Corrolary \ref{thm:stretched-reservation-count} gives
 \begin{align*}
-  \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+  \mathsf{cost\_stretched}(\colorTbar)
   &\leq
   \Big[
     \max\Big(
@@ -15,9 +15,7 @@ Substituting expressions for the number of sites reserved per \hv{} derived in L
       \frac{\colorS}{2(\colort + \colors)},\;\;
       \frac{\colorS}{4\colort}
     \Big)
-  \Big]^{-1}
-\text{ for }
-\colorTbar > 0.
+  \Big]^{-1}.
 \end{align*}
 
 Simplifying resolves the result.

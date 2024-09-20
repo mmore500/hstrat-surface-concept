@@ -2,7 +2,7 @@
 \label{thm:stretched-ideal-strict}
 The stretched criterion (i.e., largest gap size ratio) for a buffer of size $\colorS$ at time $\colorT$ can be minimized no lower than,
 \begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\mathsf{cost\_stretched}(\colorT)
 &\geq
 \frac{
   1
@@ -69,8 +69,9 @@ So, the first gap will occur at time $\colorTbar = \colorT - \mathsf{num\_gaps} 
   (\colorT - \colorS)(\colorT^{1/\colorS} - 1) + 1
 \Big) - 1
 \right\rfloor - (\colorT - \colorS)
-}.
+}
 \end{align*}
+for $\colorTbar > 0$.
 
 Simplifying terms gives the result.
 \end{proof}

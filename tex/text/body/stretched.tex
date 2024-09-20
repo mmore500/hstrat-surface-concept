@@ -3,6 +3,8 @@
 The stretched criterion favors early data items, targeting a record with gap sizes proportional to data item ingest time $\colorTbar$.
 As given in Equation \ref{eqn:stretched-cost} in Section \ref{sec:stream-curation-problem}, the stretched criterion's cost function is the largest ratio of gap size to ingest time,
 \begin{align*}
+\mathsf{cost\_stretched}(\colorT)
+&=
 \max\Big\{\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} : \colorTbar \in [1 \twodots \colorT)\Big\}.
 \end{align*}
 For buffer size $\colorS$ and time elapsed $\colorT$, ideal retention would space retained items so that gap size grows proportionally to $\colorTbar$.
@@ -10,16 +12,13 @@ Under such a layout, spacing between data items would scale exponentially, and -
 Deriving an approximate bound without accounting for discretization effects, gap size ratio would be minimized at best,
 \begin{align}
 \label{eqn:approx-gap-bound}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\mathsf{cost\_stretched}(\colorT)
 &\stackrel{\sim}{\geq}
-\colorT^{1/\colorS} - 1
-\text{ for }
-\colorTbar > 0.
+\colorT^{1/\colorS} - 1.
 \end{align}
-
 Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict lower bound on gap size ratio,
 \begin{align}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\mathsf{cost\_stretched}(\colorT)
 \geq
 \frac{
   1
@@ -34,23 +33,18 @@ Lemma \ref{thm:stretched-ideal-strict} works in discretization to prove a strict
   1
 }{
   1 + \colorS
-}
-\text{ for }
-\colorTbar > 0.
+}.
 \label{eqn:stretched-best}
 \end{align}
-
 This section proposes a stream curation algorithm tailored to the stretched criterion, achieving gap size ratios no worse than
 \begin{align}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\mathsf{cost\_stretched}(\colorT)
 &\leq
 \min\Big(
   \frac{2^{\colortau + 1}}{\colorS},\;\;
   \frac{2(\colort + \colors)}{\colorS},\;\;
   \frac{4\colort}{\colorS}
 \Big)
-\text{ for }
-\colorTbar > 0
 \label{eqn:stretchednoworse}
 \end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
@@ -183,10 +177,10 @@ Both site selection and ingest time calculation can be accomplished through fast
 \subsection{Stretched Algorithm Criterion Satisfaction}
 \label{sec:stretched-satisfaction}
 
-In this final subsection, we establish an upper bound on gap size ratio $\colorg / \colorTbar$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed stretched curation algorithm.
+In this final subsection, we establish an upper bound on $\mathsf{cost\_stretched}(\colorT)$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed stretched curation algorithm.
 
 \input{thm/stretched-gap-size}
 
-During early epoch $\colort = 1$, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 4/\colorS$.
-Likewise, at the opposite extremum, $\colorG_{\colorT}(\colorTbar)/\colorTbar \leq 1$ during the last supported meta-epoch $\colortau = \colors - 1$.
+During early epoch $\colort = 1$, $\mathsf{cost\_stretched}(\colorT) \leq 4/\colorS$.
+Likewise, at the opposite extremum, $\mathsf{cost\_stretched}(\colorT) \leq 1$ during the last supported meta-epoch $\colortau = \colors - 1$.
 Figure \ref{fig:hsurf-stretched-implementation-satisfaction} shows algorithm performance on the stretched criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$.

@@ -1,9 +1,11 @@
 \section{Steady Algorithm} \label{sec:steady}
 
 The steady criterion seeks to retain data items from time points evenly spread across observed history.
-As given in Equation \ref{eqn:steady-cost} in Section \ref{sec:stream-curation-problem}, the steady criterion's cost function is the largest gap size between retained data items, $\max\{\colorG_{\colorT}(\colorTbar) : \colorTbar \in [0 \twodots \colorT)\}$.
+As given in Equation \ref{eqn:steady-cost} in Section \ref{sec:stream-curation-problem}, the steady criterion's cost function is the largest gap size between retained data items, $\mathsf{cost\_steady}(\colorT) = \max\{\colorG_{\colorT}(\colorTbar) : \colorTbar \in [0 \twodots \colorT)\}$.
 For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be minimized no lower than
 \begin{align}
+\mathsf{cost\_steady}(\colorT)
+&\geq
 \left\lceil
 \frac{\colorT - \colorS}{\colorS + 1}
 \right\rceil.
@@ -15,9 +17,10 @@ For a buffer size $\colorS$ and time elapsed $\colorT$, largest gap size can be 
 \end{align}
 This section presents a stream curation algorithm designed to support the steady criterion, guaranteeing maximum gap size no worse than
 \begin{align*}
-2^{\colort}
+\mathsf{cost\_steady}(\colorT)
+% &\leq 2^{\colort}
 % = 2^{\left\lfloor \log_2(\colorT/\colorS) \right\rfloor + 1} - 1
-&= 2 \left\lfloor \frac{\colorT}{\colorS} \right\rfloor_{\mathrm{bin}} - 1.
+&\leq 2 \left\lfloor \frac{\colorT}{\colorS} \right\rfloor_{\mathrm{bin}} - 1.
 \end{align*}
 Disparity from ideal arises because maintaining uniform gap spacing on an ongoing basis is impossible on account of data item discards merging neighboring gaps.
 
@@ -99,7 +102,7 @@ Calculation of site lookup $\colorL(\colorTbar) = \colorTbar_{\colork=0},\;\; \c
 \subsection{Steady Algorithm Criterion Satisfaction}
 \label{sec:stready-satisfaction}
 
-In this final subsection, we establish an upper bound on gap size $\colorg$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed steady curation algorithm.
+In this final subsection, we establish an upper bound on $\mathsf{cost\_steady}(\colorT)$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed steady curation algorithm.
 Figure \ref{fig:hsurf-steady-implementation-satisfaction} plots an example of actual worst gap size over time under this algorithm.
 
 \input{thm/steady-gap-size}

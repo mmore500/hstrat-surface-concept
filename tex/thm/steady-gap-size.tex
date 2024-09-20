@@ -1,10 +1,10 @@
 \begin{theorem}[Steady algorithm gap size upper bound]
 \label{thm:steady-gap-size}
-Under the steady curation algorithm, no gap size $\colorg$ exceeds
+Under the steady curation algorithm,
 \begin{align*}
-2 \frac{\colorS + 1}{\colorS} \hat{\colorg} + 1
+\mathsf{cost\_steady}(\colorT) \leq 2 \frac{\colorS + 1}{\colorS} \hat{\colorg} + 1,
 \end{align*}
-where $\hat{\colorg}$ is the optimal lower bound on gap size given in Equation \ref{eqn:steady-optimal-gap-size}.
+where $\hat{\colorg}$ is the optimal lower bound on $\mathsf{cost\_steady}(\colorT)$ given in Equation \ref{eqn:steady-optimal-gap-size}.
 \end{theorem}
 \begin{proof}
 Recall that the time between instances of a data item with \hv{} $\colorH(\colorTbar) = \colorh$ is $2^{\colorh + 1}$ data items.

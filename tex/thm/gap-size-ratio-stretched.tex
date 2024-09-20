@@ -2,7 +2,7 @@
 \label{thm:gap-size-ratio-stretched}
 If the first $n$ data items $\colorH(\colorTbar) = \colorh$ for each \hv{} $\colorh$ are retained at time $\colorT$, then gap size ratio is bounded,
 \begin{align*}
-\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+\mathsf{cost\_stretched}(\colorT)
 &\leq
 \frac{1}{n}.
 \end{align*}
@@ -32,7 +32,8 @@ m
 &= \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}}.
 \end{align*}
 
-So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}} - 1$ and gap size ratio can be bounded
+So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}} - 1$.
+Thus, for $\colorTbar > 0$, gap size ratio $\mathsf{cost\_stretched}(\colorT)$ can be bounded
 \begin{align*}
 \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
 &\leq
