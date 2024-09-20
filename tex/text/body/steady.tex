@@ -72,8 +72,8 @@ With $\colors$ bunches, available buffer space $\colorS$ is filled by this reser
 \colors + \sum_{i=0}^{\colors-1} (\colors - i - 1) \times 2^{i} = 2^{\colors} - 1 = \colorS - 1.
 \end{align*}
 
-For each hanoi value $\colorh$, if we store one data item $\colorH(\colorTbar) = \colorh$ per segment, during epoch $\colort$ data items with hanoi value $\colorh$ will touch all segments within exactly one bunch.
-Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors + 1$.
+For each hanoi value $\colorh$, if we store one data item $\colorH(\colorTbar) = \colorh$ per segment, data items with a hanoi value $\colorh$ will touch all segments within exactly one bunch over the course of one epoch.
+Bunch 0 will contain the first data item with \hv{} $\colorh$, which is encountered in epoch $\colort=\colorh - \colors$.
 Bunch 1 contains the one data item with that \hv{} from epoch $\colort=\colorh - \colors + 2$.
 Bunch 2 contains the two data items with \hv{} $\colorh$ from epoch $\colort=\colorh - \colors + 3$.
 In general, bunch $i$ will contain data items $\{ \colorTbar \in \lBrace \colort = \colorh - \colors + i + 1 \rBrace : \colorH(\colorTbar) = \colorh \}$.
@@ -82,10 +82,10 @@ Segment size (decreasing by one each bunch) is arranged so that one instance of 
 \input{fig/hsurf-steady-implementation}
 
 The particulars of our layout become useful in managing elimination of data items with \hv{} $\colorh = \colort - 1$ during epoch $\colort$.
-As noted above, \hv{} $\colort + \colors$ will store exactly one data item in bunch 0 during epoch $\colort$.
-This is the same number of data items left by \hv{} $\colort - 1$ in bunch 0 during earlier epoch $\colort - 1 - \colors$.
-The same correspondence holds in bunch 1, between \hv{} $\colort + \colors - 1$ and \hv{} $\colort - 1$.
-Indeed, across all bunches $i$, the number of data items left by \hv{} $\colort + \colors - i$ in bunch $i$ equals those left earlier by \hv{} $\colort - 1$.
+As noted above, \hv{} $\colort + \colors$ will store exactly one data item in bunch 0 during epoch $\colort > 0$.
+This is the same number of data items left by \hv{} $\colort - 1$ in bunch 0 during earlier epoch $\colort - \colors - 1$.
+The same correspondence holds in bunch 1, between \hv{} $\colort + \colors - 2$ and \hv{} $\colort - 1$.
+Indeed, across all bunches $i>0$, the number of data items left by \hv{} $\colort + \colors - i$ in bunch $i$ equals those left earlier by \hv{} $\colort - 1$.
 
 As shown in Figure \ref{fig:hsurf-steady-implementation}, we can take advantage of one-to-one correspondence between incoming data items and data items of \hv{} $\colorh=\colort-1$ to choreograph clean elimination of \hv{} $\colorh=\colort-1$ by overwrites each epoch.
 In determining storage site $\colork$ for ingest $\colorTbar$, we map incoming data items with \hv{} $\colorh \geq \colort$ over items $\colorh = \colort - 1$ slated for elimination by placing them at segment positions $\colorh$ modulus segment size.
