@@ -78,7 +78,7 @@ We thus set out to maintain -- for a declining threshold $n(\colorT)$ --- the se
 % \forall \colorh \in \{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}
 \end{align*}
 The set $\textsf{goal\_stretched}$ is constructed as a union of the smallest $n(\colorT)$ instances of each \hv{}, excluding those not yet encountered at current time $\colorTbar$.
-By construction, $\textsf{goal\_stretched} \subset [0 \twodots \colorT)$.
+By construction, $\textsf{goal\_stretched} \subseteq [0 \twodots \colorT)$.
 Lemma \ref{thm:stretched-first-n-space} shows setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$.
 
 % Note that, by the nature of the hanoi sequence, the distinct \hv{}'s encountered by time $\colorTbar$, $\{ \colorH(\colorTbar) \forall \colorTbar \leq \colorT \}$, , equals $[0 \twodots \left\lfloor \log_2\colorT + 1 \right\rfloor]\}$.
