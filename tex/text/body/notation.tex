@@ -57,17 +57,6 @@ After the first item $v_0$ is ingested, logical time advances to $\colorT=1$.
 We assume $\colorT$ to be known at every point, which can be accomplished trivially in practice with a simple counter.
 Because we are only concerned with the sequence order of data items (and not their actual data values), we will shorthand $\colorTbar$ as referring to $v_{\colorTbar}$ (i.e., the data item ingested at that time).
 
-Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
-Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
-However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS} - 2$ ingestions.
-We expect this capacity to suffice for many applications using even moderately sized buffers.
-For instance, a buffer with space for 64 data items suffices to ingest items continuously at 5GHz for over 100 years.
-As such, we leave behavior for stretched and tilted curation past $2^{\colorS} - 2$ ingests to future work.
-
-For convenience in exposition, note that we formally define and characterize these algorithms only for $\colorT \in [0 \twodots 2^{\colorS - 1})$.
-However, in practice, extension to $\colorT \in [0 \twodots 2^{\colorS} - 1)$ that respects established guarantees on curation quality is straightforward.
-All algorithm psuedocode and reference implementations support this extended domain.
-
 \subsection{Gap Size $\colorg$}
 \label{sec:notation-gapsize}
 
@@ -141,14 +130,6 @@ We call this measure the \textbf{epoch} $\colort$ of time $\colorT$,
 Under this definition, epochs begin exactly at even powers of two (e.g., $\colorT = 16$) for $\colorT \geq \colorS$.
 Correction is applied to begin epoch $\colort=1$ at $\colorT = \colorS$.
 
-As mentioned above, stretched and tilted algorithms limit consideration to $\colorT < 2^{\colorS - 1}$, so
-\begin{align*}
-\colort &\leq \left\lfloor\log_2(2^{\colorS - 1} - 1)\right\rfloor - \colors + 1
-\leq \colorS - \colors - 1
-\end{align*}
-assuming $\colorS \geq 4$.
-The $\colorS - \colors$ relation can be understood as arising due to delay of epoch $\colort=1$ to time $\colorT = \colorS = 2^{\colors}$.
-
 \subsection{Site Reservations $\colorHcal_{\colort}(\colork)$}
 \label{sec:notation-reservation}
 
@@ -184,7 +165,27 @@ For epoch $\colort > 0$, we can thus calculate the current meta-epoch $\colortau
 \end{cases}
 \end{align*}
 
-Recalling that stretched and tilted algorithms limit $\colort < \colorS - \colors$, Supplementary Lemma \ref{thm:meta-epoch-bound} establishes the following upper bounds on $\colortau$,
+\subsection{Restrictions on Logical Time $\colorT$, Epoch $\colort$, and Meta-epoch $\colortau$}
+
+Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
+Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
+However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS} - 2$ ingestions.
+We expect this capacity to suffice for many applications using even moderately sized buffers.
+For instance, a buffer with space for 64 data items suffices to ingest items continuously at 5GHz for over 100 years.
+As such, we leave behavior for stretched and tilted curation past $2^{\colorS} - 2$ ingests to future work.
+
+For convenience in exposition, note that we formally define and characterize the stretched and tilted algorithms only for $\colorT \in [0 \twodots 2^{\colorS - 1})$.
+However, in practice, extension to $\colorT \in [0 \twodots 2^{\colorS} - 1)$ that respects established guarantees on curation quality is straightforward.
+All algorithm psuedocode and reference implementations support this extended domain.
+
+Restricting logical time $\colorT < 2^{\colorS - 1}$ bounds time epoch $\colort$ below
+\begin{align*}
+\colort &\leq \left\lfloor\log_2(2^{\colorS - 1} - 1)\right\rfloor - \colors + 1
+\leq \colorS - \colors - 1
+\end{align*}
+assuming $\colorS \geq 4$.
+The $\colorS - \colors$ relation can be understood as arising due to delay of epoch $\colort=1$ to time $\colorT = \colorS = 2^{\colors}$.
+Supplementary Lemma \ref{thm:meta-epoch-bound} establishes the following upper bound on time meta-epoch $\colortau$,
 \begin{align*}
 \colortau
 &\leq
@@ -194,7 +195,7 @@ Recalling that stretched and tilted algorithms limit $\colort < \colorS - \color
 \Big)
 \text{ for } \colort \in [1 \twodots \colorS - \colors).
 \end{align*}
-Taking $\colort = \colorS - \colors - 1$, we can also bound $\colortau$ over the stretched and tilted algorithms' domains by $\colortau < \colors$.
+Taking $\colort = \colorS - \colors - 1$, we can also bound $\colortau$ over the stretched and tilted algorithms' domains as $\colortau < \colors$.
 
 \subsection{Miscellania}
 
