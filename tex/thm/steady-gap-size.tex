@@ -8,7 +8,7 @@ where $\hat{\colorg}$ is the optimal lower bound on $\mathsf{cost\_steady}(\colo
 \end{theorem}
 \begin{proof}
 Recall that the time between instances of a data item with \hv{} $\colorH(\colorTbar) = \colorh$ is $2^{\colorh + 1}$ data items.
-Recall also that the time elapsed between a \hv{} $\colorh$ and a data item with \hv{} $>\colorh$ is $2^{\colorh}$ data items.
+Recall also that the time elapsed between a \hv{} $\colorh$ and a data item with \hv{} greater than $\colorh$ is $2^{\colorh}$ data items.
 
 Under the proposed algorithm, we retain all data items for hanoi values $\colorh \geq \colort$.
 So, retained data items occur at most $2^{\colort}$ time steps apart.

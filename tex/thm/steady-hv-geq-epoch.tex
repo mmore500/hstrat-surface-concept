@@ -9,22 +9,12 @@ It is sufficient to consider epochs' last time point, $\max(\colorT \in \colorts
 Recall that \hv{} $\colorh$ is encountered for the first time at time $\colorT = 2^{\colorh} - 1$.
 % So, \hv{} $\colorh = \colors + \colort$ is encountered at $\colorT = 2^{\colors + \colort} - 1$.
 % At that time, there are $\colors$ distinct hanoi values $\colorh$ such that $\colort \leq \colorh \leq \colors + \colort$.
-Summing data item counts for \hv{}'s $[\colort \twodots \colors + \colort]$,
+Summing data item counts for \hv{}'s $\colorh \in [\colort \twodots \colors + \colort]$,
 \begin{align*}
-\\
-\left| \{\colorTbar \in [0 \twodots 2^{\colors + \colort} - 2] : \colorH(\colorTbar) \geq \colort \} \right|
-&= \left| \{\colorTbar \in [0 \twodots 2^{\colors + \colort} - 1] : \colorH(\colorTbar) \geq \colort \} \right|
-\eqnmarkbox[gray]{correctforonepast}{
-- 1
-}
-\\
-&= -1 + \sum_{\colorh=\colort}^{\colors + \colort} \left\lceil2^{(\colors + \colort) - \colorh - 1}\right\rceil
-= \sum_{i=1}^{\colors} 2^{i - 1} \\
-&= 2^{\colors} - 1
-= \colorS - 1\\
+\left| \{\colorTbar \in [0 \twodots 2^{\colors + \colort} - 1] : \colorH(\colorTbar) \geq \colort \} \right|\\
+&= \sum_{\colorh=\colort}^{\colors + \colort} \left\lceil2^{(\colors + \colort) - \colorh - 1}\right\rceil
+= 1 + \sum_{i=1}^{\colors} 2^{i - 1} \\
+&= 2^{\colors}\\
 &\stackrel{\checkmark}{\leq} \colorS.
-\annotate[yshift=1em]{above,left}{correctforonepast}{
-\hv{} $\colorh = \colors + \colort$ first occurs one past epoch $\colort$ at time $\colorT = 2^{\colors + \colort} - 1$
-}
 \end{align*}
 \end{proof}
