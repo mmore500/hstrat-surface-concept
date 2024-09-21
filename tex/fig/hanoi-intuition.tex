@@ -1,67 +1,43 @@
 \begin{figure*}
-  \centering
+\begin{minipage}[t]{0.7\textwidth}
 \begin{minipage}[]{\textwidth}
 \noindent\fcolorbox{gray!3}{gray!3}{%
-\begin{minipage}[c][0.97in]{0.02\textwidth}
+\begin{minipage}[c][0.97in]{0.05\textwidth}
 \hspace{-0.5ex}%
 \rotatebox{90}{$\colorT = 100$}
 \end{minipage}}%
 \hspace{-1.5ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!4}{orange!4}{%
-\begin{minipage}[]{0.34\textwidth}
+\begin{minipage}[]{0.95\textwidth}
 \includegraphics[trim={0.2cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=.pdf}%
 \end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{pink!6}{pink!6}{%
-\begin{minipage}[]{0.31\textwidth}
-\includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-after-alt+x=index+y=hanoi-value+ext=.pdf}%
-\end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{teal!5}{teal!5}{%
-\begin{minipage}[]{0.31\textwidth}
-\includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-after-alt+x=index+y=hanoi-value+ext=.pdf}%
-\end{minipage}\hspace{-1ex}}%
 \end{minipage}\vspace{-1ex}
 
 \begin{minipage}[]{\textwidth}
 \noindent\fcolorbox{gray!11}{gray!11}{%
-\begin{minipage}[c][1.25in]{0.02\textwidth}
+\begin{minipage}[c][1.25in]{0.05\textwidth}
 \hspace{-0.5ex}%
 \rotatebox{90}{$\colorT = 50$}
 \end{minipage}}%
 \hspace{-1.5ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!10}{orange!10}{%
-\begin{minipage}[c]{0.34\textwidth}
+\begin{minipage}[c]{0.95\textwidth}
 \includegraphics[trim={0.2cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
 \end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{pink!15}{pink!15}{%
-\begin{minipage}[c]{0.31\textwidth}
-\includegraphics[trim={1cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=first-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
-\end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{teal!11}{teal!11}{%
-\begin{minipage}[]{0.31\textwidth}
-\includegraphics[trim={1cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
-\end{minipage}\hspace{-1ex}}%
 \end{minipage}\vspace{-1ex}
 
 \begin{minipage}[]{\textwidth}
 \noindent\fcolorbox{white!100}{white!100}{%
-\begin{minipage}[b][0.2cm]{0.02\textwidth}
+\begin{minipage}[b][0.2cm]{0.05\textwidth}
 \hspace{-0.5ex}%
 \rotatebox{90}{$~$}
 \end{minipage}}%
 \hspace{-1.5ex}%
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!2}{orange!2}{%
-\begin{minipage}[]{0.34\textwidth}
+\begin{minipage}[]{0.95\textwidth}
 \centering
 \hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
 \captionsetup{justification=centering}
@@ -70,44 +46,19 @@
 \label{fig:hanoi-intuition-steady}
 \end{subfigure}%
 \end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{pink!3}{pink!3}{%
-\begin{minipage}[]{0.31\textwidth}
-\centering
-\hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
-\captionsetup{justification=centering}
-\vspace{-2ex}
-\caption{stretched strategy\\ \footnotesize first $n$ data items of all hanoi values}
-\label{fig:hanoi-intuition-stretched}
-\end{subfigure}%
-\end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{teal!3}{teal!3}{%
-\begin{minipage}[]{0.31\textwidth}
-\centering
-\hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
-\captionsetup{justification=centering}
-\vspace{-2ex}
-\caption{tilted strategy\\ \footnotesize last $n$ data items of all hanoi values}
-\label{fig:hanoi-intuition-tilted}
-\end{subfigure}%
-\end{minipage}\hspace{-1ex}}%
 \end{minipage}
-\vspace{-0.1in}
+\end{minipage}%
+\begin{minipage}[t]{0.3\textwidth}
 \caption{%
   \textbf{Hanoi value retention strategies.}
   \footnotesize
   Data item retention can be prioritized based on ``hanoi value'' of ingestion time $\colorT$.
   Here, ``lollipop'' bars show data item hanoi values, $\colorH(\colorTbar)$.
-  To satisfy the steady criterion, our proposed strategy discards data items with \hv{} below a threshold $n(\colorT)$ (\ref{fig:hanoi-intuition-steady}).
+  To satisfy the steady criterion, our proposed strategy discards data items with \hv{} below a threshold $n(\colorT)$.
   Red arrows show the threshold $n$ increasing as time elapses, purging low \hv{} data items to respect available buffer space.
-  Our strategy for the stretched criterion retains the first $n'(\colorT)$ data item instances of all observed \hv{}'s (\ref{fig:hanoi-intuition-stretched}).
-  As time elapses, $n'(\colorT)$ is halved across \hv{}'s' in a rolling fashion --- also shown by red arrows above.
-  Our strategy to satisfy the tilted criterion operates similarly to the stretched strategy, except the \textit{last} $n'(\colorT)$ data item instances of each \hv{} are retained (\ref{fig:hanoi-intuition-tilted}).
   The bottom and top panels compare example retention at $\colorT=50$ and $\colorT=100$, respectively.
   Green boxes indicate retained data items.
   }
 \label{fig:hanoi-intuition}
+\end{minipage}
 \end{figure*}

@@ -8,17 +8,14 @@ Work with data streams assumes input greatly exceeds memory capacity, with strea
 Indeed, real-world computing often requires real-time operations on a continuous, indefinite basis \citep{cordeiro2016online}.
 Notable application domains involving data streams include sensor networks \citep{elnahrawy2003research}, distributed big-data processing \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems log management \citep{fischer2012real}, fraud monitoring \citep{rajeshwari2016real}, trading in financial markets \citep{agarwal2009faster}, environmental monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
 
-Here, we focus specifically on subsampling over data streams and introduce three $\mathcal{O}(1)$ ``DStream'' algorithms for space-efficient curation of data items:
-\begin{enumerate*}
-\item \textit{evenly covering} elapsed history (``\textit{steady}'' algorithm, Section \ref{sec:steady}),
-\item \textit{skewed older} over elapsed history (``\textit{stretched}'' algorithm, Section \ref{sec:stretched}), or
-\item \textit{skewed newer} over elapsed history (``\textit{tilted}'' algorithm, Section \ref{sec:tilted}).
-\end{enumerate*}
-Together, these algorithms support a variety of use cases differing in what data is prioritized.
-Figure \ref{fig:criteria-intuition} compares steady, stretched, and tilted retention.
-
-For each algorithm, we demonstrate worst-case bounds on error in curated collection composition.
+Here, we focus specifically on subsampling over data streams and introduce an $\mathcal{O}(1)$ algorithms for space-efficient curation of data items \textit{evenly covering} elapsed history.
+We call this algorithm the \textit{steady} ``DStream'' algorithm.
+Figure \ref{fig:criteria-intuition} shows an example of ideal ideal steady retention.
+Among other results, we demonstrate worst-case bounds on error in curated collection composition under the steady algorithm.
 We refer to this rolling subset problem as ``data stream curation,'' which we will define next.
+
+Although not covered here, in other preliminary work we have also investigated ``DStream'' algorithms that \textit{skew older} over elapsed history (``\textit{stretched}'' algorithm), or \textit{skew newer} over elapsed history (``\textit{tilted}'' algorithm) \citep{moreno2024structured}.
+Together, these algorithms support a variety of use cases differing in what data is prioritized.
 
 \input{text/body/introduction/stream-curation}
 

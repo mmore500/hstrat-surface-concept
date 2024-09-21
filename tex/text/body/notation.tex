@@ -108,7 +108,7 @@ So, we have seen precisely one instance of $\colorh$ and also precisely one inst
 At this point, the value $\colorh - 2$ has appeared exactly twice and, in general, the value $\colorh - n$ has appeared $2^{n - 1}$ times.
 
 DStream algorithms use the \hv{} of data items' ingestion times $\colorH(\colorT)$ as the basis to prioritize items for retention.
-Figure \ref{fig:hanoi-intuition} provides intuition for how this core aspect of structure manifests in proposed \textit{steady}, \textit{stretched}, and \textit{tilted} algorithms.
+Figure \ref{fig:hanoi-intuition} provides intuition for how this core aspect of structure manifests in the proposed \textit{steady} algorithm.
 
 \input{fig/hanoi-intuition.tex}
 
@@ -147,69 +147,69 @@ Within a single reservation segment, all hanoi value reservations are distinct.
 That is, no two sites share the same reserved hanoi value.
 Reservation segments are themselves further organized into \textbf{segment bunches}.
 All segments within a bunch are the same length and have the same left-to-right hanoi value reservation layout.
-However, unlike sites in a segment, segments in a bunch may not be laid out contiguously.
-Reservation segments in a bunch are contiguous in buffer space under the steady algorithm, but are not under the stretched and tilted algorithms.
+% However, unlike sites in a segment, segments in a bunch may not be laid out contiguously.
+Reservation segments in a bunch are contiguous in buffer space under the steady algorithm. %, but are not under the stretched and tilted algorithms.
 
-Beyond the commonalities above, the precise makeup and layout of segments and segment bunches differs between the steady algorithm versus the stretched and tilted algorithms.
-(The latter two algorithms share large commonalities.)
-Figures \ref{fig:hsurf-steady-intuition-heatmap} and \ref{fig:hsurf-stretched-intuition-reservations} sketch the makeup of hanoi value reservations, reservation segments, and segment bunches in buffer space over time for the steady algorithm and stretched/tilted algorithms, respectively.
-Further details are covered separately for each algorithm in Sections \cref{sec:steady,sec:stretched,sec:tilted}.
+% Beyond the commonalities above, the precise makeup and layout of segments and segment bunches differs between the steady algorithm versus the stretched and tilted algorithms.
+% (The latter two algorithms share large commonalities.)
+Figure \ref{fig:hsurf-steady-intuition-heatmap} sketches the makeup of hanoi value reservations, reservation segments, and segment bunches in buffer space over time for the steady algorithm.
+Further details are covered in Section \cref{sec:steady}.
 
-\subsection{Time Meta-epoch $\colortau$}
-\label{sec:notation-metaepoch}
+% \subsection{Time Meta-epoch $\colortau$}
+% \label{sec:notation-metaepoch}
 
-In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes useful to group sequential epochs $\colort$ together as \textbf{meta-epochs} $\colortau$.
-We define $\colortau=0$ as corresponding to epoch $\colort=0$.
-Meta-epoch $\colortau=1$ therefore begins at epoch $\colort = 1$.
-As later motivated in Lemma \ref{thm:stretched-meta-epoch}, we define meta-epochs $\colortau\geq1$ as lasting $2^{\colortau} - 1$ epochs.
-Under this definition, we have $\colortau\geq1$ as beginning at epoch
-\begin{align}
-\min(\colort \in \colortausetoft)
-&= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \nonumber \\
-&= 2^{\colortau} - \colortau.
-\label{eqn:meta-epoch-defn}
-\end{align}
-For epoch $\colort > 0$, we can thus calculate the current meta-epoch $\colortau$ exactly as
-\begin{align*}
-\colortau
-=
-\begin{cases}
-\left\lfloor \log_2(\colort) \right\rfloor + 1 & \text{if } \colort = 2^{\left\lfloor \log_2(\colort) \right\rfloor} - \left\lfloor \log_2(\colort) \right\rfloor \\
-\left\lfloor \log_2(\colort) \right\rfloor & \text{otherwise.}
-\end{cases}
-\end{align*}
+% In the case of the \textit{stretched} and \textit{tilted} algorithms, it becomes useful to group sequential epochs $\colort$ together as \textbf{meta-epochs} $\colortau$.
+% We define $\colortau=0$ as corresponding to epoch $\colort=0$.
+% Meta-epoch $\colortau=1$ therefore begins at epoch $\colort = 1$.
+% As later motivated in Lemma \ref{thm:stretched-meta-epoch}, we define meta-epochs $\colortau\geq1$ as lasting $2^{\colortau} - 1$ epochs.
+% Under this definition, we have $\colortau\geq1$ as beginning at epoch
+% \begin{align}
+% \min(\colort \in \colortausetoft)
+% &= 1 + \sum_{i=1}^{\colortau - 1} (2^{i} - 1) \nonumber \\
+% &= 2^{\colortau} - \colortau.
+% \label{eqn:meta-epoch-defn}
+% \end{align}
+% For epoch $\colort > 0$, we can thus calculate the current meta-epoch $\colortau$ exactly as
+% \begin{align*}
+% \colortau
+% =
+% \begin{cases}
+% \left\lfloor \log_2(\colort) \right\rfloor + 1 & \text{if } \colort = 2^{\left\lfloor \log_2(\colort) \right\rfloor} - \left\lfloor \log_2(\colort) \right\rfloor \\
+% \left\lfloor \log_2(\colort) \right\rfloor & \text{otherwise.}
+% \end{cases}
+% \end{align*}
 
-\subsection{Restrictions on Logical Time $\colorT$, Epoch $\colort$, and Meta-epoch $\colortau$}
+% \subsection{Restrictions on Logical Time $\colorT$, Epoch $\colort$, and Meta-epoch $\colortau$}
 
-Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
-Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
-However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS} - 2$ ingestions.
-We expect this capacity to suffice for many applications using even moderately sized buffers.
-For instance, a buffer with space for 64 data items suffices to ingest items continuously at 5GHz for over 100 years.
-As such, we leave behavior for stretched and tilted curation past $2^{\colorS} - 2$ ingests to future work.
+% Ideally, data stream curation would support indefinite ingestions, $\colorT \in \mathbb{N}$.
+% Our proposed \textit{steady curation} algorithm, introduced below, operates in this fashion.
+% However, our proposed \textit{stretched} and \textit{tilted curation} algorithms accept only $2^{\colorS} - 2$ ingestions.
+% We expect this capacity to suffice for many applications using even moderately sized buffers.
+% For instance, a buffer with space for 64 data items suffices to ingest items continuously at 5GHz for over 100 years.
+% As such, we leave behavior for stretched and tilted curation past $2^{\colorS} - 2$ ingests to future work.
 
-For convenience in exposition, note that we formally define and characterize the stretched and tilted algorithms only for $\colorT \in [0 \twodots 2^{\colorS - 1})$.
-However, in practice, extension to $\colorT \in [0 \twodots 2^{\colorS} - 1)$ that respects established guarantees on curation quality is straightforward.
-All algorithm psuedocode and reference implementations support this extended domain.
+% For convenience in exposition, note that we formally define and characterize the stretched and tilted algorithms only for $\colorT \in [0 \twodots 2^{\colorS - 1})$.
+% However, in practice, extension to $\colorT \in [0 \twodots 2^{\colorS} - 1)$ that respects established guarantees on curation quality is straightforward.
+% All algorithm psuedocode and reference implementations support this extended domain.
 
-Restricting logical time $\colorT < 2^{\colorS - 1}$ bounds time epoch $\colort$ below
-\begin{align*}
-\colort &\leq \left\lfloor\log_2(2^{\colorS - 1} - 1)\right\rfloor - \colors + 1
-\leq \colorS - \colors - 1
-\end{align*}
-assuming $\colorS \geq 4$.
-The $\colorS - \colors$ relation can be understood as arising due to delay of epoch $\colort=1$ to time $\colorT = \colorS = 2^{\colors}$.
-Supplementary Lemma \ref{thm:meta-epoch-bound} establishes the following upper bound on time meta-epoch $\colortau$,
-\begin{align*}
-\colortau
-&\leq
-\min\Big(
-  \log_2(\colort + \colors),\;\;
-  \log_2(\colort) + 1
-\Big)
-\text{ for } \colort \in [1 \twodots \colorS - \colors).
-\end{align*}
-Taking $\colort = \colorS - \colors - 1$, we can also bound $\colortau$ over the stretched and tilted algorithms' domains as $\colortau < \colors$.
+% Restricting logical time $\colorT < 2^{\colorS - 1}$ bounds time epoch $\colort$ below
+% \begin{align*}
+% \colort &\leq \left\lfloor\log_2(2^{\colorS - 1} - 1)\right\rfloor - \colors + 1
+% \leq \colorS - \colors - 1
+% \end{align*}
+% assuming $\colorS \geq 4$.
+% The $\colorS - \colors$ relation can be understood as arising due to delay of epoch $\colort=1$ to time $\colorT = \colorS = 2^{\colors}$.
+% Supplementary Lemma \ref{thm:meta-epoch-bound} establishes the following upper bound on time meta-epoch $\colortau$,
+% \begin{align*}
+% \colortau
+% &\leq
+% \min\Big(
+%   \log_2(\colort + \colors),\;\;
+%   \log_2(\colort) + 1
+% \Big)
+% \text{ for } \colort \in [1 \twodots \colorS - \colors).
+% \end{align*}
+% Taking $\colort = \colorS - \colors - 1$, we can also bound $\colortau$ over the stretched and tilted algorithms' domains as $\colortau < \colors$.
 
 \subsection{Miscellania}
 

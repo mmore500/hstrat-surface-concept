@@ -1,102 +1,61 @@
 \begin{figure}
-\begin{minipage}[]{\textwidth}
+\begin{minipage}[t]{0.6\textwidth}
+    \begin{minipage}[]{\textwidth}
     \noindent\fcolorbox{gray!3}{gray!3}{%
-    \begin{minipage}[c][0.55in]{0.02\textwidth}
+    \begin{minipage}[c][0.55in]{0.05\textwidth}
     \hspace{-0.5ex}%
     \rotatebox{90}{$\colorT = 100$}
     \end{minipage}}%
     \hspace{-1.5ex}%
     {\vrule width 1pt}%
     \noindent\fcolorbox{orange!4}{orange!4}{%
-    \begin{minipage}[c][0.55in]{0.34\textwidth}
+    \begin{minipage}[c][0.55in]{0.95\textwidth}
     \includegraphics[trim={0 1.2cm 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=steady+stop=100+viz=rugplot+ext=.pdf}%
     \end{minipage}}%
-    \hspace{-1ex}%
-    {\vrule width 1pt}%
-    \noindent\fcolorbox{pink!6}{pink!6}{%
-    \begin{minipage}[c][0.55in]{0.31\textwidth}
-    \includegraphics[trim={0 1.2cm 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=stretched+stop=100+viz=rugplot+ext=.pdf}%
-    \end{minipage}}%
-    \hspace{-1ex}%
-    {\vrule width 1pt}%
-    \noindent\fcolorbox{teal!5}{teal!5}{%
-    \begin{minipage}[c][0.55in]{0.31\textwidth}
-    \includegraphics[trim={0 1.2cm 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=tilted+stop=100+viz=rugplot+ext=.pdf}%
-    \end{minipage}\hspace{-1ex}}%
     \end{minipage}\vspace{-1ex}
 
     \begin{minipage}[]{\textwidth}
     \noindent\fcolorbox{gray!11}{gray!11}{%
-    \begin{minipage}[c][0.55in]{0.02\textwidth}
+    \begin{minipage}[c][0.55in]{0.05\textwidth}
     \hspace{-0.5ex}%
     \rotatebox{90}{$\colorT = 50$}
     \end{minipage}}%
     \hspace{-1.5ex}%
     {\vrule width 1pt}%
     \noindent\fcolorbox{orange!10}{orange!10}{%
-    \begin{minipage}[c][0.55in]{0.34\textwidth}
+    \begin{minipage}[c][0.55in]{0.95\textwidth}
     \includegraphics[trim={0 0 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=steady+stop=50+viz=rugplot+ext=.pdf}%
     \end{minipage}}%
-    \hspace{-1ex}%
-    {\vrule width 1pt}%
-    \noindent\fcolorbox{pink!15}{pink!15}{%
-    \begin{minipage}[c][0.55in]{0.31\textwidth}
-    \includegraphics[trim={0 0 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=stretched+stop=51+viz=rugplot+ext=.pdf}%
-    \end{minipage}}%
-    \hspace{-1ex}%
-    {\vrule width 1pt}%
-    \noindent\fcolorbox{teal!11}{teal!11}{%
-    \begin{minipage}[c][0.55in]{0.31\textwidth}
-    \includegraphics[trim={0 0 0 0},clip,width=\linewidth]{binder/teeplots/coverage-criteria/criterion=tilted+stop=51+viz=rugplot+ext=.pdf}%
-    \end{minipage}\hspace{-1ex}}%
     \end{minipage}\vspace{-1ex}
 
     \begin{minipage}[]{\textwidth}
     \noindent\fcolorbox{white!100}{white!100}{%
-    \begin{minipage}[b][0.2cm]{0.02\textwidth}
+    \begin{minipage}[b][0.2cm]{0.05\textwidth}
     \hspace{-0.5ex}%
     \rotatebox{90}{$~$}
     \end{minipage}}%
     \hspace{-1.5ex}%
     {\vrule width 1pt}%
     \noindent\fcolorbox{orange!2}{orange!2}{%
-    \begin{minipage}[]{0.34\textwidth}
+    \begin{minipage}[]{0.95\textwidth}
     \hspace{-1ex}\begin{subfigure}[b]{\linewidth}
     \caption{steady criterion}
     \label{fig:criteria-intuition-steady}
     \end{subfigure}%
     \end{minipage}}%
-    \hspace{-1ex}%
-    {\vrule width 1pt}%
-    \noindent\fcolorbox{pink!3}{pink!3}{%
-    \begin{minipage}[]{0.31\textwidth}
-    \hspace{-1ex}\begin{subfigure}[b]{\linewidth}
-    \caption{stretched criterion}
-    \label{fig:criteria-intuition-stretched}
-    \end{subfigure}%
-    \end{minipage}}%
-    \hspace{-1ex}%
-    {\vrule width 1pt}%
-    \noindent\fcolorbox{teal!3}{teal!3}{%
-    \begin{minipage}[]{0.31\textwidth}
-    \hspace{-1ex}\begin{subfigure}[b]{\linewidth}
-    \caption{tilted criterion}
-    \label{fig:criteria-intuition-tilted}
-    \end{subfigure}%
-    \end{minipage}\hspace{-1ex}}%
     \end{minipage}
-    \vspace{-0.15in}
+\end{minipage}%
+\begin{minipage}[t]{0.4\textwidth}
     \caption{%
       \textbf{Surveyed target coverage criteria.}
       \footnotesize
-      Ideal distributions of ingestion time points for retained data items under each criterion are shown at $\colorT=50$ (bottom) and $\colorT=100$ (top).
+      Ideal distributions of ingestion time points for retained data items under the steady criterion are shown at $\colorT=50$ (bottom) and $\colorT=100$ (top).
       Vertical bars represent a retained data item.
       In this illustration, collection size is 12 retained items.
       All other ingested data items have been discarded.
-      The steady criterion (\ref{fig:criteria-intuition-steady}) seeks to minimize largest absolute gap size.
+      The steady criterion seeks to minimize largest absolute gap size.
       So, ideal retention maintains items spread evenly across data stream history.
-      The stretched criterion (\ref{fig:criteria-intuition-stretched}) calls for greater retention of early data items to minimize gap size proportional to data item ingestion time $\colorTbar$.
-      In contrast, under the tilted criterion (\ref{fig:criteria-intuition-tilted}) recency-proportional gap size is to be minimized, necessitating over-retention of recent data items.
       }
     \label{fig:criteria-intuition}
+\end{minipage}
 \end{figure}
