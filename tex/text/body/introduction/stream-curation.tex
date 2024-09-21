@@ -7,19 +7,14 @@ The objective, ultimately, is to preserve a representative, approximate record o
 We consider a retained collection's coverage over history solely in terms of the timepoints (i.e., sequence positions) of retained data items.
 Note that we disregard data items' semantic values in this work, as they are immaterial under this timepoint-based framing.
 
-Formally, we frame our objectives in terms of cost functions on the timepoints of discarded data items, formulated in terms of
-\begin{itemize}
-\item logical time $\colorT$, which reflects how many data items have been ingested),
-\item timepoints $\colorTbar$ of ingested data items, and
-\item ``gap size'' $\colorG_{\colorT}(\colorTbar)$ in the curated record, the number of discarded data items around timepoint $\colorTbar$ at logical time $\colorT$.
-\end{itemize}
+Formally, we frame our objectives in terms of cost functions on the timepoints of discarded data items, formulated in terms of ``gap size'' $\colorG_{\colorT}(\colorTbar)$ in the curated record, the number of discarded data items around timepoint $\colorTbar$ at logical time $\colorT$.
+Section \ref{sec:notation} provides a full introduction of notation, with formal definitions.
 We define three cost functions on the timepoints of discarded data items:\begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) \coloneq \empheqlbrace}]{align}
   &\max_{\colorTbar \in [0\twodots\colorT)} \colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~ \label{eqn:steady-cost} \\
   &\max_{\colorTbar \in [1\twodots\colorT)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
   &\max_{\colorTbar \in [0\twodots\colorT - 1)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} &&\text{for \textit{``tilted''} curation,}  &&& ~ &&& ~ \label{eqn:tilted-cost}
 \end{empheq}
 Analysis of these cost functions, including best-case lower bounds on cost, accompanies presentation of steady, stretched, and tilted algorithms targeting each in Sections \cref{sec:steady,sec:stretched,sec:tilted}.
-Section \ref{sec:notation} provides a full introduction of notation, with formal definitions.
 
 Formally, our objective is to maintain cost function $\mathsf{cost}(\colorT)$ below an upper bound $\mathsf{bound}(\colorT)$ across logical time $\colorT$.
 We specify $\mathsf{bound}(\colorT)$ on a per-algorithm basis,
