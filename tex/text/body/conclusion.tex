@@ -36,7 +36,7 @@ As such, work remains to design behavior past this point.
 One possibility is switching over at $\colorT = 2^{\colorS} - 1$ to apply steady curation on logical time hanoi value $\colorH(\colorT)$ (i.e., rather than on logical time $\colorT$ itself, as originally formulated).
 
 Another enhancement would be random-access lookup calculation.
-Current implementations assume an $\mathcal{O}(\colorS)$ pass over all all stored data items.
+Current implementations assume an $\mathcal{O}(\colorS)$ pass over all stored data items.
 
 Several interesting openings exist for extension of additional operations on curated data.
 Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ would be useful, as would fast ingest-order iteration over buffer sites $\colork \in [0 \twodots \colorS)$.
@@ -60,7 +60,7 @@ Promisingly, empirical microbenchmark experiments reported in that work corrobor
 
 However, we also anticipate broader use cases beyond hereditary stratigraphy.
 This possibility warrants standalone software implementations of algorithms proposed herein, independent of infrastructure developed to support hereditary stratigraphy \citep{moreno2022hstrat}.
-As described in Section \ref{sec:materials}, we have organized stream-curation-specific components --- including all three algorithms presented here --- as the standalone software library \citep{moreno2024downstream}.
+As described in Section \ref{sec:materials}, we have organized stream-curation-specific components --- including all three algorithms presented here --- as the standalone ``downstream'' software library \citep{moreno2024downstream}.
 Going forward, we intend for stream curation algorithms to support lineage tracking implementation as a public-facing external dependency rather than as an opaque internal utility.
 
 One challenge in supporting end-users is cross-language interoperation.
