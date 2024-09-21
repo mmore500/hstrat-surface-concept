@@ -8,7 +8,7 @@ Stream curation touches in particular on two broad paradigms data stream process
 \item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
 \end{enumerate}
 
-Although curated data items are, indeed, a sample of a data stream, work here is orthogonal to the question of $\ell_p$ sampling (e.g., $\ell_0$, $\ell_1$ sampling) in that our objective is to optimize for temporal balance rather than stochastic composition.
+Although curated data items are, indeed, a sample of a data stream, work here is orthogonal to the question of $\ell_p$ sampling (e.g., $\ell_0$ or $\ell_1$ sampling) in that our objective is to optimize for temporal balance rather than stochastic composition.
 Indeed, well-established techniques exist to extract rolling $\ell_p$-representative samples over the distribution of data values from a stream, such as reservoir sampling, sketching, and hash-based methods \citep{gaber2005mining,muthukrishnan2005data,cormode2019lp}.
 Note also that stream curation pertains to logical time rather than real time \citep{sibai2016sampling}, as retention objectives are organized vis-a-vis sequence index rather than clock time.
 
