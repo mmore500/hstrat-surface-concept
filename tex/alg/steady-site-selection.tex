@@ -3,7 +3,7 @@
 \label{alg:steady-site-selection}
 \begin{minipage}{0.5\textwidth}
     \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
-    \hspace*{\algorithmicindent} \textbf{Output:} $\colork \in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colork \in [0 \twodots \colorS) \cup \{\nullval\}$ \Comment{Selected site, if any}
     \begin{algorithmic}[1]
         \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
         \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch (or negative)}
