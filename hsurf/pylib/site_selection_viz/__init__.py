@@ -17,6 +17,7 @@ from .site_reservation_size_at_rank_heatmap import (
     site_reservation_size_at_rank_heatmap,
 )
 from .stratum_persistence_dripplot import stratum_persistence_dripplot
+from .typewriter_animate import typewriter_animate
 
 __all__ = [
     "criterion_satisfaction_lineplot",
@@ -30,4 +31,5 @@ __all__ = [
     "site_reservation_by_rank_spliced_at_heatmap",
     "site_reservation_size_at_rank_heatmap",
     "stratum_persistence_dripplot",
+    "typewriter_animate",
 ]
