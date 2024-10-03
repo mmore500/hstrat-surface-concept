@@ -38,6 +38,7 @@ def _draw_record(
     record = np.zeros_like(mask, dtype=int)
     record[mask] = np.flatnonzero(mask)
     assert record.shape == mask.shape
+    ax.clear()
     sns.heatmap(
         record[:, np.newaxis],
         mask=~mask[:, np.newaxis],
