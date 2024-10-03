@@ -74,9 +74,12 @@ def _make_do_init(
         )
         fig.tight_layout()
 
-        selected_site, = artists
-        buffer_ax.add_patch(selected_site)
-        return selected_site,
+        selected_patch, *overwrite_patches = artists
+        buffer_ax.add_patch(selected_patch)
+        for patch in overwrite_patches:
+            history_ax.add_patch(patch)
+
+        return selected_patch, *overwrite_patches
 
     return _do_init
 
@@ -96,8 +99,19 @@ def _make_do_update(
         selected_index = (
             surface_history_df.loc[smask, "site"].squeeze() if smask.any() else -1
         )
-        selected_site, = artists
-        selected_site.set_xy((selected_index - 0.5, 0))
+        selected_patch, *overwrite_patches = artists
+        selected_patch.set_xy((selected_index - 0.5, 0))
+        for site, patch in enumerate(overwrite_patches):
+            mask = (
+                (surface_history_df["rank"] == rank)
+                & (surface_history_df["site"] == site)
+            )
+            height = (
+                surface_history_df.loc[mask, "ingest rank"].squeeze() - 1
+                if mask.any()
+                else 0
+            )
+            patch.set_height(height)
 
         history_ax.set_ylim(rank + 1, 0)
 
@@ -111,7 +125,7 @@ def _make_do_update(
 
         plt.gcf().canvas.draw()
 
-        return selected_site,
+        return selected_patch, *overwrite_patches
 
     return _do_update
 
@@ -134,25 +148,35 @@ def typewriter_animate(
     record_ax = fig.add_subplot(gs[0, 1])
     buffer_ax = fig.add_subplot(gs[1, 0])
 
-    selected_site = mpl_patches.Rectangle(
+    selected_patch = mpl_patches.Rectangle(
         (-1.5, 0),
         1,
         1,
         color="black",
         fill=True,
     )
+    overwrite_patches = [
+        mpl_patches.Rectangle(
+            (i, 0),
+            1,
+            0,
+            color="white",
+            fill=True,
+        )
+        for i in range(surface_history_df["site"].max() + 1)
+    ]
     n_step = surface_history_df["rank"].max() + 1
     return mpl_animation.FuncAnimation(
         fig=fig,
         func=_make_do_update(
-            (selected_site,),
+            (selected_patch, *overwrite_patches),
             surface_history_df,
             history_ax,
             record_ax,
         ),
         frames=range(n_step),
         init_func=_make_do_init(
-            (selected_site,),
+            (selected_patch, *overwrite_patches),
             surface_history_df,
             history_ax,
             buffer_ax,
