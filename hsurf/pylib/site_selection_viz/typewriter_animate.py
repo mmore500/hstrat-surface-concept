@@ -36,7 +36,7 @@ def _draw_record(
     mask: np.array,
 ) -> None:
     record = np.zeros_like(mask, dtype=int)
-    record[mask] = np.flatnonzero(mask)
+    record[mask] = np.flatnonzero(mask) + 1
     assert record.shape == mask.shape
     ax.clear()
     sns.heatmap(
@@ -219,8 +219,8 @@ def _make_do_update(
             # vmax=rank,
         )
 
-        record_ax.set_ylim(rank + 2, 0)
-        history_ax.set_ylim(rank + 1, -1)
+        record_ax.set_ylim(rank + 1, 0)
+        history_ax.set_ylim(rank, -1)
 
         plt.gcf().canvas.draw()
 
