@@ -139,7 +139,6 @@ def _make_do_update(
             "ingest rank",
         ].dropna().astype(int).to_numpy()
         rmask[retained_ranks] = True
-        n_step = surface_history_df["rank"].max() + 1
         _draw_record(
             record_ax,
             rmask,
