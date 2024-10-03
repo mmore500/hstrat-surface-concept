@@ -91,6 +91,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Setup headless display
+        uses: pyvista/setup-headless-display-action@v2
       - run: |
           sudo apt-get update -y
           sudo apt-get install -y ghostscript imagemagick python3-pil
