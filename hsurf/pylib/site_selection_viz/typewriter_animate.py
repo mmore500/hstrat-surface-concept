@@ -1,4 +1,3 @@
-from collections import namedtuple
 import typing
 
 from matplotlib import animation as mpl_animation
@@ -11,8 +10,9 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from ..hanoi import get_hanoi_value_at_index
-from .site_ingest_depth_by_rank_heatmap import site_ingest_depth_by_rank_heatmap
+from .site_ingest_depth_by_rank_heatmap import (
+    site_ingest_depth_by_rank_heatmap,
+)
 
 
 def _draw_buffer_grid(
@@ -63,12 +63,13 @@ def _make_do_init(
     fig: plt.Figure,
 ) -> typing.Callable:
 
-    smask0 = (
-        (surface_history_df["rank"] == 0)
-        & (surface_history_df["ago"] == 0)
+    smask0 = (surface_history_df["rank"] == 0) & (
+        surface_history_df["ago"] == 0
     )
     selected_index0 = (
-        surface_history_df.loc[smask0, "site"].squeeze() if smask0.any() else -1
+        surface_history_df.loc[smask0, "site"].squeeze()
+        if smask0.any()
+        else -1
     )
 
     def _do_init() -> typing.Sequence[mpl_artist.Artist]:
@@ -134,21 +135,23 @@ def _make_do_update(
     record_ax: plt.Axes,
 ) -> typing.Callable:
 
-    smask0 = (
-        (surface_history_df["rank"] == 0)
-        & (surface_history_df["ago"] == 0)
+    smask0 = (surface_history_df["rank"] == 0) & (
+        surface_history_df["ago"] == 0
     )
     selected_index0 = (
-        surface_history_df.loc[smask0, "site"].squeeze() if smask0.any() else -1
+        surface_history_df.loc[smask0, "site"].squeeze()
+        if smask0.any()
+        else -1
     )
 
     def _do_update(rank: int) -> typing.Sequence[mpl_artist.Artist]:
-        smask = (
-            (surface_history_df["rank"] == rank)
-            & (surface_history_df["ago"] == 0)
+        smask = (surface_history_df["rank"] == rank) & (
+            surface_history_df["ago"] == 0
         )
         selected_index = (
-            surface_history_df.loc[smask, "site"].squeeze() if smask.any() else -1
+            surface_history_df.loc[smask, "site"].squeeze()
+            if smask.any()
+            else -1
         )
         selected_patch, *overwrite_patches = artists
         selected_patch.set_xy((selected_index - 0.5, 0))
@@ -171,10 +174,15 @@ def _make_do_update(
         history_ax.set_ylim(rank + 1, 0)
 
         rmask = np.zeros(rank + 1, dtype=bool)
-        retained_ranks = surface_history_df.loc[
-            (surface_history_df["rank"] == rank),
-            "ingest rank",
-        ].dropna().astype(int).to_numpy()
+        retained_ranks = (
+            surface_history_df.loc[
+                (surface_history_df["rank"] == rank),
+                "ingest rank",
+            ]
+            .dropna()
+            .astype(int)
+            .to_numpy()
+        )
         rmask[retained_ranks] = True
         _draw_record(
             record_ax,
