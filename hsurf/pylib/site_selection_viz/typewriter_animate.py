@@ -83,6 +83,7 @@ def _make_do_init(
         history_ax.set_xlabel("")
         history_ax.set_yticks([])
         history_ax.set_yticklabels([])
+        history_ax.set_ylabel("")
         buffer_ax.set_yticks([])
         _draw_buffer_grid(
             buffer_ax,
