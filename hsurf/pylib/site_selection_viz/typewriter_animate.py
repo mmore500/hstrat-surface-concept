@@ -94,6 +94,16 @@ def _make_do_init(
         )
         fig.tight_layout()
 
+        history_ax.add_patch(
+            mpl_patches.Rectangle(
+                (selected_index0, -1),
+                1,
+                1,
+                color=plt.get_cmap("viridis")(0),
+                fill=True,
+            ),
+        )
+
         selected_patch, *extra_patches = artists
         buffer_ax.add_patch(selected_patch)
         overwrite_patches = extra_patches[:n_site]
@@ -104,6 +114,8 @@ def _make_do_init(
             buffer_ax.add_patch(patch)
 
         for site in range(n_site):
+            if site == selected_index0:
+                continue
             mask = (
                 (surface_history_df["ago"] == 0)
                 & (surface_history_df["site"] == site)
@@ -171,7 +183,7 @@ def _make_do_update(
                 )
             )
             height = (
-                surface_history_df.loc[mask, "ingest rank"].squeeze() - 1
+                surface_history_df.loc[mask, "ingest rank"].squeeze()
                 if mask.any()
                 else 0
             )
@@ -189,9 +201,6 @@ def _make_do_update(
             cm.set_bad("white")
             patch.set(color=cm(normed_ago))
 
-
-        history_ax.set_ylim(rank + 1, 0)
-
         rmask = np.zeros(rank + 1, dtype=bool)
         retained_ranks = (
             surface_history_df.loc[
@@ -206,7 +215,12 @@ def _make_do_update(
         _draw_record(
             record_ax,
             rmask,
+            # vmin=rank - n_step,
+            # vmax=rank,
         )
+
+        record_ax.set_ylim(rank + 2, 0)
+        history_ax.set_ylim(rank + 1, -1)
 
         plt.gcf().canvas.draw()
 
@@ -242,7 +256,7 @@ def typewriter_animate(
     )
     overwrite_patches = [
         mpl_patches.Rectangle(
-            (i, 0),
+            (i, -1),
             1,
             0,
             alpha=0.8,
