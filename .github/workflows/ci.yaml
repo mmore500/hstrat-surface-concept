@@ -22,7 +22,8 @@ jobs:
           sudo apt-get install -y bibtool rename
           npm install -g bibtex-tidy
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install uv
+          python3 -m uv pip install -r requirements.txt
           python3 -m pip install -r docs/requirements.txt
       - run: ./tidy/test_tidy.sh
 
@@ -32,7 +33,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install uv
+          python3 -m uv pip install -r requirements.txt
       - run: ./lint.sh
 
   test-pylib:
@@ -41,7 +43,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install uv
+          python3 -m uv pip install -r requirements.txt
       - run: python3 -m pytest -n auto pylib
 
   test-hsurf:
@@ -50,7 +53,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install uv
+          python3 -m uv pip install -r requirements.txt
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
       - run: python3 -m pytest -n auto -W ignore test_hsurf
@@ -61,7 +65,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install uv
+          python3 -m uv pip install -r requirements.txt
       - run: python3 -m pytest -n auto -W ignore implemented_pseudocode/*.py
       - run: python3 -m pytest -n auto -W ignore -m heavy implemented_pseudocode/*.py
 
@@ -83,7 +88,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install uv
+          python3 -m pip uv install -r requirements.txt
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
       - run: timeout 5h python3 -m pytest -m heavy -W ignore -n auto test_hsurf || ( [[ $? -eq 124 ]] && echo "WARNING Timeout reached" )
@@ -97,8 +103,8 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ghostscript imagemagick python3-pil libgif-dev ffmpeg
           python3 -m pip install pip --upgrade
-          python3 -m pip install -r requirements.txt
-          python3 -m pip install Pillow
+          python3 -m pip install uv
+          python3 -m uv pip install -r requirements.txt
       - run:
           convert --version
       # Adapted from https://askubuntu.com/a/524368
