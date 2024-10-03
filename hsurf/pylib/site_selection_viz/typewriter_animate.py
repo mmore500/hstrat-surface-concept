@@ -44,6 +44,8 @@ def _draw_record(
         ax=ax,
         cbar=False,
         cmap="binary",
+        linewidths=1,
+        linecolor="white",
         vmin=0,
         vmax=1,
     )
