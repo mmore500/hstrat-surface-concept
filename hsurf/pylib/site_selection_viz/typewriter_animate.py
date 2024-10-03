@@ -35,11 +35,15 @@ def _draw_record(
     ax: plt.Axes,
     mask: np.array,
 ) -> None:
+    record = np.zeros_like(mask)
+    record[mask] = np.flatnonzero(mask)
+    assert record.shape == mask.shape
     sns.heatmap(
-        mask[:, np.newaxis],
+        record[:, np.newaxis],
+        mask=mask[:, np.newaxis],
         ax=ax,
         cbar=False,
-        cmap="binary",
+        cmap="viridis",
     )
     ax.set_xticks([])
     ax.set_xticklabels([])
