@@ -184,7 +184,7 @@ def _make_do_update(
             )
             ago = surface_history_df.loc[mask, "ago"].squeeze()
             max_rank = surface_history_df["rank"].max()
-            normed_ago = ago / (max_rank or 1)
+            normed_ago = np.log(ago or 1) / np.log(max_rank or 1)
             cm = plt.get_cmap("viridis")
             cm.set_bad("white")
             patch.set(color=cm(normed_ago))
