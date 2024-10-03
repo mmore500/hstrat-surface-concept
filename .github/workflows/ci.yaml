@@ -95,7 +95,7 @@ jobs:
         uses: pyvista/setup-headless-display-action@v2
       - run: |
           sudo apt-get update -y
-          sudo apt-get install -y ghostscript imagemagick python3-pil
+          sudo apt-get install -y ghostscript imagemagick python3-pil libgif-dev
           python3 -m pip install pip --upgrade
           python3 -m pip install -r requirements.txt
           python3 -m pip install Pillow
