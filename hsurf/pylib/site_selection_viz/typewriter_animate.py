@@ -3,11 +3,13 @@ import typing
 
 from matplotlib import animation as mpl_animation
 from matplotlib import artist as mpl_artist
+from matplotlib import gridspec as mpl_gridspec
 from matplotlib import patches as mpl_patches
 from matplotlib import pyplot as plt
 from matplotlib import ticker as mpl_ticker
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 from ..hanoi import get_hanoi_value_at_index
 from .site_ingest_depth_by_rank_heatmap import site_ingest_depth_by_rank_heatmap
@@ -29,10 +31,26 @@ def _draw_buffer_grid(
     ax.xaxis.set_minor_locator(mpl_ticker.AutoMinorLocator(2))
 
 
+def _draw_record(
+    ax: plt.Axes,
+    mask: np.array,
+) -> None:
+    sns.heatmap(
+        mask[:, np.newaxis],
+        ax=ax,
+        cbar=False,
+        cmap="binary",
+    )
+    ax.set_xticks([])
+    ax.set_xticklabels([])
+    ax.set_yticks([])
+    ax.set_yticklabels([])
+
+
 def _make_do_init(
     artists: typing.Sequence[mpl_artist.Artist],
     surface_history_df: pd.DataFrame,
-    record_ax: plt.Axes,
+    history_ax: plt.Axes,
     buffer_ax: plt.Axes,
     fig: plt.Figure,
 ) -> typing.Callable:
@@ -40,15 +58,16 @@ def _make_do_init(
     def _do_init() -> typing.Sequence[mpl_artist.Artist]:
         site_ingest_depth_by_rank_heatmap(
             surface_history_df,
-            ax=record_ax,
+            ax=history_ax,
             cbar=False,
         )
-        record_ax.set_ylim(1, 0)
-        record_ax.set_xticks([])
-        record_ax.set_xticklabels([])
-        record_ax.set_xlabel("")
-        record_ax.set_yticks([])
-        record_ax.set_yticklabels([])
+        history_ax.set_ylim(1, 0)
+        history_ax.set_xticks([])
+        history_ax.set_xticklabels([])
+        history_ax.set_xlabel("")
+        history_ax.set_yticks([])
+        history_ax.set_yticklabels([])
+        buffer_ax.set_yticks([])
         _draw_buffer_grid(
             buffer_ax,
             surface_history_df["site"].max() + 1,
@@ -65,21 +84,33 @@ def _make_do_init(
 def _make_do_update(
     artists: typing.Sequence[mpl_artist.Artist],
     surface_history_df: pd.DataFrame,
+    history_ax: plt.Axes,
     record_ax: plt.Axes,
 ) -> typing.Callable:
 
     def _do_update(rank: int) -> typing.Sequence[mpl_artist.Artist]:
-        mask = (
+        smask = (
             (surface_history_df["rank"] == rank)
             & (surface_history_df["ago"] == 0)
         )
         selected_index = (
-            surface_history_df.loc[mask, "site"].squeeze() if mask.any() else -1
+            surface_history_df.loc[smask, "site"].squeeze() if smask.any() else -1
         )
         selected_site, = artists
         selected_site.set_xy((selected_index - 0.5, 0))
 
-        record_ax.set_ylim(rank + 1, 0)
+        history_ax.set_ylim(rank + 1, 0)
+
+        rmask = np.zeros(rank + 1, dtype=bool)
+        retained_ranks = surface_history_df.loc[
+            (surface_history_df["rank"] == rank),
+            "ingest rank",
+        ].dropna().astype(int).to_numpy()
+        rmask[retained_ranks] = True
+        _draw_record(record_ax, rmask)
+
+        plt.gcf().canvas.draw()
+
         return selected_site,
 
     return _do_update
@@ -92,12 +123,17 @@ def typewriter_animate(
     surface_history_df["ago"] = (
         surface_history_df["rank"] - surface_history_df["ingest rank"]
     )
-    fig, (record_ax, buffer_ax) = plt.subplots(
-       2,
-       1,
-       figsize=(10, 8),
-       height_ratios=(7, 1),
+    fig = plt.figure(figsize=(10, 8))
+    gs = mpl_gridspec.GridSpec(
+        2,
+        2,
+        height_ratios=(15, 1),
+        width_ratios=(15, 1),
     )
+    history_ax = fig.add_subplot(gs[0, 0])
+    record_ax = fig.add_subplot(gs[0, 1])
+    buffer_ax = fig.add_subplot(gs[1, 0])
+
     selected_site = mpl_patches.Rectangle(
         (-1.5, 0),
         1,
@@ -111,16 +147,16 @@ def typewriter_animate(
         func=_make_do_update(
             (selected_site,),
             surface_history_df,
+            history_ax,
             record_ax,
         ),
         frames=range(n_step),
         init_func=_make_do_init(
             (selected_site,),
             surface_history_df,
-            record_ax,
+            history_ax,
             buffer_ax,
             fig,
         ),
-        # blit=True,
         repeat_delay=5000,
     )
