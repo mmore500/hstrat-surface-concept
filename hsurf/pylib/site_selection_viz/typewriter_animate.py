@@ -87,20 +87,23 @@ def _make_do_init(
         history_ax.set_yticklabels([])
         history_ax.set_ylabel("")
         buffer_ax.set_yticks([])
+        n_site = surface_history_df["site"].max() + 1
         _draw_buffer_grid(
             buffer_ax,
-            surface_history_df["site"].max() + 1,
+            n_site,
         )
         fig.tight_layout()
 
-        selected_patch, *overwrite_patches = artists
+        selected_patch, *extra_patches = artists
         buffer_ax.add_patch(selected_patch)
+        overwrite_patches = extra_patches[:n_site]
         for patch in overwrite_patches:
             history_ax.add_patch(patch)
+        age_patches = extra_patches[n_site:]
+        for patch in age_patches:
+            buffer_ax.add_patch(patch)
 
-        for site in range(
-            surface_history_df["site"].max() + 1,
-        ):
+        for site in range(n_site):
             mask = (
                 (surface_history_df["ago"] == 0)
                 & (surface_history_df["site"] == site)
@@ -124,7 +127,7 @@ def _make_do_init(
                 ),
             )
 
-        return selected_patch, *overwrite_patches
+        return selected_patch, *extra_patches
 
     return _do_init
 
@@ -154,8 +157,10 @@ def _make_do_update(
             if smask.any()
             else -1
         )
-        selected_patch, *overwrite_patches = artists
+        n_site = surface_history_df["site"].max() + 1
+        selected_patch, *extra_patches = artists
         selected_patch.set_xy((selected_index - 0.5, 0))
+        overwrite_patches = extra_patches[:n_site]
         for site, patch in enumerate(overwrite_patches):
             mask = (
                 (surface_history_df["rank"] == rank)
@@ -171,6 +176,19 @@ def _make_do_update(
                 else 0
             )
             patch.set_height(height)
+        age_patches = extra_patches[n_site:]
+        for site, patch in enumerate(age_patches):
+            mask = (
+                (surface_history_df["rank"] == rank)
+                & (surface_history_df["site"] == site)
+            )
+            ago = surface_history_df.loc[mask, "ago"].squeeze()
+            max_rank = surface_history_df["rank"].max()
+            normed_ago = ago / (max_rank or 1)
+            cm = plt.get_cmap("viridis")
+            cm.set_bad("white")
+            patch.set(color=cm(normed_ago))
+
 
         history_ax.set_ylim(rank + 1, 0)
 
@@ -233,18 +251,30 @@ def typewriter_animate(
         )
         for i in range(surface_history_df["site"].max() + 1)
     ]
+    ago_patches = [
+        mpl_patches.Rectangle(
+            (i - 0.5, 0),
+            1,
+            1,
+            alpha=0.4,
+            color="white",
+            fill=True,
+            zorder=-100,
+        )
+        for i in range(surface_history_df["site"].max() + 1)
+    ]
     n_step = surface_history_df["rank"].max() + 1
     return mpl_animation.FuncAnimation(
         fig=fig,
         func=_make_do_update(
-            (selected_patch, *overwrite_patches),
+            (selected_patch, *overwrite_patches, *ago_patches),
             surface_history_df,
             history_ax,
             record_ax,
         ),
         frames=range(n_step),
         init_func=_make_do_init(
-            (selected_patch, *overwrite_patches),
+            (selected_patch, *overwrite_patches, *ago_patches),
             surface_history_df,
             history_ax,
             buffer_ax,
