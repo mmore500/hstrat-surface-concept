@@ -96,6 +96,9 @@ jobs:
           sudo apt-get install -y ghostscript
           python3 -m pip install pip --upgrade
           python3 -m pip install -r requirements.txt
+          python3 -m pip install Pillow
+      - run:
+          convert --version
       # Adapted from https://askubuntu.com/a/524368
       - run: ./binder/execute_notebooks.sh
       # adapted from https://unix.stackexchange.com/a/545630
