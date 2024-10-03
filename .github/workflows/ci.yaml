@@ -22,7 +22,7 @@ jobs:
           sudo apt-get install -y bibtool rename
           npm install -g bibtex-tidy
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           sudo python -m uv pip install -r requirements.txt  --system
           sudo python -m uv pip install -r docs/requirements.txt --system
       - run: ./tidy/test_tidy.sh
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           sudo python -m uv pip install -r requirements.txt  --system
       - run: ./lint.sh
 
@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           sudo python -m uv pip install -r requirements.txt  --system
       - run: python -m pytest -n auto pylib
 
@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           sudo python -m uv pip install -r requirements.txt  --system
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
@@ -65,7 +65,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           sudo python -m uv pip install -r requirements.txt  --system
       - run: python -m pytest -n auto -W ignore implemented_pseudocode/*.py
       - run: python -m pytest -n auto -W ignore -m heavy implemented_pseudocode/*.py
@@ -76,7 +76,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           python -m pip install '.[testing]'
           rm -rf hsurf
       # ignore warnings to reduce memory use
@@ -89,7 +89,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           python -m pip uv install -r requirements.txt
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
@@ -104,7 +104,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ghostscript imagemagick python3-pil libgif-dev ffmpeg
           python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade --system
+          sudo python -m pip install uv --upgrade
           sudo python -m uv pip install -r requirements.txt  --system
       - run:
           convert --version
