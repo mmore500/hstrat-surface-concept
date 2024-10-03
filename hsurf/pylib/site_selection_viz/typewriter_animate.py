@@ -215,8 +215,6 @@ def _make_do_update(
         _draw_record(
             record_ax,
             rmask,
-            # vmin=rank - n_step,
-            # vmax=rank,
         )
 
         record_ax.set_ylim(rank + 1, 0)
