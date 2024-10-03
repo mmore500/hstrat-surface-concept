@@ -63,6 +63,14 @@ def _make_do_init(
     fig: plt.Figure,
 ) -> typing.Callable:
 
+    smask0 = (
+        (surface_history_df["rank"] == 0)
+        & (surface_history_df["ago"] == 0)
+    )
+    selected_index0 = (
+        surface_history_df.loc[smask0, "site"].squeeze() if smask0.any() else -1
+    )
+
     def _do_init() -> typing.Sequence[mpl_artist.Artist]:
         site_ingest_depth_by_rank_heatmap(
             surface_history_df,
@@ -86,6 +94,32 @@ def _make_do_init(
         buffer_ax.add_patch(selected_patch)
         for patch in overwrite_patches:
             history_ax.add_patch(patch)
+
+        for site in range(
+            surface_history_df["site"].max() + 1,
+        ):
+            mask = (
+                (surface_history_df["ago"] == 0)
+                & (surface_history_df["site"] == site)
+                & (
+                    (surface_history_df["ingest rank"] > 0)
+                    | (surface_history_df["site"] == selected_index0)
+                )
+            )
+            height = (
+                surface_history_df.loc[mask, "ingest rank"].min() - 1
+                if mask.any()
+                else 0
+            )
+            history_ax.add_patch(
+                mpl_patches.Rectangle(
+                    (site, 0),
+                    1,
+                    height,
+                    color="white",
+                    zorder=100,
+                ),
+            )
 
         return selected_patch, *overwrite_patches
 
@@ -129,7 +163,7 @@ def _make_do_update(
             height = (
                 surface_history_df.loc[mask, "ingest rank"].squeeze() - 1
                 if mask.any()
-                else rank + 1
+                else 0
             )
             patch.set_height(height)
 
@@ -183,6 +217,7 @@ def typewriter_animate(
             (i, 0),
             1,
             0,
+            alpha=0.8,
             color="white",
             fill=True,
         )
