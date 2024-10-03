@@ -81,8 +81,6 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           python -m pip install pip --upgrade
-          sudo python -m pip install pip --upgrade
-          sudo python -m pip install uv --upgrade
           python -m pip install '.[testing]'
           rm -rf hsurf
       # ignore warnings to reduce memory use
@@ -97,7 +95,7 @@ jobs:
           python -m pip install pip --upgrade
           sudo python -m pip install pip --upgrade
           sudo python -m pip install uv --upgrade
-          sudo python -m pip uv install -r requirements.txt
+          sudo python -m uv pip install -r requirements.txt --system
       # ignore warnings to reduce memory use
       # (there are a lot of deprecation warnings)
       - run: timeout 5h python -m pytest -m heavy -W ignore -n auto test_hsurf || ( [[ $? -eq 124 ]] && echo "WARNING Timeout reached" )
