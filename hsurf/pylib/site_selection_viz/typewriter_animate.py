@@ -35,15 +35,17 @@ def _draw_record(
     ax: plt.Axes,
     mask: np.array,
 ) -> None:
-    record = np.zeros_like(mask)
+    record = np.zeros_like(mask, dtype=int)
     record[mask] = np.flatnonzero(mask)
     assert record.shape == mask.shape
     sns.heatmap(
         record[:, np.newaxis],
-        mask=mask[:, np.newaxis],
+        mask=~mask[:, np.newaxis],
         ax=ax,
         cbar=False,
-        cmap="viridis",
+        cmap="binary",
+        vmin=0,
+        vmax=1,
     )
     ax.set_xticks([])
     ax.set_xticklabels([])
@@ -95,6 +97,14 @@ def _make_do_update(
     record_ax: plt.Axes,
 ) -> typing.Callable:
 
+    smask0 = (
+        (surface_history_df["rank"] == 0)
+        & (surface_history_df["ago"] == 0)
+    )
+    selected_index0 = (
+        surface_history_df.loc[smask0, "site"].squeeze() if smask0.any() else -1
+    )
+
     def _do_update(rank: int) -> typing.Sequence[mpl_artist.Artist]:
         smask = (
             (surface_history_df["rank"] == rank)
@@ -109,11 +119,15 @@ def _make_do_update(
             mask = (
                 (surface_history_df["rank"] == rank)
                 & (surface_history_df["site"] == site)
+                & (
+                    (surface_history_df["ingest rank"] > 0)
+                    | (surface_history_df["site"] == selected_index0)
+                )
             )
             height = (
                 surface_history_df.loc[mask, "ingest rank"].squeeze() - 1
                 if mask.any()
-                else 0
+                else rank + 1
             )
             patch.set_height(height)
 
@@ -125,7 +139,11 @@ def _make_do_update(
             "ingest rank",
         ].dropna().astype(int).to_numpy()
         rmask[retained_ranks] = True
-        _draw_record(record_ax, rmask)
+        n_step = surface_history_df["rank"].max() + 1
+        _draw_record(
+            record_ax,
+            rmask,
+        )
 
         plt.gcf().canvas.draw()
 
