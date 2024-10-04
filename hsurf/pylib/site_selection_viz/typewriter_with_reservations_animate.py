@@ -13,9 +13,7 @@ import seaborn as sns
 from .site_ingest_depth_by_rank_heatmap import (
     site_ingest_depth_by_rank_heatmap,
 )
-from .site_reservation_at_rank_heatmap import (
-    site_reservation_at_rank_heatmap,
-)
+from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
 
 
 def _draw_buffer_grid(
