@@ -78,6 +78,8 @@ def _make_do_init(
             surface_history_df,
             ax=history_ax,
             cbar=False,
+            rank_sample_size=surface_history_df["rank"].nunique(),
+            ynorm="linear",
         )
         history_ax.set_ylim(1, 0)
         history_ax.set_xticks([])
