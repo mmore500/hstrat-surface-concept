@@ -39,13 +39,14 @@ def _draw_record(
     record[mask] = np.flatnonzero(mask) + 1
     assert record.shape == mask.shape
     ax.clear()
+    thicken = ~(mask[1:] & mask[:-1]).any() or len(mask) >= 128
     sns.heatmap(
         record[:, np.newaxis],
         mask=~mask[:, np.newaxis],
         ax=ax,
         cbar=False,
         cmap="binary",
-        linewidths=1,
+        linewidths=not thicken,
         linecolor="white",
         vmin=0,
         vmax=1,
