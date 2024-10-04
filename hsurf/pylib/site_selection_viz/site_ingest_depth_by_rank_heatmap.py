@@ -20,9 +20,11 @@ from ._linspace_filter_surface_history_df import (
 
 def site_ingest_depth_by_rank_heatmap(
     surface_history_df: pd.DataFrame,
+    cbar: bool = True,
     cnorm: typing.Optional[Literal["log"]] = "log",  # noqa: F821
     ynorm: typing.Optional[Literal["log", "linear"]] = "log",  # noqa: F821
     rank_sample_size: int = 256,
+    ax: typing.Optional[mpl_axes.Axes] = None,
     figsize: typing.Optional[typing.Tuple[int, int]] = None,
 ) -> mpl_axes.Axes:
     # Reshape DataFrame
@@ -47,6 +49,8 @@ def site_ingest_depth_by_rank_heatmap(
     # Create heatmap
     if figsize is not None:
         plt.figure(figsize=figsize)
+    if ax is None:
+        ax = plt.gca()
     if cnorm == "log":
         cnorm = mpl_colors.SymLogNorm(linthresh=1.0)
     else:
@@ -54,6 +58,8 @@ def site_ingest_depth_by_rank_heatmap(
     ax = sns.heatmap(
         reshaped_df,
         annot=False,
+        ax=ax,
+        cbar=cbar,
         cmap="viridis",
         norm=cnorm,
     )
