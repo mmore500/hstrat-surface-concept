@@ -10,9 +10,11 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from ..hanoi import get_hanoi_value_at_index
 from .site_ingest_depth_by_rank_heatmap import (
     site_ingest_depth_by_rank_heatmap,
+)
+from .site_reservation_at_rank_heatmap import (
+    site_reservation_at_rank_heatmap,
 )
 
 
@@ -135,10 +137,6 @@ def _make_do_init(
         for patch in age_patches:
             buffer_ax.add_patch(patch)
 
-        reservation_patches = extra_patches[n_site * 2 : n_site * 3]
-        for patch in reservation_patches:
-            reservation_ax.add_patch(patch)
-
         for site in range(n_site):
             if site == selected_index0:
                 continue
@@ -173,8 +171,10 @@ def _make_do_init(
 def _make_do_update(
     artists: typing.Sequence[mpl_artist.Artist],
     surface_history_df: pd.DataFrame,
+    reservation_mode: str,
     history_ax: plt.Axes,
     record_ax: plt.Axes,
+    reservation_ax: plt.Axes,
 ) -> typing.Callable:
 
     smask0 = (surface_history_df["rank"] == 0) & (
@@ -228,18 +228,23 @@ def _make_do_update(
             cm.set_bad("white")
             patch.set(color=cm(normed_ago))
 
-        reservation_patches = extra_patches[n_site * 2 : n_site * 3]
-        cp = sns.color_palette("tab10", 10) + sns.color_palette("pastel", 10)
-        for site, patch in enumerate(reservation_patches):
-            mask = (surface_history_df["rank"] == rank) & (
-                surface_history_df["site"] == site
+        # reservation_patches = extra_patches[n_site * 2 : n_site * 3]
+        if rank == 0:
+            reservation_ax.cla()
+            site_reservation_at_rank_heatmap(
+                surface_history_df,
+                rank=n_site - 1,
+                ax=reservation_ax,
+                reservation_mode=reservation_mode,
             )
-            buf_rank = surface_history_df.loc[mask, "ingest rank"].squeeze()
-            if not mask.any() or np.isnan(buf_rank) or buf_rank == -1:
-                patch.set(color="white")
-            else:
-                hv = get_hanoi_value_at_index(int(buf_rank))
-                patch.set(color=cp[hv])
+        elif rank >= n_site and rank.bit_count() == 1:
+            reservation_ax.cla()
+            site_reservation_at_rank_heatmap(
+                surface_history_df,
+                rank=2 * rank - 1,
+                ax=reservation_ax,
+                reservation_mode=reservation_mode,
+            )
 
         rmask = np.zeros(rank + 1, dtype=bool)
         retained_ranks = (
@@ -270,6 +275,7 @@ def _make_do_update(
 # adapted from https://matplotlib.org/devdocs/gallery/animation/animate_decay.html#sphx-glr-gallery-animation-animate-decay-py
 def typewriter_with_reservations_animate(
     surface_history_df: pd.DataFrame,
+    reservation_mode: str = "tilted",
 ) -> mpl_animation.FuncAnimation:
     surface_history_df["ago"] = (
         surface_history_df["rank"] - surface_history_df["ingest rank"]
@@ -316,18 +322,6 @@ def typewriter_with_reservations_animate(
         )
         for i in range(surface_history_df["site"].max() + 1)
     ]
-    reservation_patches = [
-        mpl_patches.Rectangle(
-            (i - 0.5, 0),
-            1,
-            1,
-            alpha=1.0,
-            color="white",
-            fill=True,
-            zorder=-100,
-        )
-        for i in range(surface_history_df["site"].max() + 1)
-    ]
     n_step = surface_history_df["rank"].max() + 1
     return mpl_animation.FuncAnimation(
         fig=fig,
@@ -336,11 +330,12 @@ def typewriter_with_reservations_animate(
                 selected_patch,
                 *overwrite_patches,
                 *ago_patches,
-                *reservation_patches,
             ),
             surface_history_df,
+            reservation_mode,
             history_ax,
             record_ax,
+            reservation_ax,
         ),
         frames=range(n_step),
         init_func=_make_do_init(
@@ -348,7 +343,6 @@ def typewriter_with_reservations_animate(
                 selected_patch,
                 *overwrite_patches,
                 *ago_patches,
-                *reservation_patches,
             ),
             surface_history_df,
             history_ax,
