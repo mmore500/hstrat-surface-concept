@@ -73,7 +73,7 @@ def _make_do_init(
         else -1
     )
 
-    def _do_init() -> typing.Sequence[mpl_artist.Artist]:
+    def do_init() -> typing.Sequence[mpl_artist.Artist]:
         site_ingest_depth_by_rank_heatmap(
             surface_history_df,
             ax=history_ax,
@@ -141,7 +141,7 @@ def _make_do_init(
 
         return selected_patch, *extra_patches
 
-    return _do_init
+    return do_init
 
 
 def _make_do_update(
@@ -160,7 +160,7 @@ def _make_do_update(
         else -1
     )
 
-    def _do_update(rank: int) -> typing.Sequence[mpl_artist.Artist]:
+    def do_update(rank: int) -> typing.Sequence[mpl_artist.Artist]:
         smask = (surface_history_df["rank"] == rank) & (
             surface_history_df["ago"] == 0
         )
@@ -224,7 +224,7 @@ def _make_do_update(
 
         return selected_patch, *overwrite_patches
 
-    return _do_update
+    return do_update
 
 
 # adapted from https://matplotlib.org/devdocs/gallery/animation/animate_decay.html#sphx-glr-gallery-animation-animate-decay-py
