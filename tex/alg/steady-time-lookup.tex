@@ -32,16 +32,16 @@
         \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over buffer sites}
         \Statex
         \Statex \Comment{Calculate info about current segment\ldots}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{w} \gets \Call{I}{b == 0}$ \Comment{Correction on seg width for first bunch}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{w} \gets \Call{I}{b = 0}$ \Comment{Correction on seg width for first bunch}
         \State $\texttt{uint\_t} ~ ~ w \gets \colors - b + \epsilon_{w}$ \Comment{Number of sites in current segment (i.e., segment size)}
         \State $\texttt{uint\_t} ~ ~ m_p \gets 2^b -m^{\scriptscriptstyle\shortdownarrow}_b$ \Comment{Calc left-to-right index of current segment}
         \State $\texttt{uint\_t} ~ ~ \colorh_{\max} \gets \colort + w - 1$ \Comment{Max possible \hv{} in segment during current epoch $\colort$}
         \State $\texttt{uint\_t} ~ ~ \colorh' \gets \colorh_{\max} - ((\colorh_{\max} + {\colork}^{\scriptscriptstyle\shortdownarrow}_m) \bmod w)$ \Comment{Candidate hanoi value}
         \Statex
-        \Statex \Comment{Decode ingest $\colorTbar$ from physical segment index $m_p$\ldots}
+        \Statex \Comment{Decode ingest $\colorTbar_{\colork}$ from physical segment index $m_p$\ldots}
         \Statex \Comment{\dots which tells instance of reserved \hv{} (i.e., how many seen)\ldots}
-        \State $\texttt{uint\_t} ~ ~ \colorTbar' \gets 2^{\colorh'}(2m_p + 1) - 1$ \Comment{Guess ingest time of data item at current site}
-        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on \hv{} if assigned instance not yet seen (i.e., $\colorTbar \geq \colorT$)}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar_{\colork}' \gets 2^{\colorh'}(2m_p + 1) - 1$ \Comment{Guess ingest time of data item at current site}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar_{\colork}' \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on \hv{} if assigned instance not yet seen (i.e., $\colorTbar_{\colork}' \geq \colorT$)}
         \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident \hv{} at site}
         \State $\texttt{uint\_t} ~ ~ \colorTbar_{\colork} \gets 2^{\colorh}(2m_p + 1) - 1$ \Comment{True ingest time}
         \State \textbf{yield} $\colorTbar_{\colork}$
