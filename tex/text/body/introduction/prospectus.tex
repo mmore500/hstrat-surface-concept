@@ -19,8 +19,7 @@ Figure \ref{fig:ingest-and-lookup} schematizes our ``site selection'' and ``site
 
 \subsection{Major Results}
 
-This paper contributes a site selection algorithms for stream curation, with corresponding site lookup procedures.
-These algorithms differ in the temporal composition of retained data items, targeting steady, stretched, and tilted distributions, respectively.
-All three proposed algorithms support $\mathcal{O}(1)$ site selection.
-Accompanying site lookup is $\mathcal{O}(\colorS)$ to decode all $\colorS$ buffer sites' ingest times.
-We provide worst-case upper bounds on curation quality, with the steady algorithm notable in guaranteeing performance matching best case within a constant factor.
+This paper contributes a novel site selection algorithm for ``steady'' stream curation, with a corresponding site lookup procedures
+% These algorithms differ in the temporal composition of retained data items, targeting steady, stretched, and tilted distributions, respectively.
+The proposed algorithm supports $\mathcal{O}(1)$ site selection, and accompanying site lookup is $\mathcal{O}(\colorS)$ to decode all $\colorS$ buffer sites' ingest times.
+We provide a worst-case lower bound on curation quality, guaranteeing performance within a constant factor of best case quality.
