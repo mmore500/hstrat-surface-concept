@@ -1,5 +1,5 @@
 \begin{figure*}
-\begin{minipage}[t]{0.7\textwidth}
+\begin{minipage}[t]{0.4\textwidth}
 \begin{minipage}[]{\textwidth}
 \noindent\fcolorbox{gray!3}{gray!3}{%
 \begin{minipage}[c][0.97in]{0.05\textwidth}
@@ -10,7 +10,7 @@
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!4}{orange!4}{%
 \begin{minipage}[]{0.95\textwidth}
-\includegraphics[trim={0.2cm 1.2cm 0 0},clip,height=0.97in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=.pdf}%
+\includegraphics[trim={0.2cm 1.2cm 0 0},clip,width=\textwidth]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=.pdf}%
 \end{minipage}}%
 \end{minipage}\vspace{-1ex}
 
@@ -24,7 +24,7 @@
 {\vrule width 1pt}%
 \noindent\fcolorbox{orange!10}{orange!10}{%
 \begin{minipage}[c]{0.95\textwidth}
-\includegraphics[trim={0.2cm 0 0 0},clip,height=1.25in]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
+\includegraphics[trim={0.2cm 0 0 0},clip,width=\textwidth]{binder/teeplots/hanoi-strategy/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
 \end{minipage}}%
 \end{minipage}\vspace{-1ex}
 
@@ -42,15 +42,22 @@
 \hspace{-1.2ex}\begin{subfigure}[b]{\linewidth}
 \captionsetup{justification=centering}
 \vspace{-2ex}
-\caption{steady strategy\\ \footnotesize all data items of top $n$ hanoi values}
+% \caption{}
+~\\
+~\\
+steady strategy: \footnotesize keep all data items of top $n$ hanoi values
 \label{fig:hanoi-intuition-steady}
 \end{subfigure}%
 \end{minipage}}%
 \end{minipage}
 \end{minipage}%
+\begin{minipage}[t]{0.05\textwidth}
+~
+\end{minipage}%
 \begin{minipage}[t]{0.3\textwidth}
+\vspace{-5ex}
 \caption{%
-  \textbf{Hanoi value retention strategies.}
+  \textbf{Hanoi value retention strategy.}
   \footnotesize
   Data item retention can be prioritized based on ``hanoi value'' of ingestion time $\colorT$.
   Here, ``lollipop'' bars show data item hanoi values, $\colorH(\colorTbar)$.
