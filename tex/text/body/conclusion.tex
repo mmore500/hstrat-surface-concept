@@ -59,9 +59,7 @@ As described in Section \ref{sec:materials}, we have organized stream-curation-s
 Going forward, we intend for stream curation algorithms to support lineage tracking implementation as a public-facing external dependency rather than as an opaque internal utility.
 
 One challenge in supporting end-users is cross-language interoperation.
-Partial implementations are currently available in Python, Zig, and the closely related Cerebras Software Language (CSL) \citep{moreno2024hsurf,moreno2024downstream,moreno2024wse}.
-For our own purposes, we plan to establish ports of stream curation algorithms for Rust and C++.
-
+To this end, we have developed library code with implementations of stream curation algorithms described here for Rust, C++, Python, Zig, and the closely related Cerebras Software Language (CSL) \citep{moreno2024hsurf,moreno2024downstream,moreno2024wse}.
 We would be highly interested in collaborations in assembling DStream implementations in other languages as needed --- whether incorporating new implementations into the \textit{downstream} software repository or linking to outside repositories from the \textit{downstream} documentation.
 In either case, care will be needed for consistency across implementations, as the semantics of stored data depend subtly upon exactly how site selection unfolded.
 One possible approach to this issue would be to simply designate a canonical implementation and provide language-agnostic tests to validate other implementations against it.
