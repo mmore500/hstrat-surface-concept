@@ -1,0 +1,15 @@
+\begin{figure*}
+
+\includegraphics[width=\textwidth]{binder/downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-speed/exclude=dstream.stretched_algo,dstream.tilted_algo,zhao_tilted_algo+palette=tab10-r+row=is-naive+viz=outsetgrid+x=num-sites+y=duration-per-item-ns+ext=.pdf}
+
+\caption{
+\textbf{Per-item walltime for curation from 10k- and 1M-item single-bit data streams.}
+Proposed DownStream algorithm is ``dstream steady;''
+``Online equi-segmented scheme`` from \citep{zhao2005generalized} is ``naive steady.''
+For both approaches, per-item walltime increases where buffer size is a larger fraction of data stream length, as a higher fraction of items are stored rather than discarded.
+Timings for maintaining a simple ring buffer and no-store processing are included as controls.
+For longer 1M-item data streams, per-item walltime for DownStream approach is nearly equivalent to no-store control.
+Shaded bands behind lines represent bootstrapped 95\% CI over 40 replicate timings.
+}
+\label{fig:perf-num-ingests}
+\end{figure*}

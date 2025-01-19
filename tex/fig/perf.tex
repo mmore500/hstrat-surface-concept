@@ -1,0 +1,39 @@
+\begin{figure*}
+
+\begin{subfigure}{\textwidth}
+\centering
+\includegraphics[width=0.92\textwidth]{binder/downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-speed/exclude=dstream.stretched_algo,dstream.tilted_algo,zhao_tilted_algo+num_items=1000000+palette=tab10-r+row=is-naive+viz=outsetgrid+x=num-sites+y=duration-per-item-ns+ext=.pdf}
+\caption{per-item walltime over 1 million data ingests, including no-store simple ring buffer controls}
+\label{fig:perf:speed}
+\end{subfigure}
+
+\begin{subfigure}{0.38\textwidth}
+\includegraphics[width=0.9\textwidth,angle=90]{binder/downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-memory/hue=strategy+kind=bar+palette=set2+viz=catplot+x=num-sites+y=memory-bytes+ext=.pdf}
+\centering
+\begin{minipage}{0.9\textwidth}
+\caption{net memory use for retained data, timestamps, and data structure components}
+\label{fig:perf:memory}
+\end{minipage}
+\end{subfigure}%
+\begin{subfigure}{0.62\textwidth}
+\includegraphics[width=0.9\textwidth]{binder/downstream-benchmark/binder/teeplots/2025-01-18-qos-dstream-vs-naive-steady/exclude=naive steady greedy+hue=algorithm+kind=line+palette=set2+style=algorithm+viz=relplot+x=num-items-ingested+y=max-gap-size+ext=.pdf}
+\centering
+\begin{minipage}{0.9\textwidth}
+\caption{worst-case time gap size between retained items across 10k data ingests into 64-item buffer storage}
+\label{fig:perf:qos}
+\end{minipage}
+\end{subfigure}
+
+\caption{
+\textbf{DownStream steady curation improves speed and memory footprint, while maintaining equivalent or smaller time gaps between retained data items.}
+On-hardware performance downsampling from single-bit data stream for proposed ``dstream'' algorithm is compared against existing ``naive'' approach \citep{zhao2005generalized}, which requires storage of a timestamp delta with each retained data item.
+Across surveyed conditions, the dstream approach provided between $2.5\times$ and $72\times$ speedup over the naive approach, shown in subpanel \ref{fig:perf:speed}.
+In fact, dstream performance closely resembles that of our minimal no-store control.
+Over shorter data streams, where a smaller fraction of data items are discarded, dstream performance more closely resembles that of the ring buffer control (Figure \ref{fig:perf-num-ingests}).
+Shaded bands represent bootstrapped 95\% CI over 40 replicate timings.
+In the case of single-bit data items, dstream also reduces memory use --- shown in subpanel \ref{fig:perf:memory} --- more than 30-fold, owing to omission of 32-bit timestamp deltas.
+Finally, subpanel \ref{fig:perf:qos} compares growth rates for maximimal time gap among retained items.
+Here, dstream behavior closely matches, or slightly improves, the naive approach.
+}
+\label{fig:perf}
+\end{figure*}
