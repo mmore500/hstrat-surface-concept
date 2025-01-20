@@ -2,13 +2,13 @@
 
 \begin{subfigure}{\textwidth}
 \centering
-\includegraphics[width=0.92\textwidth]{binder/downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-speed/color=black+exclude=dstream.stretched_algo,dstream.tilted_algo,zhao_tilted_algo+palette=tab10-r+row=is-naive+viz=outsetgrid+x=num-sites+y=duration-per-item-ns+ext=.png}
+\includegraphics[width=0.92\textwidth]{binder-downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-speed/color=black+exclude=dstream.stretched_algo,dstream.tilted_algo,zhao_tilted_algo+palette=tab10-r+row=is-naive+viz=outsetgrid+x=num-sites+y=duration-per-item-ns+ext=.png}
 \caption{per-item walltime over 1 million data ingests, including no-store and simple ring buffer controls}
 \label{fig:perf:speed}
 \end{subfigure}
 
 \begin{subfigure}{0.38\textwidth}
-\includegraphics[width=0.9\textwidth,angle=90]{binder/downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-memory/hue=strategy+kind=bar+palette=set2+viz=catplot+x=num-sites+y=memory-bytes+ext=.pdf}
+\includegraphics[width=0.9\textwidth,angle=90]{binder-downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-memory/hue=strategy+kind=bar+palette=set2+viz=catplot+x=num-sites+y=memory-bytes+ext=.pdf}
 \centering
 \begin{minipage}{0.9\textwidth}
 \caption{net memory use for retained data, timestamps, and data structure components}
@@ -16,7 +16,7 @@
 \end{minipage}
 \end{subfigure}%
 \begin{subfigure}{0.62\textwidth}
-\includegraphics[width=0.9\textwidth]{binder/downstream-benchmark/binder/teeplots/2025-01-18-qos-dstream-vs-naive-steady/exclude=naive steady greedy+hue=algorithm+kind=line+palette=set2+style=algorithm+viz=relplot+x=num-items-ingested+y=max-gap-size+ext=.pdf}
+\includegraphics[width=0.9\textwidth]{binder-downstream-benchmark/binder/teeplots/2025-01-18-qos-dstream-vs-naive-steady/exclude=naive steady greedy+hue=algorithm+kind=line+palette=set2+style=algorithm+viz=relplot+x=num-items-ingested+y=max-gap-size+ext=.pdf}
 \centering
 \begin{minipage}{0.9\textwidth}
 \caption{worst-case time gap size between retained items across 10k data ingests into 64-item buffer storage}
