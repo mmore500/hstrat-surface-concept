@@ -1,12 +1,12 @@
 \begin{abstract}
-Operations over data streams typically hinge on efficient mechanisms to aggregate or summarize history on a rolling basis.
-For high-volume data steams, it is critical to manage state in a manner that is fast and memory efficient --- particularly in resource-constrained or real-time contexts.
+In working with data streams, it is often necessary to continuously retain a representative record of data collected across elapsed history.
+This objective requires efficient mechanisms to aggregate or summarize history on an online basis.
 Here, we address the problem of extracting a fixed-capacity, rolling subsample from a data stream.
-Specifically, we explore ``data stream curation'' strategies to fulfill requirements on the composition of sample time points retained.
-We present an algorithm targeting steady coverage, where retained samples should spread evenly across elapsed data stream history and prove worst-case bounds on rolling coverage quality.
-In contrast to previous work by Moreno, Rodriguez Papa, and Dolson (2024), which dynamically scales memory use to guarantee a specified level of coverage quality, here we focus on optimizing the more practical, application-driven case of maximizing coverage quality given a fixed memory capacity.
-As a core simplifying assumption, we restrict algorithm design to a single update operation: writing from the data stream to a calculated buffer site --- with data never being read back, no metadata stored (e.g., sample timestamps), and data eviction occurring only implicitly via overwrite.
-Drawing only on primitive, low-level operations and ensuring full, overhead-free use of available memory, this ``DStream'' framework ideally suits domains that are resource-constrained (e.g., embedded systems), performance-critical (e.g., real-time), and fine-grained (e.g., individual data items as small as single bits or bytes).
-In particular, our proposed scheme supports concise $\mathcal{O}(1)$ data ingestion operations.
-To further practical applications, we provide plug-and-play open-source implementations targeting both scripted and compiled application domains.
+Our proposed ``DStream'' approach generalizes the ring buffer --- which ordinarily provides rolling last-$n$ coverage --- to instead maintain rolling steady coverage, where retained items spread evenly across elapsed data stream history.
+Comparing our approach against existing work by Zhao and Zhang (2006), we measure between a $2.5\times$ and $72\times$ speedup in data stream processing.
+We also demonstrate substantial memory savings for scenarios where stored data items are small --- more than 30-fold, for instance, with single-bit data items.
+Empirically, we find equivalent or superior behavior in maintaining steady coverage; we also prove worst-case bounds on rolling coverage quality.
+We further show processing time to be hard $O(1)$, with respect to both buffer capacity and stream depth.
+As such, we expect presented work to be particularly valuable in domains that are resource-constrained (e.g., embedded systems) or performance-critical (e.g., real-time).
+To facilitate practical applications, we accompany our presentation with plug-and-play, open-source algorithm implementations.
 \end{abstract}
