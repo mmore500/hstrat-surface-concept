@@ -6,3 +6,6 @@
 	path = tex/binder-downstream-benchmark
 	url = https://github.com/mmore500/downstream-benchmark
 	branch = binder
+[submodule "downstream-benchmark"]
+	path = downstream-benchmark
+	url = https://github.com/mmore500/downstream-benchmark.git
