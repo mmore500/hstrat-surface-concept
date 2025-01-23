@@ -5,57 +5,56 @@ Xorshift benchmark timings.
 Table \ref{tab:perf-control} provides timings for ringbuf and discard controls.
 }
 \label{tab:perf}
-\vspace{-3ex}
 \small
-\begin{tabular}{l r cc cc}
+\begin{tabular}{l c c c c c}
 \toprule
+\multirow{2}{*}{\makecell{\textit{\textbf{Stream}}\\\textit{\textbf{Length}}}}
+& \multirow{2}{*}{\makecell{\textit{\textbf{Buffer}}\\\textit{\textbf{Capacity}}}}
+& \multicolumn{2}{c}{\textbf{Ingest Time} ($\pm$ std.\ dev.)}
+& \multirow{2}{*}{\makecell{{\textbf{dstream}}\\{\textbf{Speedup}}}} \\
+\cmidrule(lr){3-4}
 &
-& \multicolumn{2}{c}{\textit{10{,}000 item stream length}}
-& \multicolumn{2}{c}{\textit{1{,}000{,}000 item stream length}} \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}
-& \makecell{\textbf{Buffer}\\\textbf{Capacity}}
-& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
-& \makecell{\textbf{Speedup}\\(vs. naive)}
-& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
-& \makecell{\textbf{Speedup}\\(vs. naive)} \\
+& \textit{{dstream}}
+& \textit{{naive}}
+& \\
 \midrule
-
-%------------------------------------------------------------
-% dstream steady
 \multirow{4}{*}{%
-\makecell{\textbf{dstream}\\\textbf{steady}\\\textbf{ingest}}}
- & 64 sites
-   & \(2.0 \pm 0.2\) ns & \(4.7\times\)
-   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
- & 256 sites
-   & \(2.1 \pm 0.1\) ns & \(22\times\)
-   & \(1.9 \pm 0.0\) ns & \(3.0\times\) \\
- & 1024 sites
-   & \(2.5 \pm 0.2\) ns & \(192\times\)
-   & \(1.9 \pm 0.0\) ns & \(9.0\times\) \\
- & 4096 sites
-   & \(4.0 \pm 0.5\)    & \(826\times\)
-   & \(1.9 \pm 0.0\) ns & \(72\times\) \\
+\makecell{\textit{10{,}000}\\\textit{items}}}
+& \textit{64 sites}
+  & \(2.0 \pm 0.2\)\,ns
+  & \(9.2 \pm 2.0\)\,ns
+  & \(4.7\times\) \\
+& \textit{256 sites}
+  & \(2.1 \pm 0.1\)\,ns
+  & \(47 \pm 18\)\,ns
+  & \(22\times\) \\
+& \textit{1024 sites}
+  & \(2.5 \pm 0.2\)\,ns
+  & \(480 \pm 1{,}600\)\,ns
+  & \(192\times\) \\
+& \textit{4096 sites}
+  & \(4.0 \pm 0.5\)\,ns
+  & \(3{,}100 \pm 1{,}600\)\,ns
+  & \(826\times\) \\
 \midrule
-\addlinespace
-
-%------------------------------------------------------------
-% naive steady
 \multirow{4}{*}{%
-\makecell{\textbf{naive}\\\textbf{steady}\\\textbf{ingest}}}
- & 64 sites
-   & \(9.2 \pm 2.0\) ns & --
-   & \(4.8 \pm 0.73\) ns & -- \\
- & 256 sites
-   & \(47 \pm 18\) ns & --
-   & \(5.6 \pm 1.1\) ns & -- \\
- & 1024 sites
-   & \(480 \pm 1{,}600\) ns & --
-   & \(17 \pm 4.8\) ns & -- \\
- & 4096 sites
-   & \(3{,}100 \pm 1{,}600\) ns & --
-   & \(140 \pm 72\) ns & -- \\
-
+\makecell{\textit{1{,}000{,}000}\\\textit{items}}}
+& \textit{64 sites}
+  & \(1.9 \pm 0.0\)\,ns
+  & \(4.8 \pm 0.73\)\,ns
+  & \(2.6\times\) \\
+& \textit{256 sites}
+  & \(1.9 \pm 0.0\)\,ns
+  & \(5.6 \pm 1.1\)\,ns
+  & \(3.0\times\) \\
+& \textit{1024 sites}
+  & \(1.9 \pm 0.0\)\,ns
+  & \(17 \pm 4.8\)\,ns
+  & \(9.0\times\) \\
+& \textit{4096 sites}
+  & \(1.9 \pm 0.0\)\,ns
+  & \(140 \pm 72\)\,ns
+  & \(72\times\) \\
 \bottomrule
 \end{tabular}
 \end{table}
