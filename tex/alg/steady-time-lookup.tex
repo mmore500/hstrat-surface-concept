@@ -2,7 +2,8 @@
 \caption{Steady algorithm ingest time lookup $\colorL(\colorT)$.\\
 \footnotesize Supplementary Listing \ref{lst:steady_time_lookup.py} provides reference Python code.}
 \label{alg:steady-time-lookup}
-\begin{minipage}{0.5\textwidth}
+\flushleft
+\begin{minipage}{0.5\linewidth}
     \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
     \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
     \begin{algorithmic}[1]
