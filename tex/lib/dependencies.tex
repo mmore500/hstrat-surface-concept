@@ -1,10 +1,10 @@
-\usepackage[dvipsnames,table,xcdraw]{xcolor}
-\usepackage[pdftex]{graphicx}
+% \usepackage[dvipsnames,table,xcdraw]{xcolor}
+% \usepackage[pdftex]{graphicx}
 
 \usepackage{adjustbox}
 \usepackage[noEnd=true,commentColor=black]{algpseudocodex}
 \usepackage{algorithm}
-\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage{amsmath,amsthm,amsfonts}
 \usepackage{annotate-equations}
 \usepackage{authblk}
 \usepackage{array}
@@ -20,7 +20,7 @@
 \usepackage{etoolbox}
 \usepackage{float}
 \newfloat{algorithm}{t}{lop} % adapted from https://tex.stackexchange.com/a/6166/316176
-\usepackage[margin=1in]{geometry}
+\usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{import}
 \usepackage[inline]{enumitem}
@@ -32,7 +32,32 @@
 \usepackage{placeins}
 \usepackage[subtle]{savetrees}
 \usepackage{siunitx}
-\usepackage{stix}
+% \usepackage{stix}
+% adapted from https://tex.stackexchange.com/a/331899/316176
+% and https://www.tug.org/texlive//Contents/live/texmf-dist/tex/latex/stix/stix.sty
+\makeatletter
+\DeclareFontEncoding{LS2}{}{\@noaccents}
+\makeatother
+\DeclareFontSubstitution{LS2}{stix}{m}{n}
+
+\DeclareSymbolFont{largesymbolsstix}{LS2}{stixex}{m}{n}
+
+\DeclareMathDelimiter{\lBrace}{\mathopen}{largesymbolsstix}{"E8}{largesymbolsstix}{"0E}
+\DeclareMathDelimiter{\rBrace}{\mathclose}{largesymbolsstix}{"E9}{largesymbolsstix}{"0F}
+
+\makeatletter
+% 1) Declare an LS1 encoding, and a default substitution mapping to ‘stix’
+\DeclareFontEncoding{LS1}{}{}
+\DeclareFontSubstitution{LS1}{stix}{m}{n}
+
+% 2) Pick the STIX "bb" (“blackboard”) sub-family in italic
+%    that STIX uses for symbols4
+\DeclareSymbolFont{symbols4}{LS1}{stixbb}{m}{it}
+
+% 3) Finally, map the specific glyph at slot "E7 in ‘symbols4’ to \blkhorzoval
+\DeclareMathSymbol{\blkhorzoval}{\mathord}{symbols4}{"E7}
+\makeatother
+
 \usepackage{stmaryrd}
 \usepackage{subcaption}
 \usepackage{tabularx}
