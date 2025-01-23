@@ -1,10 +1,9 @@
 \begin{table}[ht]
 \centering
 \caption{
-Xorshift benchmark timings.
-Table \ref{tab:perf-control} provides timings for ringbuf and discard controls.
+Xorshift benchmark timings for control trials.
 }
-\label{tab:perf}
+\label{tab:perf-control}
 \vspace{-3ex}
 \small
 \begin{tabular}{l r cc cc}
@@ -21,40 +20,40 @@ Table \ref{tab:perf-control} provides timings for ringbuf and discard controls.
 \midrule
 
 %------------------------------------------------------------
-% dstream steady
+% control: ringbuf
 \multirow{4}{*}{%
-\makecell{\textbf{dstream}\\\textbf{steady}\\\textbf{ingest}}}
+\makecell{\textbf{control:}\\\textbf{ringbuf}\\\textbf{ingest}}}
  & 64 sites
-   & \(2.0 \pm 0.2\) ns & \(4.7\times\)
+   & \(1.9 \pm 0.0\) ns & \(4.9\times\)
    & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
  & 256 sites
-   & \(2.1 \pm 0.1\) ns & \(22\times\)
-   & \(1.9 \pm 0.0\) ns & \(3.0\times\) \\
+   & \(4.2 \pm 0.4\) ns & \(12\times\)
+   & \(4.9 \pm 0.1\) ns &\(1.2\times\) \\
  & 1024 sites
-   & \(2.5 \pm 0.2\) ns & \(192\times\)
-   & \(1.9 \pm 0.0\) ns & \(9.0\times\) \\
+   & \(4.0 \pm 0.4\) ns & \(122\times\)
+   & \(4.9 \pm 0.2\) ns & \(3.5\times\) \\
  & 4096 sites
-   & \(4.0 \pm 0.5\)    & \(826\times\)
-   & \(1.9 \pm 0.0\) ns & \(72\times\) \\
+   & \(3.9 \pm 0.3\) ns & \(799\times\)
+   & \(4.9 \pm 0.2\) ns & \(29\times\) \\
 \midrule
 \addlinespace
 
 %------------------------------------------------------------
-% naive steady
+% control: discard
 \multirow{4}{*}{%
-\makecell{\textbf{naive}\\\textbf{steady}\\\textbf{ingest}}}
- & 64 sites
-   & \(9.2 \pm 2.0\) ns & --
-   & \(4.8 \pm 0.73\) ns & -- \\
+\makecell{\textbf{control:}\\\textbf{discard}\\\textbf{only}}}
+& 64 sites
+   & \(1.9 \pm 0.2\) ns & \(5.0\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
  & 256 sites
-   & \(47 \pm 18\) ns & --
-   & \(5.6 \pm 1.1\) ns & -- \\
+   & \(1.9 \pm 0.0\) ns & \(25\times\)
+   & \(1.9 \pm 0.0\) ns & \(3.0\times\) \\
  & 1024 sites
-   & \(480 \pm 1{,}600\) ns & --
-   & \(17 \pm 4.8\) ns & -- \\
+   & \(1.9 \pm 0.0\) ns & \(254\times\)
+   & \(1.9 \pm 0.0\) ns & \(9.0\times\) \\
  & 4096 sites
-   & \(3{,}100 \pm 1{,}600\) ns & --
-   & \(140 \pm 72\) ns & -- \\
+   & \(1.9 \pm 0.0\) ns & \(1{,}669\times\)
+   & \(1.9 \pm 0.0\) ns & \(74\times\) \\
 
 \bottomrule
 \end{tabular}

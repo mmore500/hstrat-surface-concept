@@ -1,4 +1,11 @@
-\begin{table}[]
+\begin{table*}[]
+\centering
+\caption{
+Notation
+% \textsuperscript{\textdagger}steady algorithm; \textsuperscript{\textdaggerdbl}stretched and tilted algorithms.
+}
+\vspace{-3ex}
+\label{tab:notation}
 \begin{tabular}{lllll}
 \hline
 \textit{Description} & \textit{Type} & \textit{Notation} & \textit{Definition} & \textit{Domain} \\ \hline
@@ -30,10 +37,4 @@ Retained Data Items & set & $\colorB_{\colorT}$ & algorithm-consequent & $\subse
 Discarded Data Items & set & $\colorBnot_{\colorT}$ & $[0\twodots\colorT) \setminus \colorB_{\colorT}$ & $\subseteq [0\twodots\colorT)$ \\
 Gap Size in Curated Collection & int & $\colorg = \colorG_{\colorT}(\colorTbar)$ & Formula \ref{eqn:gap-size-defn} & $\in [0 \twodots \colorT)$
 \end{tabular}
-\centering
-\caption{
-Summary of notation used.
-% \textsuperscript{\textdagger}steady algorithm; \textsuperscript{\textdaggerdbl}stretched and tilted algorithms.
-}
-\label{tab:notation}
-\end{table}
+\end{table*}
