@@ -1,0 +1,92 @@
+\begin{table}[ht]
+\centering
+\small
+\caption{Benchmark results}
+\label{tab:perf}
+\begin{tabular}{l r cc cc}
+\toprule
+&
+& \multicolumn{2}{c}{\textit{10{,}000 item stream length}}
+& \multicolumn{2}{c}{\textit{1{,}000{,}000 item stream length}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+\textbf{Algorithm}
+& \makecell{\textbf{Buffer Capacity}}
+& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
+& \makecell{\textbf{Speedup}\\(vs. naive)}
+& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
+& \makecell{\textbf{Speedup}\\(vs. naive)} \\
+\midrule
+
+%------------------------------------------------------------
+% dstream steady
+\multirow{4}{*}{\textit{dstream steady}}
+ & 64 sites
+   & \(2.0 \pm 0.2\) ns & \(4.7\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
+ & 256 sites
+   & \(2.1 \pm 0.1\) ns & \(22\times\)
+   & \(1.9 \pm 0.0\) ns & \(3.0\times\) \\
+ & 1024 sites
+   & \(2.5 \pm 0.2\) ns & \(192\times\)
+   & \(1.9 \pm 0.0\) ns & \(9.0\times\) \\
+ & 4096 sites
+   & \(4.0 \pm 0.5\)    & \(826\times\)
+   & \(1.9 \pm 0.0\) ns & \(72\times\) \\
+\midrule
+\addlinespace
+
+%------------------------------------------------------------
+% naive steady
+\multirow{4}{*}{\textit{naive steady}}
+ & 64 sites
+   & \(9.2 \pm 2.0\) ns & --
+   & \(4.8 \pm 0.73\) ns & -- \\
+ & 256 sites
+   & \(47 \pm 18\) ns & --
+   & \(5.6 \pm 1.1\) ns & -- \\
+ & 1024 sites
+   & \(480 \pm 1{,}600\) ns & --
+   & \(17 \pm 4.8\) ns & -- \\
+ & 4096 sites
+   & \(3{,}100 \pm 1{,}600\) ns & --
+   & \(140 \pm 72\) ns & -- \\
+\midrule
+\addlinespace
+
+%------------------------------------------------------------
+% control: ringbuf
+\multirow{4}{*}{\textit{control: ringbuf}}
+ & 64 sites
+   & \(1.9 \pm 0.0\) ns & \(4.9\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
+ & 256 sites
+   & \(4.2 \pm 0.4\) ns & \(12\times\)
+   & \(4.9 \pm 0.1\) ns &\(1.2\times\) \\
+ & 1024 sites
+   & \(4.0 \pm 0.4\) ns & \(122\times\)
+   & \(4.9 \pm 0.2\) ns & \(3.5\times\) \\
+ & 4096 sites
+   & \(3.9 \pm 0.3\) ns & \(799\times\)
+   & \(4.9 \pm 0.2\) ns & \(29\times\) \\
+\midrule
+\addlinespace
+
+%------------------------------------------------------------
+% control: discard
+\multirow{4}{*}{\textit{control: discard}}
+ & 64 sites
+   & \(1.9 \pm 0.2\) ns & \(5.0\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
+ & 256 sites
+   & \(1.9 \pm 0.0\) ns & \(25\times\)
+   & \(1.9 \pm 0.0\) ns & \(3.0\times\) \\
+ & 1024 sites
+   & \(1.9 \pm 0.0\) ns & \(254\times\)
+   & \(1.9 \pm 0.0\) ns & \(9.0\times\) \\
+ & 4096 sites
+   & \(1.9 \pm 0.0\) ns & \(1{,}669\times\)
+   & \(1.9 \pm 0.0\) ns & \(74\times\) \\
+
+\bottomrule
+\end{tabular}
+\end{table}

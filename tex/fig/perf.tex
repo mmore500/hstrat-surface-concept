@@ -29,6 +29,7 @@
 \footnotesize
 On-hardware performance downsampling from single-bit data stream for proposed ``dstream'' algorithm is compared against existing ``naive'' approach \citep{zhao2005generalized}, which requires storage of a timestamp delta with each retained data item.
 Over 1M ingest trials, the dstream approach provided between $2.5\times$ and $72\times$ speedup over the naive approach, shown in subpanel \ref{fig:perf:speed}.
+Detailed timing results are proved in Table \ref{tab:perf}.
 Per-item naive and dstream walltime increases for shorter 10k ingest trials, because a higher fraction of items are stored rather than discarded.
 Timings for maintaining a simple ring buffer and no-store processing are included as controls.
 For longer 1M ingest trials, dstream per-item walltime is nearly equivalent to no-store control.
