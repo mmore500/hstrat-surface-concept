@@ -1,0 +1,22 @@
+\begin{figure*}
+
+\begin{subfigure}{0.28\textwidth}
+\centering
+\includegraphics[width=\linewidth, trim={0 0 12.57cm 0}, clip]{binder-downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-speed/color=black+compiler=gxx+data_type=byte+exclude=dstream.stretched_algo,dstream.tilted_algo,zhao_tilted_algo+palette=tab10-r+row=is-naive+viz=outsetgrid+x=num-sites+y=duration-per-item-ns+ext=.png}
+\caption{byte data}
+\label{fig:perf-speed-hpc:byte}
+\end{subfigure}%
+\begin{subfigure}{0.72\textwidth}
+\includegraphics[width=\linewidth]{binder-downstream-benchmark/binder/teeplots/2025-01-18-cpp-bench-speed/color=black+compiler=gxx+data_type=bit+exclude=dstream.stretched_algo,dstream.tilted_algo,zhao_tilted_algo+palette=tab10-r+row=is-naive+viz=outsetgrid+x=num-sites+y=duration-per-item-ns+ext=.png}
+\centering
+\caption{bit data}
+\label{fig:perf-speed-hpc:bit}
+\end{subfigure}
+
+\caption{
+\textbf{perf-speed-hpc.}
+\footnotesize
+per-ingest walltime, including no-store and simple ring buffer controls
+}
+\label{fig:perf-speed-hpc}
+\end{figure*}
