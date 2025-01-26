@@ -1,99 +1,96 @@
-% data from https://github.com/mmore500/downstream-benchmark/blob/5186142784dd5c87b4b30357df26dea962f44cd2/binder/2025-01-18-cpp-bench-speed.ipynb
+% data from https://github.com/mmore500/downstream-benchmark/blob/73f0bdd8ef5908198882dbc2c0d926d716dc8391/binder/2025-01-25-cpp-bench-speed-pico.ipynb
 \begin{table}[ht]
 \centering
 \caption{
-Xorshift benchmark timings for embedded experiments
-Table \ref{tab:perf-control-embedded} provides timings for ringbuf and discard controls.
+Xorshift benchmark timings for embedded experiments (updated).
+Each cell shows mean $\pm$ standard deviation.
 }
-\label{tab:perf=embedded}
+\label{tab:perf-embedded-updated}
 \small
 \begin{tabular}{l c c c c c}
 \toprule
 \multirow{2}{*}{\makecell{\textit{\textbf{Stream}}\\\textit{\textbf{Contents}}}}
-& \multirow{2}{*}{\makecell{\textit{\textbf{Buffer}}\\\textit{\textbf{Capacity}}}}
-& \multicolumn{2}{c}{\textbf{Ingest Time} ($\pm$ std.\ dev.)}
-& \multirow{2}{*}{\makecell{{\textbf{dstream}}\\{\textbf{Speedup}}}} \\
+ & \multirow{2}{*}{\makecell{\textit{\textbf{Buffer}}\\\textit{\textbf{Capacity}}}}
+ & \multicolumn{2}{c}{\textbf{Ingest Time} ($\pm$ std.\ dev.)}
+ & \multirow{2}{*}{\makecell{\textbf{dstream}\\\textbf{Speedup}}} \\
 \cmidrule(lr){3-4}
-&
-& \textit{{dstream}}
-& \textit{{naive}}
-& \\
+ & & \textit{dstream} & \textit{naive} & \\
 \midrule
-\multirow{4}{*}{%
-\makecell{\textit{10{,}000}\\\textit{single-bit}\\\textit{items}}}
+
+\multirow{4}{*}{\makecell{\textit{10{,}000}\\\textit{single-bit}\\\textit{items}}}
 & \textit{64 sites}
-  & \(2.0 \pm 0.2\)\,ns
-  & \(9.2 \pm 2.0\)\,ns
-  & \(4.7\times\) \\
+  & \(397 \pm 2.0\)\,ns
+  & \(1{,}478 \pm 3.5\)\,ns
+  & \(3.7\times\) \\
 & \textit{256 sites}
-  & \(2.1 \pm 0.1\)\,ns
-  & \(47 \pm 18\)\,ns
-  & \(22\times\) \\
+  & \(486 \pm 2.3\)\,ns
+  & \(9{,}484 \pm 3.2\)\,ns
+  & \(20\times\) \\
 & \textit{1024 sites}
-  & \(2.5 \pm 0.2\)\,ns
-  & \(477 \pm 158\)\,ns
-  & \(192\times\) \\
+  & \(726 \pm 2.7\)\,ns
+  & \(94{,}996 \pm 3.0\)\,ns
+  & \(131\times\) \\
 & \textit{4096 sites}
-  & \(4.0 \pm 0.5\)\,ns
-  & \(3{,}118 \pm 1{,}553\)\,ns
-  & \(826\times\) \\
+  & \(1{,}242 \pm 3.1\)\,ns
+  & \(729{,}994 \pm 3.6\)\,ns
+  & \(588\times\) \\
 \cmidrule(lr){2-5}
-\multirow{4}{*}{%
-\makecell{\textit{1{,}000{,}000}\\\textit{single-bit}\\\textit{items}}}
+
+\multirow{4}{*}{\makecell{\textit{1{,}000{,}000}\\\textit{single-bit}\\\textit{items}}}
 & \textit{64 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(4.8 \pm 0.7\)\,ns
-  & \(2.6\times\) \\
+  & \(338 \pm 0.0\)\,ns
+  & \(704 \pm 0.0\)\,ns
+  & \(2.1\times\) \\
 & \textit{256 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(5.6 \pm 1.1\)\,ns
-  & \(3.0\times\) \\
+  & \(343 \pm 0.0\)\,ns
+  & \(858 \pm 0.0\)\,ns
+  & \(2.5\times\) \\
 & \textit{1024 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(17 \pm 4.8\)\,ns
-  & \(9.0\times\) \\
+  & \(361 \pm 0.0\)\,ns
+  & \(3{,}080 \pm 0.0\)\,ns
+  & \(8.5\times\) \\
 & \textit{4096 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(139 \pm 72\)\,ns
-  & \(72\times\) \\
+  & \(381 \pm 0.0\)\,ns
+  & \(31{,}923 \pm 0.0\)\,ns
+  & \(84\times\) \\
 \midrule
-\multirow{4}{*}{%
-\makecell{\textit{10{,}000}\\\textit{single-byte}\\\textit{items}}}
+
+\multirow{4}{*}{\makecell{\textit{10{,}000}\\\textit{single-byte}\\\textit{items}}}
 & \textit{64 sites}
-  & \(2.0 \pm 0.2\)\,ns
-  & \(9.2 \pm 2.0\)\,ns
-  & \(4.7\times\) \\
+  & \(386 \pm 3.3\)\,ns
+  & \(1{,}232 \pm 3.1\)\,ns
+  & \(3.2\times\) \\
 & \textit{256 sites}
-  & \(2.1 \pm 0.1\)\,ns
-  & \(47 \pm 18\)\,ns
-  & \(22\times\) \\
+  & \(468 \pm 3.4\)\,ns
+  & \(6{,}911 \pm 3.2\)\,ns
+  & \(15\times\) \\
 & \textit{1024 sites}
-  & \(2.5 \pm 0.2\)\,ns
-  & \(477 \pm 158\)\,ns
-  & \(192\times\) \\
+  & \(685 \pm 3.1\)\,ns
+  & \(67{,}887 \pm 4.1\)\,ns
+  & \(99\times\) \\
 & \textit{4096 sites}
-  & \(4.0 \pm 0.5\)\,ns
-  & \(3{,}118 \pm 1{,}553\)\,ns
-  & \(826\times\) \\
+  & \(1{,}149 \pm 3.1\)\,ns
+  & \(525{,}578 \pm 2.8\)\,ns
+  & \(458\times\) \\
 \cmidrule(lr){2-5}
-\multirow{4}{*}{%
-\makecell{\textit{1{,}000{,}000}\\\textit{single-byte}\\\textit{items}}}
+
+\multirow{4}{*}{\makecell{\textit{1{,}000{,}000}\\\textit{single-byte}\\\textit{items}}}
 & \textit{64 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(4.8 \pm 0.7\)\,ns
-  & \(2.6\times\) \\
+  & \(330 \pm 0.0\)\,ns
+  & \(682 \pm 0.0\)\,ns
+  & \(2.1\times\) \\
 & \textit{256 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(5.6 \pm 1.1\)\,ns
-  & \(3.0\times\) \\
+  & \(335 \pm 0.0\)\,ns
+  & \(802 \pm 0.0\)\,ns
+  & \(2.4\times\) \\
 & \textit{1024 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(17 \pm 4.8\)\,ns
-  & \(9.0\times\) \\
+  & \(352 \pm 0.0\)\,ns
+  & \(2{,}371 \pm 0.0\)\,ns
+  & \(6.7\times\) \\
 & \textit{4096 sites}
-  & \(1.9 \pm 0.0\)\,ns
-  & \(139 \pm 72\)\,ns
-  & \(72\times\) \\
+  & \(371 \pm 0.0\)\,ns
+  & \(22{,}705 \pm 0.0\)\,ns
+  & \(61\times\) \\
 \bottomrule
 \end{tabular}
 \end{table}
