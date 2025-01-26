@@ -1,4 +1,4 @@
-% data from https://github.com/mmore500/downstream-benchmark/blob/5186142784dd5c87b4b30357df26dea962f44cd2/binder/2025-01-18-cpp-bench-speed.ipynb
+% data from hhttps://github.com/mmore500/downstream-benchmark/blob/73f0bdd8ef5908198882dbc2c0d926d716dc8391/binder/2025-01-18-cpp-bench-speed.ipynb
 \begin{table}[ht]
 \centering
 \caption{
@@ -31,25 +31,25 @@ Xorshift benchmark timings for control trials in HPC experiment.
 \multirow{4}{*}{%
 \makecell{\textbf{control:}\\\textbf{ringbuf}\\\textbf{ingest}}}
  & 64 sites
-   & \(1.9 \pm 0.0\) ns & \(4.9\times\)
-   & \(1.9 \pm 0.0\) ns & \(2.6\times\)
-   & \(1.9 \pm 0.0\) ns & \(4.9\times\)
-   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
+   & \(1.9 \pm 0.1\) ns & \(5.2\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.3\times\)
+   & \(1.9 \pm 0.0\) ns & \(3.5\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.0\times\) \\
  & 256 sites
-   & \(4.2 \pm 0.4\) ns & \(12\times\)
-   & \(4.9 \pm 0.1\) ns &\(1.2\times\)
-   & \(4.2 \pm 0.4\) ns & \(12\times\)
-   & \(4.9 \pm 0.1\) ns &\(1.2\times\) \\
+   & \(4.1 \pm 0.4\) ns & \(16\times\)
+   & \(4.6 \pm 0.0\) ns & \(1.1\times\)
+   & \(1.9 \pm 0.1\) ns & \(16\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.3\times\) \\
  & 1024 sites
-   & \(4.0 \pm 0.4\) ns & \(122\times\)
-   & \(4.9 \pm 0.2\) ns & \(3.5\times\)
-   & \(4.0 \pm 0.4\) ns & \(122\times\)
-   & \(4.9 \pm 0.2\) ns & \(3.5\times\) \\
+   & \(4.0 \pm 0.3\) ns & \(156\times\)
+   & \(4.7 \pm 0.0\) ns & \(4.2\times\)
+   & \(1.9 \pm 0.0\) ns & \(126\times\)
+   & \(1.9 \pm 0.0\) ns & \(5.0\times\) \\
  & 4096 sites
-   & \(3.9 \pm 0.3\) ns & \(799\times\)
-   & \(4.9 \pm 0.2\) ns & \(29\times\)
-   & \(3.9 \pm 0.3\) ns & \(799\times\)
-   & \(4.9 \pm 0.2\) ns & \(29\times\) \\
+   & \(3.9 \pm 0.3\) ns & \(1,204\times\)
+   & \(4.8 \pm 0.0\) ns & \(44\times\)
+   & \(2.0 \pm 0.1\) ns & \(941\times\)
+   & \(1.9 \pm 0.0\) ns & \(41\times\) \\
 \midrule
 \addlinespace
 
@@ -57,26 +57,26 @@ Xorshift benchmark timings for control trials in HPC experiment.
 % control: discard
 \multirow{4}{*}{%
 \makecell{\textbf{control:}\\\textbf{discard}\\\textbf{only}}}
-& 64 sites
-   & \(1.9 \pm 0.1\) ns & \(5.0\times\)
-   & \(1.9 \pm 0.0\) ns & \(2.6\times\)
-   & \(1.9 \pm 0.1\) ns & \(5.0\times\)
-   & \(1.9 \pm 0.0\) ns & \(2.6\times\) \\
+ & 64 sites
+   & \(1.8 \pm 0.0\) ns & \(5.4\times\)
+   & \(1.8 \pm 0.0\) ns & \(2.3\times\)
+   & \(1.8 \pm 0.0\) ns & \(3.7\times\)
+   & \(1.8 \pm 0.0\) ns & \(2.1\times\) \\
  & 256 sites
-   & \(1.9 \pm 0.0\) ns & \(25\times\)
-   & \(1.9 \pm 0.0\) ns & \(3.0\times\)
-   & \(1.9 \pm 0.0\) ns & \(25\times\)
-   & \(1.9 \pm 0.0\) ns & \(3.0\times\) \\
+   & \(1.9 \pm 0.1\) ns & \(34\times\)
+   & \(1.8 \pm 0.0\) ns & \(2.8\times\)
+   & \(1.8 \pm 0.0\) ns & \(17\times\)
+   & \(1.9 \pm 0.0\) ns & \(2.4\times\) \\
  & 1024 sites
-   & \(1.9 \pm 0.0\) ns & \(254\times\)
-   & \(1.9 \pm 0.0\) ns & \(9.0\times\)
-   & \(1.9 \pm 0.0\) ns & \(254\times\)
-   & \(1.9 \pm 0.0\) ns & \(9.0\times\) \\
+   & \(1.9 \pm 0.0\) ns & \(337\times\)
+   & \(1.9 \pm 0.0\) ns & \(11\times\)
+   & \(1.8 \pm 0.0\) ns & \(132\times\)
+   & \(1.8 \pm 0.0\) ns & \(5.3\times\) \\
  & 4096 sites
-   & \(1.9 \pm 0.0\) ns & \(1{,}669\times\)
-   & \(1.9 \pm 0.0\) ns & \(74\times\)
-   & \(1.9 \pm 0.0\) ns & \(1{,}669\times\)
-   & \(1.9 \pm 0.0\) ns & \(74\times\) \\
+   & \(1.8 \pm 0.0\) ns & \(2,550\times\)
+   & \(1.8 \pm 0.0\) ns & \(114\times\)
+   & \(1.9 \pm 0.0\) ns & \(998\times\)
+   & \(1.8 \pm 0.0\) ns & \(43\times\) \\
 
 \bottomrule
 \end{tabular}
