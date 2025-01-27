@@ -1,5 +1,5 @@
 % data from https://github.com/mmore500/downstream-benchmark/blob/73f0bdd8ef5908198882dbc2c0d926d716dc8391/binder/2025-01-25-cpp-bench-speed-pico.ipynb
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \caption{
 Xorshift benchmark timings for control trials in embedded experiment.
@@ -77,6 +77,78 @@ Xorshift benchmark timings for control trials in embedded experiment.
    & \(80 \pm 0.0\)\,ns & \(399\times\)
    & \(100 \pm 2.4\)\,ns & \(5,263\times\)
    & \(80 \pm 0.0\)\,ns & \(283\times\) \\
+
+%=================================================================
+\midrule
+%=================================================================
+&
+& \multicolumn{2}{c}{\textit{10{,}000 single-word items}}
+& \multicolumn{2}{c}{\textit{1{,}000{,}000 single-word items}}
+& \multicolumn{2}{c}{\textit{10{,}000 double-word items}}
+& \multicolumn{2}{c}{\textit{1{,}000{,}000 double-word items}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& \makecell{\textbf{Buffer}\\\textbf{Capacity}}
+& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
+& \makecell{\textbf{Speedup}\\(vs. naive)}
+& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
+& \makecell{\textbf{Speedup}\\(vs. naive)}
+& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
+& \makecell{\textbf{Speedup}\\(vs. naive)}
+& \makecell{\textbf{Ingest Time}\\($\pm$ std. dev.)}
+& \makecell{\textbf{Speedup}\\(vs. naive)} \\
+\midrule
+
+%------------------------------------------------------------
+% control: ringbuf
+\multirow{4}{*}{%
+\makecell{\textbf{control:}\\\textbf{ringbuf}\\\textbf{ingest}}}
+ & 64 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+ & 256 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+ & 1024 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+ & 4096 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+\midrule
+\addlinespace
+
+%------------------------------------------------------------
+% control: discard
+\multirow{4}{*}{%
+\makecell{\textbf{control:}\\\textbf{discard}\\\textbf{only}}}
+ & 64 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+ & 256 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+ & 1024 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
+ & 4096 sites
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\)
+   & \(XX \pm YY\)\,ns & \(ZZ\times\) \\
 
 \bottomrule
 \end{tabular}
