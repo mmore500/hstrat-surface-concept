@@ -14,9 +14,11 @@
 \end{subfigure}%
 
 \caption{
-  \textbf{TODO.}
+  {\textbf Comparison of simple ring buffer to DStream steady curation.}
   \footnotesize
-  TODO.
+  Both approaches accumulate items ingested from a data stream into a fixed-capacity memory buffer.
+  However, whereas the ring buffer retains only most-recent items, the DStream algorithm maintains a sample spanning the entirety of elapsed history.
+  In the case of DStream steady curation, ingest site assignment and stored item attribution, respectively, are governed by functions $\colorK$ and $\colorL$, described later on.
 }
 \label{fig:curation-ingest-lookup}
 \end{figure*}
