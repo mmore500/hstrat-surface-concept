@@ -68,62 +68,62 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
 \label{fig:hsurf-tilted-implementation-schematic}
 \end{subfigure}
 
-\vspace{0.5ex}
-\begin{minipage}[]{\textwidth}
- \vspace{-2pt}
-  \begin{subfigure}[t]{0.65\linewidth}
-    \vspace{0pt}
-    \centering
-  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=.png}  % pdf cbar is scrambled
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.35\linewidth}
-  \vspace{-2pt}
-  \caption{%
-    \footnotesize
-    Stored data item age across buffer sites for buffer size $\colorS=256$ from $\colorT=0$ to 4,096.
-  }
-  \label{fig:hsurf-tilted-implementation-heatmap}
-\end{subfigure}
-\end{minipage}
+% \vspace{0.5ex}
+% \begin{minipage}[]{\textwidth}
+%  \vspace{-2pt}
+%   \begin{subfigure}[t]{0.65\linewidth}
+%     \vspace{0pt}
+%     \centering
+%   \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=.png}  % pdf cbar is scrambled
+%   \end{subfigure}%
+%   \begin{subfigure}[t]{0.35\linewidth}
+%   \vspace{-2pt}
+%   \caption{%
+%     \footnotesize
+%     Stored data item age across buffer sites for buffer size $\colorS=256$ from $\colorT=0$ to 4,096.
+%   }
+%   \label{fig:hsurf-tilted-implementation-heatmap}
+% \end{subfigure}
+% \end{minipage}
 
-  \vspace{-0.5ex}
-   \begin{minipage}[]{\textwidth}
-   \vspace{-2pt}
-  \begin{subfigure}[t]{0.65\linewidth}
-  \vspace{0pt}
-    \centering
-    \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=.pdf}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.35\linewidth}
-  \vspace{-2pt}
-  \caption{%
-    \footnotesize
-    Data item retention time spans by ingestion time point for buffer size $\colorS=64$ from $\colorT=0$ to 3,000.
-  }
-  \label{fig:hsurf-tilted-implementation-dripplot}
-  \end{subfigure}
-  \end{minipage}
+%   \vspace{-0.5ex}
+%    \begin{minipage}[]{\textwidth}
+%    \vspace{-2pt}
+%   \begin{subfigure}[t]{0.65\linewidth}
+%   \vspace{0pt}
+%     \centering
+%     \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=.pdf}
+%   \end{subfigure}%
+%   \begin{subfigure}[t]{0.35\linewidth}
+%   \vspace{-2pt}
+%   \caption{%
+%     \footnotesize
+%     Data item retention time spans by ingestion time point for buffer size $\colorS=64$ from $\colorT=0$ to 3,000.
+%   }
+%   \label{fig:hsurf-tilted-implementation-dripplot}
+%   \end{subfigure}
+%   \end{minipage}
 
-  \vspace{-0.5ex}
- \begin{minipage}[]{\textwidth}
- \vspace{-2pt}
-\begin{subfigure}[t]{0.65\linewidth}
-\vspace{0pt}
-  \centering
-  \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/hue=kind+surface-size=16+viz=criterion-satisfaction-lineplot+x=rank+y=tilted-criterion+ext=.pdf}
-\end{subfigure}%
-\begin{subfigure}[t]{0.35\linewidth}
-\vspace{-2pt}
-\caption{%
-  \footnotesize
-  Tilted criterion satisfaction across time points for buffer size $\colorS=16$.
-}
-\label{fig:hsurf-tilted-implementation-satisfaction}
-\end{subfigure}
-\end{minipage}
+%   \vspace{-0.5ex}
+%  \begin{minipage}[]{\textwidth}
+%  \vspace{-2pt}
+% \begin{subfigure}[t]{0.65\linewidth}
+% \vspace{0pt}
+%   \centering
+%   \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/hue=kind+surface-size=16+viz=criterion-satisfaction-lineplot+x=rank+y=tilted-criterion+ext=.pdf}
+% \end{subfigure}%
+% \begin{subfigure}[t]{0.35\linewidth}
+% \vspace{-2pt}
+% \caption{%
+%   \footnotesize
+%   Tilted criterion satisfaction across time points for buffer size $\colorS=16$.
+% }
+% \label{fig:hsurf-tilted-implementation-satisfaction}
+% \end{subfigure}
+% \end{minipage}
 
 \vspace{-2ex}\caption{%
-  \textbf{Tilted algorithm implementation.}
+  \textbf{Example tilted algorithm behavior.}
   \footnotesize
   Top panel \ref{fig:hsurf-tilted-implementation-site-selection} enumerates initial tilted policy site selection on a 32-site buffer.
   Panel \ref{fig:hsurf-tilted-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' hanoi values $\colorH(\colorTbar)$.
@@ -135,12 +135,12 @@ binder/teeplots/20/num-generations=128+surface-size=32+viz=site-reservation-by-r
   At subsequent epochs, the first site of all innermost-nested segments is ``invaded'' by new high \hv{} sites added to other segments.
   Low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{}, ensuring the most recent data items corresponding to that hanoi value are retained.
   The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
-  Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
-  Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
-  Vertical lines span durations between ingestion and elimination for data items from successive time points.
-  Time points previously eliminated are marked in red.
-  Lineplot panel \ref{fig:hsurf-tilted-implementation-satisfaction} shows tilted criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
-  Lower and upper shaded areas are best- and worst-case bounds, respectively.
+  % Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
+  % Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
+  % Vertical lines span durations between ingestion and elimination for data items from successive time points.
+  % Time points previously eliminated are marked in red.
+  % Lineplot panel \ref{fig:hsurf-tilted-implementation-satisfaction} shows tilted criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
+  % Lower and upper shaded areas are best- and worst-case bounds, respectively.
 }
 \label{fig:hsurf-tilted-implementation}
 
