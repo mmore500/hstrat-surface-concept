@@ -22,7 +22,7 @@ Time Meta-epoch & int & $\colortau = \mathit{f}_{\!\Circled[fill color=orange!70
 Hanoi Value Reserved at Site & int & $\colorh = \colorHcal_{\colort}(\colork)$ & algorithm-defined & $\in$ $\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
 Storage Site Selected for Data Item & int & $\colorK(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorS) \cup \{\nullval\}$ \\
 Ingest Times of Stored Data Items by Site & seq & $\colorL(\colorT)$ & {\footnotesize $\max\{\colorTbar \in [0 \twodots \colorT) : \colorK(\colorTbar) = \colork\}$ for $\colork \in [0 \twodots \colorS)$} & $\subseteq [0 \twodots \colorT) \cup \{\nullval\}$ \\
-Initial Reservation Segment Size & int & $r$ & N/A or \textsuperscript{\textdaggerdbl}Formula \ref{eqn:stretched-segment-sizes} & \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colors]$ \\
+Initial Reservation Segment Size & int & $r$ & \textsuperscript{\textdaggerdbl}Formula \ref{eqn:stretched-segment-sizes} & \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colors]$ \\
 Mature Reservation Segment Size & int & $R(r)$ & \textsuperscript{\textdaggerdbl} $2^{r} - 1$ (Lemma \ref{thm:stretched-meta-epoch}) & \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colorS]$ \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Curation Quality}} \\ \hline
@@ -33,7 +33,7 @@ Gap Size in Curated Collection & int & $\colorg = \colorG_{\colorT}(\colorTbar)$
 \centering
 \caption{
 Summary of notation used.
-\textit{(\textsuperscript{\textdagger} tilted algorithm only)}
+\textit{(\textsuperscript{\textdagger}tilted algorithm only)}
 }
 \label{tab:notation}
 \end{table*}
