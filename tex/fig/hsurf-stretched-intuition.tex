@@ -120,7 +120,7 @@
 \label{fig:hsurf-stretched-intuition-reservations-size}
 \end{subfigure}\vspace{-1ex}
   \caption{
-    \textbf{Stretched algorithm strategy.}
+    \textbf{Buffer layout strategy.}
     \footnotesize
     Left panel \ref{fig:hsurf-stretched-intuition-reservations} shows progression of \hv{} reservations $\colorHcal_{\colort}(\colork)$ on a buffer with size $\colorS=16$ across supported epochs $\colort \in [0\twodots\colorS - \colors)$.
     Epoch $\colort$ is indicated on the leftmost axis.
@@ -138,7 +138,7 @@
     Subsequent \hv{} instances are accommodated in segment $r=3$, the two $r=2$ segments, and then the four $r=1$ segments.
     Once available segment reservations are filled, subsequent \hv{} instances are discarded without storage.
     Because the segment sizes $r$ mirror the hanoi sequence, expansion of invading segments by one site per epoch $\colort$ ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$.
-  In this manner, layout approximates the first-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-stretched}, with $n$ progressively decreasing as segments are invaded and lost.
+  In this manner, layout approximates the last-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-tilted}, with $n$ progressively decreasing as segments are invaded and lost.
   }
   \label{fig:hsurf-stretched-intuition}
 \end{figure*}
