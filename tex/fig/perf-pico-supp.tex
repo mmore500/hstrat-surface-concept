@@ -1,0 +1,36 @@
+\begin{figure*}
+
+\begin{subfigure}{0.5\textwidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\input{binder-downstream-benchmark/binder/teeplots/2025-02-19-cpp-bench-speed-pico/col=data-type+font.family=serif+hue=algorithm+kind=line+num_sites=64+palette=muted+style=algorithm+viz=relplot+x=num-items-ingested+y=per-item-walltime-ns+ext=.pgf}%
+}
+\caption{buffer size 64 sites}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\input{binder-downstream-benchmark/binder/teeplots/2025-02-19-cpp-bench-speed-pico/col=data-type+font.family=serif+hue=algorithm+kind=line+num_sites=64+palette=muted+style=algorithm+viz=relplot+x=num-items-ingested+y=per-item-walltime-ns+ext=.pgf}%
+}
+\caption{buffer size 256 sites}
+\end{subfigure}
+
+
+\begin{subfigure}{0.5\textwidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\input{binder-downstream-benchmark/binder/teeplots/2025-02-19-cpp-bench-speed-pico/col=data-type+font.family=serif+hue=algorithm+kind=line+num_sites=1024+palette=muted+style=algorithm+viz=relplot+x=num-items-ingested+y=per-item-walltime-ns+ext=.pgf}%
+}
+\caption{buffer size 1024 sites}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\input{binder-downstream-benchmark/binder/teeplots/2025-02-19-cpp-bench-speed-pico/col=data-type+font.family=serif+hue=algorithm+kind=line+num_sites=4096+palette=muted+style=algorithm+viz=relplot+x=num-items-ingested+y=per-item-walltime-ns+ext=.pgf}%
+}
+\caption{buffer size 4096 sites}
+\end{subfigure}%
+
+\caption{Benchmark timings across trial duration (number ingests elapsed during timing window).}
+\label{fig:perf-pico-supp}
+\end{figure*}
