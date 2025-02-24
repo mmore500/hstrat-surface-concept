@@ -131,6 +131,12 @@ parbox=false
 }
 \makeatother
 
+% adapted from https://tex.stackexchange.com/a/641668/316176
+\DeclareFontFamily{U}{mathx}{}
+\DeclareFontShape{U}{mathx}{m}{n}{<-> mathx10}{}
+\DeclareSymbolFont{mathx}{U}{mathx}{m}{n}
+\DeclareMathAccent{\widehat}{0}{mathx}{"70}
+\DeclareMathAccent{\widecheck}{0}{mathx}{"71}
 
 \newcommand{\colort}{\mathcolor{black}{\mathrm{t}}}
 \newcommand{\colortsetofT}{\lBrace \colort \rBrace}
@@ -139,7 +145,7 @@ parbox=false
 \newcommand{\colortausetoft}{\lBrace \colortau \rBrace}
 \newcommand{\colortausetofT}{\{\hspace{-0.5ex}\lBrace \colortau \rBrace\hspace{-0.5ex}\}}
 \newcommand{\colorT}{\mathcolor{black}{T}}
-\newcommand{\colorTbar}{\mathcolor{black}{\smash{\smileacc{T}}}}
+\newcommand{\colorTbar}{\mathcolor{black}{\widecheck{T}}}
 
 \newcommand{\colork}{\mathcolor{black}{k}}
 \newcommand{\colors}{\mathcolor{black}{\hat{\mathrm{s}}}}
