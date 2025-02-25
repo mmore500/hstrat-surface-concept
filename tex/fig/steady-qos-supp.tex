@@ -1,0 +1,21 @@
+\begin{figure}
+\begin{subfigure}{0.6\linewidth}
+\includegraphics[width=\linewidth]{binder-downstream-benchmark/binder/teeplots/2025-01-18-qos-dstream-vs-naive-steady/buffer_size=256+font.family=serif+hue=algorithm+kind=line+palette=set2+style=algorithm+viz=relplot+x=num-items-ingested+y=max-gap-size+ext=.pdf}
+\caption{buffer size 256}
+\end{subfigure}
+\begin{subfigure}{0.6\linewidth}
+\includegraphics[width=\linewidth]{binder-downstream-benchmark/binder/teeplots/2025-01-18-qos-dstream-vs-naive-steady/buffer_size=1024+font.family=serif+hue=algorithm+kind=line+palette=set2+style=algorithm+viz=relplot+x=num-items-ingested+y=max-gap-size+ext=.pdf}
+\caption{buffer size 1024}
+\end{subfigure}
+\begin{subfigure}{0.6\linewidth}
+\includegraphics[width=\linewidth]{binder-downstream-benchmark/binder/teeplots/2025-01-18-qos-dstream-vs-naive-steady/buffer_size=4096+font.family=serif+hue=algorithm+kind=line+palette=set2+style=algorithm+viz=relplot+x=num-items-ingested+y=max-gap-size+ext=.pdf}
+\caption{buffer size 4096}
+\end{subfigure}
+\caption{%
+Progression of recency-proportional record gap size under steady curation strategies, for buffer sizes 256, 1024, and 4096.
+\footnotesize
+Lower is better.
+Figure \ref{fig:steady-qos} compares recency-proportional gap size progressions at buffer size 64.
+}
+\label{fig:steady-qos-supp}
+\end{figure}
