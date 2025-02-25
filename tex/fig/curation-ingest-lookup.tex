@@ -14,11 +14,12 @@
 \end{subfigure}%
 
 \caption{
-  {\textbf Comparison of simple ring buffer to DStream steady curation.}
+  {\textbf Comparison of simple ring buffer to generalized ring buffer curation.}
   \footnotesize
   Both approaches accumulate items ingested from a data stream into a fixed-capacity memory buffer.
-  However, whereas the ring buffer retains only most-recent items, the DStream algorithm maintains a sample spanning the entirety of elapsed history.
-  In the case of DStream steady curation, ingest site assignment and stored item attribution, respectively, are governed by functions $\colorK$ and $\colorL$, described later on.
+  However, whereas the ring buffer retains only most-recent items, the generalized algorithm maintains a sample spanning the entirety of elapsed history.
+  We notate ingest site assignment and stored item attribution, respectively, as $\colorK$ and $\colorL$.
+  For the proposed DStream tilted algorithm these operations are described in Listings and \ref{alg:tilted-site-selection} and \ref{alg:tilted-time-lookup}.
 }
 \label{fig:curation-ingest-lookup}
 \end{figure*}
