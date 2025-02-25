@@ -2,6 +2,11 @@
 \resizebox{\linewidth}{!}{%
 \input{binder-downstream-benchmark/binder/teeplots/2025-02-19-cpp-bench-speed-pico/col=data-type+font.family=serif+hue=algorithm+kind=line+palette=muted+style=algorithm+viz=relplot+x=buffer-size-s+y=per-item-walltime-ns+zhaosteady=incl+ext=.pgf}%
 }
-\caption{pico performance}
+\caption{%
+Per-item ingest time for xorwow stream benchmark, with stream length 100,000.
+Lower is better.
+Supplementary Figure \ref{fig:perf-pico-supp} provides per-item timings under alternate stream lengths, which produced similar results.
+Shaded bands indicate bootstrap 95\% confidence intervals, $n=10$.
+}
 \label{fig:pico-performance}
 \end{figure}
