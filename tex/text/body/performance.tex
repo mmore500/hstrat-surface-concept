@@ -85,20 +85,39 @@ All accompanying software and materials are provided open-source under the MIT L
 
 This project benefited significantly from open-source scientific software \citep{2020SciPy-NMeth,harris2020array,reback2020pandas,mckinney-proc-scipy-2010,waskom2021seaborn,hunter2007matplotlib,moreno2023teeplot}.
 
-
-\subsection{Time Benchmark Results}
+\subsection{Benchmark Results}
 
 \input{fig/pico-performance}
 
-\subsection{Memory Benchmark Results}
+Figure \ref{fig:pico-performance} compares per-item ingest times among benchmarked approaches.
+Timings were qualitively consistent across surveyed buffer sizes and data types, with the notable exception of the \textit{zhao steady} approach --- which pessimizes considerably for large buffer size.
+In light of this broad consistency, quoted timings focus on the case of single-byte data with buffer capacity of 256 items.
+Supplementary Table \ref{tab:TODO} provides full timing details for other benchmark conditions.
+
+As expected, in all cases the control \textit{discard-only} and \textit{simple ringbuf} treatments achieved the fastest observed timings --- TODO ns and TODO ns, respectively.
+Behind the control treatments, the naive \textit{steady doubling} and \textit{tilted doubling} algorithms produced the next-fastest timings, with ingests on the order of TODO ns and TODO ns, respectively.
+Third-fastest were generalized ring buffer approaches, with the \textit{gunther steady} algorithm elapsing TODO ns per item ingested and the \textit{dstream tilted} algorithm requiring TODO ns per item ingested.
+Finally, stateful, iterative approaches produced the slowest timings --- TODO ns and TODO ns .
+(Note, though, that the \textit{zhao steady} algorithm did produce comparable timings to the generalized ring buffer approaches for at the smallest 64 item buffer capacity).
 
 \input{fig/steady-mem}
 \input{fig/tilted-mem}
 
-\subsection{Solution Quality Results}
+Memory usage results are shown in Figures \ref{fig:steady-mem} and \ref{fig:tilted-mem}.
+In the average case, naive doubling approaches occupied between TODO\% and TODO\% larger memory footprints per item stored compared to tbe corresponding generalized ring buffer approach.
+For stateful, iterative approaches, per-item memory footprints were between TODO\% and TODO\% larger compared to the generalized ring buffer approach.
 
 \input{fig/steady-qos}
 \input{fig/tilted-qos}
 
-Figure \ref{fig:tilted-qos} shows solution quality, as measured by the growth in largest gap size between retained elements ratio TODO.
-% Recall that an optimal solution will keep minimize this value by evenly spacing elements across history.
+Finally, Figures \ref{fig:steady-qos} and \ref{fig:tilted-qos} compare surveyed approaches' curation quality in achieving target of steady or tilted retention.
+In both cases, naive doubling strategies perform worst in maintaining samples representational over stream history.
+For steady curation, the \textit{zhao steady} and \textit{gunther steady} approaches produce very similar quality outcomes.
+However, where targeting tilted curation, the \textit{dstream tilted} approach provides sumstantially lower recency-proportional gap sizes compared to \textit{zhao tilted}.
+This can be understood as a consequence of the generalized ring buffer approach's efficacy in explicitly filling all available buffer space, which is not the case for the \textit{zhao tilted} approach.
+
+In parsing these results, two key observations can be made with regard to practical trade-offs among surveyed approaches.
+First, we find generalized ring buffer approaches to essentially be strictly preferable compared to existing practice with regard to stateful, iterative approaches.
+For both steady and tilted retention, generalized ring buffer approaches provide equivalent or improved curation quality, equivalent or improved stream processing speed, and improved memory efficiency.
+Second, benchmarks indicate a speed-quality trade-off between naive doubling approaches and generalized ring buffer approaches.
+Again, for both steady and tilted retention, generalized ring buffer approaches support denser, more representative sampling within a given memory footprint --- but at a cost of between TODO\% and TODO\% lower stream processing throughput.
