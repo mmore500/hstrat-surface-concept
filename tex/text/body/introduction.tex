@@ -1,15 +1,15 @@
 \section{Introduction} \label{sec:introduction}
 
-Within the domain of high-performance computing (HPC), efficient algorithms to analyze and summarize data streams are a key tool to managing ever-increasing volume and velocity of data generation.
-In recent years, explosive growth AI/ML workloads has drawn forth a profusion of highly-capable, specialized hardware-accelerator devices.
-GPGPU computing has long been the most prominent entrant in this space, but a diverse array of innovative offerings are being fielded by startup market players.
-Notable AI/ML hardware accelerator platforms include the Cerebras Wafer-Scale Engine \citep{lie2023cerebras}, Graphcore's Intelligence Processing Unit \citep{gepner2024performance}, Tenstorrent's Tensix processors \citep{vasiljevic2021compute}, and Groq's GropChip \citep{abts2022groq}.
-These hardware accelerators' scale-out paradigm brings hundreds, thousands, or --- in the case of the Wafer-Scale Engine --- hundreds of thousands of processing elements to bear within a single chip.
+Within the domain of high-performance computing (HPC), efficient algorithms to analyze and summarize data streams are key in contending with the ever-increasing volume and velocity of data generation.
+In recent years, explosive growth AI/ML workloads has fueled the emergence of a rich ecosystem of highly-capable, specialized hardware-accelerator platforms.
+Although GPGPU computing has long been most prominent in this space, a broader, highly diverse set of hardware architectures are being fielded by startup market players.
+Notable emerging AI/ML hardware accelerator platforms include the Cerebras Systems' Wafer-Scale Engine \citep{lie2023cerebras}, Graphcore's Intelligence Processing Unit \citep{gepner2024performance}, Tenstorrent's Tensix processors \citep{vasiljevic2021compute}, and Groq's GropChip \citep{abts2022groq}.
+Pursuing an aggressive scale-out paradigm, such platforms bring hundreds, thousands, or --- in the case of the Wafer-Scale Engine --- hundreds of thousands of processing elements to bear within a single silicon die.
 
-Although these emerging AI/ML hardware-accelerator devices harbor immense potential for general-purpose HPC applications, realizing their benefit will require substantial adaptations to meet constraints associated with their unconventional hardware architectures.
-One fundamental manner in which these accelerator devices differs from typical CPU-based computing is with respect to memory locality.
-Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, hardware accelerator platforms tend to rely on explicit synchronization or message passing steps to relay data from device to host or between processor elements.
-As such, directly-addressable memory capacity can be very small, consisting of processing elements' attached on-chip memory banks.
+Although these emerging AI/ML hardware accelerators harbor immense potential for general-purpose HPC applications, realizing their benefit will require substantial adaptations to satisfy constraints imposed by their unconventional hardware architectures.
+One fundamental manner in which these accelerator devices differ from typical CPU-based hardware is with respect to memory locality.
+Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, emerging AI/ML hardware accelerator platforms tend to rely on explicit synchronization or message passing steps to relay data from device to host or between processor elements.
+As such, available directly-addressable memory capacity can be very small, consisting of just processing elements' attached on-chip memory banks.
 At the high end, Tenstorrent's Grayskull device and GraphCore's recent Colossus MK2 provide on-chip memory of just 1MB and 612kb, respectively, per processing element \citep{vasiljevic2021compute,gepner2024performance}.
 Cerebras and Groq's hardware is most extreme in this regard, furnishing less than 50kb per processing element \citep{lie2023cerebras,abts2022groq}.
 
