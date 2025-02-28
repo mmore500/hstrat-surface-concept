@@ -1,24 +1,202 @@
 \section{Introduction} \label{sec:introduction}
 
-Efficient operations over data streams are critical in harnessing the ever-increasing volume and velocity of data generation.
-Formally, a data stream is considered to be composed of a strictly-ordered sequence of read-once inputs.
-Such streams' ordering may be dictated by inherently real-time processes (e.g., physical sensor inputs) or by access patterns for physical storage media (e.g., a tape archive) \citep{henzinger1998computing}.
-They may also result from non-reversible computations (e.g., forward-time simulation) \citep{abdulla2004simulation,schutzel2014stream}.
-Work with data streams assumes input greatly exceeds memory capacity, with streams often treated as unbounded \citep{jiang2006research}.
-Indeed, real-world computing often requires real-time operations on a continuous, indefinite basis \citep{cordeiro2016online}.
-Notable application domains involving data streams include sensor networks \citep{elnahrawy2003research}, distributed big-data processing \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems log management \citep{fischer2012real}, fraud monitoring \citep{rajeshwari2016real}, trading in financial markets \citep{agarwal2009faster}, environmental monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
+Within the domain of high-performance computing (HPC), efficient algorithms to analyze and summarize data streams are a key tool to managing ever-increasing volume and velocity of data generation.
+In recent years, explosive growth AI/ML workloads has drawn forth a profusion of highly-capable, specialized hardware-accelerator devices.
+GPGPU computing has long been the most prominent entrant in this space, but a diverse array of innovative offerings are being fielded by startup market players.
+Notable AI/ML hardware accelerator platforms include the Cerebras Wafer-Scale Engine \citep{lie2023cerebras}, Graphcore's Intelligence Processing Unit \citep{gepner2024performance}, Tenstorrent's Tensix processors \citep{vasiljevic2021compute}, and Groq's GropChip \citep{abts2022groq}.
+These hardware accelerators' scale-out paradigm brings hundreds, thousands, or --- in the case of the Wafer-Scale Engine --- hundreds of thousands of processing elements to bear within a single chip.
 
-Here, we focus specifically on subsampling over data streams and introduce an $\mathcal{O}(1)$ algorithms for space-efficient curation of data items \textit{evenly covering} elapsed history.
-We call this algorithm the \textit{steady} ``DStream'' algorithm.
-Figure \ref{fig:criteria-intuition} shows an example of ideal ideal steady retention.
-Among other results, we demonstrate worst-case bounds on error in curated collection composition under the steady algorithm.
-We refer to this rolling subset problem as ``data stream curation,'' which we will define next.
+Although these emerging AI/ML hardware-accelerator devices harbor immense potential for general-purpose HPC applications, realizing their benefit will require substantial adaptations to meet constraints associated with their unconventional hardware architectures.
+One fundamental manner in which these accelerator devices differs from typical CPU-based computing is with respect to memory locality.
+Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, hardware accelerator platforms tend to rely on explicit synchronization or message passing steps to relay data from device to host or between processor elements.
+As such, directly-addressable memory capacity can be very small, consisting of processing elements' attached on-chip memory banks.
+At the high end, Tenstorrent's Grayskull device and GraphCore's recent Colossus MK2 provide on-chip memory of just 1MB and 612kb, respectively, per processing element \citep{vasiljevic2021compute,gepner2024performance}.
+Cerebras and Groq's hardware is most extreme in this regard, furnishing less than 50kb per processing element \citep{lie2023cerebras,abts2022groq}.
+
+Forward-time simulations exploiting a high degree of locality (e.g., stencil-based methods) have been identified as a prime candidate for these accelerators \citep{jacquelin2022scalable,brown2023exploring,brown2024accelerating,louw2021using}.
+In targeting hardware accelerator platforms, these simulation kernels must budget records of simulation state within local memory capacity and available device-to-host bandwidth.
+In this context, dynamic coarsening approaches ptovide key means to buffer time series data within available bandwidth capacity.
+
+Feasibility of such an approach, however, requires lightweight \textit{in situ} stream processing techniques capable of dynamically recording an indeterminate time interval within fixed storage capacity.
+Appropriate summarization approaches are highly use-case dependent, ranging from rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
+
+Here, we focus on a core general-purpose sketching operation: ``stream curation,'' or downsampling via thinning, in which a collection of data items comprising a systematic, deterministic temporal cross section of elapsed stream history is dynamically curated.
+For this purpose, we explore the suitability of algorithms generalizing the common ring buffer data structure for sketching stream history in highly resource-constrained contexts \citep{gunther2014compressing}.
+Our work applies a novel conceptual framework to extend state-of-the-art by enabling retention patterns prioritizing recent stream history.
+We then compare performance characteristics of curation via generalized ring buffer against alternate approaches through on-hardware benchmarks measuring targeting a model resource-constrained hardware platform.
+
+In the following sections, we formalize our definition of stream curation, describe the generalized ring buffer approach, and review other related work.
+
+\subsection{Stream Curation}
+\label{sec:stream-curation-problem}
+
+Our work concerns online sampling of discrete data items from a one-dimensional data stream, a task we term ``stream curation.''
+We assume a fixed storage capacity; thus, once reached, storing any new data item requires discarding another previously-retained retained item.
+To ensure a representative approximate record of stream history, thinning decisions should ``curate'' a collection of stream items spanning the entirety of stream history.
+The challenge of this task arises, when a properly curated archive is needed at all times.
+In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
+
+We consider a retained collection's coverage over history solely in terms of the timepoints (i.e., sequence positions) of retained data items.
+Note that we disregard data items' semantic values under this timepoint-based framing.
+We consider two possible requirements on sampled data, as described above.
+\textit{{Steady}} retention seeks a sample spaced uniformly across elapsed stream history.
+\textit{{Tilted}} retention proportionally prioritizes recent data items.
+Related objectives appear in a variety of related data stream work, reviewed in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
+\footnote{%
+Note that stream curation should be considered orthogonal to the question of $\ell_p$ sampling (e.g., $\ell_0$ or $\ell_1$ sampling) in that the stream curation objective is to optimize for deterministic temporal balance rather than statistical properties of stochastic composition, which provides advantages in guaranteeing predictable, systematic coverage over temporal history.
+With regard to $\ell_p$ sampling, we refer the reader to well-established online techniques to extract $\ell_p$-representative samples over stream distributions such as reservoir sampling, sketching, and hash-based methods \citep{gaber2005mining,muthukrishnan2005data,cormode2019lp}.
+}
+
+\input{fig/criteria-intuition}
+
+Figure \ref{fig:criteria-intuition} contrasts optimal sample compositions under \textit{steady} and \textit{tilted} retention.
+Under steady retention, retained items should be spaced evenly across time;
+under tilted retention, spacing between items should be proportional to how far back in time.
+Deciding between these two approaches is application-specific.
+Such an approach is relevant when recent data is more important \citep{phithakkitnukoon2010recent}.
+Existing work on generalized ring buffer, reviewed below, provides steady curation.
+Extensions developed on this work target tilted curation.
+
+Formally, we frame stream curation objectives in terms of cost functions on the timepoints of discarded data items, formulated in terms of ``gap size'' $\colorG_{\colorT}(\colorTbar)$ in the curated record, the number of discarded data items around timepoint $\colorTbar$ at logical time $\colorT$.
+Section \ref{sec:notation} provides a full introduction of this notation, with formal definitions.
+We define the following cost function on the timepoints of discarded data items:
+\begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) \coloneq %\empheqlbrace
+}]{align}
+% \begin{align}
+% \mathsf{cost\_steady}(\colorT) \coloneq
+\max_{\colorTbar \in [0\twodots\colorT)} \colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~
+  \label{eqn:steady-cost}
+ \\
+% &\max_{\colorTbar \in [1\twodots\colorT)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
+&\max_{\colorTbar \in [0\twodots\colorT - 1)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} &&\text{for \textit{``tilted''} curation,}  &&& ~ &&& ~ \label{eqn:tilted-cost}
+\end{empheq}
+% \end{align}
+Under this framing, curation quality may be assessed by maintaining cost function $\mathsf{cost}(\colorT)$ below an upper bound $\mathsf{bound}(\colorT)$ across logical time $\colorT$.
+
+\subsection{Generalized Ring Buffer}
+
+\input{fig/curation-ingest-lookup.tex}
+
+Ring buffers are a ubiquitous and well-known data structure that provides a fast, space-efficient, and simple mechanism to keep last-$n$ samples on a rolling basis \citep{dusseau2018operating}.
+Where $\colorK(\colorT) = \colorT \bmod \colorS$, where $\colorT$ counts stored stream items and $\colorS$ indicates buffer size.
+Figure \ref{fig:curation-ingest-lookup:ring} shows this pattern.
+A key aspect of the simplicity of this algorithm is the coupling of storage and deletion operations once buffer space fills.
+
+However, alternate sample compositions can be
+\citet{gunther2014compressing} proposes generalizing the ring buffer by using some other $\colorK(\colorT)$ (i.e., $\neq \colorT \bmod \colorS$)
+This approach retains some of the attractive qualities of ring buffers.
+- fixed-capacity, contiguous memory
+- strict constant-time update operations,
+- full use of memory (no unused or overhead),
+- simple implementation, determined by a stateless function $\colorK(\colorT)$
+
+Although lesser-known within the applied stream processing community, the generalized ring buffer approach offers several key advantages to resource-constrained contexts:
+One limitation of that work is in.
+Here, we develop an alternate conceptual framework around
+
+This approach retains the advantageous characteristics of the ring buffer approach noted above.
+These characteristics are valuable in the resource-constrained environments and streamline the amount of data that needs to be shuttled.
+ dynamic on-device processing of
+
+In this vein,  .
+
+We assess how
+We judge
+We assess
+We test
+ data structure proposed by  constitutes a promising possibility for resource-constrained application domains.
+However, rather than ,
+ contrasts this approach to a classic ring buffer with the generalized approach.
+
+
+well-suited to resource-constrained
+One promising lightweight technique is  .
+
+
+However, this .
+Compared to more widely known approaches
+
+However, application-oriented explorations of this technique are lacking.
+
+In this work, we introduce an extension of this approach to
+Here, we focus on the.
+- memory use should be a fixed amount up front
+- the entire representation should be contiguous in memory, allowing for trivial serialization or RDMA access
+- data should make full use of available memory, avoiding unused memory or data structure overhead
+- update time should be O(1).
+
+Although we do not explore it here, we note the opportunity for generalizations of the generalized ring buffer approach to summarization strategies beyond thinning: notably, summation \citep{gunther2014compressing}.
+Extensions could be imagined to support more general aggregation and approximation operations over stream history besides sampling \citep{schoellhammer2024lightweight}, although we do not directly investigate these possibilities here.
+\citet{gunther2014compressing}:
+(1) retaining the sum over each aggregation interval,
+(2) retaining the average over each aggregation interval,
+(3) retaining the minimum over each aggregation interval,
+(4) retaining the maximum over each aggregation interval,
+(5) retaining a randomly selected value from each aggregation interval.
+
+\subsection{Related Work}
+
+Efficient operations over data streams hinge on accumulation and summarization .
+distributed big-data processing \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems log management \citep{fischer2012real}, fraud monitoring \citep{rajeshwari2016real}, trading in financial markets \citep{agarwal2009faster}, environmental monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
+algorithms exist for analysis and summarization over sequenced input --- such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
+Stream curation relates mostdirectly to the themes of
+\begin{enumerate}
+\item \textit{sampling}, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
+\item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
+\end{enumerate}
+
+Given the broad applicability of the data stream paradigm, many algorithms exist for analysis and summarization over sequenced input --- such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
+Here, we focus on a very basic core method downsampling via thinning.
+\begin{enumerate}
+\item \textit{sampling}, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
+\item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
+\end{enumerate}
+
+Efficient stream curation operations benefit a variety of use cases requiring synopses of data stream history.
+A straightforward application of stream curation is in unattended or sporadically uplinked sensor devices, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
+In practice, however, even well-resourced centralized systems require thinning of full fidelity data --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
+%Checkpoint-rollback state might also be managed through stream curation in scenarios where the possibility of non-halting silent errors requires support for arbitrary rollback extents \citep{aupy2013combination}.
+A need for lightweight data stream processing techniques exists beyond these accelerator domains, as well, given the increasing prominence of RDMA \citep{wang2024survey} and broader growth of compute capacity relative to memory capacity.
+A major advantage in having contiguous, fixed-size representation that can be dynamically exported off the chip or between processor elements.
+per core expected to drop by 30\% every two years \citep{qureshi2014memory}.
+Lightweight data stream processing methods are also applicable to embedded applications, such as distributed sensor networks and \citep{elnahrawy2003research},
+
+% Existing work has largely applied rolling full retention of most recent data within available buffer space \citep{fincham1995use} or dismissal of incoming data after storage reaches capacity \citep{saunders1989portable,mahzan2017design}.
+% Strategies to maintain a cross-sectional time sample appear scant, although there has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
+
+Algorithms reported here stem from work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for tracking of digital ancestry trees in highly-distributed systems --- for instance, in analysis of many-processor agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, or computer viruses \citep{moreno2022hereditary}.
+Although beyond the scope of objectives here, we will briefly motivate this particular use case of stream curation.
+Hereditary stratigraphy annotates surveilled artifacts with checkpoint data, which is extended by a new ``fingerprint'' value with each copy event.
+Comparing two artifacts' accreted records reconstructs the duration of their common ancestry, with the first mismatched fingerprints signifying divergence from common descent.
+
+This use case relies on stream curation to prevent unbounded growth of generational fingerprint records.
+These records can be considered a data stream in that they accrue indefinitely, piece by piece.
+Downsampling fingerprints saves memory, but introduces uncertainty in estimating the timing of lineage divergence.
+For this reason, spacing of retained checkpoints across generational history is crucial to inference quality.
+Minimizing per-item storage overhead is also critical to hereditary stratigraphy, with \citet{moreno2024guide} finding that single-bit checkpoint values maximize reconstruction quality (i.e., by allowing more fingerprints to be retained).
+TODO: memory use is important due to memory constraints on accelerator device and due to dispersal of agents through message-passing; allowing memory and messages to be strictly fixed-length, while guaranteeing full use of assigned space, is crucual for both performance and implementation simplificiation.
+Both of these concerns are prioritized in present work.
 
 Although not covered here, in other preliminary work we have also investigated ``DStream'' algorithms that \textit{skew older} over elapsed history (``\textit{stretched}'' algorithm), or \textit{skew newer} over elapsed history (``\textit{tilted}'' algorithm) \citep{moreno2024structured}.
 Together, these algorithms support a variety of use cases differing in what data is prioritized.
+Also mention library.
 
-\input{text/body/introduction/stream-curation}
+% resource-constrained
 
-\input{text/body/introduction/prior-work}
+% Formally, a data stream is considered to be composed of a strictly-ordered sequence of read-once inputs.
+% Such streams' ordering may be dictated by inherently real-time processes (e.g., physical sensor inputs) or by access patterns for physical storage media (e.g., a tape archive) \citep{henzinger1998computing}.
+% They may also result from non-reversible computations (e.g., forward-time simulation) \citep{abdulla2004simulation,schutzel2014stream}.
+% Work with data streams assumes input greatly exceeds memory capacity, with streams often treated as unbounded \citep{jiang2006research}.
+% Indeed, real-world computing often requires real-time operations on a continuous, indefinite basis \citep{cordeiro2016online}.
 
-\input{text/body/introduction/prospectus}
+% Here, we focus specifically on subsampling over data streams and introduce an $\mathcal{O}(1)$ algorithms for space-efficient curation of data items \textit{evenly covering} elapsed history.
+% We call this algorithm the \textit{steady} ``DStream'' algorithm.
+% Figure \ref{fig:criteria-intuition} shows an example of ideal ideal steady retention.
+% Among other results, we demonstrate worst-case bounds on error in curated collection composition under the steady algorithm.
+% We refer to this rolling subset problem as ``data stream curation,'' which we will define next.
+
+%\input{text/body/introduction/stream-curation}
+
+%\input{text/body/introduction/prior-work}
+
+%\input{text/body/introduction/prospectus}
