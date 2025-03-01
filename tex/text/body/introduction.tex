@@ -37,34 +37,35 @@ Over the remainder of the introduction, we will formalize objectives to evaluate
 
 Our work concerns online sampling of discrete data items from a one-dimensional data stream, a task we term ``stream curation.''
 We assume a fixed storage capacity; thus, once reached, storing any new data item requires discarding another earlier-retained item.
-To achieve a representative approximate record of stream history, thinning decisions should ``curate'' a collection of stream items spanning the entirety of stream history.
-The challenge of this task arises, when a properly curated archive is needed at all times.
-In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
-
-We consider a retained collection's coverage over history solely in terms of the timepoints (i.e., sequence positions) of retained data items.
-Note that we disregard data items' semantic values under this timepoint-based framing.
-We consider two possible requirements on sampled data, as described above.
-\textit{{Steady}} retention seeks a sample spaced uniformly across elapsed stream history.
-\textit{{Tilted}} retention proportionally prioritizes recent data items.
-Related objectives appear in a variety of related data stream work, reviewed in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
+Maintaining a representative trace of stream history, therefore, involves thinning decisions to ``curate'' an appropriate collection of retained stream items.%
 \footnote{%
 Note that stream curation should be considered orthogonal to the question of $\ell_p$ sampling (e.g., $\ell_0$ or $\ell_1$ sampling) in that the stream curation objective is to optimize for deterministic temporal balance rather than statistical properties of stochastic composition, which provides advantages in guaranteeing predictable, systematic coverage over temporal history.
 With regard to $\ell_p$ sampling, we refer the reader to well-established online techniques to extract $\ell_p$-representative samples over stream distributions such as reservoir sampling, sketching, and hash-based methods \citep{gaber2005mining,muthukrishnan2005data,cormode2019lp}.
 }
+This task becomes challenging where satisfaction of curation objectives must be interposed across sequential points in time.
+In practice, such fully-online curation becomes necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (e.g., query- or trigger-driven events).
+
+We consider the quality of a retained collection's coverage over stream history solely in terms of the timepoints (i.e., sequence positions) of retained data items.
+As such, under this timepoint-based framing, our discussion will entirely disregard data items' semantic values.
 
 \input{fig/criteria-intuition}
 
-Figure \ref{fig:criteria-intuition} contrasts optimal sample compositions under \textit{steady} and \textit{tilted} retention.
-Under steady retention, retained items should be spaced evenly across time;
-under tilted retention, spacing between items should be proportional to how far back in time.
-Deciding between these two approaches is application-specific.
-Such an approach is relevant when recent data is more important \citep{phithakkitnukoon2010recent}.
-Existing work on generalized ring buffer, reviewed below, provides steady curation.
-Extensions developed on this work target tilted curation.
+We treat two conventional requirements on curated data: steady composition and tilted composition.
+The first, \textit{{steady}} composition, seeks a sample spaced uniformly across elapsed stream history.
+The second, \textit{{tilted}} composition, proportionally prioritizes recent data items.
+Figure \ref{fig:criteria-intuition} contrasts optimal sample compositions under each.
 
-Formally, we frame stream curation objectives in terms of cost functions on the timepoints of discarded data items, formulated in terms of ``gap size'' $\colorG_{\colorT}(\colorTbar)$ in the curated record, the number of discarded data items around timepoint $\colorTbar$ at logical time $\colorT$.
-Section \ref{sec:notation} provides a full introduction of this notation, with formal definitions.
-We define the following cost function on the timepoints of discarded data items:
+Given the generality of the tilted and steady curation objectives, related concepts appear in a wide variety of related data stream work, reviewed in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
+From application to application, choice of one over the other will vary entirely depending on context and objectives.
+
+%Under steady retention, retained items should be spaced evenly across time;
+%under tilted retention, spacing between items should scale proportionally with age.
+
+
+%Existing work on generalized ring buffer, introduced below, provides steady curation.
+%Extensions developed on this work target tilted curation.
+
+As detailed further in Section \ref{sec:notation}, we formalize steady and tilted stream curation objectives via cost functions on ``gap size'' $\colorG_{\colorT}(\colorTbar)$ in the curated record, counting contiguous discarded data items around timepoint $\colorTbar$ at logical time $\colorT$,
 \begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) \coloneq %\empheqlbrace
 }]{align}
 % \begin{align}
@@ -76,7 +77,7 @@ We define the following cost function on the timepoints of discarded data items:
 &\max_{\colorTbar \in [0\twodots\colorT - 1)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} &&\text{for \textit{``tilted''} curation,}  &&& ~ &&& ~ \label{eqn:tilted-cost}
 \end{empheq}
 % \end{align}
-Under this framing, curation quality may be assessed by maintaining cost function $\mathsf{cost}(\colorT)$ below an upper bound $\mathsf{bound}(\colorT)$ across logical time $\colorT$.
+Within this framework, guarantees on curation quality devise an upper bound $\mathsf{bound}(\colorT)$ on cost $\mathsf{cost}(\colorT)$.
 
 \subsection{Generalized Ring Buffer}
 
