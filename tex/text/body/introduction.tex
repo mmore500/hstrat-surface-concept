@@ -8,31 +8,36 @@ Pursuing an aggressive scale-out paradigm, such platforms bring hundreds, thousa
 
 Although these emerging AI/ML hardware accelerators harbor immense potential for general-purpose HPC applications, realizing their benefit will require substantial adaptations to satisfy constraints imposed by their unconventional hardware architectures.
 One fundamental manner in which these accelerator devices differ from typical CPU-based hardware is with respect to memory locality.
-Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, emerging AI/ML hardware accelerator platforms tend to rely on explicit synchronization or message passing steps to relay data from device to host or between processor elements.
-As such, available directly-addressable memory capacity can be very small, consisting of just processing elements' attached on-chip memory banks.
+Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, emerging AI/ML hardware accelerator platforms tend to rely on explicit synchronization or message passing steps to relay data between processor elements and device-to-host.
+As such, available directly-addressable memory capacity can be very small, comprising just processing elements' attached on-chip memory banks.
 At the high end, Tenstorrent's Grayskull device and GraphCore's recent Colossus MK2 provide on-chip memory of just 1MB and 612kb, respectively, per processing element \citep{vasiljevic2021compute,gepner2024performance}.
-Cerebras and Groq's hardware is most extreme in this regard, furnishing less than 50kb per processing element \citep{lie2023cerebras,abts2022groq}.
+Cerebras and Groq's hardware, at the lower extremum, each furnish less than 50kb per processing element \citep{lie2023cerebras,abts2022groq}.
 
-Forward-time simulations exploiting a high degree of locality (e.g., stencil-based methods) have been identified as a prime candidate for these accelerators \citep{jacquelin2022scalable,brown2023exploring,brown2024accelerating,louw2021using}.
-In targeting hardware accelerator platforms, these simulation kernels must budget records of simulation state within local memory capacity and available device-to-host bandwidth.
-In this context, dynamic coarsening approaches ptovide key means to buffer time series data within available bandwidth capacity.
+Forward-time simulations exploiting a high degree of locality (e.g., stencil-based methods) have been identified as a prime use case for AI/ML accelerators \citep{jacquelin2022scalable,brown2023exploring,brown2024accelerating,louw2021using}.
+To export time series data from hardware accelerator platforms, such simulation kernels must budget output within local memory capacity and available device-to-host bandwidth.
+Where flexibility in levels of output detail is acceptable, dynamic coarsening approaches can be applied to prioritize available capacity based on runtime conditions.
 
-Feasibility of such an approach, however, requires lightweight \textit{in situ} stream processing techniques capable of dynamically recording an indeterminate time interval within fixed storage capacity.
-Appropriate summarization approaches are highly use-case dependent, ranging from rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
+Feasibility of such an approach, however, requires lightweight \textit{in situ} stream processing techniques.
+% capable of dynamically recording an indeterminate time interval within fixed storage capacity.
+Appropriate coarsening approaches are, of course, highly use-case dependent, including possibilities such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
+Here, we focus on a single core sketching operation: downsampling via thinning, in which a collection of data items comprising a systematic, deterministic temporal cross section of elapsed stream history is dynamically curated.
+In particular, we explore the suitability of algorithms generalizing the common ring buffer data structure to carry out this ``stream curation'' task  within resource-constrained contexts \citep{gunther2014compressing}.
 
-Here, we focus on a core general-purpose sketching operation: ``stream curation,'' or downsampling via thinning, in which a collection of data items comprising a systematic, deterministic temporal cross section of elapsed stream history is dynamically curated.
-For this purpose, we explore the suitability of algorithms generalizing the common ring buffer data structure for sketching stream history in highly resource-constrained contexts \citep{gunther2014compressing}.
-Our work applies a novel conceptual framework to extend state-of-the-art by enabling retention patterns prioritizing recent stream history.
-We then compare performance characteristics of curation via generalized ring buffer against alternate approaches through on-hardware benchmarks measuring targeting a model resource-constrained hardware platform.
+Our work comprises two primary contributions:
+\begin{enumerate}
+\item introduction of a novel ``tilted'' generalized ring buffer algorithm implementing recency-proportional sample composition, and
+\item empirical evaluation of on-hardware performance characteristics for generalized ring buffer algorithms and alternate approaches using a model resource-constrained platform.
+\end{enumerate}
+Presentation of the former is notable in developing a conceptual framework divergent from existing work \citep{gunther2014compressing}, applying binary divisors as the basis for composing retained items.
 
-In the following sections, we formalize our definition of stream curation, describe the generalized ring buffer approach, and review other related work.
+Over the remainder of the introduction, we will formalize objectives to evaluate ``stream curation'' composition, introduce the generalized ring buffer approach, and review related work.
 
 \subsection{Stream Curation}
 \label{sec:stream-curation-problem}
 
 Our work concerns online sampling of discrete data items from a one-dimensional data stream, a task we term ``stream curation.''
-We assume a fixed storage capacity; thus, once reached, storing any new data item requires discarding another previously-retained retained item.
-To ensure a representative approximate record of stream history, thinning decisions should ``curate'' a collection of stream items spanning the entirety of stream history.
+We assume a fixed storage capacity; thus, once reached, storing any new data item requires discarding another earlier-retained item.
+To achieve a representative approximate record of stream history, thinning decisions should ``curate'' a collection of stream items spanning the entirety of stream history.
 The challenge of this task arises, when a properly curated archive is needed at all times.
 In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
 
