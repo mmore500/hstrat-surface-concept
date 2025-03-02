@@ -91,8 +91,9 @@ As depicted in \ref{fig:curation-ingest-lookup:steady}, applying alternate data 
 With sufficient care, design of such data storage algorithms can carry forward attractive qualities of the naive ring buffer,
 \begin{itemize}
 \item a constant-size, contiguous memory footprint that is fully utilized,
-\item avoidance of bookkeeping overhead (e.g., timestamps, pointers, \item strict constant-time update operations (``site selection''  in Figure \ref{fig:curation-ingest-lookup}), and
-\item efficient origin time attributability for all stored data (``lookup''  in Figure \ref{fig:curation-ingest-lookup}).
+\item avoidance of bookkeeping overhead (e.g., timestamps, pointers,
+\item strict constant-time update operations (``site selection''  in Figure \ref{fig:curation-ingest-lookup}), and
+\item efficient origin time attributability for all stored data (``lookup'' in Figure \ref{fig:curation-ingest-lookup}).
 \end{itemize}
 
 Although these properties are highly promising for resource-constrained operations, the generalized ring buffer approach has yet to be explored in the application-oriented stream processing literature.
