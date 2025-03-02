@@ -103,67 +103,17 @@ While the scope of present work focuses on core thinning operations, we note tha
 
 \subsection{Related Work}
 
-Efficient operations over data streams hinge on accumulation and summarization .
-distributed big-data processing \citep{he2010comet}, real-time network traffic analysis \citep{johnson2005streams,muthukrishnan2005data}, systems log management \citep{fischer2012real}, fraud monitoring \citep{rajeshwari2016real}, trading in financial markets \citep{agarwal2009faster}, environmental monitoring \citep{hill2009real}, and astronomy \citep{graham2012data}.
-algorithms exist for analysis and summarization over sequenced input --- such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
-Stream curation relates mostdirectly to the themes of
-\begin{enumerate}
-\item \textit{sampling}, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
-\item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
-\end{enumerate}
+Owing to dimension reduction's fundamental role in supporting more advanced data stream operations, substantial work exists addressing the question of downsampling via temporal binning \citep{sibai2016sampling,gama2007data}.
+Notably, schemes for steady (``equi-segmented'') and tilted (``vari-segmented'') retention appear in \citep{zhao2005generalized}, with the latter resembling additional ``pyramidal,'' ``logarithmic,'' and ``tilted'' time window schemes appearing elsewhere \citep{aggarwal2003framework,han2005stream,giannella2003mining,phithakkitnukoon2010recent}.
+Work on ``amnesic approximation'' is notable in providing a generalized scheme for downsampling satisfying an arbitrary temporal cost function \citep{palpanas2004online}.
+Although congruities exist in objectives and aspects of algorithm structure, this body of existing work applies iterative, stateful approaches less suited to resource-constrained use cases.
 
-Given the broad applicability of the data stream paradigm, many algorithms exist for analysis and summarization over sequenced input --- such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
-Here, we focus on a very basic core method downsampling via thinning.
-\begin{enumerate}
-\item \textit{sampling}, where the data stream corpus is coarsened through extraction of exemplar data items \citep{sibai2016sampling}; and
-\item \textit{binning/windowing}, where data stream content is aggregated (e.g., summarized, compressed, or sampled) with respect to discrete time spans over stream history \citep{gama2007data}.
-\end{enumerate}
+A key motivating use case of work presented here has been development of decentralized methods for tracking ancestry trees in highly-distributed agent-based evolution simulations \citep{moreno2022hereditary}.
+These methods operate by attaching checkpoint data to simulaated agents, extended each generation;
+similarity along checkpoint records can then be applied to estimate the duration of common ancestry.
+For this use case, stream curation is necessary to rein in otherwise unbounded growth of generational checkpoint records.
+As downsampling checkpoints introduces uncertainty to estimates of lineage divergence, systematic spacing of retained checkpoints across generational history is crucial to inference quality \citet{moreno2024guide}.
+Given use of checkpoint values as small as single bits and frequent migration of records between processors alongside their corresonding agents, a compact, fixed-length, contiguous data structure is critical.
+Applying a generalized ring buffer approach has allowed these tracking approaches to be successfully deployed in resource-constrained settings such as the Cerebras Wafer-Scale Engine \citep{moreno2024trackable}.
 
-Efficient stream curation operations benefit a variety of use cases requiring synopses of data stream history.
-A straightforward application of stream curation is in unattended or sporadically uplinked sensor devices, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
-In practice, however, even well-resourced centralized systems require thinning of full fidelity data --- raising the possibility of use cases in long-term telemetry and log management \citep{kent2006guide,miebach2002hubble}.
-%Checkpoint-rollback state might also be managed through stream curation in scenarios where the possibility of non-halting silent errors requires support for arbitrary rollback extents \citep{aupy2013combination}.
-A need for lightweight data stream processing techniques exists beyond these accelerator domains, as well, given the increasing prominence of RDMA \citep{wang2024survey} and broader growth of compute capacity relative to memory capacity.
-A major advantage in having contiguous, fixed-size representation that can be dynamically exported off the chip or between processor elements.
-per core expected to drop by 30\% every two years \citep{qureshi2014memory}.
-Lightweight data stream processing methods are also applicable to embedded applications, such as distributed sensor networks and \citep{elnahrawy2003research},
-
-% Existing work has largely applied rolling full retention of most recent data within available buffer space \citep{fincham1995use} or dismissal of incoming data after storage reaches capacity \citep{saunders1989portable,mahzan2017design}.
-% Strategies to maintain a cross-sectional time sample appear scant, although there has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
-
-Algorithms reported here stem from work on ``\textit{hereditary stratigraphy},'' a recently-developed technique for tracking of digital ancestry trees in highly-distributed systems --- for instance, in analysis of many-processor agent-based evolution simulations, content in decentralized social networks, peer-to-peer file sharing, or computer viruses \citep{moreno2022hereditary}.
-Although beyond the scope of objectives here, we will briefly motivate this particular use case of stream curation.
-Hereditary stratigraphy annotates surveilled artifacts with checkpoint data, which is extended by a new ``fingerprint'' value with each copy event.
-Comparing two artifacts' accreted records reconstructs the duration of their common ancestry, with the first mismatched fingerprints signifying divergence from common descent.
-
-This use case relies on stream curation to prevent unbounded growth of generational fingerprint records.
-These records can be considered a data stream in that they accrue indefinitely, piece by piece.
-Downsampling fingerprints saves memory, but introduces uncertainty in estimating the timing of lineage divergence.
-For this reason, spacing of retained checkpoints across generational history is crucial to inference quality.
-Minimizing per-item storage overhead is also critical to hereditary stratigraphy, with \citet{moreno2024guide} finding that single-bit checkpoint values maximize reconstruction quality (i.e., by allowing more fingerprints to be retained).
-TODO: memory use is important due to memory constraints on accelerator device and due to dispersal of agents through message-passing; allowing memory and messages to be strictly fixed-length, while guaranteeing full use of assigned space, is crucual for both performance and implementation simplificiation.
-Both of these concerns are prioritized in present work.
-
-Although not covered here, in other preliminary work we have also investigated ``DStream'' algorithms that \textit{skew older} over elapsed history (``\textit{stretched}'' algorithm), or \textit{skew newer} over elapsed history (``\textit{tilted}'' algorithm) \citep{moreno2024structured}.
-Together, these algorithms support a variety of use cases differing in what data is prioritized.
-Also mention library.
-
-% resource-constrained
-
-% Formally, a data stream is considered to be composed of a strictly-ordered sequence of read-once inputs.
-% Such streams' ordering may be dictated by inherently real-time processes (e.g., physical sensor inputs) or by access patterns for physical storage media (e.g., a tape archive) \citep{henzinger1998computing}.
-% They may also result from non-reversible computations (e.g., forward-time simulation) \citep{abdulla2004simulation,schutzel2014stream}.
-% Work with data streams assumes input greatly exceeds memory capacity, with streams often treated as unbounded \citep{jiang2006research}.
-% Indeed, real-world computing often requires real-time operations on a continuous, indefinite basis \citep{cordeiro2016online}.
-
-% Here, we focus specifically on subsampling over data streams and introduce an $\mathcal{O}(1)$ algorithms for space-efficient curation of data items \textit{evenly covering} elapsed history.
-% We call this algorithm the \textit{steady} ``DStream'' algorithm.
-% Figure \ref{fig:criteria-intuition} shows an example of ideal ideal steady retention.
-% Among other results, we demonstrate worst-case bounds on error in curated collection composition under the steady algorithm.
-% We refer to this rolling subset problem as ``data stream curation,'' which we will define next.
-
-%\input{text/body/introduction/stream-curation}
-
-%\input{text/body/introduction/prior-work}
-
-%\input{text/body/introduction/prospectus}
+Although not covered here, in other preliminary work we have also investigated a broader suite of ``DStream'' algorithms beyond the ``tilted'' algorithm presented here, including an approach that \textit{skews older} over elapsed history (``\textit{stretched}'' algorithm) and an alternate approach to steady curation compared to existing approaches \citep{moreno2024structured}.
