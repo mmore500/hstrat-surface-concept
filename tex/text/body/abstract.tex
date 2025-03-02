@@ -1,12 +1,14 @@
 \begin{abstract}
-In working with data streams, it is often necessary to continuously retain a representative record of data collected across elapsed history.
-This objective requires efficient mechanisms to aggregate or summarize history on an online basis.
-Here, we address the problem of extracting a fixed-capacity, rolling subsample from a data stream.
-Our proposed ``DStream'' approach generalizes the ring buffer --- which ordinarily provides rolling last-$n$ coverage --- to instead maintain rolling steady coverage, where retained items spread evenly across elapsed data stream history.
-Comparing our approach against existing work by Zhao and Zhang (2006), we measure between a $2.5\times$ and $72\times$ speedup in data stream processing.
-We also demonstrate substantial memory savings for scenarios where stored data items are small --- more than 30-fold, for instance, with single-bit data items.
-Empirically, we find equivalent or superior behavior in maintaining steady coverage; we also prove worst-case bounds on rolling coverage quality.
-We further show processing time to be hard $O(1)$, with respect to both buffer capacity and stream depth.
-As such, we expect presented work to be particularly valuable in domains that are resource-constrained (e.g., embedded systems) or performance-critical (e.g., real-time).
-To facilitate practical applications, we accompany our presentation with plug-and-play, open-source algorithm implementations.
+In working with data streams, it is often necessary to record elapsed history on an ongoing basis.
+In memory-constrained contexts, this task requires efficient, online mechanisms to aggregate or summarize history.
+To these ends, work by Gunther (2014) is notable in introducing an algorithmic generalization of the ring buffer data structure that provides a fixed-capacity, rolling subsample spread evenly across elapsed data stream history.
+This approach maintains attractive properties of the naive ring buffer, including a fixed contiguous memory footprint, minimal bookkeeping memory overhead, and strict constant-time update operations.
+In this work, we introduce a new ``tilted'' generalized ring buffer algorithm to enable use cases that require sampling density proportional to data recency.
+As the basis for our approach, we develop a simple conceptual framework around 2-adic valuation of sequence positions.
+Based on this framework, we provide upper bounds on deviations in sample composition under our approach.
+Finally, our work turns to asssess the practical performance characteristics of generalized ring buffer approaches.
+In on-hardware benchmark tests targeting a model resource-constrained platform, we find generalized ring buffers to outperform conventional stream binning approaches, with regard to both execution speed and memory use.
+By contrast, trivial approaches applying intermittent strided purges support the highest throughput per unit time, but at the cost of lower memory efficiency and less representative sample composition.
+These advantages make generalized ring buffer approaches promising for stream processing applications resource-constrained computing platforms, such as emerging many-processor compute-in-memory chips and embedded devices within distributed sensor networks.
+To further practical applications of introduced algorithms, we provide accompanying open-source implementations across a variety of programming languages.
 \end{abstract}
