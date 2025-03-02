@@ -83,62 +83,23 @@ Within this framework, guarantees on curation quality devise an upper bound $\ma
 
 \input{fig/curation-ingest-lookup.tex}
 
-Ring buffers are a ubiquitous and well-known data structure that provides a fast, space-efficient, and simple mechanism to keep last-$n$ samples on a rolling basis \citep{dusseau2018operating}.
-Where $\colorK(\colorT) = \colorT \bmod \colorS$, where $\colorT$ counts stored stream items and $\colorS$ indicates buffer size.
-Figure \ref{fig:curation-ingest-lookup:ring} shows this pattern.
-A key aspect of the simplicity of this algorithm is the coupling of storage and deletion operations once buffer space fills.
+A commonplace data structure, ring buffers provide a fast, space-efficient, and straightforward mechanism to curate last-$n$ samples from a data stream on a rolling basis \citep{dusseau2018operating}.
+Classically, ring buffers operate by arranging data storage in a simple cyclical pattern over buffer space, as shown in
+Figure \ref{fig:curation-ingest-lookup:ring}.
+A key feature driving the simplicity and efficiency of the ring buffer data structure is coupling of storage and deletion operations, wherein overwrites implicitly eliminate stale data.
 
-However, alternate sample compositions can be
-\citet{gunther2014compressing} proposes generalizing the ring buffer by using some other $\colorK(\colorT)$ (i.e., $\neq \colorT \bmod \colorS$)
-This approach retains some of the attractive qualities of ring buffers.
-- fixed-capacity, contiguous memory
-- strict constant-time update operations,
-- full use of memory (no unused or overhead),
-- simple implementation, determined by a stateless function $\colorK(\colorT)$
+As depicted in \ref{fig:curation-ingest-lookup:steady}, applying alternate data storage patterns over buffer space can enable sophisticated curation behavior beyond last-$n$ retention \citep{gunther2014compressing}.
+With sufficient care, design of such data storage algorithms can carry forward attractive qualities of the naive ring buffer,
+\begin{itemize}
+\item a constant-size, contiguous memory footprint that is fully utilized,
+\item avoidance of bookkeeping overhead (e.g., timestamps, pointers, \item strict constant-time update operations (``site selection''  in Figure \ref{fig:curation-ingest-lookup}), and
+\item efficient origin time attributability for all stored data (``lookup''  in Figure \ref{fig:curation-ingest-lookup}).
+\end{itemize}
 
-Although lesser-known within the applied stream processing community, the generalized ring buffer approach offers several key advantages to resource-constrained contexts:
-One limitation of that work is in.
-Here, we develop an alternate conceptual framework around
-
-This approach retains the advantageous characteristics of the ring buffer approach noted above.
-These characteristics are valuable in the resource-constrained environments and streamline the amount of data that needs to be shuttled.
- dynamic on-device processing of
-
-In this vein,  .
-
-We assess how
-We judge
-We assess
-We test
- data structure proposed by  constitutes a promising possibility for resource-constrained application domains.
-However, rather than ,
- contrasts this approach to a classic ring buffer with the generalized approach.
-
-
-well-suited to resource-constrained
-One promising lightweight technique is  .
-
-
-However, this .
-Compared to more widely known approaches
-
-However, application-oriented explorations of this technique are lacking.
-
-In this work, we introduce an extension of this approach to
-Here, we focus on the.
-- memory use should be a fixed amount up front
-- the entire representation should be contiguous in memory, allowing for trivial serialization or RDMA access
-- data should make full use of available memory, avoiding unused memory or data structure overhead
-- update time should be O(1).
-
-Although we do not explore it here, we note the opportunity for generalizations of the generalized ring buffer approach to summarization strategies beyond thinning: notably, summation \citep{gunther2014compressing}.
-Extensions could be imagined to support more general aggregation and approximation operations over stream history besides sampling \citep{schoellhammer2024lightweight}, although we do not directly investigate these possibilities here.
-\citet{gunther2014compressing}:
-(1) retaining the sum over each aggregation interval,
-(2) retaining the average over each aggregation interval,
-(3) retaining the minimum over each aggregation interval,
-(4) retaining the maximum over each aggregation interval,
-(5) retaining a randomly selected value from each aggregation interval.
+Although these properties are highly promising for resource-constrained operations, the generalized ring buffer approach has yet to be explored in the application-oriented stream processing literature.
+In original work establishing the subject, \citet{gunther2014compressing} demonstrates a ring buffer algorithm providing even-spaced \textit{steady curation}, through an approach based in number theory that leverages arithmatic properties of strictly doubling sampling intervals modulus odd buffer size.
+In this work, we develop an alternate design framework based around 2-adic valuations as means to devise a complementary ring buffer algorithm supporting \textit{tilted curation}, where collection composition is approximately recency proportional.
+While the scope of present work focuses on core thinning operations, we note that alternate summarization strategies may be pursued under the generalized ring buffer approach --- such as summation, averaging, tracking minima/maxima, or random sampling within aggregation intervals \citep{gunther2014compressing}.
 
 \subsection{Related Work}
 
