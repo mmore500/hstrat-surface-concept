@@ -1,20 +1,20 @@
 \section{Introduction} \label{sec:introduction}
 
-Within the domain of high-performance computing (HPC), efficient algorithms to analyze and summarize data streams are key in contending with the ever-increasing volume and velocity of data generation.
-In recent years, explosive growth AI/ML workloads has fueled the emergence of a rich ecosystem of highly-capable, specialized hardware-accelerator platforms.
+Within the domain of high-performance computing (HPC), efficient algorithms for analyzing and summarizing data streams are key in contending with the ever-increasing volume and velocity of data generation.
+In recent years, explosive growth AI/ML workloads has fueled the emergence of a rich ecosystem of highly-capable, specialized hardware accelerator platforms.
 Although GPGPU computing has long been most prominent in this space, a broader, highly diverse set of hardware architectures are being fielded by startup market players.
 Notable emerging AI/ML hardware accelerator platforms include the Cerebras Systems' Wafer-Scale Engine \citep{lie2023cerebras}, Graphcore's Intelligence Processing Unit \citep{gepner2024performance}, Tenstorrent's Tensix processors \citep{vasiljevic2021compute}, and Groq's GropChip \citep{abts2022groq}.
 Pursuing an aggressive scale-out paradigm, such platforms bring hundreds, thousands, or --- in the case of the Wafer-Scale Engine --- hundreds of thousands of processing elements to bear within a single silicon die.
 
 Although these emerging AI/ML hardware accelerators harbor immense potential for general-purpose HPC applications, realizing their benefit will require substantial adaptations to satisfy constraints imposed by their unconventional hardware architectures.
 One fundamental manner in which these accelerator devices differ from typical CPU-based hardware is with respect to memory locality.
-Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, emerging AI/ML hardware accelerator platforms tend to rely on explicit synchronization or message passing steps to relay data between processor elements and device-to-host.
+Rather than exposing a high-capacity shared memory space backed by hardware-level fetching and caching, emerging AI/ML hardware accelerator platforms tend to rely on explicit synchronization or message-passing steps to relay data between processor elements and device-to-host.
 As such, available directly-addressable memory capacity can be very small, comprising just processing elements' attached on-chip memory banks.
 At the high end, Tenstorrent's Grayskull device and GraphCore's recent Colossus MK2 provide on-chip memory of just 1MB and 612kb, respectively, per processing element \citep{vasiljevic2021compute,gepner2024performance}.
-Cerebras and Groq's hardware, at the lower extremum, each furnish less than 50kb per processing element \citep{lie2023cerebras,abts2022groq}.
+By contrast, Cerebras and Groq's hardware each furnish less than 50kb per processing element \citep{lie2023cerebras,abts2022groq}.
 
 Forward-time simulations exploiting a high degree of locality (e.g., stencil-based methods) have been identified as a prime use case for AI/ML accelerators \citep{jacquelin2022scalable,brown2023exploring,brown2024accelerating,louw2021using}.
-To export time series data from hardware accelerator platforms, such simulation kernels must budget output within local memory capacity and available device-to-host bandwidth.
+To export generated time series data from device to host, such simulation kernels must budget output within local memory capacity and available device-to-host bandwidth.
 Where flexibility in levels of output detail is acceptable, dynamic coarsening approaches can be applied to prioritize available capacity based on runtime conditions.
 
 Feasibility of such an approach, however, requires lightweight \textit{in situ} stream processing techniques.
@@ -56,7 +56,7 @@ The second, \textit{{tilted}} composition, proportionally prioritizes recent dat
 Figure \ref{fig:criteria-intuition} contrasts optimal sample compositions under each.
 
 Given the generality of the tilted and steady curation objectives, related concepts appear in a wide variety of related data stream work, reviewed in Section \ref{sec:prior-work} \citep{aggarwal2003framework,han2005stream}.
-From application to application, choice of one over the other will vary entirely depending on context and objectives.
+Appropriate composition of retained data will vary from application to application, depending on context and objectives.
 
 %Under steady retention, retained items should be spaced evenly across time;
 %under tilted retention, spacing between items should scale proportionally with age.
@@ -84,9 +84,8 @@ Within this framework, guarantees on curation quality devise an upper bound $\ma
 \input{fig/curation-ingest-lookup.tex}
 
 A commonplace data structure, ring buffers provide a fast, space-efficient, and straightforward mechanism to curate last-$n$ samples from a data stream on a rolling basis \citep{dusseau2018operating}.
-Classically, ring buffers operate by arranging data storage in a simple cyclical pattern over buffer space, as shown in
-Figure \ref{fig:curation-ingest-lookup:ring}.
-A key feature driving the simplicity and efficiency of the ring buffer data structure is coupling of storage and deletion operations, wherein overwrites implicitly eliminate stale data.
+Classically, ring buffers operate by arranging data storage in a simple cyclical pattern over buffer space, as shown in Figure \ref{fig:curation-ingest-lookup:ring}.
+A key feature driving the simplicity and efficiency of the ring buffer data structure is the coupling of storage and deletion operations, wherein overwrites implicitly eliminate stale data.
 
 As depicted in \ref{fig:curation-ingest-lookup:steady}, applying alternate data storage patterns over buffer space can enable sophisticated curation behavior beyond last-$n$ retention \citep{gunther2014compressing}.
 With sufficient care, design of such data storage algorithms can carry forward attractive qualities of the naive ring buffer,
@@ -98,22 +97,29 @@ With sufficient care, design of such data storage algorithms can carry forward a
 
 Although these properties are highly promising for resource-constrained operations, the generalized ring buffer approach has yet to be explored in the application-oriented stream processing literature.
 In original work establishing the subject, \citet{gunther2014compressing} demonstrates a ring buffer algorithm providing even-spaced \textit{steady curation}, through an approach based in number theory that leverages arithmatic properties of strictly doubling sampling intervals modulus odd buffer size.
-In this work, we develop an alternate design framework based around 2-adic valuations as means to devise a complementary ring buffer algorithm supporting \textit{tilted curation}, where collection composition is approximately recency proportional.
+In this work, we develop an alternate design framework based around 2-adic valuations as a means to devise a complementary ring buffer algorithm supporting \textit{tilted curation}, where collection composition is approximately recency proportional.
 While the scope of present work focuses on core thinning operations, we note that alternate summarization strategies may be pursued under the generalized ring buffer approach --- such as summation, averaging, tracking minima/maxima, or random sampling within aggregation intervals \citep{gunther2014compressing}.
 
 \subsection{Related Work}
 
-Owing to dimension reduction's fundamental role in supporting more advanced data stream operations, substantial work exists addressing the question of downsampling via temporal binning \citep{sibai2016sampling,gama2007data}.
+Owing to dimension reduction's fundamental role in supporting more advanced data stream operations, substantial work exists concerning downsampling via temporal binning \citep{sibai2016sampling,gama2007data}.
 Notably, schemes for steady (``equi-segmented'') and tilted (``vari-segmented'') retention appear in \citep{zhao2005generalized}, with the latter resembling additional ``pyramidal,'' ``logarithmic,'' and ``tilted'' time window schemes appearing elsewhere \citep{aggarwal2003framework,han2005stream,giannella2003mining,phithakkitnukoon2010recent}.
 Work on ``amnesic approximation'' is notable in providing a generalized scheme for downsampling satisfying an arbitrary temporal cost function \citep{palpanas2004online}.
 Although congruities exist in objectives and aspects of algorithm structure, this body of existing work applies iterative, stateful approaches less suited to resource-constrained use cases.
 
-A key motivating use case of work presented here has been development of decentralized methods for tracking ancestry trees in highly-distributed agent-based evolution simulations \citep{moreno2022hereditary}.
-These methods operate by attaching checkpoint data to simulaated agents, extended each generation;
-similarity along checkpoint records can then be applied to estimate the duration of common ancestry.
+A key motivating use case of work presented here has been in development of decentralized methods for tracking ancestry trees in highly-distributed agent-based evolution simulations \citep{moreno2022hereditary}.
+These methods work by appending checkpoint data to agent genomes each generation;
+similarity among checkpoint records can then be used to estimate the duration of common ancestry.
 For this use case, stream curation is necessary to rein in otherwise unbounded growth of generational checkpoint records.
-As downsampling checkpoints introduces uncertainty to estimates of lineage divergence, systematic spacing of retained checkpoints across generational history is crucial to inference quality \citet{moreno2024guide}.
-Given use of checkpoint values as small as single bits and frequent migration of records between processors alongside their corresonding agents, a compact, fixed-length, contiguous data structure is critical.
-Applying a generalized ring buffer approach has allowed these tracking approaches to be successfully deployed in resource-constrained settings such as the Cerebras Wafer-Scale Engine \citep{moreno2024trackable}.
+As downsampling introduces uncertainty to estimates of lineage divergence, systematic spacing of retained checkpoints across generational history is crucial to inference quality \citet{moreno2024guide}.
+Given the use of individual checkpoint values as small as single bits and the fact that records must be migrated between processors alongside their corresponding agents, ensuring compact, fixed-length, contiguous storage is particularly critical.
+
+Indeed, generalized ring buffer approaches have enabled this methodology to scale up using AI/ML accelerator hardware for experiments scaling up to the Cerebras Wafer-Scale Engine \citep{moreno2024trackable}
+More broadly, beyond the acute resource-constrained scope of AI/ML hardware devices,
+A need for lightweight data stream processing techniques exists beyond these accelerator domains, as well, given the increasing prominence of RDMA \citep{wang2024survey} and broader growth of compute capacity relative to memory capacity \citep{qureshi2014memory}.
+Outside of high-performance computing, straightforward application of stream curation is in unattended or sporadically uplinked sensor devices, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{jain2022survey}.
+Lightweight data stream processing methods are also applicable to embedded applications, such as distributed sensor networks and \citep{elnahrawy2003research},
+There has been some work to extend the record capacity of data loggers through application-specific online compression algorithms \citep{hadiatna2016design}.
+
 
 Although not covered here, in other preliminary work we have also investigated a broader suite of ``DStream'' algorithms beyond the ``tilted'' algorithm presented here, including an approach that \textit{skews older} over elapsed history (``\textit{stretched}'' algorithm) and an alternate approach to steady curation compared to existing approaches \citep{moreno2024structured}.
