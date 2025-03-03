@@ -1,6 +1,11 @@
 % \usepackage[dvipsnames,table,xcdraw]{xcolor}
 % \usepackage[pdftex]{graphicx}
 
+% workaround ! LaTeX Error: Too many math alphabets used in version normal.
+% adapted from https://tex.stackexchange.com/a/243541/316176
+\newcommand\hmmax{0}
+\newcommand\bmmax{0}
+
 \usepackage{adjustbox}
 \usepackage[noEnd=true,commentColor=black]{algpseudocodex}
 \usepackage{algorithm}
