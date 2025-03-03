@@ -2,9 +2,9 @@
 \label{sec:performance}
 
 To better understand the generalized ring buffer approach's runtime performance characteristics, we undertook on-hardware benchmark tests to compare trade-offs in memory usage and stream processing speed against alternate approaches.
-In addition to the proposed tilted algorithm, our tests also considered Gunther's compressing circular buffer algorithm as, to our knowledge, its performance has only been reported for a desktop computing context \citep{gunther2014compressing}.
+In addition to the proposed tilted algorithm, our tests also considered Gunther's compressing circular buffer algorithm as, to our knowledge, its performance has only been reported for a desktop computing context \citep{gunther2014algorithm}.
 
-Given the focus of this work in supporting data stream management resource-constrained computing scenarios, we targeted our benchmarks to the Raspberry Pi Pico RP2040 --- a popular ARM-based microcontroller platform \citep{raspberrypipico2024}.
+Given the focus of this work in supporting data stream management resource-constrained computing scenarios, we targeted our benchmarks to the Raspberry Pi Pico RP2040 --- a popular ARM-based microcontroller platform \citep{raspberrypico2024}.
 Due to fundamental tradeoffs in processor architecture related to manufacturing cost and energy intensivity, embedded devices exhibit a substantially differentiated performance profile compared to mainline desktop CPU processors \citep{schlett2000embedded}.
 Notably, embedded microprocessors typically offer more limited faculties for pipelining, vector operations, and specialized instruction logic  \citep{yiu2015definitive}
 Indeed, some similarities exist in this regard between embedded processors and emerging AI/ML hardware accelerator platforms' worker compute cores in terms of the reduced instruction set size and low relative latency for local memory access --- although the latter much more heavily emphasizes instruction-level parallelism (i.e., vectorized operations)
@@ -31,7 +31,7 @@ A pair of algorithms was fielded within each algorithm category: one providing s
 (Recall that steady and tilted retention differ with respect to relative prioritization of newer versus older data, as shown in Figure \ref{fig:criteria-intuition}).
 Given that the appropriate choice between these two retention patterns differs fundamentally between use cases, our focus lies in comparisons among steady algorithms or among tilted algorithms, with respect to speed, memory use, and curation quality.
 
-For the generalized ring buffer approach, we included the steady-spaced compressing circular buffer algorithm proposed in \citet{gunther2014compressing} and the DStream algorithm for tilted retention introduced in this work (Listing \ref{lst:tilted-site-selection}) --- respectively, denoted as ``gunther steady'' and ``dstream tilted.''
+For the generalized ring buffer approach, we included the steady-spaced compressing circular buffer algorithm proposed in \citet{gunther2014algorithm} and the DStream algorithm for tilted retention introduced in this work (Listing \ref{lst:tilted-site-selection}) --- respectively, denoted as ``gunther steady'' and ``dstream tilted.''
 In implementing these generalized ring buffer approaches, bookkeeping state was limited to a single ingest counter.
 One notable trade-off associated with these approaches is the cost of calculations required to calculate a selected storage site for ingested data.
 
@@ -46,7 +46,7 @@ We denote these algorithms as ``zhang steady'' and ``zhang tilted.''
 One notable trade-off of these approaches is memory use overhead from storing segment size information with each retained value.
 
 Finally, we extend our consideration to also include a more ``obvious'' approach in which an intermittent clean-up procedure is applied to over data items accumulated within a contiguous buffer.
-This approach, described in \citet{gunther2014compressing}, simply strips away every second element upon reaching buffer capacity.
+This approach, described in \citet{gunther2014algorithm}, simply strips away every second element upon reaching buffer capacity.
 For steady retention, the sampling interval at which data items arrive is doubled each fill cycle.
 As a commensurate analog approximating tilted retention, we  also included a variant of this procedure where the sampling interval is kept constant.
 As such, larger gap size accumulates among older retained data items.

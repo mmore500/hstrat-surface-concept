@@ -21,14 +21,14 @@ Feasibility of such an approach, however, requires lightweight \textit{in situ} 
 % capable of dynamically recording an indeterminate time interval within fixed storage capacity.
 Appropriate coarsening approaches are, of course, highly use-case dependent, including possibilities such as rolling summary statistic calculations \citep{lin2004continuously}, on-the-fly data clustering \citep{silva2013data}, live anomaly detection \citep{cai2004maids}, and rolling event frequency estimation \citep{manku2002approximate}.
 Here, we focus on a single core sketching operation: downsampling via thinning, in which a collection of data items comprising a systematic, deterministic temporal cross section of elapsed stream history is dynamically curated.
-In particular, we explore the suitability of algorithms generalizing the common ring buffer data structure to carry out this ``stream curation'' task  within resource-constrained contexts \citep{gunther2014compressing}.
+In particular, we explore the suitability of algorithms generalizing the common ring buffer data structure to carry out this ``stream curation'' task  within resource-constrained contexts \citep{gunther2014algorithm}.
 
 Our work comprises two primary contributions:
 \begin{enumerate}
 \item introduction of a novel ``tilted'' generalized ring buffer algorithm implementing recency-proportional sample composition, and
 \item empirical evaluation of on-hardware performance characteristics for generalized ring buffer algorithms and alternate approaches using a model resource-constrained platform.
 \end{enumerate}
-Presentation of the former is notable in developing a conceptual framework divergent from existing work \citep{gunther2014compressing}, applying binary divisors as the basis for composing retained items.
+Presentation of the former is notable in developing a conceptual framework divergent from existing work \citep{gunther2014algorithm}, applying binary divisors as the basis for composing retained items.
 
 Over the remainder of the introduction, we will formalize objectives to evaluate ``stream curation'' composition, introduce the generalized ring buffer approach, and review related work.
 
@@ -87,7 +87,7 @@ A commonplace data structure, ring buffers provide a fast, space-efficient, and 
 Classically, ring buffers operate by arranging data storage in a simple cyclical pattern over buffer space, as shown in Figure \ref{fig:curation-ingest-lookup:ring}.
 A key feature driving the simplicity and efficiency of the ring buffer data structure is the coupling of storage and deletion operations, wherein overwrites implicitly eliminate stale data.
 
-As depicted in \ref{fig:curation-ingest-lookup:steady}, applying alternate data storage patterns over buffer space can enable sophisticated curation behavior beyond last-$n$ retention \citep{gunther2014compressing}.
+As depicted in \ref{fig:curation-ingest-lookup:steady}, applying alternate data storage patterns over buffer space can enable sophisticated curation behavior beyond last-$n$ retention \citep{gunther2014algorithm}.
 With sufficient care, design of such data storage algorithms can carry forward attractive qualities of the naive ring buffer,
 \begin{itemize}
 \item a constant-size, contiguous memory footprint that is fully utilized,
@@ -97,9 +97,9 @@ With sufficient care, design of such data storage algorithms can carry forward a
 \end{itemize}
 
 Although these properties are highly promising for resource-constrained operations, the generalized ring buffer approach has yet to be explored in the application-oriented stream processing literature.
-In original work establishing the subject, \citet{gunther2014compressing} demonstrates a ring buffer algorithm providing even-spaced \textit{steady curation}, through an approach based in number theory that leverages arithmatic properties of strictly doubling sampling intervals modulus odd buffer size.
+In original work establishing the subject, \citet{gunther2014algorithm} demonstrates a ring buffer algorithm providing even-spaced \textit{steady curation}, through an approach based in number theory that leverages arithmatic properties of strictly doubling sampling intervals modulus odd buffer size.
 In this work, we develop an alternate design framework based around 2-adic valuations as a means to devise a complementary ring buffer algorithm supporting \textit{tilted curation}, where collection composition is approximately recency proportional.
-While the scope of present work focuses on core thinning operations, we note that alternate summarization strategies may be pursued under the generalized ring buffer approach --- such as summation, averaging, tracking minima/maxima, or random sampling within aggregation intervals \citep{gunther2014compressing}.
+While the scope of present work focuses on core thinning operations, we note that alternate summarization strategies may be pursued under the generalized ring buffer approach --- such as summation, averaging, tracking minima/maxima, or random sampling within aggregation intervals \citep{gunther2014algorithm}.
 
 \subsection{Related Work}
 
