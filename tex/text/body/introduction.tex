@@ -66,15 +66,15 @@ Appropriate composition of retained data will vary from application to applicati
 %Extensions developed on this work target tilted curation.
 
 As detailed further in Section \ref{sec:notation}, we formalize steady and tilted stream curation objectives via cost functions on ``gap size'' $\colorG_{\colorT}(\colorTbar)$ in the curated record, counting contiguous discarded data items around timepoint $\colorTbar$ at logical time $\colorT$,
-\begin{empheq}[left={\hspace{1.5in}\displaystyle \mathsf{cost}(\colorT) \coloneq %\empheqlbrace
+\begin{empheq}[left={\hspace{0.1in}\displaystyle \mathsf{cost}(\colorT) \coloneq %\empheqlbrace
 }]{align}
 % \begin{align}
 % \mathsf{cost\_steady}(\colorT) \coloneq
-\max_{\colorTbar \in [0\twodots\colorT)} \colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~
+&\max_{\colorTbar \in [0\twodots\colorT)} \colorG_{\colorT}(\colorTbar) &&\text{for \textit{``steady''} curation,}  &&& ~ &&& ~
   \label{eqn:steady-cost}
  \\
 % &\max_{\colorTbar \in [1\twodots\colorT)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar} &&\text{for \textit{``stretched''} curation, and}  &&& ~ &&& ~ \label{eqn:stretched-cost} \\
-&\max_{\colorTbar \in [0\twodots\colorT - 1)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} &&\text{for \textit{``tilted''} curation,}  &&& ~ &&& ~ \label{eqn:tilted-cost}
+&\max_{\colorTbar \in [0\twodots\colorT - 1)} \frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} &&\text{for \textit{``tilted''} curation.}  &&& ~ &&& ~ \label{eqn:tilted-cost}
 \end{empheq}
 % \end{align}
 Within this framework, guarantees on curation quality devise an upper bound $\mathsf{bound}(\colorT)$ on cost $\mathsf{cost}(\colorT)$.
