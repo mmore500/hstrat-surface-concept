@@ -6,29 +6,29 @@ We demonstrate this new tilted algorithm to provide $\mathcal{O}(1)$ ingest and 
 
 Our interest in generalized ring buffer approaches arises with respect to applications in resource-constrained computing contexts, such as emerging compute-in-memory hardware accelerator architectures \citep{lie2023cerebras,vasiljevic2021compute}.
 To assess performance characteristics among generalized ring buffer algorithms and alternate stream curation approaches, we conducted a suite of benchmark experiments targeting a model resource-constrained platform.
-We find generalized ring buffers to provide faster throughput and less memory use compared to conventional stream binning approaches.
+We find that generalized ring buffers provide faster throughput and less memory use compared to conventional stream binning approaches.
 Although fastest throughput came from trivial approaches applying intermittent strided purges, these approaches provide substantially lower quality sample composition.
 
 \subsection{Future Work}
 
-One limitation of this work is restriction of tilted the algorithm to $2^{\colorS} - 2$ data item ingests.
-Although we expect support for $2^{\colorS} - 2$ ingests to suffice in many use, work remains to design behavior past this point.
-Structurally, the obstacle preventing naive generalization past this point is occurence of the first instance of hanoi value $\colorH(\colorT) = \colorS$.
+One limitation of this work is restriction of the tilted algorithm to $2^{\colorS} - 2$ data item ingests.
+Although we expect support for $2^{\colorS} - 2$ ingests to suffice in many use cases, work remains to design behavior past this point.
+Structurally, the obstacle preventing naive generalization past this point is occurence of the first instance of Hanoi value $\colorH(\colorT) = \colorS$.
 At this point, available buffer space no longer suffices to allocate a reservation for every encountered \hv{}.
-As such, downsampling of retained hanoi values becomes necessary.
-Given that the layout of hanoi value reservations matches initial layout of Gunther's steady algorithm at this point, one possibility is to simply apply steady curation to allocate hanoi value reservations (i.e., rather than on logical time $\colorT$ itself, as originally formulated).
+As such, downsampling of retained \hv's becomes necessary.
+Given that the layout of \hv{} reservations matches initial layout of Gunther's steady algorithm at this point, one possibility is to apply steady curation to allocate hanoi value reservations (i.e., rather than on logical time $\colorT$ itself, as originally formulated).
 
-Our foremost motivation for this work is application-driven, stemming from data maagement challenges encountered tracking history within forward-time agent-based simulations running on a memory-constrained hardware accelerator architecture \citep{moreno2024trackable}.
-As these highly-distributed platforms continue to mature, we anticipate efforts to harness their processing power for general-purpose HPC applications will warrant further investigations and algorithment development work around broader themes of sampling/approximation-based strategies for simulation observability.
-Indeed, such approaches are foundational to many approaches to track real-world natural systems.
-Memory efficient approaches for stream curation may prove useful in this context, as well, such as for unattended or sporadically uplinked devices in distributed sensor networks, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{elnahrawy2003research,jain2022survey,hadiatna2016design}.
+Our foremost motivation for this work is application-driven, stemming from data management challenges encountered tracking history within forward-time agent-based simulations running on a memory-constrained hardware accelerator architecture \citep{moreno2024trackable}.
+As these highly distributed platforms continue to mature, we anticipate efforts to harness their processing power for general-purpose HPC applications will warrant further investigations and algorithm development work around broader themes of sampling/approximation-based strategies for simulation observability.
+Indeed, such approaches are foundational in many approaches used to track real-world natural systems.
+Memory-efficient methods for stream curation may prove useful in this context, as well, such as for unattended or sporadically uplinked devices in distributed sensor networks, which must record incoming observation streams on an indefinite or indeterminate basis, with limited memory capacity \citep{elnahrawy2003research,jain2022survey,hadiatna2016design}.
 
 \subsection{Algorithm Implementation}
 
-To faciliate practical applications of work presented here, we have organized algorithm implementations for Rust, C++, Python, Zig, and the Cerebras Software Language (CSL) within the ``downstream'' software library \citep{moreno2024downstream}.
-The library additionally includes flexible, language-agnostic validation tools, to support development of implementations targeting additional platforms.
+To facilitate practical applications of work presented here, we have organized algorithm implementations for Rust, C++, Python, Zig, and the Cerebras Software Language (CSL) within the ``downstream'' software library \citep{moreno2024downstream}.
+The library additionally includes flexible, language-agnostic validation tools to support the development of implementations targeting additional platforms.
 % Such as high-throughput CLI tools for decoding lookup operations and extracting bulk hex data to extract time series.
 
-From a software engineering perspective, a significant benefit of the generalized ring buffer approach is flexiblity in data handling, as reconfiguration of curation policy can be achieved through a simple function-for-function substitution of control over storage site selection.
-Indeed, hybrid curation patterns may also be trivially achieved by splitting buffer space and alternating site asignment between two or more site assignment algorithms.
-Such flexibility and composability provides substantial benefit, independently of runtime performance characteristics highlighted elsewhere in this work.
+From a software engineering perspective, a significant benefit of the generalized ring buffer approach is flexibility in data handling, as reconfiguration of curation policy can be achieved through a simple function-for-function substitution of control over storage site selection.
+Indeed, further flexibility in enacting hybrid curation patterns may be trivially achieved by splitting buffer space and alternating site assignment between two or more site assignment algorithms.
+Such flexibility and composability provide substantial benefit, independent of runtime performance characteristics highlighted elsewhere in this work.
