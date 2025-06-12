@@ -1,0 +1,22 @@
+\begin{algorithm}[H]
+\caption{Steady doubling algorithm.}
+\label{alg:steady-doubling}
+\begin{minipage}{0.5\textwidth}
+    \hspace*{\algorithmicindent} \textbf{Given:} $\colorS \in 2\mathcal{N}$ \textcolor{teal}{\small//Buffer size, even integer}
+    \hspace*{\algorithmicindent}    \begin{algorithmic}[1]
+        \State $b \gets$ array, size $\colorS$
+        \State $i \gets 0$ \textcolor{teal}{\small//Buffer index}
+        \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//For values in data stream}
+        \State $b[i] = v$ \textcolor{teal}{\small//Store data}
+        \State $i \gets i + 1$  \textcolor{teal}{\small//Advance one position}
+        \If{$i = \colorS$} \textcolor{teal}{\small//Buffer full?}
+        \State $i \gets \colorS / 2$ \textcolor{teal}{\small//Reset to midpoint}
+        \For{$j \in [0\twodots \colorS/2)$}
+        \State $b[j] = b[2j]$ \textcolor{teal}{\small//Copy every other to front}
+        \EndFor
+        \EndIf
+        \EndFor
+        \Return $b$ \textcolor{teal}{\small//Stored data}
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}
