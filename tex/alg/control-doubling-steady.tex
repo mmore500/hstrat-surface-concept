@@ -8,9 +8,10 @@
         \State $i \gets 0$ \textcolor{teal}{\small//Buffer index}
         \State $U \gets 1$ \textcolor{teal}{\small//Current sampling interval}
         \State $j \gets 0$ \textcolor{teal}{\small//Position in sampling interval}
-        \State $b[i] = v$ \textcolor{teal}{\small//Store data}
+        \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//For values in data stream}
         \State $j \gets j + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$j = U$}  \textcolor{teal}{\small//Sampling interval complete}
+        \State $b[i] = v$ \textcolor{teal}{\small//Store data}
         \State $j \gets 0$  \textcolor{teal}{\small//Reset sampling interval}
         \State $i \gets i + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$i = \colorS$} \textcolor{teal}{\small//Buffer full?}
