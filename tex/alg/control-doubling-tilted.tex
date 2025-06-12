@@ -4,7 +4,7 @@
 \begin{minipage}{0.5\textwidth}
     \hspace*{\algorithmicindent} \textbf{Given:} $\colorS \in 2\mathcal{N}$ \textcolor{teal}{\small//Buffer size, even integer}
     \hspace*{\algorithmicindent}    \begin{algorithmic}[1]
-        \State $b \gets$ array, size $\colorS$
+        \State $b \gets$ array, size $\colorS$ \textcolor{teal}{\small//Storage buffer}
         \State $i \gets 0$ \textcolor{teal}{\small//Buffer index}
         \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//For values in data stream}
         \State $b[i] = v$ \textcolor{teal}{\small//Store data}
