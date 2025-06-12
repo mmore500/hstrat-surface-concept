@@ -8,7 +8,7 @@
         \State $w \gets [\colorS, \;\; 0]$ \textcolor{teal}{\small//Bucket size list}
         \For{$\colorT, \;\; v \in \mathrm{enumeratedStream}$} \textcolor{teal}{\small//Take stream indices and values}
         \If{$\colorT < \colorS$} \textcolor{teal}{\small//Performing initial fill\ldots}
-        \State $b[\colorS - 1 - \colorT] \gets v$ \textcolor{teal}{\small//\ldots store value\ldots}
+        \State $b[\colorT] \gets v$ \textcolor{teal}{\small//\ldots store value\ldots}
         \State \textbf{continue} \textcolor{teal}{\small// \ldots proceed to ingest next item}
         \EndIf
         \State $w[0] \gets w[0] + 1$  \textcolor{teal}{\small//Add item to be put in 0th bucket}
@@ -17,17 +17,17 @@
         \While{$w[j] \leq w[j + 1]$} \textcolor{teal}{\small//Search for donor bucket}
         \State $i \gets i - w[j]$ \textcolor{teal}{\small//Jump backward by bucket size}
         \State $j \gets j + 1$ \textcolor{teal}{\small//Increment current bucket}
-        \If{$j = \lvert w \rvert$} \textcolor{teal}{\small//If at end of bucket list\ldots}
+        \If{$j = \lvert w \rvert - 1$} \textcolor{teal}{\small//If at end of bucket list\ldots}
         \State $w \gets [w\ldots,\;\; 0]$ \textcolor{teal}{\small//\ldots then append empty bucket}
         \EndIf
         \EndWhile
         \State $w[j] \gets w[j] - 2$ \textcolor{teal}{\small //Shrink donor bucket}
         \State $w[j + 1] \gets w[j + 1] + 1$ \textcolor{teal}{\small //Grow recipient bucket}
-        \For{$n \in [i \twodots \colorS)$} \textcolor{teal}{\small//
+        \For{$n \in [i - w[j] \twodots \colorS - 1)$} \textcolor{teal}{\small//
         From dropped item to end\ldots}
         \State $b[n] \gets b[n + 1]$ \textcolor{teal}{\small// \ldots shift items down}
         \EndFor
-        \State $b[\colorS - 1] \gets v$ \textcolor{teal}{\small// Store new item at back}
+        \State $b[\colorS - 1] \gets v$ \textcolor{teal}{\small// Store new item}
         \EndFor
         \Return $b$ \textcolor{teal}{\small//Final stored data}
     \end{algorithmic}
