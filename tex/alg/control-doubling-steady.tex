@@ -11,14 +11,14 @@
         \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//For values in data stream}
         \State $j \gets j + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$j = U$}  \textcolor{teal}{\small//Sampling interval complete}
-        \State $b[i] = v$ \textcolor{teal}{\small//Store data}
+        \State $b[i] \gets v$ \textcolor{teal}{\small//Store data}
         \State $j \gets 0$  \textcolor{teal}{\small//Reset sampling interval}
         \State $i \gets i + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$i = \colorS$} \textcolor{teal}{\small//Buffer full?}
         \State $i \gets \colorS / 2$ \textcolor{teal}{\small//Reset to midpoint}
         \State $U \gets 2U$ \textcolor{teal}{\small//Double sampling interval}
         \For{$j \in [0\twodots \colorS/2)$}
-        \State $b[j] = b[2j]$ \textcolor{teal}{\small//Copy every other to front}
+        \State $b[j] \gets b[2j]$ \textcolor{teal}{\small//Copy every other to front}
         \EndFor
         \EndIf
         \EndIf
