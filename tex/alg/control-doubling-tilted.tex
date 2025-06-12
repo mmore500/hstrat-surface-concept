@@ -4,9 +4,9 @@
 \begin{minipage}{0.5\textwidth}
     \hspace*{\algorithmicindent} \textbf{Given:} $\colorS \in 2\mathcal{N}$ \textcolor{teal}{\small//Buffer size, even integer}
     \hspace*{\algorithmicindent}    \begin{algorithmic}[1]
-        \State $b \gets$ array, size $\colorS$ \textcolor{teal}{\small//Storage buffer}
+        \State $b \gets [\mathrm{null}_0, \mathrm{null}_1, \ldots, \mathrm{null}_{\colorS - 1}]$ \textcolor{teal}{\small//Storage buffer}
         \State $i \gets 0$ \textcolor{teal}{\small//Buffer index}
-        \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//For values in data stream}
+        \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//Take stream values}
         \State $b[i] \gets v$ \textcolor{teal}{\small//Store data}
         \State $i \gets i + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$i = \colorS$} \textcolor{teal}{\small//Buffer full?}
@@ -16,7 +16,7 @@
         \EndFor
         \EndIf
         \EndFor
-        \Return $b$ \textcolor{teal}{\small//Stored data}
+        \Return $b$ \textcolor{teal}{\small//Final data}
     \end{algorithmic}
 \end{minipage}
 \end{algorithm}

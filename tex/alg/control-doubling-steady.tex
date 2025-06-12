@@ -2,13 +2,13 @@
 \caption{Steady doubling algorithm.}
 \label{alg:steady-doubling}
 \begin{minipage}{0.5\textwidth}
-    \hspace*{\algorithmicindent} \textbf{Given:} $\colorS \in 2\mathcal{N}$ \textcolor{teal}{\small//Buffer size, even integer}
+    \hspace*{\algorithmicindent} \textbf{Given:} $\colorS \in 2\mathcal{N}$ \textcolor{teal}{\small//Buffer size (even integer)}
     \hspace*{\algorithmicindent}    \begin{algorithmic}[1]
-        \State $b \gets$ array, size $\colorS$ \textcolor{teal}{\small//Storage buffer}
+        \State $b \gets [\mathrm{null}_0, \mathrm{null}_1, \ldots, \mathrm{null}_{\colorS - 1}]$ \textcolor{teal}{\small//Storage buffer}
         \State $i \gets 0$ \textcolor{teal}{\small//Buffer index}
         \State $U \gets 1$ \textcolor{teal}{\small//Current sampling interval}
-        \State $j \gets 0$ \textcolor{teal}{\small//Position in sampling interval}
-        \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//For values in data stream}
+        \State $j \gets 0$ \textcolor{teal}{\small//Position within sampling interval}
+        \For{$v \in \mathrm{stream}$} \textcolor{teal}{\small//Take stream values}
         \State $j \gets j + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$j = U$}  \textcolor{teal}{\small//Sampling interval complete}
         \State $b[i] \gets v$ \textcolor{teal}{\small//Store data}
@@ -16,14 +16,14 @@
         \State $i \gets i + 1$  \textcolor{teal}{\small//Advance one position}
         \If{$i = \colorS$} \textcolor{teal}{\small//Buffer full?}
         \State $i \gets \colorS / 2$ \textcolor{teal}{\small//Reset to midpoint}
-        \State $U \gets 2U$ \textcolor{teal}{\small//Double sampling interval}
+        \State $U \gets 2U$ \textcolor{teal}{\small//Double the sampling interval}
         \For{$j \in [0\twodots \colorS/2)$}
         \State $b[j] \gets b[2j]$ \textcolor{teal}{\small//Copy every other to front}
         \EndFor
         \EndIf
         \EndIf
         \EndFor
-        \Return $b$ \textcolor{teal}{\small//Stored data}
+        \Return $b$ \textcolor{teal}{\small//Final stored data}
     \end{algorithmic}
 \end{minipage}
 \end{algorithm}

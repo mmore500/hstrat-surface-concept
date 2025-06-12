@@ -4,7 +4,7 @@
 \begin{minipage}{0.5\textwidth}
     \hspace*{\algorithmicindent} \textbf{Given:} $\colorS \in \mathcal{N}$ \textcolor{teal}{\small//Buffer size}
     \hspace*{\algorithmicindent}    \begin{algorithmic}[1]
-        \State $b \gets$ array, size $\colorS$ \textcolor{teal}{\small//Storage buffer}
+        \State $b \gets [\mathrm{null}_0, \mathrm{null}_1, \ldots, \mathrm{null}_{\colorS - 1}]$ \textcolor{teal}{\small//Storage buffer}
         \State $w \gets [\colorS, \;\; 0]$ \textcolor{teal}{\small//Bucket size list}
         \For{$\colorT, \;\; v \in \mathrm{enumeratedStream}$} \textcolor{teal}{\small//Take stream indices and values}
         \If{$\colorT < \colorS$} \textcolor{teal}{\small//Handle initial fill\ldots}
@@ -29,7 +29,7 @@
         \EndWhile
         \State $b[0] \gets v$ \textcolor{teal}{\small// \ldots store new value at front}
         \EndFor
-        \Return $b$ \textcolor{teal}{\small//Stored data}
+        \Return $b$ \textcolor{teal}{\small//Final stored data}
     \end{algorithmic}
 \end{minipage}
 \end{algorithm}
