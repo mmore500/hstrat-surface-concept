@@ -3,11 +3,12 @@
 \hline
 Name            & Description                                                        & Source                                                   \\ \hline
 gunther steady  & generalized ring buffer, based on modular arithmetic               & \citep{gunther2014algorithm}          \\
-doubling steady & at max capacity, every other thinned and sampling interval doubled & \citep{gunther2014algorithm}          \\
+doubling steady & at max capacity, every other thinned and sampling interval doubled & \citep{gunther2014algorithm}, Listing Listing \ref{alg:control-doubling-steady}          \\
 zhao steady     & iterative buffer search, using criterion based on stored gap sizes & \citep[Fig.~6]{zhao2005generalized}  \\
 dstream tilted  & generalized ring buffer, based on hanoi value sequence             & Listing \ref{alg:tilted-site-selection} \\
-doubling tilted & at max capacity, every other thinned; no sampling interval change  & tilted analog of doubling steady                         \\
-zhao tilted     & iterative buffer search, using criterion based on stored gap sizes & \citep[Fig.~10]{zhao2005generalized}
+doubling tilted & at max capacity, every other thinned; no sampling interval change  & Listing \ref{alg:control-doubling-tilted}                         \\
+zhao tilted     & iterative buffer search, using criterion based on stored gap sizes & \citep[Fig.~10]{zhao2005generalized} \\
+zhao tilted ext  & space-filling extension of ``zhao tilted'' & Listing \ref{alg:zhao-tilted-full}
 \end{tabular}
 \caption{Benchmarked stream curation algorithms}
 \label{tab:algorithms}
