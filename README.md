@@ -20,6 +20,14 @@ hsurf provides efficient, constant-space downsampling of data streams via DStrea
 
 `python3 -m pip install "git+https://github.com/mmore500/hstrat-surface-concept.git@v1.0.2#egg=hsurf"`
 
+To set up locally,
+
+```bash
+git clone --single-branch https://github.com/mmore500/hstrat-surface-concept.git
+cd hstrat-surface-concept
+./submodules.sh
+```
+
 ## Documentation
 
 Slide deck & graphics for this project are at <https://hopth.ru/ce>.
