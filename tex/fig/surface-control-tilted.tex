@@ -1,0 +1,36 @@
+\begin{figure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\caption{naive doubling algorithm (Listing \ref{alg:control-doubling-tilted})}
+\label{fig:surface-control-tilted:naive-doubling}
+\end{subfigure}
+\begin{minipage}{0.63\linewidth}
+\centering
+\includegraphics[width=\linewidth]{img/surface-control-tilted-saturating-bucket}
+\end{minipage}
+
+\vspace{1ex}
+
+\noindent\rule{\linewidth}{1pt}
+
+\vspace{1ex}
+
+\begin{subfigure}{0.33\linewidth}
+\centering
+\caption{saturating bucket algorithm (Listing \ref{alg:zhao-tilted-full})}
+\label{fig:surface-control-tilted:saturating-bucket}
+\end{subfigure}
+\begin{minipage}{0.63\linewidth}
+\includegraphics[width=\linewidth]{img/surface-control-tilted-naive-doubling}
+\end{minipage}
+
+\caption{%
+\textbf{Comparator stream curation algorithms.}
+\footnotesize
+Example buffer state sequences, from top to bottom.
+Stored data items shown as stream arrival index (hexidecimal notation).
+For panels \cref{fig:surface-control:zhao-steady,fig:surface-control:zhao-tilted-ext}, buckets indicated by braced groupings.
+}
+\label{fig:surface-control-tilted}
+
+\end{figure}
