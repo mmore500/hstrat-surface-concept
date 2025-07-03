@@ -1,26 +1,74 @@
-\begin{figure*}
+\begin{figure}
 
-\begin{subfigure}{0.5\linewidth}
+\begin{subfigure}{0.3\linewidth}
 \centering
-\includegraphics[width=0.83\linewidth]{img/curation-ingest-lookup-ring}
 \caption{simple ring buffer}
 \label{fig:curation-ingest-lookup:ring}
-\end{subfigure}%
-\begin{subfigure}{0.5\linewidth}
+\end{subfigure}
+\begin{minipage}{0.6\linewidth}
 \centering
-\includegraphics[width=0.83\linewidth]{img/curation-ingest-lookup-steady}
-\caption{generalized ring buffer}
+\includegraphics[width=\linewidth]{img/ring-buffer-simple}
+\end{minipage}
+
+\vspace{1ex}
+
+\noindent\rule{\linewidth}{1pt}
+
+\begingroup\setlength{\fboxsep}{0pt}%
+\noindent\fcolorbox{blue!0}{blue!10}{%
+\begin{minipage}{0.02\linewidth}~\end{minipage}%
+\begin{subfigure}{0.3\linewidth}
+\centering
+\caption{generalized ring buffer: steady curation}
 \label{fig:curation-ingest-lookup:steady}
 \end{subfigure}%
+\begin{minipage}{0.02\linewidth}~\end{minipage}%
+\noindent\fcolorbox{blue!4}{blue!4}{%
+\begin{minipage}{0.02\linewidth}~\end{minipage}%
+\begin{minipage}{0.6\linewidth}
+\centering
+\vspace{1ex}
+
+\includegraphics[width=\linewidth]{img/ring-buffer-steady}
+\vspace{1ex}
+\end{minipage}%
+}%
+}
+\endgroup
+
+\noindent\rule{\linewidth}{1pt}
+
+\begingroup\setlength{\fboxsep}{0pt}%
+\noindent\fcolorbox{purple!0}{purple!10}{%
+\begin{minipage}{0.02\linewidth}~\end{minipage}%
+\begin{subfigure}{0.3\linewidth}
+\centering
+\caption{generalized ring buffer: tilted curation}
+\label{fig:curation-ingest-lookup:tilted}
+\end{subfigure}%
+\begin{minipage}{0.02\linewidth}~\end{minipage}%
+\noindent\fcolorbox{purple!4}{purple!4}{%
+\begin{minipage}{0.02\linewidth}~\end{minipage}%
+\begin{minipage}{0.6\linewidth}
+\centering
+\vspace{1ex}
+
+\includegraphics[width=\linewidth]{img/ring-buffer-tilted}
+\vspace{1ex}
+\end{minipage}%
+}%
+}
+\endgroup
 
 \caption{
-  {\textbf Comparison of simple ring buffer to generalized ring buffer curation.}
+  {\textbf Comparison of simple ring buffer to generalized ring buffers.}
   \footnotesize
+  TODO
   Both approaches accumulate items ingested from a data stream into a fixed-capacity memory buffer.
   However, whereas the ring buffer retains only most-recent items, the generalized algorithm maintains a sample spanning the entirety of elapsed history.
   We notate ingest site assignment and stored item attribution, respectively, as $\colorK$ and $\colorL$.
   For the proposed DStream tilted algorithm these operations are described in Listings and \ref{alg:tilted-site-selection} and \ref{alg:tilted-time-lookup}.
 }
 \label{fig:curation-ingest-lookup}
-\end{figure*}
+\end{figure}
 % https://docs.google.com/presentation/d/1-7eLWTSH16s1MpGyT0iTJGAVLEYdKM7hK3ao2y_bW9A
