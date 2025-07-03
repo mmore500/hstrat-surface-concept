@@ -33,7 +33,7 @@ from .modulo import modulo
 from .prepend_cmap_with_color import prepend_cmap_with_color
 from .round_to_one_sigfig import round_to_one_sigfig
 from .sign import sign
-from .tee_release import tee_release
+from .tee_release import tee_release, teed_release
 
 __all__ = [
     "bit_ceil",
@@ -67,5 +67,6 @@ __all__ = [
     "site_selection_eval",
     "site_selection_viz",
     "tee_release",
+    "teed_release",
     "webfont",
 ]
