@@ -9,3 +9,7 @@
 [submodule "downstream-benchmark"]
 	path = downstream-benchmark
 	url = https://github.com/mmore500/downstream-benchmark.git
+[submodule "tex/binder-new"]
+	path = tex/binder-new
+	url = https://github.com/mmore500/hstrat-surface-concept.git
+	branch = binder
