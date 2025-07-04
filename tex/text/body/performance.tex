@@ -96,8 +96,6 @@ This project benefited significantly from open-source scientific software \citep
 
 \subsection{Benchmark Results}
 
-\input{fig/pico-performance}
-
 Figure \ref{fig:pico-performance} compares per-item ingest times among benchmarked approaches.
 Timings were qualitively consistent across surveyed buffer sizes and data types, with the notable exception of the \textit{zhao steady} approach --- which pessimizes considerably for large buffer size.
 In light of this broad consistency, quoted timings focus on the case of single-byte data with buffer capacity of 256 items.
@@ -108,9 +106,6 @@ Behind the control treatments, the naive \textit{steady doubling} and \textit{ti
 Third-fastest were generalized ring buffer approaches, with the \textit{gunther steady} algorithm elapsing TODO ns per item ingested and the \textit{dstream tilted} algorithm requiring TODO ns per item ingested.
 Finally, stateful, iterative approaches produced the slowest timings --- TODO ns and TODO ns.
 (Note, though, that the \textit{zhao steady} algorithm did produce comparable timings to the generalized ring buffer approaches at the smallest 64-item buffer capacity).
-
-\input{fig/steady-mem}
-\input{fig/tilted-mem}
 
 Memory usage results are shown in Figures \ref{fig:steady-mem} and \ref{fig:tilted-mem}.
 In the average case, naive doubling approaches occupied between TODO\% and TODO\% larger memory footprints per item stored compared to the corresponding generalized ring buffer approach.
