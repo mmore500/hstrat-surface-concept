@@ -1,10 +1,10 @@
 \begin{figure*}[htbp!]
   \centering
-  \begin{subfigure}{0.5\textwidth}
-  \includegraphics[width=\textwidth, clip, trim={0 1.25cm 1.25cm 0}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}
+  \begin{subfigure}{0.542\textwidth}
+  \includegraphics[width=\textwidth, clip, trim={0 1.25cm 0 0}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}
   \end{subfigure}%
-  \begin{subfigure}{0.5\textwidth}
-  \includegraphics[width=\textwidth, clip, trim={1.25cm 1.25cm 0 0}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}
+  \begin{subfigure}{0.458\textwidth}
+    ~
   \end{subfigure}
 
 \begin{subfigure}{\linewidth}
@@ -109,17 +109,20 @@
 \end{tikzpicture}
 \end{subfigure}
 
+% \begin{subfigure}{0.5\textwidth}
+% \includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}\vspace{-1ex}
+% \caption{\footnotesize Sites numbered by reserved hanoi value $\colorHcal_{\colort}(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
+% \label{fig:hsurf-stretched-intuition-reservations}
+% \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}\vspace{-1ex}
-\caption{\footnotesize Sites numbered by reserved hanoi value $\colorHcal_{\colort}(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
-\label{fig:hsurf-stretched-intuition-reservations}
-\end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\textwidth, clip, trim={1.25cm 0 0 11.2cm}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}\vspace{-1ex}
+\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]{binder/teeplots/20/plotter=size+surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}\vspace{-1ex}
 \caption{\footnotesize Initialized $r$ and mature $R$ reservation segment sizes.}
 \label{fig:hsurf-stretched-intuition-reservations-size}
-\end{subfigure}\vspace{-1ex}
-  \caption{
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}~\end{subfigure}\vspace{-1ex}
+
+
+\caption{
     \textbf{Buffer layout strategy.}
     \footnotesize
     Left panel \ref{fig:hsurf-stretched-intuition-reservations} shows progression of \hv{} reservations $\colorHcal_{\colort}(\colork)$ on a buffer with size $\colorS=16$ across supported epochs $\colort \in [0\twodots\colorS - \colors)$.
