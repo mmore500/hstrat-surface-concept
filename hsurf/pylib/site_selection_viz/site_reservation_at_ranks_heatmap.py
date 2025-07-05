@@ -12,6 +12,7 @@ def site_reservation_at_ranks_heatmap(
     surface_history_df: pd.DataFrame,
     ranks: typing.List[int],
     reservation_mode: str = "tilted",
+    swap_yaxes: bool = False,
     zigzag: bool = True,
     plotter_: typing.Callable = site_reservation_at_rank_heatmap,
 ) -> mpl_figure.Figure:
@@ -81,6 +82,25 @@ def site_reservation_at_ranks_heatmap(
                     clip_on=False,
                 )
 
+        if swap_yaxes:
+            ax.yaxis.tick_right()
+            ax.yaxis.set_label_position("right")
+            ax.spines["right"].set_visible(False)
+            ax.spines["left"].set_visible(False)
+            ax.set_yticklabels(
+                ax.get_yticklabels(),
+                rotation=0,
+            )
+
+            ax2.yaxis.tick_left()
+            ax2.yaxis.set_label_position("left")
+            ax2.spines["left"].set_visible(False)
+            ax2.spines["right"].set_visible(False)
+            ax2.set_yticklabels(
+                ax2.get_yticklabels(),
+                rotation=0,
+            )
+
     # Draw labels onto edge axes...
     # Left edge, epoch
     for ax in axs[:, 0]:
@@ -88,7 +108,7 @@ def site_reservation_at_ranks_heatmap(
     axs[(len(ranks) - 1) // 2, 0].text(
         0.0,
         0.5,
-        "Epoch",
+        ["Epoch", "Meta-epoch"][swap_yaxes],
         rotation=90,
         ha="center",
         va="center",
@@ -97,8 +117,8 @@ def site_reservation_at_ranks_heatmap(
     axs[(len(ranks) - 1) // 2, 0].text(
         0.0,
         0.5,
-        "           t",
-        color="#EF58A0",
+        ["           t", "                    τ"][swap_yaxes],
+        color=["#EF58A0", "#ff7f00"][swap_yaxes],
         rotation=90,
         ha="center",
         va="center",
@@ -112,7 +132,7 @@ def site_reservation_at_ranks_heatmap(
     axs[(len(ranks) - 1) // 2, 2].text(
         1.0,
         0.5,
-        "Meta-epoch",
+        ["Meta-epoch", "Epoch"][swap_yaxes],
         rotation=-90,
         ha="center",
         va="center",
@@ -121,8 +141,8 @@ def site_reservation_at_ranks_heatmap(
     axs[(len(ranks) - 1) // 2, 2].text(
         1.0,
         0.5,
-        "                    τ",
-        color="#ff7f00",
+        ["                    τ", "           t"][swap_yaxes],
+        color=["#ff7f00", "#EF58A0"][swap_yaxes],
         rotation=-90,
         ha="center",
         va="center",
