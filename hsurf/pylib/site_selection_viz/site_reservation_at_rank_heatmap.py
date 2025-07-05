@@ -15,9 +15,15 @@ def site_reservation_at_rank_heatmap(
     surface_history_df: pd.DataFrame,
     rank: int,
     ax: typing.Optional[mpl_axes.Axes] = None,
+    palette: typing.Optional[list] = None,
     reservation_mode: str = "tilted",
     zigzag: bool = False,
 ) -> mpl_axes.Axes:
+
+    if palette is None:
+        palette = sns.color_palette("tab10", 10) + sns.color_palette(
+            "pastel", 10
+        )
 
     slice_df = (
         surface_history_df[surface_history_df["rank"] == rank]
@@ -29,7 +35,7 @@ def site_reservation_at_rank_heatmap(
         data=slice_df.pivot(index="rank", columns="site", values="hanoi value"),
         ax=ax,
         cbar=False,
-        cmap=sns.color_palette("tab10", 10) + sns.color_palette("pastel", 10),
+        cmap=palette,
         vmax=19.9,  # align cbar labels
         vmin=0,  # align cbar labels
     )
