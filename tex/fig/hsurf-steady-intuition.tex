@@ -1,0 +1,76 @@
+\begin{figure*}[htbp!]
+  \flushleft
+  \begin{subfigure}[b]{1.008\linewidth}
+    \hspace{-1.7ex}
+    \includegraphics[width=\textwidth, trim={0cm 0cm 0cm 1cm}, clip]{img/hsurf-steady-intuition}
+    \vspace{-2ex}
+    \caption{\footnotesize Site selection $\colorK(\colorT)$ for data items of one \hv{}, $\colorh = 6$.}
+    \label{fig:hsurf-steady-intuition-diagram}
+  \end{subfigure}
+\vspace{-5ex}
+  \flushright
+  \begin{subfigure}[b]{0.98\linewidth}
+    \includegraphics[width=0.011\textwidth, trim={0.2cm 2.8cm 31.8cm 2.8cm}, clip]{binder/teeplots/12/reservation-mode=steady-full+surface-size=32+viz=site-reservation-at-ranks-heatmap+ext=.pdf}%
+    \begin{tikzpicture}
+
+    % Include the image in a node
+    \node [
+      above right,
+      inner sep=0] (image) at (0,0) {\includegraphics[width=0.989\textwidth, trim={0.7cm 0cm 1.4cm 5.6cm}, clip]{binder/teeplots/12/reservation-mode=steady-full+surface-size=32+viz=site-reservation-at-ranks-heatmap+ext=.pdf}};
+
+    % Create scope with normalized axes
+    \begin{scope}[
+      x={($0.1*(image.south east)$)},
+      y={($0.1*(image.north west)$)}]
+
+    % Grid
+      % \draw[lightgray,step=0.5] (image.south west) grid (image.north east);
+    % Axes' labels
+      % \foreach \x in {0,1,...,10} { \node [below] at (\x,0) {\x}; }
+      % \foreach \y in {0,1,...,10} { \node [left] at (0,\y) {\y};}
+
+\draw[stealth-, ultra thick, gray](0.37,2.68) -- ++(0, -0.5) node[font=\footnotesize] at (1.62, 2.38) {incidence $i=0$ of $\colorH(\colorT)=6$ at $\colorT=63$};
+\draw[stealth-, ultra thick, gray](2.21+0.6,1.1+3.84) -- ++(0, -0.5) node[font=\footnotesize] at (2.45+0.6, 3.5+1.1) {$i=1$~~~of $\colorH(\colorT)=6$};
+\draw[stealth-, ultra thick, gray](3.74-0.3,1.1+4.9) -- ++(0, -0.5) node[font=\footnotesize] at (3.53-0.3, 4.61+1.1) {$i=2$};
+\draw[stealth-, ultra thick, gray](4.66-0.3,1.1+4.9) -- ++(0, -0.5) node[font=\footnotesize] at (4.45-0.3, 4.61+1.1) {$i=3$};
+\draw[stealth-, ultra thick, gray](5.27,1.1+5.96) -- ++(0, -0.5) node[font=\footnotesize] at (5.06, 5.67+1.1) {$i=4$};
+\draw[stealth-, ultra thick, gray](5.88,1.1+5.96) -- ++(0, -0.5) node[font=\footnotesize] at (5.67, 5.71+1.1) {$i=5$};
+\draw[stealth-, ultra thick, gray](6.5,1.1+5.96) -- ++(0, -0.5) node[font=\footnotesize] at (6.29, 5.71+1.1) {$i=6$};
+\draw[stealth-, ultra thick, gray](7.12,1.1+5.96) -- ++(0, -0.5) node[font=\footnotesize] at (6.91, 5.68+1.1) {$i=7$};
+\draw[stealth-, ultra thick, gray](7.41+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (7.30+0.3, 6.65+1.1) {$8$};
+\draw[stealth-, ultra thick, gray](7.72+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (7.61+0.3, 6.65+1.1) {$9$};
+\draw[stealth-, ultra thick, gray](8.02+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (7.91+0.3, 6.65+1.1) {$10$};
+\draw[stealth-, ultra thick, gray](8.32+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (8.21+0.3, 6.65+1.1) {$11$};
+\draw[stealth-, ultra thick, gray](8.61+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (8.5+0.3, 6.65+1.1) {$12$};
+\draw[stealth-, ultra thick, gray](8.94+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (8.83+0.3, 6.65+1.1) {$13$};
+\draw[stealth-, ultra thick, gray](9.25+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (9.14+0.3, 6.65+1.1) {$14$};
+\draw[stealth-, ultra thick, gray](9.55+0.3,1.1+7.06) -- ++(0, -0.5) node[font=\footnotesize] at (9.44+0.3, 6.65+1.1) {$15$};
+    \end{scope}
+
+    \end{tikzpicture}
+    \vspace{-5ex}
+    \caption{\footnotesize Sites reserved for \hv{} $\colorHcal_{\colort}(\colork)$ over epochs $\colort=0$ to $\colort=7$. H.v.{} $\colorh=6$ annotated as an example.}
+    \label{fig:hsurf-steady-intuition-heatmap}
+  \end{subfigure}%
+  \vspace{-2ex}
+  \caption{
+    \textbf{Steady algorithm strategy.}
+    \footnotesize
+    Top panel \ref{fig:hsurf-steady-intuition-diagram} shows sites selected for items with \hv{} $\colorh=6$ from their first occurrence during epoch $\colort=2$ to epoch $\colort=7$, when stored instances of that \hv{} are overwritten.
+    Memory buffer sites are shown across the bottom of the schematic.
+    Data items' vertical span stretches across time from the epoch when they are stored to the epoch when they are overwritten.
+    The first data item with hanoi value $\colorH(\colorT) = \colorh$ is placed in bunch 0 during epoch $\colort=\colorh-4$.
+    The next data item with \hv{} $\colorh$ is encountered in the following epoch, and it is placed in bunch 1.
+    In epoch $\colort=\colorh-2$, two data items with \hv{} $\colorh$ are encountered and placed into segments within bunch 2.
+    Epoch $\colort=\colorh-1$, encounters 4 data items with \hv{} $\colorh-1$ places them in bunch 3's segments.
+    In epoch $\colort=\colorh$, eight \hv{} $\colorh$ data items (twice as many) are encountered.
+    We place them in bunch 4's one-site segments.
+    Finally, during epoch $\colort=\colorh+1$, all further ingested data items with \hv{} $\colorh$ are discarded and all existing stored \hv{} $\colorh$ items are overwritten.
+    In this manner, data items with highest \hv{} are retained on a rolling basis to provide uniformly-spaced gaps --- as laid out in Figure \ref{fig:hanoi-intuition-steady}.
+    Bottom panel \ref{fig:hsurf-steady-intuition-heatmap} shows \hv{} site reservations $\colorHcal_{\colort}(\colork)$ from epoch $\colort=0$ through $\colort=5$ with buffer size $\colorS=16$.
+    Numbering/color coding corresponds to which \hv{} a site is reserved for.
+    Black dividers separate bunches; white space divides segments within bunches.
+    Annotations highlight the lifecycle of data items with \hv{} $\colorh=6$.
+  }
+  \label{fig:hsurf-steady-intuition}
+\end{figure*}
