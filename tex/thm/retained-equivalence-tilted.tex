@@ -1,0 +1,273 @@
+\begin{lemma}[Tilted algorithm retained data items]
+\label{thm:retained-equivalence-tilted}
+If the most recent $n$ data items $\colorH(\colorTbar) = \colorh$ for each \hv{} $\colorh$ are guaranteed retained, then we are guaranteed to have all
+\begin{align*}
+\colorTbar
+&\in
+\{
+  2^{\colorh'}\Big(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j'\Big) - 1
+  :
+  j' \in [0 \twodots 2n - 1]
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+Note that, although this formulation nominally includes $\colorTbar < 0$, an extension filtering $\colorTbar \in [0 \twodots \colorT)$ follows trivially.
+\end{lemma}
+\begin{proof}
+
+Recall that the $j$th instance of hanoi value $\colorh$ appears at ingest time
+\begin{align*}
+\colorTbar
+&= j2^{\colorh + 1} + 2^{\colorh} - 1
+\end{align*}
+with $j$ indexed from zero.
+
+The set of retained data items can be denoted
+\begin{align*}
+\mathsf{have\_retained} \coloneq
+\{
+  2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
+  :
+  j \in [0 \twodots n-1]
+  \text{ and }
+  \colorh \in \mathbb{N}
+\}.
+\end{align*}
+We will show $\mathsf{have\_retained}$ equivalent to,
+\begin{align*}
+\mathsf{want\_retained} \coloneq
+\{
+  2^{\colorh'}\Big(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j'\Big) - 1
+  :
+  j' \in [0 \twodots 2n-1]
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+
+Sublemma \ref{thm:tilted-rsubset} shows $\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$.
+From Sublemma \ref{thm:tilted-subsetr}, $\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$.
+Hence, $\mathsf{want\_retained} = \mathsf{have\_retained}$.
+
+\end{proof}
+
+\begin{sublemma}[$\mathsf{have\_retained} \subseteq \mathsf{want\_retained}$]
+\label{thm:tilted-rsubset}
+Set $\mathsf{have\_retained}$ subsets set $\mathsf{want\_retained}$,
+\begin{align*}
+&\{
+  2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
+  :
+  j \in [0 \twodots n-1]
+  \text{ and }
+  \colorh \in \mathbb{N}
+\}\\
+&\subseteq
+\{
+  2^{\colorh'}\Big(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j\Big) - 1
+  :
+  j' \in [0 \twodots 2n-1]
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+\end{sublemma}
+\begin{proof}
+Suppose $\colorTbar \in \mathsf{have\_retained}$.
+Then $\exists j \in [0 \twodots n-1]$ and $\colorh \in \mathbb{N}$ such that
+\begin{align*}
+\colorTbar
+&= 2^{\colorh \eqnmarkbox[yellow]{}{+ 1}}\Big(\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j \Big) \eqnmarkbox[orange]{}{+ 2^{\colorh}} - 1\\
+% &= 2^{\colorh + 1}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}\right\rfloor - 2^{\colorh}(2j) + 2^{\colorh} - 1\\
+&= 2^{\colorh} \Big(\eqnmarkbox[yellow]{}{2}\left\lfloor \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor  - \eqnmarkbox[yellow]{}{2}j \eqnmarkbox[orange]{}{+ 1} \Big) - 1.
+\end{align*}
+Denoting $\epsilon \in \{0, 1\}$ as a continuity correction for the integer floor,
+\begin{align*}
+\colorTbar
+&= 2^{\colorh} \Big( \left\lfloor \eqnmarkbox[YellowGreen]{}{2} \frac{\colorT \eqnmarkbox[Orchid]{}{- 2^{\colorh}}}{2^{\colorh+1}} \right\rfloor \eqnmarkbox[YellowGreen]{}{- \epsilon}  - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big( \left\lfloor \frac{\colorT}{2^{\colorh}} \right\rfloor \eqnmarkbox[Orchid]{}{- 1} - \epsilon - 2j + 1 \Big) - 1\\
+&= 2^{\colorh} \Big(\left\lfloor \frac{\colorT}{2^{\colorh}}\right\rfloor - (2j + \epsilon) \Big) - 1.
+\end{align*}
+Note that $(2j + \epsilon) \in [0 \twodots 2n-1]$ for $j \in [0 \twodots n-1]$, giving $\mathsf{have\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{want\_retained}$.
+\end{proof}
+
+\begin{sublemma}[$\mathsf{want\_retained} \subseteq \mathsf{have\_retained}$]
+\label{thm:tilted-subsetr}
+Set $\mathsf{want\_retained}$ subsets $\mathsf{have\_retained}$,
+\begin{align*}
+&\{
+  2^{\colorh'}\Big(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j'\Big) - 1
+  :
+  j' \in [0 \twodots 2n-1]
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}\\
+&\subseteq
+\{
+  2^{\colorh + 1}\Big( \left\lfloor\frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}} \right\rfloor - j\Big) + 2^{\colorh} - 1
+  :
+  j \in [0 \twodots n-1]
+  \text{ and }
+  \colorh \in \mathbb{N}
+\}.
+\end{align*}
+
+\end{sublemma}
+\begin{proof}
+Suppose $\colorTbar \in \mathsf{want\_retained}$.
+Then $\exists j' \in [0 \twodots 2n - 1]$ and $\colorh' \in \mathbb{N}$ such that
+\begin{align*}
+\colorTbar
+&= 2^{\colorh'}\Big(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j'\Big) - 1.
+\end{align*}
+
+Begin by calculating how many factors of two divide $\colorTbar + 1$, $\colorH(\colorTbar)$.
+Note that we have $\colorH(\colorTbar) \geq \colorh'$ because $2^{\colorh'}$ divides $\colorTbar + 1 = 2^{\colorh'}(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j')$.
+With this fact in hand, we may rearrange our formula for $\colorTbar$,
+\begin{align}
+\colorTbar
+&= 2^{\colorh'}\Big(\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j'\Big) - 1 \nonumber\\
+&= 2^{\eqnmarkbox[yellow]{}{\colorH(\colorTbar)}} \Big(
+\frac{\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor - j'}{2^{\eqnmarkbox[yellow]{}{\colorH(\colorTbar) - \colorh'}}}
+\Big)
+- 1 \nonumber\\
+&= 2^{\colorH(\colorTbar)} \Big(
+\frac{\left\lfloor \frac{\colorT}{2^{\colorh'}} \right\rfloor \eqnmarkbox[orange]{}{- 2^{\colorH(\colorTbar) - \colorh'}}}{2^{\colorH(\colorTbar) - \colorh'}}
+\eqnmarkbox[orange]{}{+ 1}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}}
+\Big)
+- 1 \nonumber\\
+&= 2^{\colorH(\colorTbar)} \Big(
+\frac{\left\lfloor \frac{\colorT}{2^{\colorh'}} \eqnmarkbox[orange]{}{- 2^{\colorH(\colorTbar) - \colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh'}}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh'}}
+\Big)
+\eqnmarkbox[orange]{}{+ 2^{\colorH(\colorTbar)}}
+- 1 \nonumber\\
+&= 2^{\colorH(\colorTbar) \eqnmarkbox[Orchid]{}{+ 1}} \Big(
+\frac{\left\lfloor \frac{\colorT}{2^{\colorh'}} \eqnmarkbox[YellowGreen]{}{- 2^{\colorH(\colorTbar) - \colorh'}} \right\rfloor}{2^{\colorH(\colorTbar) - \colorh' \eqnmarkbox[Orchid]{}{+ 1}}}
+-
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' \eqnmarkbox[Orchid]{}{+ 1}}}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1 \nonumber\\
+&= 2^{\colorH(\colorTbar) + 1} \Big(
+\frac{\left\lfloor \frac{\colorT \eqnmarkbox[YellowGreen]{}{- 2^{\colorH(\colorTbar)}}}{2^{\eqnmarkbox[SkyBlue]{}{\colorh'}}} \right\rfloor}{2^{\colorH(\colorTbar) \eqnmarkbox[SkyBlue]{}{-\colorh'} + 1}}
+- \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1.
+\nonumber
+\end{align}
+
+Letting $\epsilon \in [0, 1/2)$ denote a continuity correction factor for the integer floor,
+\begin{align}
+\colorTbar
+&= 2^{\colorH(\colorTbar) + 1} \Big(
+\left\lfloor
+\frac{\colorT - 2^{\colorH(\colorTbar)}}{2^{\colorH(\colorTbar) + 1}}
+\right\rfloor
+\eqnmarkbox[SkyBlue]{}{+ \epsilon}
+-
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1 \nonumber \\
+&= 2^{\colorH(\colorTbar) + 1} \Big(
+\left\lfloor
+\frac{\colorT - 2^{\colorH(\colorTbar)}}{2^{\colorH(\colorTbar) + 1}}
+\right\rfloor
+-
+\eqnmarkbox[gray]{proofgoal}{
+  \Big(
+  \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+  - \epsilon
+  \Big)
+}
+\Big)
++ 2^{\colorH(\colorTbar)}
+- 1.
+\label{eqn:needtoshowj}\\
+\nonumber
+\annotate[yshift=0em]{below,right}{proofgoal}{need to show $\in [0 \twodots n-1]$}
+\end{align}
+
+By definition, $2^{\colorH(\colorTbar)}$ divides $\colorTbar + 1$ and the quotient $(\colorTbar + 1) / 2^{\colorH(\colorTbar)}$ is an odd, positive integer.
+So, $(\eqnmarkbox[yellow]{}{\colorTbar} + 1) / 2^{\colorH(\colorTbar)} - 1$ is an even, non-negative integer.
+Applying this observation to our expression for $\colorTbar$ from Equation \ref{eqn:needtoshowj},
+\begin{align*}
+  \frac{
+  \eqnmarkbox[yellow]{}{
+  2^{\colorboxed{orange}{\colorH(\colorTbar)} + 1} \Big(
+    \left\lfloor
+    \frac{\colorT - 2^{\colorH(\colorTbar)}}{2^{\colorH(\colorTbar) + 1}}
+    \right\rfloor
+    -
+    \Big(
+    \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+    - \epsilon
+    \Big)
+    \Big)
+    \colorboxed{YellowGreen}{+ 2^{\colorH(\colorTbar)}}
+    \colorboxed{Orchid}{- 1}
+  }
+  \colorboxed{Orchid}{+ 1}
+  }{2^{\colorboxed{orange}{\colorH(\colorTbar)}}}
+  \colorboxed{YellowGreen}{- 1}
+  &= 2 \Big(
+    \left\lfloor
+    \frac{\colorT - 2^{\colorH(\colorTbar)}}{2^{\colorH(\colorTbar) + 1}}
+    \right\rfloor
+    -
+    \Big(
+    \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+    - \epsilon
+    \Big)
+    \Big)\\
+    &\in [0, 2, 4,\;\; \ldots].
+\end{align*}
+
+% \frac{\left\lfloor \frac{\colorT + 1}{2^{\colorh'}} \right\rfloor - j'}{2^{\colorH(\colorTbar) - \colorh'}} \in [1, 3, 5, \;\; \ldots],
+% \end{align*}
+Dividing by 2,
+\begin{align*}
+  \left\lfloor
+  \frac{\colorT - 2^{\colorH(\colorTbar)}}{2^{\colorH(\colorTbar) + 1}}
+  \right\rfloor
+  -
+  \Big(
+  \frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+  - \epsilon
+  \Big)
+  &\in \mathbb{N}.
+\end{align*}
+Because
+\begin{align*}
+\left\lfloor
+\frac{
+  \colorT - 2^{\colorH(\colorTbar)}
+}{
+  2^{\colorH(\colorTbar) + 1}
+}
+\right\rfloor
+- \Big(
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+- \epsilon
+\Big)
+\in \mathbb{Z},
+\end{align*}
+we necessarily have
+\begin{align*}
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+- \epsilon
+\in \mathbb{Z}.
+\end{align*}
+Further, because $\epsilon \in [0, 1/2)$, $j' \in [0 \twodots 2n-1]$, and $\colorH(\colorTbar) - \colorh'  + 1 \geq 1$,
+\begin{align*}
+\frac{j'}{2^{\colorH(\colorTbar) - \colorh' + 1}}
+- \epsilon
+\stackrel{\checkmark}{\in}
+[0 \twodots n - 1].
+\end{align*}
+With $\colorh = \colorH(\colorTbar) \stackrel{\checkmark}{\in} \mathbb{N}$, we have the result: $\mathsf{want\_retained} \stackrel{\checkmark}{\subseteq} \mathsf{have\_retained}$.
+\end{proof}
