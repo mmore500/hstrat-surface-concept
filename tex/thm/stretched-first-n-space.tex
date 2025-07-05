@@ -1,0 +1,71 @@
+\begin{lemma}[Space required to store $\mathsf{goal\_stretched}$]
+\label{thm:stretched-first-n-space}
+
+Buffer space $\colorS$ suffices to store set $\mathsf{goal\_stretched}$.
+That is,
+\begin{align*}
+|\bigcup_{\colorh \geq 0}
+\{ \colorTbar = i2^{\colorh + 1} + 2^{\colorh} - 1 \text{ for } i \in [0 \twodots n(\colorT) - 1] : \colorTbar < \colorT \}| \leq \colorS
+\end{align*}
+for $n(\colorT) = 2^{\colors - 1 - \colortau}$.
+\end{lemma}
+\begin{proof}
+As defined over supported $\colorT < 2^{\colorS - 1}$, all meta-epochs $\colortau<\colors$.
+Counting data items required by $\mathsf{goal\_stretched}$,
+\begin{align*}
+\\
+|\mathsf{goal\_stretched}|
+&=
+\sum_{\colorh} \min\Big(
+\eqnmarkbox[gray]{sonetau}{2^{\colors - 1 - \colortau}},\;\; |\{ \colorTbar < \colorT : \colorH(\colorTbar) = \colorh \}|\Big)\\
+&=
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big)\\
+&=
+1 + \sum_{\colorh=0}^{\colors + \colort - 1} \min\Big(2^{\colors - 1 - \colortau},\;\; 2^{\colors + \colort - 1 - \colorh}\Big).
+\annotate[yshift=1em]{above,left}{sonetau}{%
+The set $\mathsf{goal\_stretched}$ only requires $2^{\colors - 1 - \colortau}$ of each \hv.
+}
+\end{align*}
+
+Splitting where $\colors - 1 - \colortau = \colors + \colort - 1 - \colorh$ (i.e., $\colorh = \colort + \colortau$),
+\begin{align*}
+|\mathsf{goal\_stretched}|
+&=
+1 + \sum_{\colorh=0}^{\colort + \colortau} 2^{\colors - 1 - \colortau} + \sum_{\colorh=\colort + \colortau + 1}^{\colors + \colort - 1} 2^{\colors + \colort - 1 - \colorh}\\
+&=
+1 + (\colort + \colortau + 1) 2^{\colors - 1 - \colortau} + 2^{\colors - 1 - \colortau} - 1 \tag{via summation identities}\\
+&=
+(\colort + \colortau + 2) 2^{\colors - 1 - \colortau}\\
+&\leq
+(2^{\colortau + 1} - (\colortau + 1) - 1 + \colortau + 2) 2^{\colors - 1 - \colortau} \tag{Equation \ref{eqn:meta-epoch-defn} for $\min(\colort \in \lBrace \colortau + 1 \rBrace)$} \\
+&\leq
+(2^{\colortau + 1}) 2^{\colors - 1 - \colortau}\\
+&\leq
+2^{\colors}\\
+&\stackrel{\checkmark}\leq
+\colorS.
+\end{align*}
+
+% Solving
+% \begin{align*}
+% \colors + \colort - 1 - \colorh &= \colors - 1 - \colortau\\
+% \colorh &= \colort + \colortau.
+% \end{align*}
+
+
+
+% for $\colort$ such that $\colorTbar \in \colortsetofT$.
+
+
+% Recalling that $\colorH(\colorTbar) \leq \left\lfloor \log_2\colorT + 1 \right\rfloor$ for $\colorTbar \leq \colorT$, we can formulate our cardinality in terms of \textit{not-yet-encountered} \hv{} instances,
+
+% \begin{align*}
+% \left\lfloor \log_2\colorT + 1 \right\rfloor
+% \times (\colors - 1 - \colortau)
+% -
+% \sum_{\colorh=0}^{\left\lfloor \log_2\colorT + 1 \right\rfloor
+% } |
+% \{ \colorTbar \in [\colorT \twodots 2^{\colorh + 1}(\colors - 1 - \colortau) - 1] : \colorH(\colorTbar) = \colorh \}
+% |.
+% \end{align*}
+\end{proof}
