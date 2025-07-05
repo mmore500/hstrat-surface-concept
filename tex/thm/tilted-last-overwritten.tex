@@ -1,0 +1,15 @@
+\begin{lemma}[Leftmost invaded site is overwritten last within epoch $\colort$]
+\label{thm:tilted-last-overwritten}
+Among the invaded data items $\colork$ overwritten at epoch $\colort > 0$, the leftmost data item is overwritten last.
+That is,
+\begin{align*}
+\min\{ \colorK(\colorT) \text{ for } \colorT \in \colortsetofT : \colorHcal_{\colort-1}(\colorK(\colorT)) \neq \colorH(\colorT) \}
+&=
+\colorK\Big(\max( \colorT \in \colortsetofT )\Big).
+\end{align*}
+\end{lemma}
+\begin{proof}
+By design, the leftmost site invaded during an epoch $\colort > 0$ is $\colork = \colort + \colors$, invaded by \hv{} $\colorh = \colort + \colors$.
+Hanoi value $\colorh = \colort + \colors$ occurs first at ingest time $\colorT = 2^{\colort + \colors} - 1$.
+Epoch $\colort + 1$ begins at time $\colorT = 2^{\colort + \colors}$, so epoch $\colort$ (which begins at time $\colorT = 2^{\colort + \colors - 1}$) ends at ingest time $2^{\colort + \colors - 1}$, giving the result.
+\end{proof}
