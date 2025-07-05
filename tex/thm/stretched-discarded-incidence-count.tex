@@ -1,0 +1,70 @@
+\begin{lemma}[Minimum retained data items per \hv{}]
+\label{thm:stretched-discarded-incidence-count}
+No data item $\colorTbar'$ is discarded unless more than $2^{\colors - 1 - \colortau}$ items with \hv{} $\colorH(\colorTbar')$ have been encountered.
+That is,
+\begin{align*}
+|\{
+\colorHcal_{\colort}(\colork) = \colorH(\colorTbar')
+: \colork \in [0\twodots\colorS)
+\}|
+&\geq
+\min\Big(
+|\{
+\colorTbar \in [0 \twodots \colorT)
+: \colorH(\colorTbar) = \colorH(\colorTbar')
+\}|,\;\;
+2^{\colors - 1 - \colortau}
+\Big).
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+By layout design, this proposition is trivially true for hanoi values with at least $2^{\colors-1-\colortau}$ sites.
+However, we must consider \hv{}'s with fewer than $2^{\colors-1-\colortau}$ reserved sites more closely.
+For these under-reserved \hv{}'s $\colorh$, we must show that no more items $\colorH(\colorTbar) = \colorh$ are encountered than sites reserved to \hv{} $\colorh$.
+
+\begin{proofpart}[How many hanoi values $\colorh$ have $2^{\colors - 1 - \colortau}$ reserved sites?]
+
+At the outset of each meta-epoch $\colortau$, there remain $2^{\colors - 1 - \colortau}$ uninvaded segments.
+Recall that at any epoch $\colort>0$, the smallest invading segment will be slated next for invasion after the current invasion's $R$ epochs.
+Thus, the smallest uninvaded segment's size at the outset of meta-epoch $\colortau$ can be calculated by subtracting growth during current meta-epoch $\colortau$ from site at next meta-epoch $\colortau - 1$,
+\begin{align*}
+R(\colortau + 1) - R(\colortau)
+&= (2^{\colortau + 1} - 1) - (2^{\colortau} - 1) \tag{by Lemma \ref{thm:stretched-meta-epoch}}\\
+&= 2^{\colortau + 1} - 2^{\colortau}\\
+&= 2^{\colortau}.
+\end{align*}
+With one site contributed for each \hv{} per uninvaded segment, all \hv{} $\colorh < 2^{\colortau}$ thus have reserved at least $2^{\colors - 1 - \colortau}$ sites.
+We thus can restrict consideration to $\colorh \geq 2^{\colortau}$.
+\end{proofpart}
+
+\begin{proofpart}[Hanoi values without $2^{\colors-1-\colortau}$ reserved sites]
+Recall that at the conclusion of epoch $\colort$, we have encountered one of the highest-value \hv{} $\colorh$, one of the second highest-value \hv{} $\colorh-1$, two of the third-highest \hv{} $\colorh-2$, etc.
+Also be reminded that the highest-value encountered \hv{} $\colorh$ increases by one per epoch $\colort$.
+
+Initial reservation segments are laid out with sizes drawn from the hanoi sequence (Formula \ref{eqn:stretched-segment-sizes}).
+By construction, retained reservations grow exactly one site per epoch.
+Because reservations are eliminated in increasing order of their initialized size $r$, we will always (over supported domain $\colorTbar < 2^{\colors}$) have the largest reservation segment $r=\colors$ to provide a site for the lone instances of our two highest hanoi values $\colorh=\colort+\colors$ and $\colorh=\colort+\colors-1$.
+Along these lines, we can store the two instances of the next-smallest \hv{} $\colorh=\colort+\colors-2$ in the largest and second-largest reservations $r=\colors$ and $r=\colors-2$.
+Proceeding into deeper uninvaded segment layers, reserved site count doubles --- exactly in step with \hv{} instance counts.
+
+With segments $r \geq \colors - \colortau$ active, we can safely store all encountered \hv{} $\colorH(\colorTbar) = \colorh$ instances for the largest $\colors - \colortau$ encountered \hv's.
+During epoch $\colort$, the highest-encountered \hv{} is $\colorh=\colors + \colort$.
+So, we can safely store all encountered instances for \hv{}'s
+\begin{align*}
+\colorh
+&\geq
+\colors + \colort - (\colors - \colortau)\\
+&\geq
+\colort + \colortau
+\end{align*}
+over the entirety of meta-epoch $\colortau$.
+With $(\colort = 2^{\colortau} - \colortau) \in \colortausetoft$, we can thus further restrict our consideration to $\colorh < 2^{\colortau}$.
+\end{proofpart}
+
+\begin{proofpart}[Have we accounted for all hanoi values?]
+Combining the above, the question of covering all encountered \hv's $0\leq\colorh\leq\colors+\colort$ becomes whether $\exists \colorh \in \mathbb{N}$ such that $\colorh < 2^{\colortau}$ and $\colorh \geq 2^{\colortau}$.
+No such $\colorh$ exists, so we have accounted for all \hv{} in satisfying our requirements.
+\end{proofpart}
+
+\end{proof}
