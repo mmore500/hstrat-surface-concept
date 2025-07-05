@@ -1,0 +1,40 @@
+\begin{figure*}[htbp!]
+  \centering
+  \begin{minipage}[]{\textwidth}
+    \centering
+    \begin{minipage}{0.36\textwidth}
+    \includegraphics[width=\textwidth]{img/ingest-and-lookup}
+
+    % dummy subcaptions
+    % adapted from https://tex.stackexchange.com/a/40182/316176
+    \begin{subfigure}{0in}
+      \captionsetup{labelformat=empty}
+      \caption{}\label{fig:surface-site-ingest}
+    \end{subfigure}
+    \begin{subfigure}{0in}
+      \captionsetup{labelformat=empty}
+      \caption{}\label{fig:ingest-rank-calculation}
+    \end{subfigure}
+
+  \end{minipage}%
+    \hfill
+    \begin{minipage}{0.63\textwidth}
+      \caption{%
+      \textbf{Core stream curation algorithm operations.}
+      \footnotesize
+      The ingest site selection operation (operation shown as \textit{item ``a''}) takes the current time $\colorT$ and determines the buffer site $\colork$ to store the ingested data item.
+      Data items may also be discarded without storage, as are $\colorTbar=4$ and $\colorTbar=6$ in this example.
+      This operation is performed when storing data into a curated buffer, once for each data item received from the data stream.
+      Data is not moved after it is stored.
+      The ingested time calculation operation (operation shown as \textit{item ``b''}) provides the previous time $\colorTbar$ when the data item present at buffer site $\colork$ was ingested, given the current time $\colorT$.
+      This operation is performed when reading data from a curated buffer in order to identify the provenance of stored data.
+      Note that which data item $\colorTbar$ occupies a buffer site $\colork$ at time $\colorT$ results solely from the sequence of ingest storage sites selected up to that point.
+      As such, the site lookup operation $\colorL$ can be considered, in a loose sense, as ``decoding'' or ``inverse'' to the site selection operation $\colorK$.
+      Panels with diamond markers on the right show curated collection composition at $\colorT=4$ and $\colorT=8$.
+      Figure \ref{fig:criteria-intuition} shows the target curated collection compositions considered in this work.
+      Animated time-lapses of ingest implementations for targeted collection compositions are viewable at \url{https://hopth.ru/du} (steady), \url{https://hopth.ru/dv} (stretched), and \url{https://hopth.ru/dw} (tilted).
+      }
+      \label{fig:ingest-and-lookup}
+      \end{minipage}
+  \end{minipage}
+\end{figure*}

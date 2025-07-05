@@ -1,0 +1,130 @@
+\begin{lemma}[Invasion overwrite order within epoch $\colort$]
+\label{thm:tilted-invading-overwrite-order}
+Except for the leftmost invaded site in segment $r=\colors$, invaded sites are overwritten left-to-right. For $\colort > 0$, pick
+\begin{align*}
+\\
+\colork',\colork''
+\in
+\eqnmarkbox[gray]{invadedsites}{
+  \mathsf{invaded\_sites}_{\colort}
+}
+: \colors < \colork' < \colork'' < \colorS.
+\annotate[yshift=1em]{above,left}{invadedsites}{$\{
+  \colork \in [0\twodots\colorS)
+  : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)
+\}$}
+\end{align*}
+Then,
+\begin{align*}
+\min\{
+  \colorT \in \colortsetofT
+  : \colorK(\colorT) = \colork'
+\}
+<
+\min\{
+  \colorT \in \colortsetofT
+  : \colorK(\colorT) = \colork''
+\}.
+\end{align*}
+
+\end{lemma}
+\begin{proof}
+Recall from Lemma \ref{thm:stretched-meta-epoch} that $\colortau$ tells how many reservation segment subsumption cycles have elapsed.
+Recall also that $\min(\colort \in \colortausetoft) = 2^{\colortau} - \colortau$.
+
+There are $2^{\colors - 1 - \colortau}$ uninvaded reservation segments at meta-epoch $\colortau$.
+From left to right across buffer space, invader \hv{}'s during epoch $\colort \geq 1$ are
+\begin{align*}
+\colort + \colors, \;\; \colorH(0) + \colort + \colortau, \;\; \colorH(1) + \colort + \colortau, \;\;\ldots, \;\; \colorH(2^{\colors - 1 - \colortau} - 2) + \colort + \colortau.
+\end{align*}
+
+Rewritten based on properties of the hanoi sequence and excluding the leftmost invader (characterized separately in Lemma \ref{thm:tilted-last-overwritten}),
+\begin{align*}
+\\
+\colorH\Big(
+\eqnmarkbox[gray]{hanoitime1}{1}
+\times 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1\Big),\;\;
+\colorH\Big(
+\eqnmarkbox[gray]{hanoitime2}{2} \times 2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1
+\Big),
+\;\;\ldots,\;\;
+\colorH\Big(
+\eqnmarkbox[gray]{hanoitime3}{
+(2^{\colors - 1 - \colortau} - 1)
+}
+\times 2^{\colort + \colortau}
++ 2^{\colort + \colors - 1} - 1
+\Big).
+\end{align*}
+\annotate[yshift=1em]{above,right}{hanoitime1,hanoitime2,hanoitime3}{$[1 \twodots 2^{\colors - 1 - \colortau} - 1]$}
+
+To reach our proof objective, we will analyze the sequence of timepoints $\mathsf{invader\_hv\_times}_{\colort}$ mapping to invader \hv{}'s,
+\begin{align*}
+\colorT \in i \times 2^{\colort + \colortau} +
+2^{\colort + \colors - 1} - 1
+:
+i \in [1 \twodots 2^{\colors - 1 - \colortau} - 1].
+\end{align*}
+First, we should confirm $\mathsf{invader\_hv\_times}_{\colort} \subseteq \colort$.
+With $\colort + \colortau \geq 2$ for all invasions because both $\colort > 0$ and $\colortau > 0$, we readily have
+\begin{align*}
+\min(\mathsf{invader\_hv\_times}_{\colort})
+&\stackrel{?}{\geq}
+\min(\colorT \in \colortsetofT)\\
+2^{\colort + \colortau} + 2^{\colort + \colors - 1} - 1
+&\stackrel{\checkmark}{\geq}
+2^{\colort + \colors - 1}.
+\end{align*}
+Testing $\mathsf{invader\_hv\_times}_{\colort}$ against the upper bound of $\colort$,
+\begin{align*}
+\max(\mathsf{invader\_hv\_times}_{\colort})
+&\stackrel{?}{\leq}
+\max(\colorT \in \colortsetofT)
+\\
+(2^{\colors - 1 - \colortau}  - 1)
+2^{\colort + \colortau} + 2^{\colort + \colors - 1}
+&\stackrel{?}{\leq}
+2^{\colort + \colors} - 1
+\\
+2^{\colors - 1 - \colortau} \times 2^{\colort + \colortau} - 2^{\colort + \colortau}
+&\stackrel{?}{\leq}
+2^{\colort + \colors - 1} - 1
+\\
+2^{\colort + \colors - 1}
+&\stackrel{\checkmark}{\leq}
+2^{\colort + \colors - 1} + 3.
+\tag{as above, $\colortau + \colort \geq 2$}
+\end{align*}
+
+Our final step is to establish that $\mathsf{invader\_hv\_times}_{\colort}$ captures all $\colorT \in \colortsetofT$ here $\colorh = \colorH(\colorT)$ is an invading hanoi value --- that is, $\colorH(\colorT) \geq \colort + \colortau$.
+Remark that $\colorT$ such that $\colorH(\colorT) \geq \colort + \colortau$ occur are spaced $2^{\colort + \colortau}$ items apart.
+Because $\mathsf{invader\_hv\_times}_{\colort}$ have an identical cadence, our question boils down to whether
+\begin{align*}
+\min(\mathsf{invader\_hv\_times}_{\colort})
+- 2^{\colort + \colortau}
+&\stackrel{?}{<}
+\min(\colorT \in \colortsetofT)\\
+2^{\colort + \colors - 1} - 1
+&\stackrel{\checkmark}{<}
+2^{\colort + \colors - 1},
+\end{align*}
+and
+\begin{align*}
+\max(\mathsf{invader\_hv\_times}_{\colort})
++ 2^{\colort + \colortau}
+&\stackrel{?}{>}
+\max(\colorT \in \colortsetofT)\\
+2^{\colors - 1 - \colortau} 2^{\colort + \colortau}
+&\stackrel{?}{>}
+2^{\colort + \colors} - 1\\
+2^{\colort + \colors - 1}
++ 2^{\colort + \colors - 1}
+&\stackrel{?}{>}
+2^{\colort + \colors} - 1\\
+2^{\colort + \colors}
+&\stackrel{\checkmark}{>}
+2^{\colort + \colors} - 1.
+\end{align*}
+
+The result follows from algorithm specification, with each \hv{} filling its own newly assigned reservation sites from left to right.
+\end{proof}
