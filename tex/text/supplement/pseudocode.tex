@@ -1,0 +1,62 @@
+\section{Pseudocode Helper Functions}
+\label{sec:pseudocode}
+
+\begin{minipage}{0.5\textwidth}
+\begin{algorithmic}
+  \Function{BitCount}{$x$}
+    \LComment{Equivalent {\normalfont $\texttt{std::popcount}(x)$}}
+    \State \Return $|\{ n \in \mathbb{N} : x \bmod 2^n = 0 \}|$
+  \EndFunction
+  \Statex
+  \Function{BitFloor}{$x$}
+    \State \Return $\Call{LeftShift}{1, \;\; \Call{BitLength}{x} - 1}$
+  \EndFunction
+  \Statex
+  \Function{BitFloorSafe}{$x$}
+    \LComment{Equivalent {\normalfont $\texttt{std::bit\_floor}(x)$}}
+    \State \Return \Call{BitFloor}{$x$} \textbf{if} $x > 0$ \textbf{else} 0
+  \EndFunction
+  \Statex
+  \Function{BitLength}{$x$}
+    \LComment{Equivalent {\normalfont $\texttt{std::bit\_width}(x)$}}
+    \State \Return $\left\lfloor\log_{2}(x)\right\rfloor + 1$  \textbf{if} $x$ \textbf{else} $0$
+  \EndFunction
+  \Statex
+  \Function{I}{$x$} \Comment{``Indicator'' function $I$}
+    \LComment{Equivalent {\normalfont $\texttt{static\_cast<unsigned int>}(x)$}}
+    \State \Return $1$ \textbf{if} $x > 0$ \textbf{else} $0$
+  \EndFunction
+  \Statex
+  \Function{CountTrailingZeros}{$x$}
+    \LComment{Equivalent {{\normalfont $\texttt{std::countr\_zero}(x)$}}}
+    \State \Return $\max \{ n \in \mathbb{N} : x \bmod 2^n = 0 \}$
+  \EndFunction
+  \Statex
+  \Function{ElvisOp}{$x, \;\; y$}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{?:} \;\; y$}}
+    \State \Return $x$ \textbf{if} $x \neq 0$ \textbf{else} $y$
+  \EndFunction
+  \Statex
+  \Function{LeftShift}{$x, \;\; n$}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{<{}<} \;\; y$}}
+    \State \Return $2^n x$
+  \EndFunction
+  \Statex
+  \Function{ModPow2}{$x, \;\; n$}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{\&} \;\; (n - 1)$}, requiring $n \in \{2^{\mathbb{N}}\}$}
+    \State \Return $x \bmod n$
+  \EndFunction
+  \Statex
+  \Function{RightShift}{$x, \;\;n$}
+    \LComment{Equivalent {\normalfont $x \;\; \texttt{>{}>} \;\; y$}}
+    \State \Return $\left\lfloor x/2^n \right\rfloor$
+  \EndFunction
+  \Statex
+\end{algorithmic}
+\end{minipage}
+
+\section{Site Lookup Algorithms}
+
+\input{alg/steady-time-lookup}
+\input{alg/stretched-time-lookup}
+\input{alg/tilted-time-lookup}
