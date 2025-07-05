@@ -1,0 +1,38 @@
+\begin{corollary}[Minimum retained items per \hv{}, bound approximations]
+\label{thm:stretched-reservation-count}
+Under the stretched curation algorithm, space for at least
+\begin{align*}
+% 2^{\colors - 1 - \colortau}
+% \geq
+n &\geq
+\max\Big(
+  \frac{\colorS}{2(\colort + \colors)},\;\;
+  \frac{\colorS}{4\colort}
+\Big)
+\end{align*}
+encountered data items of each \hv{} $\colorh$ is provided.
+\end{corollary}
+\begin{proof}
+
+By Lemma \ref{thm:stretched-discarded-incidence-count}, space for at least $2^{\colors - 1 - \colortau}$ encountered items of each \hv{} is provided.
+Applying Supplementary Lemma \ref{thm:meta-epoch-bound} completes the result.
+At any epoch $1 \leq \colort \leq \colorS - \colors$,
+\begin{align*}
+n
+&= 2^{\colors - 1 - \colortau}\\
+&\geq 2^{\colors - 1 - \colortau}\\
+&\geq2^{\colors - 1 - \min\Big(
+  \log_2(\colort + \colors),\;\;
+  \log_2(\colort) + 1
+\Big)}\\
+&\geq \max\Big(
+  2^{\colors - 1 - \log_2(\colort + \colors)},\;\;
+  2^{\colors - 1 - \log_2(\colort) - 1}
+\Big)\\
+&\stackrel{\checkmark}{\geq} \max\Big(
+  \frac{\colorS}{2(\colort + \colors)},\;\;
+  \frac{\colorS}{4\colort}
+\Big).
+\end{align*}
+
+\end{proof}
