@@ -1,0 +1,20 @@
+\begin{lemma}[Space required to store $\mathsf{goal\_steady}$] \label{thm:steady-hv-geq-epoch}
+
+At any time $\colorT$ in epoch $\colort$, sufficient buffer space exists to store all data items with \hv{} $\colorh > \colort - 1$.
+That is, $\left| \{\colorTbar \in [0 \twodots \colorT) : \colorH(\colorTbar) \geq \colort \} \right| \leq \colorS$.
+\end{lemma}
+
+\begin{proof}
+It is sufficient to consider epochs' last time point, $\max(\colorT \in \colortsetofT) = 2^{\colors + \colort} - 2$, when storage demand is highest.
+Recall that \hv{} $\colorh$ is encountered for the first time at time $\colorT = 2^{\colorh} - 1$.
+% So, \hv{} $\colorh = \colors + \colort$ is encountered at $\colorT = 2^{\colors + \colort} - 1$.
+% At that time, there are $\colors$ distinct hanoi values $\colorh$ such that $\colort \leq \colorh \leq \colors + \colort$.
+Summing data item counts for \hv{}'s $\colorh \in [\colort \twodots \colors + \colort]$,
+\begin{align*}
+\left| \{\colorTbar \in [0 \twodots 2^{\colors + \colort} - 1] : \colorH(\colorTbar) \geq \colort \} \right|\\
+&= \sum_{\colorh=\colort}^{\colors + \colort} \left\lceil2^{(\colors + \colort) - \colorh - 1}\right\rceil
+= 1 + \sum_{i=1}^{\colors} 2^{i - 1} \\
+&= 2^{\colors}\\
+&\stackrel{\checkmark}{\leq} \colorS.
+\end{align*}
+\end{proof}
