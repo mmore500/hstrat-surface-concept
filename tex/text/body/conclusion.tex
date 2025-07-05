@@ -1,0 +1,71 @@
+\section{Conclusions and Further Directions} \label{sec:conclusion}
+
+In closing, we will briefly review the principal objectives, major results, and impact of our presented work.
+We finish by laying out future work --- in yet-incomplete aspects of the presented work, as well as opportunities for extension and elaboration.
+We also outline steps to build out broad availability of developed algorithms as an off-the-shelf, plug-and-play software tool.
+
+\subsection{Summary and Discussion}
+
+In this work, we have introduced new ``DStream'' algorithms for fast and space-efficient data stream curation --- subsampling from a rolling sequence of data items to dynamically maintain a representative cross-sample across observed time points.
+Our approach, in particular, targets use cases that are fixed-capacity and resource-constrained.
+
+As a simplifying assumption, we have reduced data ingestion to a sole update operation: ``site selection,'' picking a buffer index for the $n$th received data item --- overwriting any existing data item at that location.
+In the interest of concision and efficiency, we forgo any explicit metadata storage or data structure overhead (e.g., pointers).
+Instead, we require site selection for the $n$th ingested item to be computable \textit{a priori}.
+Interpreting stored data, therefore, additionally requires support for ``inverse'' decoding of ingest time based solely on an item's buffer index $\colork$ and current time $\colorT$.
+
+Ultimately, the purpose of stream curation is to dictate what data to keep, and for how long.
+As objectives in this regard differ by use case, we have explored a suite of three possible retention strategies.
+
+The first is \textit{steady} curation, which calls for retention of evenly-spaced samples across data stream history.
+Our proposed algorithm guarantees worst-case even coverage within a constant factor of the optimum.
+
+The next two curation objectives explored (\textit{stretched} and \textit{tilted} criteria) bias retention to favor earlier or more recent data items, respectively.
+Proposed algorithms for these two criteria relate closely in structure, differing only in that the former freezes the first encountered data items in place, while the latter uses a ring buffer approach to maintain the most recently encountered data items.
+Unlike the proposed steady curation algorithm, which handles indefinitely many data item ingestions, we leave behavior for time $\colorT \geq 2^{\colorS} - 2$ unspecified in defining the proposed stretched and tilted algorithms.
+As noted earlier, we expect support for $2^{\colorS} - 2$ ingests to suffice for most use cases.
+
+For all three DStream algorithms, we explain buffer layout procedure and show how site selection proceeds on this basis.
+As implemented, all algorithms provide $\mathcal{O}(1)$ site selection operations and are $\mathcal{O}(\colorS)$ to decode ingest times at all $\colorS$ buffer sites.
+Each algorithm also provides strict worst-case upper bounds on curation quality across elapsed stream history.
+
+\subsection{Future Algorithm Development}
+
+As mentioned above, the core limitation of this work is the restriction of stretched and tilted algorithms to $2^{\colorS} - 2$ data item ingests.
+As such, work remains to design behavior past this point.
+One possibility is switching over at $\colorT = 2^{\colorS} - 1$ to apply steady curation on logical time hanoi value $\colorH(\colorT)$ (i.e., rather than on logical time $\colorT$ itself, as originally formulated).
+
+Another enhancement would be random-access lookup calculation.
+Current implementations assume an $\mathcal{O}(\colorS)$ pass over all stored data items.
+
+Several interesting openings exist for extension of additional operations on curated data.
+Notably, fast retrieval of the retained data item closest to a query $\colorTbar$ would be useful, as would fast ingest-order iteration over buffer sites $\colork \in [0 \twodots \colorS)$.
+
+A final unexplored direction is fast comparison between curated collections --- which is critical for applications that rely on identifying discrepancies between stream histories, such as hereditary stratigraphy.
+These use cases would benefit from fast operations to identify the retained data items $\colorTbar$ shared in common between two time points $\colorT_1$ and $\colorT_2$.
+The stable buffer position of data items, once stored, raises the possibility of applying vectorized operations for record-to-record comparison (e.g., masked bitwise equality tests).
+
+% of comparing two records to find the first mismatch.
+% This, in the context of hereditary stratigraphy in bounding the most recent common ancestor (MRCA) of two lineages.
+%Operations that consolidate data through join operations rather than deletion also remain an interesting unaddressed extension.
+
+\subsection{Algorithm Implementation}
+
+Our foremost motivation for this work is application-driven: We hope to see DStream algorithms put into production to help address real-world challenges in resource-constrained data management.
+
+Indeed, a key driver of this work has been development of ``hereditary stratigraphy'' tooling to support distributed lineage tracking in large-scale digital evolution experiments.
+In this use case, stream curation downsamples randomly-generated lineage ``checkpoints'' that accrue as generations elapse, allowing divergence between lineages to be identified via mismatching checkpoints \citep{moreno2022hereditary}.
+Prototype implementations of presented algorithms have already seen successful deployment in lineage tracking over massively distributed, agent-based evolution experiments conducted on the 850,000 core Cerebras Wafer-Scale Engine (WSE) device \citep{moreno2024trackable}.
+Promisingly, empirical microbenchmark experiments reported in that work corroborate order-of-magnitude efficiency gains from the algorithms presented here, compared to existing approaches used for hereditary stratigraphy.
+
+However, we also anticipate broader use cases beyond hereditary stratigraphy.
+This possibility warrants standalone software implementations of algorithms proposed herein, independent of infrastructure developed to support hereditary stratigraphy \citep{moreno2022hstrat}.
+As described in Section \ref{sec:materials}, we have organized stream-curation-specific components --- including all three algorithms presented here --- as the standalone ``downstream'' software library \citep{moreno2024downstream}.
+Going forward, we intend for stream curation algorithms to support lineage tracking implementation as a public-facing external dependency rather than as an opaque internal utility.
+
+One challenge in supporting end-users is cross-language interoperation.
+To this end, we have developed library code with implementations of stream curation algorithms described here for Rust, C++, Python, Zig, and the closely related Cerebras Software Language (CSL) \citep{moreno2024hsurf,moreno2024downstream,moreno2024wse}.
+We would be highly interested in collaborations in assembling DStream implementations in other languages as needed --- whether incorporating new implementations into the \textit{downstream} software repository or linking to outside repositories from the \textit{downstream} documentation.
+In either case, care will be needed for consistency across implementations, as the semantics of stored data depend subtly upon exactly how site selection unfolded.
+One possible approach to this issue would be to simply designate a canonical implementation and provide language-agnostic tests to validate other implementations against it.
+Alternatively, effort could be invested in preparing and maintaining an explicit standard or specification.
