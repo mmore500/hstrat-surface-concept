@@ -1,0 +1,62 @@
+\begin{algorithm}[H]
+\caption{Stretched algorithm ingest time lookup $\colorL(\colorT)$.\\
+\footnotesize Supplementary Listing \ref{lst:stretched_time_lookup.py} provides reference Python code.}
+\label{alg:stretched-time-lookup}
+\begin{minipage}{0.55\textwidth}
+    \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [0 \twodots 2^{\colorS} - 1)$ \Comment{Buffer size and current logical time}\\
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
+    \begin{algorithmic}[1]
+    \If{$\colorT < \colorS - 1$} \Comment{If buffer not yet filled\ldots}
+        \ForAll{$v \in \Call{$\colorL'$}{\colorS, \;\; \colorS}}$
+            \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
+                \State \textbf{yield} $v$
+            \Else
+                \State \textbf{yield} $\nullval$
+            \EndIf
+        \EndFor
+    \Else \Comment{No filter needed once buffer is filled}
+        \ForAll{$v \in \Call{$\colorL'$}{\colorS, \;\; \colorT}$}
+            \State \textbf{yield} $v$
+        \EndFor
+    \EndIf
+    \Statex
+    \Function{$\colorL'$}{$\colorS, \;\; \colorT$}\\
+        \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [\colorS - 1 \twodots 2^{\colorS} - 1)$ \Comment{Buffer size and current logical time}\\
+        \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT)$ \Comment{Ingestion time of stored data item, if any}
+        \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch}
+        \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor for calculating meta-epoch $\colortau$}
+        \State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 0} \gets \Call{BitLength}{\colort} - \Call{I}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
+\State $\texttt{uint\_t} ~ ~ \colortau_{\mkern-5mu\scriptscriptstyle 1} \gets \colortau_{\mkern-5mu\scriptscriptstyle 0} + 1$ \Comment{Next meta-epoch}
+        \State $\texttt{uint\_t} ~ ~ M \gets \Call{ElvisOp}{\Call{RightShift}{\colorS, \;\; \colortau_{\mkern-5mu\scriptscriptstyle 1}}, \;\; 1}$ \Comment{Number of invading segments present at current epoch}
+        \State $\texttt{uint\_t} ~ ~ w_0 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 0}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 0}$}
+        \State $\texttt{uint\_t} ~ ~ w_1 \gets 2^{\colortau_{\mkern-5mu\scriptscriptstyle 1}} - 1$ \Comment{Smallest segment size at outset of meta-epoch $\colortau_{\mkern-5mu\scriptscriptstyle 1}$}
+        \Statex
+        \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Reserved hanoi value at site $\colork=0$}
+        \State $\texttt{uint\_t} ~ ~ m_p \gets 0$ \Comment{Physical segment index at site $\colork=0$ (i.e., left-to-right position)}
+        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate overall buffer sites}
+        \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{M + m_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
+        \State \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_w \gets \Call{I}{m_p = 0}$ \Comment{Correction factor for segment size}
+        \State $\texttt{uint\_t} ~ ~ w \gets w_1 + b_l + \epsilon_w$ \Comment{Number of sites in current segment (i.e., segment size)}
+        \Statex \Comment{Calc corrections for not-yet-seen data items $\colorTbar \geq \colorT$}
+        \Statex $\texttt{uint\_t} ~ ~ i' \gets \Call{RightShift}{M + m_p, \;\; b_l + 1}$ \Comment{Guess \hv{} incidence (i.e., num seen)}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar_{\colork}' \gets 2^{\colorh}(2i' + 1) - 1$ \Comment{Guess ingest time}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar_{\colork}' \geq \colorT} \;\; \times \;\; (w - w_0)$ \Comment{Correction factor, reserved \hv{} $\colorh$}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{i} \gets \Call{I}{\colorTbar_{\colork}' \geq \colorT} \;\; \times \;\; (m_p + M - i')$ \Comment{Correction factor, \hv{} instance $i$ (i.e., num seen)}
+        \Statex
+        \Statex \Comment{Decode ingest time of reserved hanoi value \ldots}
+        \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{True reserved \hv{}}
+        \State $\texttt{uint\_t} ~ ~ i \gets i' + \epsilon_{i}$ \Comment{True \hv{} incidence}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar_{\colork} \gets 2^{\colorh}(2i + 1) - 1$ \Comment{True ingest time}
+        \State \textbf{yield} $\colorTbar_{\colork}$
+        \Statex
+        \Statex \Comment{Update state for next site $\colork+1$ to iterate over\ldots}
+        \State $\colorh' \gets \colorh' + 1$ \Comment{Increment next site's \hv{} guess}
+        \State $m_p \gets m_p + \Call{I}{\colorh' = w}$ \Comment{Bump to next segment if current is filled}
+        \State $\colorh' \gets \colorh' \;\; \times \;\; \Call{I}{\colorh' \neq w}$ \Comment{Reset \hv{} to zero if segment is filled to start new segment}
+        \EndFor
+    \EndFunction
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}

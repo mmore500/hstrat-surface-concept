@@ -1,0 +1,74 @@
+\begin{lemma}[Current meta-epoch upper bounds]
+\label{thm:meta-epoch-bound}
+The current meta-epoch at epoch $\colort$ is bounded,
+\begin{align*}
+\colortau \leq
+\min\Big(
+  \log_2(\colort + \colors),\;\;
+  \log_2(\colort) + 1
+\Big)
+\text{ for } \colort \in [1 \twodots \colorS - \colors).
+\end{align*}
+\end{lemma}
+\begin{proof}
+
+By definition,
+\begin{align*}
+\colort \geq 2^{\colortau} - \colortau \quad \forall \colort \in \colortausetoft.
+\end{align*}
+Given $\colort$, it is not possible to derive an analytical expression $f(\colort) = \colortau$ such that $\colort \in \colortausetoft$.
+However, we can show an expression $f(\colort)$ as an inclusive upper bound on $\colortau$ with $\colort \in \colortausetoft$ by demonstrating,
+\begin{align*}
+\colort \leq 2^{f(\colort)} - f(\colort).
+\end{align*}
+The following demonstrates two such expressions $f(\colort)$ --- one that provides a tighter upper bound on $n$ for small $\colort$ and the other as a tighter bound for large $\colort$.
+The result comprises Formulas \ref{eqn:meta-epoch-bound-small} and \ref{eqn:meta-epoch-bound-large}, using the $\min$ operator to apply the tighter of these bounds at each epoch $\colort$.
+
+\begin{proofpart}
+First, we show
+\begin{align}
+\colortau \leq \log_2(\colort) + 1 \text{ for } \colort \geq 1.
+\label{eqn:meta-epoch-bound-small}
+\end{align}
+This bound follows from,
+\begin{align*}
+2^{\log_{2}(\colort) + 1} - \log_2(\colort) - 1
+&= 2\colort - \log_2(\colort) - 1 \\
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in \mathbb{N}^{+}.
+\end{align*}
+\end{proofpart}
+
+\begin{proofpart}
+The upper bound
+\begin{align}
+\colortau \leq \log_2(\colort + \colors - 1) \label{eqn:meta-epoch-bound-large}
+\end{align}
+can also be established for $\colort \leq \colorS - \colors$.
+Consider,
+\begin{align*}
+2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} \colort\\
+\colort + \colors - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} \colort\\
+\colors - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} 0\\
+\log_2(2^{\colors}) - \log_2(\colort + \colors)
+&\stackrel{?}{\geq} 0\\
+\log_2\frac{2^{\colors}}{\colort + \colors}
+&\stackrel{?}{\geq} 0\\
+\frac{2^{\colors}}{\colort + \colors}
+&\stackrel{?}{\geq} 1\\
+\frac{\colorS}{\colort + \colors}
+&\stackrel{?}{\geq} 1\\
+\colorS
+&\stackrel{?}{\geq} \colort + \colors\\
+\colorS - \colors &\stackrel{?}{\geq} \colort.
+\end{align*}
+Stretched and tilted algorithms do not define ingestion for $\colort \geq \colorS - \colors$ (i.e., $\colorT \geq 2^{\colorS - 1}$).
+Restricting $\colort$,
+\begin{align*}
+2^{\log_{2}(\colort + \colors)} - \log_2(\colort + \colors)
+&\stackrel{\checkmark}{\geq} \colort \text{ for } \colort \in [1 \twodots \colorS - \colors).
+\end{align*}
+\end{proofpart}
+\end{proof}

@@ -1,0 +1,35 @@
+\begin{algorithm}[H]
+\caption{Steady algorithm site selection $\colorK(\colorT)$.\\ \footnotesize Supplementary Algorithm \ref{alg:steady-time-lookup} gives steady algorithm site lookup $\colorL(\colorT)$. Supplementary Listings \cref{lst:steady_site_selection.py,lst:steady_time_lookup.py} provide reference Python code.}
+\label{alg:steady-site-selection}
+\begin{minipage}{0.5\textwidth}
+    \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colork \in [0 \twodots \colorS) \cup \{\nullval\}$ \Comment{Selected site, if any}
+    \begin{algorithmic}[1]
+        \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch (or negative)}
+        \State $\texttt{uint\_t} ~ ~ \colorh \gets \Call{CountTrailingZeros}{\colorT + 1}$ \Comment{Current \hv{}}
+        \If{$\colorh < \colort$} \Comment{If not a top $n(\colorT)$ \hv{}\;\ldots}
+        \State \Return \nullval \Comment{\ldots discard without storing}
+        \EndIf
+        \State $\texttt{uint\_t} ~ ~ i \gets \Call{RightShift}{\colorT, \;\; \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
+        \If{$i = 0$} \Comment{Special case the 0th bunch}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets 0$ \Comment{Bunch position}
+        \State $\texttt{uint\_t} ~ ~ o \gets 0$ \Comment{Within-bunch offset}
+        \State $\texttt{uint\_t} ~ ~ w \gets \colors + 1$ \Comment{Segment width}
+        \Else
+        % \State $j \gets \left\lfloor i \right\rfloor_{\mathrm{bin}} - 1$ \Comment{Completed segments}
+        \State $\texttt{uint\_t} ~ ~ j \gets \Call{BitFloor}{i} - 1$ \Comment{Num full-bunch segments}
+        \State $\texttt{uint\_t} ~ ~ b \gets \Call{BitLength}{j}$ \Comment{Num full bunches}
+        % \State $k_{b} \gets 2^{b}(\colors - 1) - (\colors - 1) - b2^{b} + 2^{b + 1} - 2$ \Comment{Bunch position}
+        % \State $k_{b} \gets 2^{b}\colors - 2^{b} - \colors + 1 - b2^{b} + 2^{b + 1} - 2$ \Comment{Bunch position}
+        % \State $k_{b} \gets 2^{b}(\colors - 1 - b + 2) - \colors + 1 - 2$ \Comment{Bunch position}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets 2^{b}(\colors - b + 1)$ \Comment{Bunch position}
+        % \State $k_{b} \gets 2^{b}(\colors - b) + 2^{b + 1} - 2$ \Comment{Bunch position}
+        \State $\texttt{uint\_t} ~ ~ w \gets \colorh - \colort + 1$ \Comment{Segment width}
+        \State $\texttt{uint\_t} ~ ~ o \gets w (i - j - 1)$ \Comment{Within-bunch offset}
+        \EndIf
+        \State $\texttt{uint\_t} ~ ~ p \gets \colorh \bmod w$ \Comment{Within-segment offset}
+        \State \Return $\colork_b + o + p$ \Comment{Calculate placement site}
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}
