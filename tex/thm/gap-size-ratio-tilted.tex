@@ -1,0 +1,75 @@
+\begin{lemma}[Tilted gap size ratio, given last $n$ items per \hv{}]
+\label{thm:gap-size-ratio-tilted}
+If the most recent $n$ data items $\colorH(\colorTbar) = \colorh$ for each \hv{} $\colorh$ are retained at time $\colorT$, then gap size ratio is bounded,
+\begin{align*}
+\mathsf{cost\_tilted}(\colorT)
+&\leq
+\frac{1}{n - 1/2}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+
+From Lemma \ref{thm:retained-equivalence-tilted}, we have retained data items
+\begin{align*}
+\mathsf{want\_retained} =
+\{
+2^{\colorh'}\Big(\left\lfloor \colorT / 2^{\colorh'} \right\rfloor - j\Big) - 1
+  :
+  j' \in [0 \twodots 2n-1]
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+
+Begin by finding the smallest $m \in 2^{\mathbb{N}}$ such that
+\begin{align*}
+m\Big( \left\lfloor \colorT /m \right\rfloor - (2n - 1)\Big) - 1
+&\leq
+\colorTbar.
+\end{align*}
+Solving for $m$,
+\begin{align*}
+m \left\lfloor \colorT/m \right\rfloor - m(2n - 1)
+&\leq \colorTbar + 1\\
+m
+&\geq \frac{
+m \left\lfloor \colorT/m \right\rfloor - \colorTbar - 1
+}{2n - 1}\\
+m
+&\geq \frac{
+\colorT - \colorTbar - 1
+}{2n - 1}\\
+m
+&= \left\lceil \frac{\colorT - 1 - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}}.
+\end{align*}
+
+So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorT - 1 - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1$.
+Thus, over $\colorTbar < \colorT - 1$, $\mathsf{cost\_tilted}(\colorT)$ can be bounded
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar}
+&\leq
+\frac{
+\left\lceil \frac{\colorT - 1 - \colorTbar}{2n - 1} \right\rceil_{\mathrm{bin}} - 1
+}{
+\colorT - 1 - \colorTbar
+}\\
+&\leq
+\frac{
+2\frac{\colorT - 1 - \colorTbar}{2n - 1}
+ - 1
+}{
+\colorT - 1 - \colorTbar
+}\\
+&\leq
+\frac{1
+}{n - 1/2}
+-
+\frac{1
+}{
+\colorT - 1 - \colorTbar
+}\\
+&\stackrel{\checkmark}{\leq}
+\frac{1}{n - 1/2}.
+\end{align*}
+
+\end{proof}
