@@ -1,0 +1,71 @@
+\begin{lemma}[Minimum recent items retained per \hv{}]
+\label{thm:tilted-most-recent-retained}
+At least the most recent $2^{\colors - 1 - \colortau}$ encountered instances of every \hv{} $\colorh$ are retained under tilted curation.
+Concretely, we wish to show $\mathsf{goal\_tilted} \subseteq \colorB_{\colorT}$, with $\mathsf{goal\_tilted}$ defined per Equation \ref{eqn:goal-tilted-set}.
+\end{lemma}
+\begin{proof}
+From Lemma \ref{thm:stretched-discarded-incidence-count}, we have reservations available to store at least the first $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+After this point, data item placement cycles around sites reserved to a \hv as a ring buffer --- keeping most recent $2^{\colors - 1 - \colortau}$ instances.
+However, we must validate behavior at the transition points where this ring buffer shrinks due to invasion.
+
+In the case of invasion, the number of reserved sites drops from $2^{\colors - \colortau}$ to $2^{\colors - 1 - \colortau}$.
+Recall from Lemma \ref{thm:tilted-last-touched} that the final instance of each \hv{} each epoch is placed into the rightmost reservation segment.
+We therefore know that the final $2^{\colors - 1 - \colortau}$ instances of a \hv{} encountered during an epoch were laid out left to right in each of the smallest-size remaining segments, $r = \colortau$ (with the last instance occupying the rightmost reservation segment).
+
+So, at the outset of epoch $\colort$, reassigned sites $\{\colork \in [0\twodots\colorS) : \colorHcal_{\colort - 1}(\colork) \neq \colorHcal_{\colort}(\colork)\}$ always contain the most recent $2^{\colors - 1 - \colortau}$ instances of \hv{} $\colorh = \colorHcal_{\colort - 1}(\colork)$, arranged left to right.
+If data items in these reassigned sites were lost instantaneously at time $\min(\colorT \in \colortsetofT)$, we would not meet our proof objectives.
+At that point, we would have none of the most recent $2^{\colors - 1 - \colortau}$ \hv{} $\colorh$ data items retained.
+However, data items are not lost instantaneously when a site is reassigned.
+Instead, data items in reassigned sites $\colork$ linger until they are \textit{actually} overwritten by incoming data items $\colorT \in \colortsetofT$ with $\colorK(\colorT) = \colork$.
+
+From Lemma \ref{thm:tilted-invading-overwrite-order}, we have that, over the course of an epoch, invaded data items are overwritten left to right --- except the leftmost reservation, which is overwritten last.
+Ensuring retention of the most recent $2^{\colors - 1 - \colortau}$ data items for a \hv{} during invasion therefore requires two desiderata:
+\begin{enumerate}
+\item at least two instances of invaded \hv{} $\colorh$ occur before the first invading overwrite, and
+\item the cadence of overwrites proceeds no faster than fresh instances of invaded \hv{} $\colorh$ accrue.
+\end{enumerate}
+
+
+\begin{mybox}
+\textbf{Intuition.}
+Imagine the chain of $2^{\colors - 1 - \colortau}$ recent instances of \hv{} $\colorh$ as the protagonist of the classic video game ``snake'' \citep{de2016complexity}.
+In that game, the titular snake slithers by growing at its head and shrinking at its tail.
+Analogously, our sequence of most recent \hv{} instances adds new items at the front and has tail items overwritten.
+When an invasion occurs and half of ring buffer sites are reassigned, the snake's body of $2^{\colors - 1 - \colortau}$ sites is stretched across the reassigned half of the ring buffer.
+In other words, our snake is laid out entirely within the \textit{danger zone}!
+
+At the point when an invasion epoch $\colort$ begins, our snake containing $2^{\colors - 1 - \colortau}$ items will be chased into the preserved half of the ring buffer as overwrites enchroach at its rear.
+The two desiderata described above ensure that the snake (1) pulls ahead and (2) stays ahead of invading overwrites to keep $2^{\colors - 1 - \colortau}$ body segments intact.
+Mixing metaphors, the snake slithers head then tail to safety as the rickety bridge of reassigned but not-yet-overwritten sites it had been occupying collapses behind it.
+After escaping the reassigned $2^{\colors - 1 - \colortau}$ ring buffer sites, the snake of recent \hv{} instances happily crawls in circles around its $2^{\colors - 1 - \colortau}$ reserved sites --- at least, until invaded again.
+\end{mybox}
+
+\begin{proofpart}[Two instances of invaded \hv{} before first invading overwrite]
+Let $\colorT' = \min(\colorT \in \colortsetofTone)$.
+The fractal properties of the hanoi sequence provide the following equivalence for hanoi values encountered during epoch $\colort + 1$:
+\begin{align*}
+\colorH(\colorT'),\;\; \colorH(\colorT'+1), \;\;\ldots, \colorH(2\colorT' - 1) = \colorH(0),\;\; \colorH(1), \;\;\ldots,\;\; \colorH(\colorT' - 1).
+\end{align*}
+Recall that $2\colorT' - 1 = \max(\colorT \in \colortsetofTone)$.
+
+By Lemma \ref{thm:tilted-invader-minus-invaded}, for \hv{} $\colorHcal_{\colort}(\colork)$ invaded by \hv{} $\colorHcal_{\colort + 1}(\colork)$ (i.e., $\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
+Hanoi value $\colorh$ occurs first at ingest time $\colorT = 2^{\colorh} - 1$ and then recurs at $\colorT = 2^{\colorh + 1} + 2^{\colorh} - 1 = 3 \times 2^{\colorh} - 1$.
+Hence,
+\begin{align*}
+|\{\colorT \in [0 \twodots 3 \times 2^{\colorh} - 1] : \colorH(\colorT) = \colorh\}| = 2.
+\end{align*}
+\end{proofpart}
+With $3 \times 2^{\colorh} - 1 < 2^{\colorh + 2} - 1 = \min\{\colorT : \colorH(\colorT) = \colorh + 2\}$, we have our result.
+
+\begin{proofpart}[Overwrite cadence slower than invaded \hv{} cadence]
+The cadence of a \hv{} $\colorh$, after first occuring at time $\colorT=2^{\colorh} - 1$ is to recur every $2^{\colorh + 1}$ ingests, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
+Ingests with \hv{} $\colorH(\colorT) \geq \colorh$ occur twice as frequently, where $\colorT \bmod 2^{\colorh} = 2^{\colorh} - 1$.
+
+Again, by Lemma \ref{thm:tilted-invader-minus-invaded}, for \hv{} $\colorHcal_{\colort}(\colork)$ invaded by \hv{} $\colorHcal_{\colort + 1}(\colork)$ (i.e., $\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
+New incidences of invaded \hv{} $\colorh = \colorHcal_{\colort}(\colork)$ accrue faster than they are overwritten by ingests with $\colorH(\colorT) \geq \colorh + 2$ because
+\begin{align*}
+2^{\colorh + 1} \stackrel{\checkmark}{<} 2^{\colorh + 2}.
+\end{align*}
+\end{proofpart}
+
+\end{proof}
