@@ -1,0 +1,59 @@
+\begin{algorithm}[H]
+\caption{Steady algorithm ingest time lookup $\colorL(\colorT)$.\\
+\footnotesize Supplementary Listing \ref{lst:steady_time_lookup.py} provides reference Python code.}
+\label{alg:steady-time-lookup}
+\begin{minipage}{0.5\textwidth}
+    \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in \mathbb{N}$ \Comment{Buffer size and current logical time}\\
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT) \cup \{\nullval\}$ \Comment{Ingestion time of stored data item, if any}
+    \begin{algorithmic}[1]
+    \If{$\colorT < \colorS$} \Comment{If buffer not yet filled\ldots}
+        \ForAll{$v \in \Call{$\colorL'$}{\colorS,\;\; \colorS}}$
+            \If{$v < \colorT$} \Comment{\ldots filter out not-yet-encountered values}
+                \State \textbf{yield} $v$
+            \Else
+                \State \textbf{yield} $\nullval$
+            \EndIf
+        \EndFor
+    \Else \Comment{No filter needed once buffer is filled}
+        \ForAll{$v \in \Call{$\colorL'$}{\colorS,\;\; \colorT}$}
+            \State \textbf{yield} $v$
+        \EndFor
+    \EndIf
+    \Statex
+    \Function{$\colorL'$}{$\colorS, \;\; \colorT$}\\
+        \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [\colorS \twodots)$ \Comment{Buffer size and current logical time}\\
+        \hspace*{\algorithmicindent} \textbf{Output:} $\colorTbar \in [0 \twodots \colorT)$ \Comment{Ingestion time of stored data item, if any}
+        \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \Call{BitLength}{\colorT} - \colors $ \Comment{Current epoch}
+        \State $\texttt{uint\_t} ~ ~ b \gets 0$ \Comment{Bunch logical/physical index (ordered left to right)}
+        \State $\texttt{uint\_t} ~ ~ m^{\scriptscriptstyle\shortdownarrow}_b \gets 1$ \Comment{Countdown on segments traversed within bunch}
+        \State $\texttt{bool\_t} ~ ~ b^{*} \gets \texttt{True}$ \Comment{Flag if have traversed all segments in bunch?}
+        \State $\texttt{uint\_t} ~ ~ {\colork}^{\scriptscriptstyle\shortdownarrow}_m \gets \colors + 1$ \Comment{Countdown on sites traversed within segment}
+        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over buffer sites}
+        \Statex
+        \Statex \Comment{Calculate info about current segment\ldots}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{w} \gets \Call{I}{b = 0}$ \Comment{Correction on seg width for first bunch}
+        \State $\texttt{uint\_t} ~ ~ w \gets \colors - b + \epsilon_{w}$ \Comment{Number of sites in current segment (i.e., segment size)}
+        \State $\texttt{uint\_t} ~ ~ m_p \gets 2^b -m^{\scriptscriptstyle\shortdownarrow}_b$ \Comment{Calc left-to-right index of current segment}
+        \State $\texttt{uint\_t} ~ ~ \colorh_{\max} \gets \colort + w - 1$ \Comment{Max possible \hv{} in segment during current epoch $\colort$}
+        \State $\texttt{uint\_t} ~ ~ \colorh' \gets \colorh_{\max} - ((\colorh_{\max} + {\colork}^{\scriptscriptstyle\shortdownarrow}_m) \bmod w)$ \Comment{Candidate hanoi value}
+        \Statex
+        \Statex \Comment{Decode ingest $\colorTbar_{\colork}$ from physical segment index $m_p$\ldots}
+        \Statex \Comment{\dots which tells instance of reserved \hv{} (i.e., how many seen)\ldots}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar_{\colork}' \gets 2^{\colorh'}(2m_p + 1) - 1$ \Comment{Guess ingest time of data item at current site}
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colorh} \gets \Call{I}{\colorTbar_{\colork}' \geq \colorT} \;\; \times \;\; w$ \Comment{Correction on \hv{} if assigned instance not yet seen (i.e., $\colorTbar_{\colork}' \geq \colorT$)}
+        \State $\texttt{uint\_t} ~ ~ \colorh \gets \colorh' - \epsilon_{\colorh}$ \Comment{Corrected true resident \hv{} at site}
+        \State $\texttt{uint\_t} ~ ~ \colorTbar_{\colork} \gets 2^{\colorh}(2m_p + 1) - 1$ \Comment{True ingest time}
+        \State \textbf{yield} $\colorTbar_{\colork}$
+        \Statex
+        \Statex \Comment{Update state for next site iterated over\ldots}
+        \State ${\colork}^{\scriptscriptstyle\shortdownarrow}_m \gets \Call{ElvisOp}{{\colork}^{\scriptscriptstyle\shortdownarrow}_m, \;\; w} - 1$ \Comment{Bump to next site in segment, or reset for new segment}
+        \State $m^{\scriptscriptstyle\shortdownarrow}_b \gets m^{\scriptscriptstyle\shortdownarrow}_b - \Call{I}{{\colork}^{\scriptscriptstyle\shortdownarrow}_m  = 0}$ \Comment{Bump to next segment within bunch}
+        \State $b^{*} \gets (m^{\scriptscriptstyle\shortdownarrow}_b = 0) \wedge ({\colork}^{\scriptscriptstyle\shortdownarrow}_m = 0)$ \Comment{Should bump to next bunch?}
+        \State $b \gets b + \Call{I}{b^{*}}$ \Comment{Do bump to next bunch, if should}
+        \State $m^{\scriptscriptstyle\shortdownarrow}_b \gets \Call{ElvisOp}{m^{\scriptscriptstyle\shortdownarrow}_b, \;\; 2^{b - 1}}$ \Comment{Set within-bunch segment countdown if bumping to next bunch}
+        \EndFor
+    \EndFunction
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}

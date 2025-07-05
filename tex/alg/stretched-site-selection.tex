@@ -1,0 +1,41 @@
+\begin{algorithm}[H]
+\caption{Stretched algorithm site selection $\colorK(\colorT)$.\\ \footnotesize Supplementary Algorithm \ref{alg:stretched-time-lookup} gives stretched algorithm site lookup $\colorL(\colorT)$. Supplementary Listings \cref{lst:stretched_site_selection.py,lst:stretched_time_lookup.py} provide reference Python code.}
+\label{alg:stretched-site-selection}
+\begin{minipage}{0.53\textwidth}
+    \hspace*{\algorithmicindent} \textbf{Input:} $\colorS \in \{2^{\mathbb{N}}\},\;\; \colorT \in [0 \twodots 2^{\colorS - 1})$ \Comment{Buffer size and current logical time}\\
+    \hspace*{\algorithmicindent} \textbf{Output:} $\colork \in [0 \twodots \colorS - 1) \cup \{\nullval\}$ \Comment{Selected site, if any}
+    \begin{algorithmic}[1]
+        \State $\texttt{uint\_t} ~ ~ \colors \gets \Call{BitLength}{\colorS} - 1$
+        \State $\texttt{uint\_t} ~ ~ \colort \gets \max(0,\;\; \Call{BitLength}{\colorT} - \colors)$ \Comment{Current epoch}
+        \State $\texttt{uint\_t} ~ ~ \colorh \gets \Call{CountTrailingZeros}{\colorT + 1}$ \Comment{Current \hv{}}
+        \Statex
+        \State $\texttt{uint\_t} ~ ~ i \gets \Call{RightShift}{\colorT, \;\; \colorh + 1}$ \Comment{Hanoi value incidence (i.e., num seen)}
+        \State $\texttt{bool\_t} ~ ~ \epsilon_{\colortau} \gets \Call{BitFloorSafe}{2\colort} \;\; > \;\; \colort + \Call{BitLength}{\colort}$ \Comment{Correction factor}
+        \State $\texttt{uint\_t} ~ ~ \colortau \gets  \Call{BitLength}{\colort} - \Call{I}{\epsilon_{\colortau}}$ \Comment{Current meta-epoch}
+        \State $\texttt{uint\_t} ~ ~ B \gets \min(1,\;\; \Call{RightShift}{\colorS, \;\; \colortau + 1})$ \Comment{Num bunches available to \hv}
+        \If{$i \geq B$} \Comment{If seen more than sites reserved to \hv{}\;\ldots}
+            \State \Return \nullval \Comment{\ldots discard without storing}
+        \EndIf
+        \Statex
+        \State $\texttt{uint\_t} ~ ~ b_l \gets i$ \Comment{Logical bunch index, in order filled \ldots}
+        \Statex \Comment{\ldots i.e., increasing nestedness/decreasing init size $r$}
+        \Statex
+        \Statex \Comment{Need to calculate physical bunch index\ldots}
+        \Statex \Comment{\ldots i.e., among bunches left-to-right in buffer space}
+        \Statex
+        \State $\texttt{uint\_t} ~ ~ v \gets \Call{BitLength}{b_l}$ \Comment{Nestedness depth level for physical bunch}
+        \State $\texttt{uint\_t} ~ ~ w \gets \Call{RightShift}{\colorS, \;\; v} \;\; \times \;\;\Call{I}{v > 0}$ \Comment{Num bunches spaced between bunches in same nest level}
+        \State $\texttt{uint\_t} ~ ~ o \gets 2w$  \Comment{Offset of nestedness level in physical bunch order}
+        \State $\texttt{uint\_t} ~ ~ p \gets b_l - \Call{BitFloorSafe}{b_l}$ \Comment{Bunch position within nestedness level}
+        \State $\texttt{uint\_t} ~ ~ b_p \gets o + wp$ \Comment{Physical bunch index\ldots}
+        \Statex \Comment{\ldots i.e., in left-to-right buffer space ordering}
+        \Statex
+        \Statex \Comment{Need to calculate buffer position of $b_p$\textsuperscript{th} bunch}
+        \Statex
+        \State $\texttt{uint\_t} ~ ~ \epsilon_{\colork_b} = \Call{I}{b_l > 0}$  \Comment{Correction factor, 0\textsuperscript{th} bunch (i.e., bunch $r=\colors$ at site $\colork=0$)}
+        \State $\texttt{uint\_t} ~ ~ \colork_b \gets \Call{BitCount}{2b_p +(2\colorS - b_p)} - 1 - \epsilon_{\colork_b}$  \Comment{Site index of bunch}
+        \Statex
+        \State \Return $\colork_b + \colorh$ \Comment{Calculate placement site, \hv{} $\colorh$ is offset within bunch}
+    \end{algorithmic}
+\end{minipage}
+\end{algorithm}
