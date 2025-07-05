@@ -11,11 +11,21 @@ from .site_reservation_at_rank_heatmap import site_reservation_at_rank_heatmap
 def site_reservation_at_ranks_heatmap(
     surface_history_df: pd.DataFrame,
     ranks: typing.List[int],
+    color_epoch_t: typing.Optional[str] = None,
+    color_metaepoch_tau: typing.Optional[str] = None,
+    color_site_k: typing.Optional[str] = None,
     reservation_mode: str = "tilted",
     swap_yaxes: bool = False,
     zigzag: bool = True,
     plotter_: typing.Callable = site_reservation_at_rank_heatmap,
 ) -> mpl_figure.Figure:
+
+    if color_epoch_t is None:
+        color_epoch_t = "#EF58A0"
+    if color_metaepoch_tau is None:
+        color_metaepoch_tau = "#ff7f00"
+    if color_site_k is None:
+        color_site_k = "#be0040"
 
     figsize = (surface_history_df["site"].nunique() / 2, len(ranks) / 2)
 
@@ -118,7 +128,7 @@ def site_reservation_at_ranks_heatmap(
         0.0,
         0.5,
         ["           t", "                    τ"][swap_yaxes],
-        color=["#EF58A0", "#ff7f00"][swap_yaxes],
+        color=[color_epoch_t, color_metaepoch_tau][swap_yaxes],
         rotation=90,
         ha="center",
         va="center",
@@ -142,7 +152,7 @@ def site_reservation_at_ranks_heatmap(
         1.0,
         0.5,
         ["                    τ", "           t"][swap_yaxes],
-        color=["#ff7f00", "#EF58A0"][swap_yaxes],
+        color=[color_metaepoch_tau, color_epoch_t][swap_yaxes],
         rotation=-90,
         ha="center",
         va="center",
@@ -165,7 +175,7 @@ def site_reservation_at_ranks_heatmap(
         0.5,
         0,
         "                    k",
-        color="#be0040",
+        color=color_site_k,
         fontsize=10,
         fontweight="bold",
         style="italic",
