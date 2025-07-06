@@ -1,0 +1,62 @@
+\begin{lemma}[Stretched gap size ratio given first $n$ items per \hv{}]
+\label{thm:gap-size-ratio-stretched}
+If the first $n$ data items $\colorH(\colorTbar) = \colorh$ for each \hv{} $\colorh$ are retained at time $\colorT$, then gap size ratio is bounded,
+\begin{align*}
+\mathsf{cost\_stretched}(\colorT)
+&\leq
+\frac{1}{n}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+
+From Lemma \ref{thm:retained-equivalence-stretched}, we have retained data items
+\begin{align*}
+\mathsf{want\_retained} =
+\{
+  j'2^{\colorh'} - 1
+  :
+  j' \in [1 \twodots 2n]
+  \text{ and }
+  \colorh' \in \mathbb{N}
+\}.
+\end{align*}
+
+
+What is the smallest $m \in \{2^{\mathbb{N}}\}$ such that $m \times (2n - 1) \geq \colorTbar$?
+\begin{align*}
+m \times 2n
+&\geq \colorTbar + 1\\
+m
+&\geq \frac{\colorTbar + 1}{2n}\\
+m
+&= \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}}.
+\end{align*}
+
+So, $\colorG_{\colorT}(\colorTbar) \leq \left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}} - 1$.
+Thus, for $\colorTbar > 0$, gap size ratio $\mathsf{cost\_stretched}(\colorT)$ can be bounded
+\begin{align*}
+\frac{\colorG_{\colorT}(\colorTbar)}{\colorTbar}
+&\leq
+\frac{
+\left\lceil \frac{\colorTbar + 1 }{2n} \right\rceil_{\mathrm{bin}} - 1
+}{
+\colorTbar
+}\\
+&\leq
+\frac{
+2\frac{\colorTbar + 1}{2n} - 1
+}{
+\colorTbar
+}\\
+&\leq
+\frac{1}{n} + \frac{1 - n}{n\colorTbar}\\
+&\leq
+\frac{1}{n} - \frac{n - 1}{n\colorTbar}\\
+&\leq
+\frac{1}{n} - \eqnmarkbox[gray]{geq}{\frac{1 - 1/n}{\colorTbar}}\\
+&\stackrel{\checkmark}{\leq}
+1 / n.
+\annotate[yshift=0em]{below,right}{geq}{$\geq 0$}
+\end{align*}
+
+\end{proof}

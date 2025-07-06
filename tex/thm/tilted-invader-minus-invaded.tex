@@ -1,0 +1,15 @@
+\begin{lemma}[Monotonicity of \hv{} reservation $\colorHcal_{\colort}(\colork)$ for buffer site $\colork$]
+\label{thm:tilted-invader-minus-invaded}
+A site's assigned hanoi value reservation never decreases.
+Where it increases, it does so by at least 2.
+Formally, where $\colorHcal_{\colort + 1}(\colork) \neq \colorHcal_{\colort}(\colork)$,
+\begin{align*}
+\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \geq 2.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+By design, invasion of any segment begins at the segment's leftmost site $\colork$, always assigned $\colorHcal_{\colort}(\colork) = 0$.
+Because singleton $r=0$ reservation segments never invade, the invader of this leftmost $\colorh = 0$ site will always stem from a segment $r \geq 1$ and have \hv{} $\colorh > 1$.
+The delta $\colorHcal_{\colort + 1}(\colork) - \colorHcal_{\colort}(\colork) \geq 2$ remains constant over subsequent invasion steps because invader and invaded \hv{}'s both increment by exactly 1 each epoch (until complete elimination of the invaded segment).
+\end{proof}
