@@ -42,22 +42,22 @@
         \node[inner sep=0pt] (imgA) {\includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]{binder-new/teeplots/hanoi-strategy-small-epoch/hue=hanoi-value+viz=lolliplot+what=last-n-after+x=index+y=hanoi-value+ext=.pdf}};
         % -- individual arrows (left‑pointing) with text boxes on the right --
         \draw[->] ($(imgA.east)+(0.65,1.20)$) -- ($(imgA.east)+(-0.34,1.20)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,1.20)$) {\small \;\; A};
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,1.20)$) {\small \; $1\times \boxnum{C5}{5}$};
         % Arrow 0
         \draw[->] ($(imgA.east)+(0.65,0.80)$) -- ($(imgA.east)+(-0.34,0.80)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0.80)$) {\small \;\; 0};
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0.80)$) {\small \; $1\times \boxnum{C4}{4}$};
         % Arrow 1
         \draw[->] ($(imgA.east)+(0.65,0.40)$) -- ($(imgA.east)+(-0.34,0.40)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0.40)$) {\small \;\; 1};
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0.40)$) {\small \; $2\times \boxnum{C3}{3}$};
         % Arrow 2 (middle)
         \draw[->] ($(imgA.east)+(0.65,0)$) -- ($(imgA.east)+(-0.34,0)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0)$) {\small \;\; 2};
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0)$) {\small \; $4\times \boxnum{C2}{2}$};
         % Arrow 3
         \draw[->] ($(imgA.east)+(0.65,-0.40)$) -- ($(imgA.east)+(-0.34,-0.40)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,-0.40)$) {\small \;\; 3};
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,-0.40)$) {\small \; $4\times \boxnum{C1}{1}$};
         % Arrow 4 (bottom)
         \draw[->] ($(imgA.east)+(0.65,-0.80)$) -- ($(imgA.east)+(-0.34,-0.80)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,-0.80)$) {\small \;\; 4};
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,-0.80)$) {\small \; $4\times \boxnum{C0}{0}$};
       \end{tikzpicture}
       \hspace*{\fill}%
     \end{minipage}}\\[-1ex]
@@ -78,19 +78,19 @@
         % -- individual arrows (left‑pointing) with text boxes on the right --
         % Arrow 0 (top)
         \draw[->] ($(imgB.east)+(0.65,0.80)$) -- ($(imgB.east)+(-2.77,0.80)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0.80)$) {\small \;\; 0};
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0.80)$) {\small \; $1\times \boxnum{C4}{4}$};
         % Arrow 1
         \draw[->] ($(imgB.east)+(0.65,0.40)$) -- ($(imgB.east)+(-2.77,0.40)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0.40)$) {\small \;\; 1};
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0.40)$) {\small \; $1\times \boxnum{C3}{3}$};
         % Arrow 2
         \draw[->] ($(imgB.east)+(0.65,0)$) -- ($(imgB.east)+(-2.77,0)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0)$) {\small \;\; 2};
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0)$) {\small \; $2\times \boxnum{C2}{2}$};
         % Arrow 3
         \draw[->] ($(imgB.east)+(0.65,-0.40)$) -- ($(imgB.east)+(-2.77,-0.40)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,-0.40)$) {\small \;\; 3};
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,-0.40)$) {\small \; $4\times \boxnum{C1}{1}$};
         % Arrow 4 (bottom)
         \draw[->] ($(imgB.east)+(0.65,-0.80)$) -- ($(imgB.east)+(-2.77,-0.80)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,-0.80)$) {\small \;\; 4};
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,-0.80)$) {\small \; $8\times \boxnum{C0}{0}$};
       \end{tikzpicture}
       \hspace*{\fill}%
     \end{minipage}}
