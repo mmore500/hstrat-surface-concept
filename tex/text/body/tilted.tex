@@ -1,0 +1,114 @@
+\section{Tilted Algorithm} \label{sec:tilted}
+
+The tilted criterion favors recent data items, mandating a record spaced proportionally to time elapsed since ingest, $\colorT - 1 - \colorTbar$.
+This is opposite to the stretched criterion, which favors early data items.
+As given in Equation \ref{eqn:tilted-cost} in Section \ref{sec:stream-curation-problem}, the tilted criterion's cost function is the largest ratio of gap size to ingest time,
+\begin{align*}
+\mathsf{cost\_tilted}(\colorT)
+&=
+\max\Big\{\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} : \colorTbar \in [0 \twodots \colorT-1)\Big\}.
+\end{align*}
+
+The approximate lower bound on best-case gap size ratio provided in Equation \ref{eqn:approx-gap-bound} for the stretched curation can also be applied to tilted curation, as can the strict bound on best-case gap size ratio accounting for discretization effects established in Theorem \ref{thm:stretched-ideal-strict}.
+In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than
+\begin{align}
+  \mathsf{cost\_tilted}(\colorT)
+  &\leq
+  \frac{
+    1
+  }{
+    \max\Big(
+      \frac{\colorS}{2(\colort + \colors)},\;\;
+      \frac{\colorS}{4\colort},\;\;
+      \frac{\colorS}{2^{\colortau + 1}}
+    \Big)
+    - 1/2
+  }
+  \text{ for }
+  \colorTbar < \colorT - 1
+  \label{eqn:tilted-gap-size-bound}
+\end{align}
+over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
+Because $\min(2\colort + 2\colors,\;\; 4\colort,\;\; 2^{\colors - \colortau - 1}) \leq \colorS$, tilted gap size ratio is no greater than a factor of $2(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times the optimal bound established in Equation \ref{eqn:stretched-best}.
+Additionally, gap size ratio is bounded $\mathsf{cost\_tilted}(\colorT) \leq 2$.
+
+% (1/((S/X) - 1/2)) / (1 / (1 + S))
+% (2/((S/X))) / (1 / (1 + S))
+% 2(1 + 1/S) * X / S
+
+\subsection{Tilted Algorithm Strategy}
+\label{sec:tilted-strategy}
+
+\input{fig/hsurf-tilted-intuition.tex}
+
+The retention strategy for the tilted algorithm strongly resembles that of the stretched algorithm.
+Recall that under the stretched algorithm the first $n(\colorT)$ data items of each \hv{} $\colorH(\colorTbar)$ are retained, with $n(\colorT)$ decreasing so as to shift from many copies of few encountered hanoi values to few copies of many encountered hanoi values.
+Under the tilted algorithm, we instead keep the \textit{last} $n(\colorT)$ data items of each hanoi value.
+Figure \ref{fig:hanoi-intuition-tilted} shows how keeping the last $n$ instances of each \hv{} approximates tilted distribution.
+
+We thus set out to maintain --- for a declining threshold $n(\colorT)$ --- the set of data items,
+\begin{align}
+\\
+\mathsf{goal\_tilted}
+&\coloneq
+\bigcup_{\colorh \geq 0}
+\{ \colorTbar =
+\eqnmarkbox[gray]{maxhanoi}{
+  \left\lfloor
+  \frac{\colorT - 2^{\colorh}}{2^{\colorh + 1}}
+  \right\rfloor
+  2^{\colorh + 1}
+  + 2^{\colorh}
+  - 1
+}
+- i2^{\colorh + 1} \text{ for } i \in [0 \twodots n(\colorT) - 1] : 0 \leq \colorTbar < \colorT \}.
+\annotate[yshift=1em]{above,left}{maxhanoi}{$\max\{
+  \colorTbar' \in [0 \twodots \colorT) : \colorH(\colorTbar') = \colorh
+\}$}
+\label{eqn:goal-tilted-set}
+\end{align}
+
+It can be shown analogously to the stretched algorithm's Lemma \ref{thm:stretched-first-n-space} that setting $n(\colorT) \coloneq 2^{\colors - 1 - \colortau}$ suffices to respect available buffer capacity $\colorS$ under the tilted algorithm.
+
+\subsection{Tilted Algorithm Mechanism}
+\label{sec:tilted-mechanism}
+
+Because the tilted algorithm, like the stretched algorithm, also approximates an equal-$n$-per-\hv{} scheme, hanoi value reservation layout is maintained identically to the stretched algorithm's segment-based scheme.
+Refer to Section \ref{sec:stretched-mechanism} for a detailed description of this \hv{} reservation layout, and how it unfolds across epochs $0 \leq \colort \leq \colorS - \colors$.
+
+A pertinent result of the stretched layout is that at least $2^{\colors - 1 - \colortau}$ data item instances of each \hv{} are retained (Lemma \ref{thm:stretched-discarded-incidence-count}).
+However, unlike the stretched algorithm, for the tilted algorithm we wish to keep the \textit{last} $n$ rather than the \textit{first} $n$ instances of each hanoi value.
+We can do that by continuing to write data items for each \hv{} into buffer sites reserved for that \hv{} after they initially fill --- overwriting older instances of the \hv{} to keep a ``ring buffer'' of fresh \hv{} instances.
+
+Supplemental materials prove several results related to the tilted algorithm's ring buffer mechanism, including that fill cycles align evenly to epoch and meta-epoch transitions (Lemma \ref{thm:tilted-last-touched}).
+These results build to Lemma \ref{thm:tilted-most-recent-retained}, which confirms that our strategy always preserves the last $2^{\colors - 1 - \colortau}$ instances of each hanoi value.
+We take particular care in considering transitions where the ``ring buffer'' of sites reserved to a \hv{} is halved by growth of invading segments.
+
+\subsection{Tilted Algorithm Implementation}
+\label{sec:tilted-implementation}
+
+\input{fig/hsurf-tilted-implementation.tex}
+
+Site selection for data ingest proceeds similarly to the stretched algorithm, described in Section \ref{sec:stretched}.
+However, instead of discarding data items after available sites reserved to that \hv{} fill, we simply cycle back and overwrite the first data items within that \hv{}'s reservations.
+In practice, the target index among available sites reserved to a \hv{} can be calculated as the number of previous times a \hv{} has been encountered before time $\colorT$, modulus the number of sites reserved to that hanoi value.
+Figure \ref{fig:hsurf-tilted-implementation-schematic} illustrates site selection over epochs $\colort \in \{0,1,2\}$ on buffer size $\colorS=32$.
+Algorithm \ref{alg:tilted-site-selection} provides a step-by-step listing of the tilted site selection procedure, which is $\mathcal{O}(1)$.
+
+\input{alg/tilted-site-selection}
+
+The data item $\colorTbar$ present at buffer site $\colork$ at time $\colorT$ can be determined by decoding that site's segment index and checking whether (if slated) it has yet been replaced during the current epoch $\colort$.
+Both site selection $\colorK$ and lookup $\colorL$ can be accomplished through fast $\mathcal{O}(1)$ binary operations (e.g., bit mask, bit shift, count leading zeros, popcount).
+Tilted site lookup is provided in supplementary material, as Algorithm \ref{alg:tilted-time-lookup}.
+Reference Python implementations appear in Supplementary Listings \ref{lst:tilted_site_selection.py} and \ref{lst:tilted_time_lookup.py}, as well as accompanying tests.
+
+\subsection{Tilted Algorithm Criterion Satisfaction}
+\label{sec:tilted-satisfaction}
+
+In this final subsection, we establish an upper bound on $\mathsf{cost\_tilted}(\colorT)$ for a buffer of size $\colorS$ at time $\colorT$ under the proposed tilted curation algorithm.
+
+\input{thm/tilted-gap-size}
+
+During early epoch $\colort = 1$, $\mathsf{cost\_tilted}(\colorT) \leq 4/\colorS$.
+Likewise, during the last supported meta-epoch $\colortau = \colors - 1$, $\mathsf{cost\_tilted}(\colorT) \leq 2$.
+Figure \ref{fig:hsurf-tilted-implementation-satisfaction} shows algorithm performance on the tilted criterion for buffer size $\colorS=16$, $\colorT \in [0\twodots 2^{\colorS} - 1)$.

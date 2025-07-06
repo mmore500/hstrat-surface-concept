@@ -1,0 +1,25 @@
+\begin{lemma}[Placements overwrite \hv{} $\colorh = \colort - 1$]
+Placing data items $\colorTbar$ within segments at position $\colorH(\colorTbar)$ modulo segment length ensures elimination of \hv{} $\colorh = \colort - 1$ from each segment.
+\end{lemma} \label{thm:steady-hv-elimination}
+\begin{proof}
+Recall that \hv{} $\colorh = \colort + \colors - i - 1$ is placed in the $i$th bunch during epoch $\colort$ for $i>0$.
+By construction, segments in the $i$th bunch have $\colors - i$ sites for $i>0$.
+We must verify,
+\begin{align*}
+\colort - 1
+&\stackrel{?}{=}
+\mathsf{invading\_h.v.} - \mathsf{segment\_length}\\
+&\stackrel{?}{=}
+(\colort + \colors - i - 1) - (\colors - i)
+ \\
+&\stackrel{\checkmark}{=} \colort - 1.
+\end{align*}
+An identical result can be shown for the bunch $i=0$ segment, which has $\colors+1$ sites.
+\end{proof}
+
+% So, at epoch $\colort$ in reservation $n$ the hanoi value $h(j, r)$ will overwrite hanoi value
+% \begin{align*}
+% h(j, r) - (s - j) - 1 \\
+% &= (r - j) - (s - j) - 1 \\
+% &\stackrel{\checkmark}{=} r - s - 1.
+% \end{align*}
