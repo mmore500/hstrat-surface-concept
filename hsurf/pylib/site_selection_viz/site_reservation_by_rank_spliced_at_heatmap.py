@@ -16,6 +16,7 @@ def site_reservation_by_rank_spliced_at_heatmap(
     surface_history_df: pd.DataFrame,
     splice_from_ranks: typing.List[int],
     splice_to_ranks: typing.List[int],
+    strip_plotter: typing.Callable = site_reservation_at_rank_heatmap,
     reservation_mode: str = "tilted",
 ) -> mpl_figure.Figure:
 
@@ -95,7 +96,7 @@ def site_reservation_by_rank_spliced_at_heatmap(
             )
 
     for ax, splice_from_rank in tqdm(zip(splice_axs, splice_from_ranks)):
-        ax = site_reservation_at_rank_heatmap(
+        ax = strip_plotter(
             surface_history_df,
             splice_from_rank,
             ax=ax,
