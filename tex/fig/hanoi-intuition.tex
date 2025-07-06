@@ -25,61 +25,44 @@
   \centering
 
 \begin{subfigure}{\linewidth}
-\begin{minipage}[]{1\linewidth}
-\noindent\fcolorbox{gray!3}{gray!3}{%
-\begin{minipage}[c][0.65in]{0.02\linewidth}
-\hspace{-0.5ex}%
-\rotatebox{90}{$\colortau = 1$ \hspace{0.5ex} \footnotesize ($\colorT = 32$)}
-\end{minipage}}%
-% \hspace{-1.5ex}%
-% {\vrule width 1pt}%
-% \noindent\fcolorbox{orange!4}{orange!4}{%
-% \begin{minipage}[]{0.34\linewidth}
-% \includegraphics[trim={0.25cm 0.75cm 0 0},clip,height=0.65in]{binder-new/teeplots/hanoi-strategy-small/hue=hanoi-value+viz=lolliplot+what=top-n-after+x=index+y=hanoi-value+ext=.pdf}%
-% \end{minipage}}%
-% \hspace{-1ex}%
-% {\vrule width 1pt}%
-% \noindent\fcolorbox{pink!6}{pink!6}{%
-% \begin{minipage}[]{0.31\linewidth}
-% \includegraphics[trim={1cm 1.2cm 0 0},clip,height=0.65in]{binder-new/teeplots/hanoi-strategy-small/hue=hanoi-value+viz=lolliplot+what=first-n-after-alt+x=index+y=hanoi-value+ext=.pdf}%
-% \end{minipage}}%
-\hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{purple!5}{purple!5}{%
-\begin{minipage}[]{0.21\linewidth}
-\includegraphics[trim={1.1cm 0.75cm 0 0},clip,height=0.65in]{binder-new/teeplots/hanoi-strategy-small-epoch/hue=hanoi-value+viz=lolliplot+what=last-n-after+x=index+y=hanoi-value+ext=.pdf}%
-\end{minipage}\hspace{-1ex}}%
-\end{minipage}\vspace{-1ex}
+  %------------- first (τ = 1) row ----------------------------
+  \noindent
+  % gray label column – twice as wide & twice as tall
+  \fcolorbox{gray!3}{gray!3}{%
+    \begin{minipage}[c][1.30in][c]{0.06\linewidth}
+      \centering
+      \rotatebox{90}{\shortstack{Meta-epoch $\colortau = 1$\\\footnotesize(Time $\colorT = 32$)\\~}}
+    \end{minipage}}%
+  \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
+  % purple panel – picture + automatic purple fill on the right
+  \fcolorbox{purple!5}{purple!5}{%
+    \begin{minipage}[c][1.30in][c]{0.90\linewidth}
+      \includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]%
+        {binder-new/teeplots/hanoi-strategy-small-epoch/%
+         hue=hanoi-value+viz=lolliplot+what=last-n-after%
+         +x=index+y=hanoi-value+ext=.pdf}%
+      \hspace*{\fill}% ← forces the purple background to stretch rightward
+    \end{minipage}}\\[-1ex]
 
-\begin{minipage}[]{1\linewidth}
-\noindent\fcolorbox{gray!11}{gray!11}{%
-\begin{minipage}[c][0.84in]{0.02\linewidth}
-\hspace{-0.5ex}%
-\rotatebox{90}{$\colortau = 0$ \hspace{0.5ex} \footnotesize ($\colorT = 16$)}
-\end{minipage}}%
-% \hspace{-1.5ex}%
-% {\vrule width 1pt}%
-% \noindent\fcolorbox{orange!10}{orange!10}{%
-% \begin{minipage}[c]{0.34\linewidth}
-% \includegraphics[trim={0.25cm 0 0 0},clip,height=0.84in]{binder-new/teeplots/hanoi-strategy-small/hue=hanoi-value+viz=lolliplot+what=top-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
-% \end{minipage}}%
-\hspace{-1ex}%
-% {\vrule width 1pt}%
-% \noindent\fcolorbox{pink!15}{pink!15}{%
-% \begin{minipage}[c]{0.31\linewidth}
-% \includegraphics[trim={1cm 0 0 0},clip,height=0.84in]{binder-new/teeplots/hanoi-strategy-small/hue=hanoi-value+viz=lolliplot+what=first-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
-% \end{minipage}}%
-% \hspace{-1ex}%
-{\vrule width 1pt}%
-\noindent\fcolorbox{purple!11}{purple!11}{%
-\begin{minipage}[]{0.31\linewidth}
-\includegraphics[trim={1.1cm 0 0 0},clip,height=0.84in]{binder-new/teeplots/hanoi-strategy-small/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=100+y=hanoi-value+ext=.pdf}%
-\end{minipage}\hspace{-1ex}}%
-\end{minipage}\vspace{-1ex}
+  %------------- second (τ = 0) row ---------------------------
+  \noindent
+  \fcolorbox{gray!11}{gray!11}{%
+    \begin{minipage}[c][1.68in][c]{0.06\linewidth}
+      \centering
+      \rotatebox{90}{\shortstack{Meta-epoch $\colortau = 0$\\\footnotesize(Time $\colorT = 16$)\\~}}
+    \end{minipage}}%
+  \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
+  \fcolorbox{purple!11}{purple!11}{%
+    \begin{minipage}[c][1.68in][c]{0.90\linewidth}
+      \includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]%
+        {binder-new/teeplots/hanoi-strategy-small-epoch/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}%
+      \hspace*{\fill}%
+    \end{minipage}}
 
-\caption{TODO}
-\label{fig:hanoi-intuition:TODO}
+  \caption{TODO}
+  \label{fig:hanoi-intuition:TODO}
 \end{subfigure}
+
 
 \begin{subfigure}{\linewidth}
 
