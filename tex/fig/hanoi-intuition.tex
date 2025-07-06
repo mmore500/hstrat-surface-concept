@@ -1,3 +1,26 @@
+\definecolor{C0}{HTML}{1F77B4}  % tab10[0]
+\definecolor{C1}{HTML}{FF7F0E}  % tab10[1]
+\definecolor{C2}{HTML}{2CA02C}  % tab10[2]
+\definecolor{C3}{HTML}{D62728}  % tab10[3]
+\definecolor{C4}{HTML}{9467BD}  % tab10[4]
+\definecolor{C5}{HTML}{8C564B}  % tab10[5]
+\definecolor{C6}{HTML}{E377C2}  % tab10[6]
+\definecolor{C7}{HTML}{7F7F7F}  % tab10[7]
+\definecolor{C8}{HTML}{BCBD22}  % tab10[8]
+\definecolor{C9}{HTML}{17BECF}  % tab10[9]
+\definecolor{C10}{HTML}{A1C9F4} % pastel[0]
+\definecolor{C11}{HTML}{FFB482} % pastel[1]
+\definecolor{C12}{HTML}{8DE5A1} % pastel[2]
+\definecolor{C13}{HTML}{FF9F9B} % pastel[3]
+\definecolor{C14}{HTML}{D0BBFF} % pastel[4]
+\definecolor{C15}{HTML}{DEBB9B} % pastel[5]
+\newcommand{\boxnum}[2]{%
+  \begingroup
+  \setlength{\fboxsep}{2pt}%  % padding inside the box
+  \colorbox{#1}{\textcolor{white}{\large\bfseries #2}}%
+  \endgroup
+}
+
 \begin{figure*}
   \centering
 
@@ -58,10 +81,74 @@
 \label{fig:hanoi-intuition:TODO}
 \end{subfigure}
 
-
 \begin{subfigure}{\linewidth}
-\includegraphics[height=3.283in, trim={0 0.55in 8.06cm 0},clip,valign=t]{binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+plotter=clear_ax+surface-size=16+swap-yaxes=True+symbol-color=black+viz=site-reservation-at-ranks-heatmap+ext=.pdf}%
-\includegraphics[trim={1.4cm 0 0 0},clip,height=3.7in,valign=t]{binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+surface-size=16+swap-yaxes=True+symbol-color=black+viz=site-reservation-at-ranks-heatmap+ext=.pdf}
+
+  \begin{tikzpicture}
+
+    % ---------- first (left) plot ----------
+    \node[anchor=north west, inner sep=0] (X) at (0,0){%
+      \includegraphics[height=3.283in,
+                       trim={0 0.55in 8.06cm 0},clip]%
+                      {binder-20a-tilted-eulerian-surface/binder/%
+                       teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+%
+                       color-site-k=black+plotter=clear_ax+surface-size=16+%
+                       swap-yaxes=True+symbol-color=black+%
+                       viz=site-reservation-at-ranks-heatmap+ext=.pdf}};
+
+    % ---------- overlays for the first plot ----------
+    \begin{scope}[x={(X.south east)},y={(X.north west)}]
+
+      \fill[purple,fill opacity=0.11] ($(X.south west) - (-1cm, 0.2cm)$)
+                       rectangle ($(X.south east) + (0, 0.5cm)$);
+      \fill[purple, fill opacity=0.07] ($(X.south west) - (-1cm,-0.5cm)$)
+                       rectangle ($(X.south east) + (0, 1.2cm)$);
+
+      % annotation rows
+      \node[text width=2in] at ($(X.south west) + (4.52cm, 8.23cm)$) {%
+      $1 \times \boxnum{C15}{15}\; \boxnum{C14}{14}\; \boxnum{C13}{13}\;  \boxnum{C12}{12}\; \boxnum{C11}{11}\; \boxnum{C10}{10}\;$
+
+      $\;\;\;\;\;\;\boxnum{C9}{9}\; \boxnum{C8}{8}\; \boxnum{C7}{7}\; \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\; \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}\;\rightarrow$};
+
+      \node[text width=2in] at ($(X.south west) + (4.18cm, 3.05cm)$) {%
+        $1 \times \boxnum{C8}{8}\; \boxnum{C7}{7}\;$%
+        \;
+        $2 \times \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\;%
+                 \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\;%
+                 \boxnum{C0}{0}\;\rightarrow$};
+
+      \node[text width=2in] at ($(X.south west) + (4.65cm, 0.9cm)$) {%
+        $1 \times \boxnum{C5}{5}\; \boxnum{C4}{4}\;$%
+        \;
+        $2 \times \boxnum{C3}{3}\;$%
+        \;
+        $4 \times \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}\;\rightarrow$};
+
+      \node[text width=2in] at ($(X.south west) + (4.21cm, 0.19cm)$) {%
+        \;
+      $1 \times \boxnum{C4}{4}\; \boxnum{C3}{3}\;$%
+        \;
+        $2 \times \boxnum{C2}{2}\;$%
+        \;
+        $4 \times \boxnum{C1}{1}\;$%
+        \;
+        $8 \times \boxnum{C0}{0}\;\rightarrow$};
+
+    \end{scope}
+
+    % ---------- second (right) plot ----------
+    \node[anchor=north west, inner sep=0] (Y)
+         at ($(X.north east) + (0,0)$){%
+      \includegraphics[height=3.7in,
+                       trim={1.4cm 0 0 0},clip]%
+                      {binder-20a-tilted-eulerian-surface/binder/%
+                       teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+%
+                       color-site-k=black+surface-size=16+swap-yaxes=True+%
+                       symbol-color=black+viz=site-reservation-at-ranks-heatmap+%
+                       ext=.pdf}};
+    % (optional) you can add more TikZ annotations that refer to Y here
+  \end{tikzpicture}
+
+
 \caption{TODO}
 \label{fig:hanoi-intuition:TODO}
 
