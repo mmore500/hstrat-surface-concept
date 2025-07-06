@@ -1,0 +1,75 @@
+\begin{theorem}[Steady algorithm gap size upper bound]
+\label{thm:steady-gap-size}
+Under the steady curation algorithm,
+\begin{align*}
+\mathsf{cost\_steady}(\colorT) \leq 2 \frac{\colorS + 1}{\colorS} \hat{\colorg} + 1,
+\end{align*}
+where $\hat{\colorg}$ is the optimal lower bound on $\mathsf{cost\_steady}(\colorT)$ given in Equation \ref{eqn:steady-optimal-gap-size}.
+\end{theorem}
+\begin{proof}
+Recall that the time between instances of a data item with \hv{} $\colorH(\colorTbar) = \colorh$ is $2^{\colorh + 1}$ data items.
+Recall also that the time elapsed between a \hv{} $\colorh$ and a data item with \hv{} greater than $\colorh$ is $2^{\colorh}$ data items.
+
+Under the proposed algorithm, we retain all data items for hanoi values $\colorh \geq \colort$.
+So, retained data items occur at most $2^{\colort}$ time steps apart.
+This corresponds to gap size at most $2^{\colort} - 1$.
+Finally, we test
+\begin{align*}
+2 \frac{\colorS + 1}{\colorS} \left\lceil \frac{\colorT - \colorS}{\colorS + 1} \right\rceil + 1
+&\stackrel{?}{\geq}
+2^{\colort} - 1\\
+2 \frac{\colorS + 1}{\colorS} \left\lceil \frac{\colorT - \colorS}{\colorS + 1} \right\rceil
+&\stackrel{?}{\geq}
+2^{\left\lfloor \log_2(\colorT) \right\rfloor - \colors + 1} - 2 \tag{definition $\colort$, Equation \ref{eqn:epoch-defn}}\\
+&\stackrel{?}{\geq}
+2^{\left\lfloor \log_2(\colorT) - \log_2(\colorS) \right\rfloor + 1} - 2\\
+&\stackrel{?}{\geq}
+2\left\lfloor \frac{\colorT}{\colorS} \right\rfloor_{\mathrm{bin}} - 2\frac{\colorS}{\colorS}\\
+\frac{\colorS + 1}{\colorS} \frac{\colorT - \colorS}{\colorS + 1}
+&\stackrel{?}{\geq}
+\frac{\colorT - \colorS}{\colorS}\\
+\frac{\colorT - \colorS}{\colorS + 1}
+&\stackrel{\checkmark}{\geq}
+\frac{\colorT - \colorS}{\colorS + 1}.
+\end{align*}
+\end{proof}
+
+% Suppose surface size $S = 2^s$ at rank $R$, with $r = \left\lceil \log_2 R \right\rceil$.
+% Note that $2 \times R \leq 2^r$.
+% In order for the steady algorithm to work, we need to have all values with hanoi value greater than or equal to
+% \begin{align*}
+% \max(r - s, 0)
+% \end{align*}
+
+
+% We will have seen 1 of hv $r - 1$, 2 of hv $r - 2$, 4 of hv $r - 4$, and $2 ^ {s - 1}$ of hv $\max(r - s, 0)$.
+% In general, we will have seen $\left\lfloor 2 ^ (r - h) \right\rfloor$ instances of hanoi value $h$ by epoch $r$.
+% Recall $\sum_{i = 0}^{q} 2^i = 2 ^ {q + 1} - 1$.
+% Do we have enough space?
+% \begin{align*}
+% \sum_{i = 0}^{(r - 1) - \max(r - s, 0)} 2 ^ i \\
+% &= \sum_{i = 0}^{\min(r - 1, s - 1)} 2 ^ i \\
+% &\leq \sum_{i = 0}^{s - 1} 2 ^ i \\
+% &\leq 2^s - 1\\
+% &\stackrel{\checkmark}{\leq} 2^s
+% \end{align*}
+
+% Need to prove:
+% \begin{itemize}
+% \item the number of reservation slots in $j$th reservation equals the number of hanoi value instances observed during any window where $r = k$.
+% \item note, because we always fill completely we will therefore drop instances of hanoi value $r - s - 1$.
+% \item that hanoi value $r - s - 1$ is in the $h \mod n$th slot
+% \end{itemize}
+
+
+% The $j$th reservation has $\max(1, 2^{j - 1})$ slots.
+% The number of new observations of hanoi value during epoch $r$ is $h$ is $\# h(r) -  \# h(r - 1)$.
+% This is
+% \begin{align*}
+% \left\lfloor 2 ^ {r - h} \right\rfloor - \left\lfloor 2 ^ {r - h - 1} \right\rfloor \\
+% &= \left\lfloor 2 ^{r - (r - j)} \right\rfloor - \left\lfloor 2 ^ {r - (r - j) - 1} \right\rfloor \\
+% &= 2^j - \left\lfloor 2 ^ {j - 1} \right\rfloor \\
+% &= \min(2^j - 2^{j - 1}, 1) \\
+% &= \min(2 \times 2^{j - 1} - 2^{j - 1}, 1) \\
+% &\stackrel{\checkmark}{=} \min(2^{j - 1}, 1).
+% \end{align*}
