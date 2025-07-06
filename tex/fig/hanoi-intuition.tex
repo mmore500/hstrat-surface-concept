@@ -69,16 +69,17 @@
   %------------- second (τ = 0) row ---------------------------
   \noindent
   \fcolorbox{gray!11}{gray!11}{%
-    \begin{minipage}[c][1.68in][c]{0.06\linewidth}
+    \begin{minipage}[c][1.48in][c]{0.06\linewidth}
       \centering
       \rotatebox{90}{\shortstack{Meta-epoch $\colortau = 0$\\\footnotesize(Time $\colorT = 16$)\\~}}
     \end{minipage}}%
   \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
   \fcolorbox{purple!11}{purple!11}{%
-    \begin{minipage}[c][1.68in][c]{0.90\linewidth}
+    \begin{minipage}[c][1.48in][c]{0.90\linewidth}
       %--- image with tikz arrows ---%
+      \vspace{-1.3cm}
       \begin{tikzpicture}[>=Stealth,decoration={brace}]
-        \node[inner sep=0pt] (imgB) {\includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]{binder-new/teeplots/hanoi-strategy-small-epoch/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}};
+        \node[inner sep=0pt] (imgB) {\includegraphics[trim={0 0.75cm 0 0},height=1.30in]{binder-new/teeplots/hanoi-strategy-small-epoch/hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}};
         % -- individual arrows (left‑pointing) with text boxes on the right --
         % Arrow 0 (top)
         \draw[->] ($(imgB.east)+(0.65,0.80)$) -- ($(imgB.east)+(-2.77,0.80)$);
@@ -100,6 +101,7 @@
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgB.east)+(1.7,0.90)$) -- ($(imgB.east)+(1.7,-0.90)$)
           node[midway,anchor=west,xshift=0.19cm] {\Large Keep up to last $8\times$ of each \hv{}};
       \end{tikzpicture}
+      \vspace{-0.7cm}
       \hspace*{\fill}%
     \end{minipage}}
 
