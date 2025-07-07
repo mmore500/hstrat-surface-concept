@@ -1,17 +1,17 @@
+\newcommand{\X}{1.36}        % overall uniform scale (images + TikZ width)
+\newcommand{\Y}{0.85}          % extra vertical stretch for TikZ (1 = unchanged)
+
 \begin{figure*}[htbp!]
-  \centering
-  \begin{subfigure}{0.542\textwidth}
-  \includegraphics[width=\textwidth, clip, trim={0 1.25cm 0 0}]{binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+plotter=site_reservation_size_at_rank_heatmap+surface-size=16+swap-yaxes=False+symbol-color=black+viz=site-reservation-at-ranks-heatmap.../+ext=.pdf}
-  \end{subfigure}%
-  \begin{subfigure}{0.458\textwidth}
-    ~
-  \end{subfigure}
+
+  \begin{flushleft}
+  \scalebox{\X}{%
+  \includegraphics[width=0.542\textwidth, clip, trim={0 1.25cm 0 0}]%
+  {binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+plotter=site_reservation_size_at_rank_heatmap+surface-size=16+swap-yaxes=False+symbol-color=black+viz=site-reservation-at-ranks-heatmap.../+ext=.pdf}%
+  }%
+  \end{flushleft}
 
 \begin{subfigure}{\linewidth}
-\begin{tikzpicture}[scale=\linewidth/50cm]
-  % Define the total width and height
-
-  % Create scope with normalized axes
+\begin{tikzpicture}[xscale=\X*\linewidth/50cm, yscale=\X*\Y*\linewidth/50cm]
   \begin{scope}
     % Grid
     % \draw[lightgray,step=1] (0,0) grid (50,4);
@@ -20,32 +20,26 @@
     % \foreach \x in {1,5,...,49} { \node [below] at (\x,0) {\x}; }
     % \foreach \y in {0,1,...,4} { \node [left] at (0,\y) {\y}; }
 
-% Add text
-\node[anchor=west, text=black!100] (texta) at (27.0, 3.5) {Bunch $r=1$};
-\node[anchor=west, text=black!70] (textb) at (27.0, 2.5) {Bunch $r=2$};
-\node[anchor=west, text=black!50] (textc) at (27.0, 1.5) {Bunch $r=3$};
-\node[anchor=west, text=black!30] (textd) at (27.0, 0.5) {Bunch $r=5$};
+\node[anchor=west, text=black!100] (texta) at (24.5, 3.5) {Bunch $r=1$};
+\node[anchor=west, text=black!70] (textb) at (24.5, 2.5) {Bunch $r=2$};
+\node[anchor=west, text=black!50] (textc) at (24.5, 1.5) {Bunch $r=3$};
+\node[anchor=west, text=black!30] (textd) at (24.5, 0.5) {Bunch $r=5$};
 
-\node[anchor=center,font={\footnotesize}] (textx) at (36.0, 4.5) {\textit{Num Segs.}};
-\node[anchor=center,font={\footnotesize}] (textax) at (36.0, 3.5) {\textit{4}};
-\node[anchor=center,font={\footnotesize}] (textbx) at (36.0, 2.5) {\textit{2}};
-\node[anchor=center,font={\footnotesize}] (textcx) at (36.0, 1.5) {\textit{1}};
-\node[anchor=center,font={\footnotesize}] (textdx) at (36.0, 0.5) {\textit{1}};
+\node[anchor=center,font={\footnotesize}] (textx) at (29.2, 4.5) {\textit{Num Segs.}};
+\node[anchor=center,font={\footnotesize}] (textax) at (29.2, 3.5) {\textit{4}};
+\node[anchor=center,font={\footnotesize}] (textbx) at (29.2, 2.5) {\textit{2}};
+\node[anchor=center,font={\footnotesize}] (textcx) at (29.2, 1.5) {\textit{1}};
+\node[anchor=center,font={\footnotesize}] (textdx) at (29.2, 0.5) {\textit{1}};
 
-\node[anchor=center,font={\footnotesize}] (textay) at (40.0, 3.5) {\textit{filled last}};
-% \node[anchor=center] (textby) at (47, 2.5) {\textit{2}};
-% \node[anchor=center] (textcy) at (47, 1.5) {\textit{1}};
-\node[anchor=center,font={\footnotesize}] (textdy) at (40.0, 0.5) {\textit{filled first}};
+\node[anchor=center,font={\footnotesize}] (textay) at (31.5, 3.5) {\textit{filled last}};
+\node[anchor=center,font={\footnotesize}] (textdy) at (31.5, 0.5) {\textit{filled first}};
 \draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!40](textdy.north) -- (textay.south);
 
-\node[anchor=center,font={\footnotesize}] (textay) at (44.5, 3.5) {\textit{invaded first}};
-% \node[anchor=center] (textby) at (47, 2.5) {\textit{2}};
-% \node[anchor=center] (textcy) at (47, 1.5) {\textit{1}};
-\node[anchor=center,font={\footnotesize}] (textdy) at (44.5, 0.5) {\textit{invaded last}};
-\draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!45](textay.south) -- (textdy.north);
+\node[anchor=center,font={\footnotesize}] (textay2) at (34.5, 3.5) {\textit{invaded first}};
+\node[anchor=center,font={\footnotesize}] (textdy2) at (34.5, 0.5) {\textit{invaded last}};
+\draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!45](textay2.south) -- (textdy2.north);
 
-
-% Triangles are drawn with the tip pointing downwards and base flush with y=5
+% Triangles
 \filldraw[draw=white,ultra thick,fill=black!100] (8.5,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
 \node[anchor=center,text=black!100] (textaa) at (9, 3.5) {S.{} 0};
 \filldraw[draw=white,ultra thick,fill=black!100] (12.75,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
@@ -109,13 +103,11 @@
 \end{tikzpicture}
 \end{subfigure}
 
-% \begin{subfigure}{0.5\textwidth}
-% \includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]{binder/teeplots/20/surface-size=16+viz=site-reservation-at-ranks-heatmap+ext=.pdf}\vspace{-1ex}
-% \caption{\footnotesize Sites numbered by reserved hanoi value $\colorHcal_{\colort}(\colork)$ for epochs $\colort=0$ to $\colort=11$.}
-% \label{fig:hsurf-stretched-intuition-reservations}
-% \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]{binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+plotter=site_reservation_size_at_rank_heatmap+surface-size=16+swap-yaxes=False+symbol-color=black+viz=site-reservation-at-ranks-heatmap.../+ext=.pdf}\vspace{-1ex}
+\scalebox{\X}{%
+\includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]%
+{binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+plotter=site_reservation_size_at_rank_heatmap+surface-size=16+swap-yaxes=False+symbol-color=black+viz=site-reservation-at-ranks-heatmap.../+ext=.pdf}%
+}\vspace{-1ex}
 \caption{\footnotesize Initialized $r$ and mature $R$ reservation segment sizes.}
 \label{fig:hsurf-stretched-intuition-reservations-size}
 \end{subfigure}%
