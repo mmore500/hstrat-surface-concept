@@ -14,6 +14,6 @@
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = binder
 [submodule "tex/binder-20a-tilted-eulerian-surface"]
-	path = tex/binder
+	path = tex/binder-20a-tilted-eulerian-surface
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = 20a-tilted-eulerian-surface.ipynb
