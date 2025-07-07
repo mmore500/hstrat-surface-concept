@@ -2,10 +2,12 @@
 	path = tex/binder
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = binder
+	shallow = true
 [submodule "tex/binder-downstream-benchmark"]
 	path = tex/binder-downstream-benchmark
 	url = https://github.com/mmore500/downstream-benchmark
 	branch = binder
+	shallow = true
 [submodule "downstream-benchmark"]
 	path = downstream-benchmark
 	url = https://github.com/mmore500/downstream-benchmark.git
@@ -13,7 +15,9 @@
 	path = tex/binder-new
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = binder
+	shallow = true
 [submodule "tex/binder-20a-tilted-eulerian-surface"]
 	path = tex/binder-20a-tilted-eulerian-surface
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = 20a-tilted-eulerian-surface.ipynb
+	shallow = true
