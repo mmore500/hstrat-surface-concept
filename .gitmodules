@@ -21,3 +21,13 @@
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = 20a-tilted-eulerian-surface.ipynb
 	shallow = true
+[submodule "binder-hanoi-strategy-small-epoch"]
+	path = binder-hanoi-strategy-small-epoch
+	url = https://github.com/mmore500/hstrat-surface-concept.git
+	branch = binder-hanoi-strategy-small-epoch.ipynb
+	shallow = true
+[submodule "binder-coverage-criteria-small"]
+	path = binder-coverage-criteria-small
+	url = https://github.com/mmore500/hstrat-surface-concept.git
+	branch = binder-coverage-criteria-small.ipynb
+	shallow = true
