@@ -61,7 +61,7 @@
 
         % --- vertical brace (opens left) grouping arrows ---
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgA.east)+(1.7,1.30)$) -- ($(imgA.east)+(1.7,-0.90)$)
-          node[midway,anchor=west,xshift=0.19cm] {\Large Keep up to last $4\times$ of each \hv{}};
+          node[midway,anchor=west,xshift=0.19cm] {\Large Keep at least last $4\times$ seen items of each \hv{}};
       \end{tikzpicture}
       \hspace*{\fill}%
     \end{minipage}}\\[-1ex]
@@ -99,7 +99,7 @@
 
         % --- vertical brace (opens left) grouping arrows ---
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgB.east)+(1.7,0.90)$) -- ($(imgB.east)+(1.7,-0.90)$)
-          node[midway,anchor=west,xshift=0.19cm] {\Large Keep up to last $8\times$ of each \hv{}};
+          node[midway,anchor=west,xshift=0.19cm] {\Large Keep at least last $8\times$ seen items of each \hv{}};
       \end{tikzpicture}
       \vspace{-0.7cm}
       \hspace*{\fill}%
@@ -124,12 +124,18 @@
                        swap-yaxes=True+symbol-color=black+%
                        viz=site-reservation-at-ranks-heatmap+ext=.pdf}};
 
-    % ---------- overlays for the first plot ----------
+      \fill[gray,fill opacity=0.12] ($(X.south west) - (-0.5cm, 0.2cm)$)
+                       rectangle ($(X.south west) - (-1cm, -0.52cm)$);
+      \fill[gray,fill opacity=0.055] ($(X.south west) - (-0.5cm, -1.22cm)$)
+                       rectangle ($(X.south west) - (-1cm, -0.52cm)$);
+
+
+                       % ---------- overlays for the first plot ----------
     \begin{scope}[x={(X.south east)},y={(X.north west)}]
 
       \fill[purple,fill opacity=0.11] ($(X.south west) - (-1cm, 0.2cm)$)
                        rectangle ($(X.south east) + (0, 0.5cm)$);
-      \fill[purple, fill opacity=0.055] ($(X.south west) - (-1cm,-0.5cm)$)
+      \fill[purple, fill opacity=0.052] ($(X.south west) - (-1cm,-0.5cm)$)
                        rectangle ($(X.south east) + (0, 1.2cm)$);
 
       % annotation rows
@@ -139,7 +145,7 @@
       $\;\;\;\;\;\;\boxnum{C9}{9}\; \boxnum{C8}{8}\; \boxnum{C7}{7}\; \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\; \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}\;\rightarrow$};
 
       \node[text width=1.5in] at ($(X.south west) + (4.2cm, 7.16cm)$) {%
-      \Large Keep last $1\times$ of each \hv{}
+      \Large Keep at least last $1\times$ seen items of each \hv{}
       };
 
       \node[text width=2in] at ($(X.south west) + (4.18cm, 3.05cm)$) {%
@@ -150,7 +156,7 @@
                  \boxnum{C0}{0}\;\rightarrow$};
 
       \node[text width=1.5in] at ($(X.south west) + (4.2cm, 2.23cm)$) {%
-      \Large Keep up to last $2\times$ of each \hv{}
+      \Large Keep at least last $2\times$ seen items of each \hv{}
       };
 
       \node[text width=2in] at ($(X.south west) + (4.65cm, 0.9cm)$) {%
