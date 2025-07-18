@@ -1,64 +1,106 @@
-\begin{figure}
+\begin{figure*}
 
-\begin{subfigure}{0.3\linewidth}
+\begin{minipage}{\textwidth}
+\begin{subfigure}[t]{0.07\linewidth}
+\vspace{1ex}
+\begingroup\setlength{\fboxsep}{0pt}%
+\noindent\fcolorbox{white!0}{white!0}{%
+
+\vspace{1ex}
+
+\includegraphics[height=3in, trim={0 0 8.2cm 0}, clip]{img/ring-buffer-simple-serif}
+}
+\endgroup
+\end{subfigure}%
+\vrule
+\begin{subfigure}[t]{0.31\linewidth}
+\centering
+\begingroup\setlength{\fboxsep}{0pt}%
+\noindent\fcolorbox{black!4}{black!4}{%
+\begin{minipage}[t]{\linewidth}
+\centering
+
+\vspace{1ex}
+
+\includegraphics[height=3in, trim={1.33cm 0 0 0}, clip]{img/ring-buffer-simple-serif}\\
+\vspace{1ex}
+\end{minipage}
+}
+\endgroup
+
+\vspace{-0.2ex}
+\centering
+\begingroup\setlength{\fboxsep}{0pt}%
+ \noindent\fcolorbox{black!7}{black!7}{%
+\begin{minipage}[t]{\linewidth}
 \centering
 \caption{simple ring buffer}
 \label{fig:curation-ingest-lookup:ring}
-\end{subfigure}
-\begin{minipage}{0.6\linewidth}
+
+\vspace{1.3ex}
+
+\end{minipage}}\endgroup
+
+\end{subfigure}%
+\vrule
+\begin{subfigure}[t]{0.31\linewidth}
 \centering
-\includegraphics[width=\linewidth]{img/ring-buffer-simple-serif}
-\end{minipage}
+  \begingroup\setlength{\fboxsep}{0pt}%
+\noindent\fcolorbox{blue!4}{blue!4}{%
+\begin{minipage}[t]{\linewidth}
+\centering
 
 \vspace{1ex}
 
-\noindent\rule{\linewidth}{1pt}
+\includegraphics[height=3in, trim={1.33cm 0 0 0}, clip]{img/ring-buffer-steady-serif}\\
+\vspace{1ex}
+\end{minipage}
+}
+\endgroup
 
+\vspace{-0.2ex}
+\centering
 \begingroup\setlength{\fboxsep}{0pt}%
-\noindent\fcolorbox{blue!0}{blue!10}{%
-\begin{minipage}{0.02\linewidth}~\end{minipage}%
-\begin{subfigure}{0.3\linewidth}
+ \noindent\fcolorbox{blue!7}{blue!7}{%
+\begin{minipage}[t]{\linewidth}
 \centering
 \caption{generalized ring buffer: steady curation}
 \label{fig:curation-ingest-lookup:steady}
+
+\vspace{1.3ex}
+
+\end{minipage}}\endgroup
+
 \end{subfigure}%
-\begin{minipage}{0.02\linewidth}~\end{minipage}%
-\noindent\fcolorbox{blue!4}{blue!4}{%
-\begin{minipage}{0.02\linewidth}~\end{minipage}%
-\begin{minipage}{0.6\linewidth}
+\vrule
+\begin{subfigure}[t]{0.301\linewidth}
+\begingroup\setlength{\fboxsep}{0pt}%
+\noindent\fcolorbox{purple!4}{purple!4}{%
+\begin{minipage}[t]{\linewidth}
 \centering
+
 \vspace{1ex}
 
-\includegraphics[width=\linewidth]{img/ring-buffer-steady-serif}
+\includegraphics[height=3in, trim={1.33cm 0 0 0}, clip]{img/ring-buffer-tilted-serif}\\
 \vspace{1ex}
-\end{minipage}%
-}%
+\end{minipage}
 }
 \endgroup
 
-\noindent\rule{\linewidth}{1pt}
-
+\vspace{-0.2ex}
+\centering
 \begingroup\setlength{\fboxsep}{0pt}%
-\noindent\fcolorbox{purple!0}{purple!10}{%
-\begin{minipage}{0.02\linewidth}~\end{minipage}%
-\begin{subfigure}{0.3\linewidth}
+ \noindent\fcolorbox{purple!7}{purple!7}{%
+\begin{minipage}[t]{1.01\linewidth}
 \centering
 \caption{generalized ring buffer: tilted curation}
 \label{fig:curation-ingest-lookup:tilted}
-\end{subfigure}%
-\begin{minipage}{0.02\linewidth}~\end{minipage}%
-\noindent\fcolorbox{purple!4}{purple!4}{%
-\begin{minipage}{0.02\linewidth}~\end{minipage}%
-\begin{minipage}{0.6\linewidth}
-\centering
-\vspace{1ex}
 
-\includegraphics[width=\linewidth]{img/ring-buffer-tilted-serif}
-\vspace{1ex}
-\end{minipage}%
-}%
-}
-\endgroup
+\vspace{1.4ex}
+
+\end{minipage}}\endgroup
+\end{subfigure}
+\end{minipage}
 
 \caption{
   {\textbf Comparison of simple ring buffer to generalized ring buffers.}
@@ -70,5 +112,5 @@
   For the proposed DStream tilted algorithm these operations are described in Listings and \ref{alg:tilted-site-selection} and \ref{alg:tilted-time-lookup}.
 }
 \label{fig:curation-ingest-lookup}
-\end{figure}
+\end{figure*}
 % https://docs.google.com/presentation/d/1-7eLWTSH16s1MpGyT0iTJGAVLEYdKM7hK3ao2y_bW9A
