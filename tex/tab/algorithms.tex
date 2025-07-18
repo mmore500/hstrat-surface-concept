@@ -1,14 +1,21 @@
 \begin{table*}[]
-\begin{tabular}{lll}
+\begin{tabular}{llll}
 \hline
-Name            & Description                                                        & Source                                                   \\ \hline
-gunther steady  & generalized ring buffer, based on modular arithmetic               & \citep{gunther2014algorithm}          \\
-doubling steady & at max capacity, every other thinned and sampling interval doubled & \citep{gunther2014algorithm}, Listing Listing \ref{alg:control-doubling-steady}          \\
-zhao steady     & iterative buffer search, using criterion based on stored gap sizes & \citep[Fig.~6]{zhao2005generalized}  \\
-dstream tilted  & generalized ring buffer, based on hanoi value sequence             & Listing \ref{alg:tilted-site-selection} \\
-doubling tilted & at max capacity, every other thinned; no sampling interval change  & Listing \ref{alg:control-doubling-tilted}                         \\
-zhao tilted     & iterative buffer search, using criterion based on stored gap sizes & \citep[Fig.~10]{zhao2005generalized} \\
-zhao tilted ext  & space-filling extension of ``zhao tilted'' & Listing \ref{alg:zhao-tilted-full}
+\textit{Name}
+& \textit{Description}
+& \textit{Memory}
+& \textit{Source}
+\\ \hline \hline
+% gunther steady  & generalized ring buffer, based on modular arithmetic               & \citep{gunther2014algorithm}          \\
+% doubling steady & at max capacity, every other thinned and sampling interval doubled & \citep{gunther2014algorithm}, Listing \ref{alg:control-doubling-steady}          \\
+% zhao steady     & iterative buffer search, using criterion based on stored gap sizes & \citep[Fig.~6]{zhao2005generalized}  \\
+extended ringbuf  & generalized ring buffer, based on hanoi value sequence & $\mathcal{O}(1)$ & Listing \ref{alg:tilted-site-selection} \\
+extended ringbuf LUT  & as above, optimized with $\mathcal{O}(1)$ static lookup table & $\mathcal{O}(1)$ & Listing \ref{alg:tilted-site-selection} \\
+pyramidal bucket     & iterative buffer search, using criterion based on stored gap sizes & $\mathcal{O}(\log \; n )$ & \citep[Fig.~10]{zhao2005generalized} \\
+saturating bucket  & space-filling extension of ``pyramidal bucket'' approach & $\mathcal{O}(1)$ & Listing \ref{alg:zhao-tilted-full}, cf. \citep{zhao2005generalized} \\
+naive doubling & at max capacity, every other thinned; no sampling interval change & $\mathcal{O}(1)$ & Listing \ref{alg:control-doubling-tilted}, cf. \citep{gunther2014algorithm} \\ \hline
+simple ringbuf & classic ring buffer with last seen data items, used as control & $\mathcal{O}(1)$ & \\
+no-operation & discards all data items, used as control & $\mathcal{O}(1)$ & \\
 \end{tabular}
 \caption{Benchmarked stream curation algorithms}
 \label{tab:algorithms}
