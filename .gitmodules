@@ -35,3 +35,4 @@
 	path = tex/binder-2025-07-19-mem-perf-tilted
 	url = https://github.com/mmore500/downstream-benchmark.git
 	branch = binder-2025-07-19-mem-perf-tilted.ipynb
+	shallow = true
