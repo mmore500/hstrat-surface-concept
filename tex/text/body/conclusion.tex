@@ -1,5 +1,7 @@
 \section{Conclusions and Further Directions} \label{sec:conclusion}
 
+\input{fig/mem-perf-tilted}
+
 In this work, we have explored rolling extraction of temporally-representative online subsamples from data streams using memory-efficient methods based on generalizing the ring buffer data structure.
 To enable a broader set of use cases for this approach, we extend existing work providing steady (even-spaced) retention \citep{gunther2014algorithm} to introduce an approach supporting tilted (recency-proportional) retention.
 We demonstrate this new tilted algorithm to provide $\mathcal{O}(1)$ ingest and prove worst-case lower bounds on curation quality across elapsed stream history.

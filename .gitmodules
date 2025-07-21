@@ -31,3 +31,7 @@
 	url = https://github.com/mmore500/hstrat-surface-concept.git
 	branch = binder-coverage-criteria-small.ipynb
 	shallow = true
+[submodule "tex/binder-2025-07-19-mem-perf-tilted"]
+	path = tex/binder-2025-07-19-mem-perf-tilted
+	url = https://github.com/mmore500/downstream-benchmark.git
+	branch = binder-2025-07-19-mem-perf-tilted.ipynb
