@@ -13,7 +13,7 @@
 extended ringbuf  & generalized ring buffer, based on hanoi value sequence & $\mathcal{O}(1)$ & \Cref{fig:curation-ingest-lookup:tilted,fig:hsurf-tilted-implementation-schematic} & Listing \ref{alg:tilted-site-selection} \\
 extended ringbuf LUT  & as above, optimized with $\mathcal{O}(1)$ static lookup table & \textquotedbl & \textquotedbl & \textquotedbl \\
 naive doubling & at max capacity, every other stored item thinned & $\mathcal{O}(1)$ & \Cref{fig:surface-control-tilted:naive-doubling} & Listing \ref{alg:control-doubling-tilted}, cf. \citep{gunther2014algorithm} \\
-pyramidal bucket     & iterative buffer search, based on stored gap sizes & $\mathcal{O}(\log \; n )$ & \Cref{fig:surface-control-tilted:pyrimidal} & \citep[Fig.~10]{zhao2005generalized} \\
+pyramidal bucket     & iterative buffer search, based on stored gap sizes & $\mathcal{O}(\log \; n )$ & \Cref{fig:surface-control-tilted:pyramidal} & \citep[Fig.~10]{zhao2005generalized} \\
 saturating bucket  & space-filling extension of ``pyramidal bucket'' approach & $\mathcal{O}(1)$ & \Cref{fig:surface-control-tilted:saturating-bucket} & Listing \ref{alg:zhao-tilted-full}, cf. \citep{zhao2005generalized} \\
 \hline
 simple ringbuf & classic ring buffer with last seen data items, used as control & $\mathcal{O}(1)$ & \Cref{fig:curation-ingest-lookup:ring} & - \\
