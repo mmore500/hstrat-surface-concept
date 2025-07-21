@@ -11,9 +11,13 @@
 \label{fig:mem-perf-tilted:lut}
 
 \caption{
-\textbf{TODO}.
+\textbf{Generalized ring buffer performance characteristics.}
 \footnotesize
-TODO.
+Comparison is against saturating bucket algorithm.
+Annotations report symmetric fold-improvement, calculated as $\max(x, y) / \min(x, y) - 1$.
+For legibility, bar heights are symmetric fold-advantage, calculated as $1 - \min(x, y) / \max(x, y)$.
+Curation quality comparisons are performed on a same-memory-footprint basis,with \textit{inf} indicating that no saturating bucket data structure fits within the memory footprint of the generalized ring buffer.
+Speed comparisons are performed on a same-item-capacity basis.
 }
 \label{fig:mem-perf-tilted}
 
