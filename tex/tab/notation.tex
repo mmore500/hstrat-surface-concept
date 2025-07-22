@@ -9,21 +9,21 @@ Log Buffer Size & int & $\colors$ & $\log_2 \colorS$ & $\in \mathbb{N}$ \\
 Buffer Site & int & $\colork$ & index position in buffer & $\in [0\twodots\colorS)$ \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Time}} \\ \hline
-Current Time & int & $\colorT$ & num elapsed data item ingests & $\in$ $\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots 2^{\colorS - 1})$ \\
+Current Time & int & $\colorT$ & num elapsed data item ingests & $\in [0 \twodots 2^{\colorS - 1})$ \\
 Data Item Ingest Time & int & $\colorTbar$ & num ingests preceding data item & $\in [0 \twodots \colorT)$ \\
-Hanoi Value (\hv{}) of Time & int & $\colorh = \colorH(\colorT)$ & Formula \ref{eqn:hanoi-defn} & $\in$ $\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
-Time Epoch & int & $\colort = \mathit{f}_{\mathrm{t}}(\colorT)$ & Formula \ref{eqn:epoch-defn} & $\in$ $\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS - \colors)$ \\
+Hanoi Value (\hv{}) of Time & int & $\colorh = \colorH(\colorT)$ & Formula \ref{eqn:hanoi-defn} & $\in [0 \twodots \colorS)$ \\
+Time Epoch & int & $\colort = \mathit{f}_{\mathrm{t}}(\colorT)$ & Formula \ref{eqn:epoch-defn} & $\in [0 \twodots \colorS - \colors)$ \\
 & set & $\colortsetofT$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\mathrm{t}}(\colorT^{\prime}) = \colort \}$ & $\subseteq [\colorT' \twodots \colorT' + n]$  \\
-Time Meta-epoch & int & $\colortau = \mathit{f}_{\tau}(\colort)$ & Formula \ref{eqn:meta-epoch-defn} & $\in$ $\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colors)$ \\
+Time Meta-epoch & int & $\colortau = \mathit{f}_{\tau}(\colort)$ & Formula \ref{eqn:meta-epoch-defn} & $\in [0 \twodots \colors)$ \\
 & set & $\colortausetoft$ & $\{\colort^{\prime} \in \mathbb{N} : \mathit{f}_{\tau}(\colort^{\prime}) = \colortau \}$ & $\subseteq [\colort' \twodots \colort' + n]$ \\
 & set & $\colortausetofT$ & $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\tau} \circ \mathit{f}_{\mathrm{t}}(\colorT^{\prime}) = \colortau \}$ & $\subseteq [\colorT' \twodots \colorT' + n]$ \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Layout}} \\ \hline
-Hanoi Value Reserved at Site & int & $\colorh = \colorHcal_{\colort}(\colork)$ & algorithm-defined & $\in$ $\mathbb{N}$ or \textsuperscript{\textdaggerdbl}$[0 \twodots \colorS)$ \\
+Hanoi Value Reserved at Site & int & $\colorh = \colorHcal_{\colort}(\colork)$ & algorithm-defined & $\in [0 \twodots \colorS)$ \\
 Storage Site Selected for Data Item & int & $\colorK(\colorT)$ & algorithm-defined & $\in [0 \twodots \colorS) \cup \{\nullval\}$ \\
 Ingest Times of Stored Data Items by Site & seq & $\colorL(\colorT)$ & {\footnotesize $\max\{\colorTbar \in [0 \twodots \colorT) : \colorK(\colorTbar) = \colork\}$ for $\colork \in [0 \twodots \colorS)$} & $\subseteq [0 \twodots \colorT) \cup \{\nullval\}$ \\
-Initial Reservation Segment Size & int & $r$ & \textsuperscript{\textdaggerdbl}Formula \ref{eqn:stretched-segment-sizes} & \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colors]$ \\
-Mature Reservation Segment Size & int & $R(r)$ & \textsuperscript{\textdaggerdbl} $2^{r} - 1$ (Lemma \ref{thm:stretched-meta-epoch}) & \textsuperscript{\textdaggerdbl}$\in [1 \twodots \colorS]$ \\ \hline
+Initial Reservation Segment Size & int & $r$ & Formula \ref{eqn:stretched-segment-sizes} & $\in [1 \twodots \colors]$ \\
+Mature Reservation Segment Size & int & $R(r)$ & $2^{r} - 1$ (Lemma \ref{thm:stretched-meta-epoch}) & $\in [1 \twodots \colorS]$ \\ \hline
 \rowcolor{gray!20}
 \multicolumn{5}{c}{\textbf{Curation Quality}} \\ \hline
 Retained Data Items & set & $\colorB_{\colorT}$ & algorithm-consequent & $\subseteq [0\twodots\colorT)$ \\
@@ -33,7 +33,6 @@ Gap Size in Curated Collection & int & $\colorg = \colorG_{\colorT}(\colorTbar)$
 \centering
 \caption{
 Summary of notation used.
-\textit{(tilted algorithm only\textsuperscript{\textdagger})}
 }
 \label{tab:notation}
 \end{table*}
