@@ -247,7 +247,7 @@
   Data retention is prioritized based on ``hanoi value'' (\hv) of arrival time $\colorT$ (``lollipop'' bars in upper panel).
   To achieve tilted coverage, our proposed strategy maintains the set of $n$ most-recent items for each \hv{} (green boxes in upper panel).
   As time ``epochs'' elapse, corresponding to arrival of progressively higher \hv s, per-\hv{} $n$ shrinks.
-  Lower panel shows epoch-by-epoch physical storage layout for \hv sets.
+  Lower panel shows epoch-by-epoch physical storage layout for \hv sets on buffer size $S=16$.
   (For within-epoch detail of individual data items, see Figure \ref{fig:hsurf-tilted-implementation}.)
   In each successive ``meta-epoch'' (dashed lines) $n$ is halved across low \hv s' in a rolling fashion to store newly-arrived high-\hv items.
   Note nested composition of consecutive-\hv ``segments'' (solid lines); design is described in Figure \ref{fig:hsurf-stretched-intuition}.
