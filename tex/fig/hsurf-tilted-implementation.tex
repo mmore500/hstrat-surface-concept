@@ -53,7 +53,7 @@
 \vspace{-2ex}
 \end{minipage}
 \begin{subfigure}{\textwidth}
-\caption{\footnotesize Tilted policy site selection $\colorK(\colorT)$ with buffer size $\colorS=32$.}
+\caption{\footnotesize Site selection $\colorK(\colorT)$ for buffer size $\colorS=32$.}
 \label{fig:hsurf-tilted-implementation-site-selection}
 \end{subfigure}
 \vspace{-3ex}
@@ -123,18 +123,15 @@ binder-20a-tilted-eulerian-surface/binder/teeplots/20a/font.family=serif+num-gen
 % \end{minipage}
 
 \vspace{-2ex}\caption{%
-  \textbf{Example tilted algorithm behavior.}
+  \textbf{Example tilted-generalized ring buffer behavior.}
   \footnotesize
-  Top panel \ref{fig:hsurf-tilted-implementation-site-selection} enumerates initial tilted policy site selection on a 32-site buffer.
-  Panel \ref{fig:hsurf-tilted-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' hanoi values $\colorH(\colorTbar)$.
-  Between $\colorT=0$ and $\colorT=127$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$; strips before  each epoch show hanoi values assigned to each buffer site during that epoch.
-  Time increases along the $y$ axis.
-  Rectangles with small white ``$\blkhorzoval$'' symbol denote buffer site where the ingested data item from each timestep $\colorT$ is placed.
-  At each epoch, data items are filled into sites newly assigned for their ingestion-order hanoi value from left to right.
+  Top panel \ref{fig:hsurf-tilted-implementation-site-selection} enumerates storage site selection on a 32-site buffer for $\colorT=0 \ldots 12, \; 28 \ldots 40$.
+  Bottom panel \ref{fig:hsurf-tilted-implementation-schematic} depicts time course of stored data items, color-coded by data items' hanoi values $\colorH(\colorTbar)$.
+  Time progresses from bottom to top.
+  Between $\colorT=0$ and $\colorT=127$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$; strips before each epoch show hanoi values assigned to each buffer site during that epoch.
+  Rectangles with small white ``$\blkhorzoval$'' symbol denote storage of ingested data item.
   In epoch 0, all sites are filled with a first data item.
-  At subsequent epochs, the first site of all innermost-nested segments is ``invaded'' by new high \hv{} sites added to other segments.
-  Low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{}, ensuring the most recent data items corresponding to that hanoi value are retained.
-  The invasion process continues over successive epochs until only one segment remains, as shown in Figure \ref{fig:hsurf-stretched-intuition-reservations}.
+  Then, in subsequent epochs, low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{} (ensuring most recent data items corresponding to that \hv{} are retained).
   % Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
   % Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
   % Vertical lines span durations between ingestion and elimination for data items from successive time points.
