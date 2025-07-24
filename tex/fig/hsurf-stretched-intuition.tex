@@ -1,4 +1,4 @@
-\newcommand{\X}{1.36}        % overall uniform scale (images + TikZ width)
+\newcommand{\X}{1.26}        % overall uniform scale (images + TikZ width)
 \newcommand{\Y}{0.85}          % extra vertical stretch for TikZ (1 = unchanged)
 
 \begin{figure*}[htbp!]
@@ -108,32 +108,20 @@
 \includegraphics[width=\textwidth, clip, trim={0 0 1.25cm 11.2cm}]%
 {binder-20a-tilted-eulerian-surface/binder/teeplots/20a/color-epoch-t=black+color-metaepoch-tau=black+color-site-k=black+font.family=serif+plotter=site_reservation_size_at_rank_heatmap+surface-size=16+swap-yaxes=True+symbol-color=black+viz=site-reservation.../-at-ranks-heatmap+ext=.pdf}%
 }\vspace{-1ex}
-\caption{\footnotesize Initialized $r$ and mature $R$ reservation segment sizes.}
-\label{fig:hsurf-stretched-intuition-reservations-size}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}~\end{subfigure}\vspace{-1ex}
 
+\vspace{-1.5ex}
 
 \caption{
-    \textbf{Buffer layout strategy.}
+    \textbf{Physical storage layout of \hv{} reservations.}
     \footnotesize
-    Left panel \ref{fig:hsurf-stretched-intuition-reservations} shows progression of \hv{} reservations $\colorHcal_{\colort}(\colork)$ on a buffer with size $\colorS=16$ across supported epochs $\colort \in [0\twodots\colorS - \colors)$.
-    Epoch $\colort$ is indicated on the leftmost axis.
-    The rightmost axis, in the right panel, indicates meta-epoch $\colortau$.
-    Color coding reflects assigned \hv{}
-    Observe, for instance, that four sites, colored dark blue, are reserved for \hv{} $\colorh=0$ during epoch $\colort=0$.
-    As shown in the right panel \ref{fig:hsurf-stretched-intuition-reservations-size}, reservation segment bunches are nested recursively, with inner bunches having shorter segments.
-    Reservation segments are separated by black lines in both diagrams.
-    On the left, inverted triangles schematize the layout of segment bunches, which are nested and discontiguous.
-    Bunches are indicated by color code in the right diagram, with segments having same initial size $r$ belonging to the same bunch.
-    As epochs elapse, segments grow from initial size $r$ to mature size $R$ and are then invaded to elimination by their larger left neighbor.
-    Note how recursive nesting ensures that the shortest segments are eliminated first.
-    Note also how sites invaded during the same epoch all share the same reserved \hv{}, causing available sites for that \hv{} to instantaneously halve.
-    To ensure it lasts longest, the first item with \hv{} $\colorH(\colorT) = 0$ is placed in the leftmost (and largest) segment $r=5$.
-    Subsequent \hv{} instances are accommodated in segment $r=3$, the two $r=2$ segments, and then the four $r=1$ segments.
-    Once available segment reservations are filled, subsequent \hv{} instances are discarded without storage.
-    Because the segment sizes $r$ mirror the hanoi sequence, expansion of invading segments by one site per epoch $\colort$ ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$.
-  In this manner, layout approximates the last-$n$ \hv{} strategy depicted in Figure \ref{fig:hanoi-intuition-tilted}, with $n$ progressively decreasing as segments are invaded and lost.
+    Epoch-by-epoch storage layout of \hv{} reservation ``segments''  for buffer size $S=16$, shown as contiguous horizontal regions divided by solid black line.
+    Segments are categorized into ``bunches'' according to their initial size $r$.
+    Inverted triangles schematize the layout of segment bunches, which are nested and discontiguous.
+    As epochs elapse, segments grow from initial size $r$ to mature size $R$ and are then ``invaded'' to elimination by growth of their left neighbor.
+    (For bunch $r=1$, $R=1$; for bunch $r=2$, $R=3$, etc.)
+    Because the segment sizes $r$ mirror the hanoi sequence, expansion of invading segments by one site per epoch ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$ (see Figure \ref{fig:hanoi-intuition}).
   }
   \label{fig:hsurf-stretched-intuition}
 \end{figure*}
