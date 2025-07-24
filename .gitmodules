@@ -36,3 +36,7 @@
 	url = https://github.com/mmore500/downstream-benchmark.git
 	branch = binder-2025-07-19-mem-perf-tilted.ipynb
 	shallow = true
+[submodule "tex/binder-2025-06-30-cpp-bench-memory-tilted"]
+	path = tex/binder-2025-06-30-cpp-bench-memory-tilted
+	url = https://github.com/mmore500/downstream-benchmark.git
+	branch = binder-2025-06-30-cpp-bench-memory-tilted.ipynb
