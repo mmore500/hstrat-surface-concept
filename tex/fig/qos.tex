@@ -1,11 +1,11 @@
 \begin{figure}
 
 \centering
-\includegraphics[width=0.7\linewidth, trim={0 3.9cm 0 0.8cm}, clip]{binder-downstream-benchmark/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=+font.family=serif+hue=algorithm+kind=line+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=symlog+ext=.pdf}
+\includegraphics[width=0.7\linewidth, trim={0 3.5cm 0 0.8cm}, clip]{binder-2025-07-06-qos-dstream-tilted/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=+font.family=serif+hue=algorithm+kind=line+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=symlog+ext=.pdf}
 
 \vspace{-1.5ex}
 
-\includegraphics[width=0.7\linewidth, trim={0 3.9cm 0 0}, clip]{binder-downstream-benchmark/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=naive-doubling-pyramidal-bucket+font.family=serif+hue=algorithm+kind=line+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=linear+ext=.pdf}%
+\includegraphics[width=0.7\linewidth, trim={0 3.5cm 0 0}, clip]{binder-2025-07-06-qos-dstream-tilted/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=naive-doubling-pyramidal-bucket+font.family=serif+hue=algorithm+kind=line+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=linear+ext=.pdf}%
 
 \vspace{1ex}
 
@@ -16,21 +16,21 @@
             \begin{tikzpicture}[every node/.style={inner sep=0}]
                 % left pane
                 \node[anchor=south west] (Aleft) at (0,0)
-                    {\includegraphics[width=0.54\linewidth, trim={0 1.2cm 0 0}, clip]{binder-downstream-benchmark/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=symlog+ext=.pdf}};%
+                    {\includegraphics[width=0.54\linewidth, trim={0 1.2cm 0 0}, clip]{binder-2025-07-06-qos-dstream-tilted/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=symlog+ext=.pdf}};%
                 % right pane
                 \node[anchor=south west] (Aright) at ([xshift=0.54\linewidth]Aleft.south west)
-                    {\includegraphics[width=0.46\linewidth, trim={1cm 1.2cm 0 0}, clip]{binder-downstream-benchmark/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=naive-doubling-pyramidal-bucket+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=linear+ext=.pdf}};%
+                    {\includegraphics[width=0.46\linewidth, trim={1cm 1.2cm 0 0}, clip]{binder-2025-07-06-qos-dstream-tilted/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=naive-doubling-pyramidal-bucket+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost+yscale=linear+ext=.pdf}};%
 
                 % semitransparent gradient zoom‐triangle
                 \path[shade, left color=blue!60, right color=blue!15, opacity=0.35]
-                      ($ (Aleft.south east) + (-0.8cm,0.3cm) $) --
-                      ($ (Aright.south west) + (1.0cm,0.2cm) $) --
-                      ($ (Aright.north west) + (1.0cm,-0.2cm) $) -- cycle;
+                      ($ (Aleft.south east) + (-0.6cm,0.3cm) $) --
+                      ($ (Aright.south west) + (1.15cm,0.2cm) $) --
+                      ($ (Aright.north west) + (1.15cm,-0.2cm) $) -- cycle;
             \end{tikzpicture}
         \end{minipage}
     \end{adjustbox}
 
-    \caption{worst case gap size ratio}
+    \caption{max gap size ratio}
     \label{fig:qos:max}
 \end{subfigure}
 
@@ -43,16 +43,16 @@
             \begin{tikzpicture}[every node/.style={inner sep=0}]
                 % left pane
                 \node[anchor=south west] (Bleft) at (0,0)
-                    {\includegraphics[width=0.54\linewidth, trim={0 0 0 0}, clip]{binder-downstream-benchmark/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost-mean+yscale=symlog+ext=.pdf}};%
+                    {\includegraphics[width=0.54\linewidth, trim={0 0 0 0}, clip]{binder-2025-07-06-qos-dstream-tilted/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost-mean+yscale=symlog+ext=.pdf}};%
                 % right pane
                 \node[anchor=south west] (Bright) at ([xshift=0.54\linewidth]Bleft.south west)
-                    {\includegraphics[width=0.46\linewidth, trim={1cm 0 0 0}, clip]{binder-downstream-benchmark/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=naive-doubling-pyramidal-bucket+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost-mean+yscale=linear+ext=.pdf}};%
+                    {\includegraphics[width=0.46\linewidth, trim={1cm 0 0 0}, clip]{binder-2025-07-06-qos-dstream-tilted/binder/teeplots/2025-07-06-qos-dstream-tilted/buffer_size=64+excl=naive-doubling-pyramidal-bucket+font.family=serif+hue=algorithm+kind=line+legend=False+style=algorithm+viz=relplot+x=num-items-ingested+y=gap-size-cost-mean+yscale=linear+ext=.pdf}};%
 
                 % semitransparent gradient zoom‐triangle
                 \path[shade, left color=blue!60, right color=blue!15, opacity=0.35]
-                      ($ (Bleft.south east) + (-0.8cm,1.57cm) $) --
-                      ($ (Bright.south west) + (1.05cm,1.5cm) $) --
-                      ($ (Bright.north west) + (1.05cm,-0.2cm) $) -- cycle;
+                      ($ (Bleft.south east) + (-0.7cm,1.8cm) $) --
+                      ($ (Bright.south west) + (1.175cm,1.7cm) $) --
+                      ($ (Bright.north west) + (1.175cm,-0.2cm) $) -- cycle;
             \end{tikzpicture}
         \end{minipage}
     \end{adjustbox}
