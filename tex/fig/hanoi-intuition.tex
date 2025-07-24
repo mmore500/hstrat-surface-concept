@@ -61,7 +61,7 @@
 
         % --- vertical brace (opens left) grouping arrows ---
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgA.east)+(1.7,1.30)$) -- ($(imgA.east)+(1.7,-0.90)$)
-          node[midway,anchor=west,xshift=0.19cm] {\Large Keep at least last $4\times$ seen items of each \hv{}};
+          node[midway,anchor=west,xshift=0.34cm,align=center] {\Large Keep up to $4\times$ most recent items of each \hv{}\\(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
       \end{tikzpicture}
       \hspace*{\fill}%
     \end{minipage}}\\[-1ex]
@@ -99,7 +99,7 @@
 
         % --- vertical brace (opens left) grouping arrows ---
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgB.east)+(1.7,0.90)$) -- ($(imgB.east)+(1.7,-0.90)$)
-          node[midway,anchor=west,xshift=0.19cm] {\Large Keep at least last $8\times$ seen items of each \hv{}};
+          node[midway,anchor=west,xshift=0.34cm,align=center] {\Large Keep up to $8\times$ most recent items of each \hv{}\\(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
       \end{tikzpicture}
       \vspace{-0.7cm}
       \hspace*{\fill}%
@@ -145,7 +145,7 @@
       $\;\;\;\;\;\;\boxnum{C9}{9}\; \boxnum{C8}{8}\; \boxnum{C7}{7}\; \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\; \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}\;\rightarrow$};
 
       \node[text width=1.5in] at ($(X.south west) + (4.2cm, 7.16cm)$) {%
-      \Large Keep at least last $1\times$ seen items of each \hv{}
+      \Large Keep last $1\times$ seen item of each \hv{}
       };
 
       \node[text width=2in] at ($(X.south west) + (4.18cm, 3.05cm)$) {%
@@ -155,8 +155,8 @@
                  \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\;%
                  \boxnum{C0}{0}\;\rightarrow$};
 
-      \node[text width=1.5in] at ($(X.south west) + (4.2cm, 2.23cm)$) {%
-      \Large Keep at least last $2\times$ seen items of each \hv{}
+      \node[text width=1.5in] at ($(X.south west) + (4.2cm, 2.1cm)$) {%
+      \Large Keep up to $2\times$ most recent items of each \hv{} \small (Keep all \hv{} items, if fewer.)
       };
 
       \node[text width=2in] at ($(X.south west) + (4.65cm, 0.9cm)$) {%
