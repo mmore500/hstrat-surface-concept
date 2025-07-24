@@ -34,7 +34,7 @@
  \noindent\fcolorbox{olive!7}{olive!7}{%
 \begin{minipage}[t]{\linewidth}
 \centering
-\caption{simple ring buffer}
+\caption{classic ring buffer}
 \label{fig:curation-ingest-lookup:ring}
 
 \vspace{1.3ex}
@@ -64,7 +64,7 @@
  \noindent\fcolorbox{violet!7}{violet!7}{%
 \begin{minipage}[t]{\linewidth}
 \centering
-\caption{generalized ring buffer: steady curation}
+\caption{steady-generalized ring buffer}
 \label{fig:curation-ingest-lookup:steady}
 
 \vspace{1.3ex}
@@ -93,7 +93,7 @@
  \noindent\fcolorbox{purple!7}{purple!7}{%
 \begin{minipage}[t]{1.01\linewidth}
 \centering
-\caption{generalized ring buffer: tilted curation}
+\caption{tilted-generalized ring buffer}
 \label{fig:curation-ingest-lookup:tilted}
 
 \vspace{1.4ex}
@@ -103,13 +103,12 @@
 \end{minipage}
 
 \caption{
-  {\textbf Comparison of simple ring buffer to generalized ring buffers.}
+  {\textbf Ring buffer generalization.}
   \footnotesize
-  TODO
-  Both approaches accumulate items ingested from a data stream into a fixed-capacity memory buffer.
-  However, whereas the ring buffer retains only most-recent items, the generalized algorithm maintains a sample spanning the entirety of elapsed history.
-  We notate ingest site assignment and stored item attribution, respectively, as $\colorK$ and $\colorL$.
-  For the proposed DStream tilted algorithm these operations are described in Listings and \ref{alg:tilted-site-selection} and \ref{alg:tilted-time-lookup}.
+  Whereas the classic ring buffer retains only most-recent items, alternate write patterns allow samples spanning stream history.
+  Graphics compare storage patterns on buffer size $\colorS=4$.
+  ``Lookup'' calculation, shown at time $\colorT=9$, identifies arrival times $\colorTbar$ for stored items.
+  Steady- and tilted-generalizations correspond to coverage criteria shown in Figure \ref{fig:criteria-intuition}.
 }
 \label{fig:curation-ingest-lookup}
 \end{figure*}
