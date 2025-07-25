@@ -19,9 +19,9 @@
 
 \includegraphics[width=\textwidth, trim={0.41cm 4.2cm 0.3cm 0}, clip]{binder-2025-07-19-mem-perf-tilted/binder/teeplots/2025-07-19-mem-perf-tilted/col=data-type+dummy=True+font.family=serif+hue=advantage+kind=scatter+qosnumitems=10000+row=one+size=absadvantage+style=signadvantage+thickness=2+viz=relplot+x=metric+y=num-sites+ext=.pdf}
 
-\vspace{-1.5ex}
+\vspace{-0.75ex}
 
-\caption{without lut}
+\caption{\footnotesize without ringbuf lookup table optimization}
 \label{fig:mem-perf-tilted:nolut}
 \end{subfigure}
 
@@ -51,20 +51,21 @@
 
 \includegraphics[width=\textwidth, trim={0.41cm 4.2cm 0.3cm 0}, clip]{binder-2025-07-19-mem-perf-tilted/binder/teeplots/2025-07-19-mem-perf-tilted/col=data-type+dummy=True+font.family=serif+hue=advantage+kind=scatter+qosnumitems=10000+row=one+size=absadvantage+style=signadvantage+thickness=2+viz=relplot+x=metric+y=num-sites+ext=.pdf}
 
-\vspace{-2ex}
+\vspace{-1ex}
 
-\caption{with lut}
+\caption{\footnotesize with ringbuf lookup table optimization}
 \label{fig:mem-perf-tilted:lut}
 \end{subfigure}
 
 \caption{
-\textbf{Generalized ring buffer performance characteristics.}
+\textbf{Performance comparison between generalized ring buffer and saturating bucket algorithm.}
 \footnotesize
-Comparison is against saturating bucket algorithm.
-Annotations report symmetric fold-improvement, calculated as $\max(x, y) / \min(x, y) - 1$.
-For legibility, bar heights are symmetric fold-advantage, calculated as $1 - \min(x, y) / \max(x, y)$.
-Curation quality comparisons are performed on a same-memory-footprint basis,with \textit{inf} indicating that no saturating bucket data structure fits within the memory footprint of the generalized ring buffer.
-Speed comparisons are performed on a same-item-capacity basis.
+Advantage reported as symmetric fold-improvement, $(x - y) / \min(x, y)$.
+Curation quality compared via maximum gap size ratio (worst-covered point in elapsed history) and mean gap size ratio (average coverage quality across elapsed history).
+Curation quality comparisons are on a same-memory-footprint basis,with \textit{inf} indicating that no saturating bucket data structure fits within the memory footprint of the generalized ring buffer.
+Speed compared via benchmarks on x86 workstation, ARM workstation, and ARM embedded device.
+Speed comparisons are on a same-item-capacity basis.
+Scaled dot plots provide high-level summary of barplot data, with performance categories corresponding to top legend.
 }
 \label{fig:mem-perf-tilted}
 
