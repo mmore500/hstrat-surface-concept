@@ -3,32 +3,34 @@
 \centering
 \includegraphics[height=4in]{img/surface-control-tall-zhao-tilted-doubling-naive-desat50}
 \centering
-\caption{naive doubling algorithm (Listing \ref{alg:control-doubling-tilted})}
+\caption{\footnotesize naive doubling algorithm (Listing \ref{alg:control-doubling-tilted})}
 \label{fig:surface-control-tilted:naive-doubling}
 \end{subfigure}%
 \begin{subfigure}{0.32\linewidth}
 \centering
 \includegraphics[height=4in,trim={2.5cm 0 0 0},clip]{img/surface-control-tall-zhao-desat50}
 \centering
-\caption{pyramidal bucket algorithm \citep{zhao2005generalized}}
+\caption{\footnotesize pyramidal bucket algorithm \citep{zhao2005generalized}}
 \label{fig:surface-control-tilted:pyramidal}
 \end{subfigure}%
 \begin{subfigure}{0.32\linewidth}
 \centering
 \includegraphics[height=4in,trim={2.5cm 0 0 0},clip]{img/surface-control-tall-zhao-full-desat50}
 \centering
-\caption{saturating bucket algorithm (Listing \ref{alg:zhao-tilted-full})}
+\caption{\footnotesize saturating bucket algorithm (Listing \ref{alg:zhao-tilted-full})}
 \label{fig:surface-control-tilted:saturating-bucket}
 \end{subfigure}
 
 % graphics from https://docs.google.com/presentation/d/1wUBwtvcawkSLw5TL-7d7jybp6TXB4Pi5s6FyXDcHB8M
 
 \caption{%
-\textbf{Comparator tilted stream curation algorithms.}
+\textbf{Comparator approaches for tilted curation.}
 \footnotesize
-Example buffer state sequences, from top to bottom.
-Stored data items shown as stream arrival index (hexidecimal notation).
-For panels \cref{fig:surface-control:zhao-steady,fig:surface-control:zhao-tilted-ext}, buckets indicated by braced groupings.
+Vertical segments correspond to duration between data item arrival (green bar) and deletion (red bar).
+The naive doubling algorithm purges every other stored item when buffer space fills.
+The pyramidal bucket algorithm stores items in buckets of progressively doubling size (annotated), consolidating the most recent pair of same-size buckets at each time step.
+The saturating bucket algorithm fills available space, divided among similarly-doubling buckets (color-coded by size).
+The number of buckets within each size class (annotated) determines consolidation, which targets the most recent class more abundant than its successor.
 }
 \label{fig:surface-control-tilted}
 
