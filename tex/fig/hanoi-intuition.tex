@@ -196,10 +196,18 @@
   \end{tikzpicture}
 
   \vspace{-2.5ex}
+\end{minipage}}%
+\endgroup
 
-\caption{\footnotesize time course of buffer layout; time from bottom to top}
-\label{fig:hanoi-intuition:buffer-layout}
+\end{minipage}%
 
+\begin{subfigure}{0.2\textwidth}
+  \caption{\footnotesize last-$n$ \hv{} retention}
+  \label{fig:hanoi-intuition:last-n}
+\end{subfigure}%
+\begin{subfigure}{0.8\textwidth}
+  \caption{\footnotesize time course of buffer layout; time from bottom to top}
+  \label{fig:hanoi-intuition:buffer-layout}
 \end{subfigure}%
 
 % \begin{minipage}[]{1.42\linewidth}
@@ -254,7 +262,7 @@
   As time ``epochs'' elapse, corresponding to arrival of progressively higher \hv 's, per-\hv{} $n$ shrinks.
   Lower panel shows epoch-by-epoch storage layout of sites ``reserved'' to store items of each \hv{} set, for buffer size $\colorS=16$.
   (For within-epoch detail of individual data items, see Figure \ref{fig:hsurf-tilted-implementation}.)
-  In each successive ``meta-epoch'' (dashed lines) $n$ is halved across low \hv 's in a rolling fashion to store newly-arrived high-\hv items.
+  In each successive ``meta-epoch'' $n$ is halved across low \hv{} 's in a rolling fashion to store newly-arrived high-\hv items.
   Note nested composition of consecutive-\hv ``segments'' (solid lines); design is described in Figure \ref{fig:hsurf-stretched-intuition}.
   }
 \label{fig:hanoi-intuition}
