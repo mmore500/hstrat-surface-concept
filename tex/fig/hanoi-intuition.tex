@@ -1,5 +1,11 @@
 \usetikzlibrary{arrows.meta}
 
+% ------------------ GLOBAL SCALE VARIABLES ---------------------------------
+\newcommand{\XL}{0.57} % left  panel overall x-scale
+\newcommand{\YL}{0.545} % left  panel y-scale (1 = unchanged)
+\newcommand{\XR}{0.879} % right panel overall x-scale
+\newcommand{\YR}{0.879}     % right panel y-scale (1 = unchanged)
+
 % ------------------ colours & helpers --------------------------------------
 \definecolor{C0}{HTML}{1F77B4}\definecolor{C1}{HTML}{FF7F0E}
 \definecolor{C2}{HTML}{2CA02C}\definecolor{C3}{HTML}{D62728}
@@ -23,7 +29,10 @@
 \begin{figure*}
   \centering
 % ===================== TOP PANEL ============================
-\begin{subfigure}{0.355\linewidth}
+\begin{minipage}{0.355\linewidth}
+\begingroup
+\scalebox{\XL}[\YL]{%
+\begin{minipage}{\linewidth}
 
   \fcolorbox{gray!3}{gray!3}{%
     \begin{minipage}[c][0.15in][c]{\linewidth}\centering
@@ -57,8 +66,6 @@
 
       \newsavebox{\bindertrim}
       \sbox{\bindertrim}{\includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}}
-      \newsavebox{\binderfull}
-      \sbox{\binderfull}{\includegraphics[trim={0 0 0 0},clip,width=\wd\bindertrim]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}}
       \def\Shift{0.29}
 
       \fcolorbox{gray!11}{gray!11}{%
@@ -90,11 +97,16 @@
                   {\Large Keep $8$ most recent items of each \hv{}\\\normalsize(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
           \end{tikzpicture}\vspace{-0.7cm}\hspace*{\fill}\end{minipage}}
 
-          \vspace{3.8ex}
+          \vspace{6ex}
+\end{minipage}}%
+\endgroup
 
-  \caption{\footnotesize last-$n$ \hv{} retention}
-\end{subfigure}%
-\begin{subfigure}{0.91\linewidth}
+\end{minipage}%
+\begin{minipage}{0.91\linewidth}
+\hspace{-0.17\textwidth}%
+\begingroup
+\scalebox{\XR}[\YR]{%
+\begin{minipage}{\linewidth}
   \hspace{-0.25cm}
   \begin{tikzpicture}
 
@@ -123,7 +135,6 @@
                        color-site-k=black+font.family=serif+plotter=clear_ax+surface-size=16+%
                        swap-yaxes=True+symbol-color=black+%
                        viz=site-reservation-at-ranks-heatmap+ext=.pdf}};
-
       \fill[gray,fill opacity=0.12] ($(X.south west) - (-0.5cm, 0.2cm)$)
                        rectangle ($(X.south west) - (-1cm, -0.52cm)$);
       \fill[gray,fill opacity=0.055] ($(X.south west) - (-0.5cm, -1.22cm)$)
