@@ -15,20 +15,20 @@
 
 \tikzset{
   whitevert/.style={white,line width=2.5pt},
-  whitebar/.style={white,line width=2.5pt},   % ← fixed (no stray space)
+  whitebar/.style={white,line width=2.5pt},
   colorvert/.style={line width=.9pt},
-  colorbar/.style={line width=.9pt}           % ← fixed (no stray space)
+  colorbar/.style={line width=.9pt}
 }
 
 \begin{figure*}
   \centering
-% ===================== TOP PANEL (kept verbatim) ============================
+% ===================== TOP PANEL ============================
 \begin{subfigure}{\linewidth}
-  \noindent\fcolorbox{gray!3}{gray!3}{%
-    \begin{minipage}[c][2.4in][c]{0.03\linewidth}\centering
-      \rotatebox{90}{\shortstack{Meta-epoch $\colortau = 1$\\\footnotesize(\@ Time $\colorT = 32$)}}
-    \end{minipage}}%
-  \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
+
+  \fcolorbox{gray!3}{gray!3}{%
+    \begin{minipage}[c][0.15in][c]{0.4\linewidth}\centering
+      Meta-epoch $\colortau = 1$ (@ Time $\colorT = 32$)
+    \end{minipage}}\\[-0.25ex]
   \fcolorbox{purple!5}{purple!5}{%
     \begin{minipage}[c][2.4in][c]{0.4\linewidth}
       \hspace{-2ex}\vspace{-3ex}
@@ -53,13 +53,12 @@
           ($(imgA.east)+(-4.21,3.20)$)--($(imgA.east)+(-0.37,3.20)$)
           node[anchor=south east,yshift=0.19cm,align=center]{\Large Keep $4$ most recent items of each \hv{}\\\small(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
         \end{scope}
-      \end{tikzpicture}\hspace*{\fill}\end{minipage}}\\[-1ex]
+      \end{tikzpicture}\hspace*{\fill}\end{minipage}}\\[1.1em]
 
-  \noindent\fcolorbox{gray!11}{gray!11}{%
-    \begin{minipage}[c][2.4in][c]{0.03\linewidth}\centering
-      \rotatebox{90}{\shortstack{Meta-epoch $\colortau = 0$\\\footnotesize(\@ Time $\colorT = 16$)}}
-    \end{minipage}}%
-  \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
+  \fcolorbox{gray!11}{gray!11}{%
+    \begin{minipage}[c][0.15in][c]{0.4\linewidth}\centering
+      Meta-epoch $\colortau = 0$ (@ Time $\colorT = 16$)
+    \end{minipage}}\\[-0.25ex]
   \fcolorbox{purple!11}{purple!11}{%
     \begin{minipage}[c][2.4in][c]{0.4\linewidth}
       \vspace{-1.3cm}\hspace{-2ex}\vspace{-4ex}
@@ -127,24 +126,19 @@
       \fill[gray,fill opacity=0.055] ($(X.south west) - (-0.5cm, -1.22cm)$)
                        rectangle ($(X.south west) - (-1cm, -0.52cm)$);
 
-
-                       % ---------- overlays for the first plot ----------
     \begin{scope}[x={(X.south east)},y={(X.north west)}]
-
       \fill[purple,fill opacity=0.11] ($(X.south west) - (-1cm, 0.2cm)$)
                        rectangle ($(X.south east) - (0.7cm, 0) + (0.6cm, 0.5cm)$);
       \fill[purple, fill opacity=0.052] ($(X.south west) - (-1cm,-0.5cm)$)
                        rectangle ($(X.south east) - (0.7cm, 0) + (0.6cm, 1.2cm)$);
 
-      % annotation rows
       \node[text width=2in] at ($(X.south west) - (0.6cm, 0) + (4.37cm, 7.8cm)$) {%
       $1 \times \boxnum{C15}{15}\; \boxnum{C14}{14}\; \boxnum{C13}{13}\;  \boxnum{C12}{12}\; \boxnum{C11}{11}\; \boxnum{C10}{10}\;\boxnum{C9}{9}\;\rightarrow$
 
       $\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \boxnum{C8}{8}\; \boxnum{C7}{7}\; \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\; \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}$};
 
       \node[text width=1.5in] at ($(X.south west) - (0.6cm, 0) + (4.1cm, 6.88cm)$) {%
-      \Large Keep $1$ most recent item of each \hv{}
-      };
+      \Large Keep $1$ most recent item of each \hv{}};
 
       \node[text width=2in] at ($(X.south west) - (0.55cm, 0) + (4.16cm, 3.05cm)$) {%
         $1 \times \boxnum{C8}{8}\; \boxnum{C7}{7}\;$%
@@ -154,8 +148,7 @@
                  \boxnum{C0}{0}\;\rightarrow$};
 
       \node[text width=1.5in] at ($(X.south west) - (0.6cm, 0) + (4.1cm, 2.1cm)$) {%
-      \Large Keep $2$ most recent items of each \hv{}\\ \small (Keep all \hv{} items, if fewer.)
-      };
+      \Large Keep $2$ most recent items of each \hv{}\\ \small (Keep all \hv{} items, if fewer.)};
 
       \node[text width=2in] at ($(X.south west) - (0.6cm, 0) + (4.65cm, 0.9cm)$) {%
         $1 \times \boxnum{C5}{5}\; \boxnum{C4}{4}\;$%
@@ -173,7 +166,6 @@
         $4 \times \boxnum{C1}{1}\;$%
         \;
         $8 \times \boxnum{C0}{0}\;\rightarrow$};
-
     \end{scope}
 
     % ---------- second (right) plot ----------
@@ -187,7 +179,6 @@
                        color-site-k=black+font.family=serif+surface-size=16+swap-yaxes=True+%
                        symbol-color=black+viz=site-reservation-at-ranks-heatmap+%
                        ext=.pdf}};
-    % (optional) you can add more TikZ annotations that refer to Y here
   \end{tikzpicture}
 
   \vspace{-2.5ex}
