@@ -23,14 +23,14 @@
 \begin{figure*}
   \centering
 % ===================== TOP PANEL ============================
-\begin{subfigure}{\linewidth}
+\begin{subfigure}{0.355\linewidth}
 
   \fcolorbox{gray!3}{gray!3}{%
-    \begin{minipage}[c][0.15in][c]{0.355\linewidth}\centering
+    \begin{minipage}[c][0.15in][c]{\linewidth}\centering
       \Large Meta-epoch $\colortau = 1$ \normalsize (@ Time $\colorT = 32$)
     \end{minipage}}\\[-0.25ex]
   \fcolorbox{purple!5}{purple!5}{%
-    \begin{minipage}[c][2.4in][c]{0.355\linewidth}
+    \begin{minipage}[c][2.4in][c]{\linewidth}
       \hspace{-2ex}\vspace{0ex}
       \begin{tikzpicture}[decoration={brace}]
         \node[inner sep=0pt] (imgA)
@@ -62,11 +62,11 @@
       \def\Shift{0.29}
 
       \fcolorbox{gray!11}{gray!11}{%
-        \begin{minipage}[c][0.15in][c]{0.355\linewidth}\centering
+        \begin{minipage}[c][0.15in][c]{\linewidth}\centering
           \Large Meta-epoch $\colortau = 0$ \normalsize (@ Time $\colorT = 16$)
         \end{minipage}}\\[-0.25ex]
       \fcolorbox{purple!11}{purple!11}{%
-        \begin{minipage}[c][2.3in][c]{0.355\linewidth}
+        \begin{minipage}[c][2.3in][c]{\linewidth}
           \vspace{-1.3cm}\hspace{-2ex}\vspace{-6ex}
           \begin{tikzpicture}[decoration={brace}]
             \node[inner sep=0pt] (imgB)
@@ -91,12 +91,9 @@
           \end{tikzpicture}\vspace{-0.7cm}\hspace*{\fill}\end{minipage}}
 
   \caption{\footnotesize last-$n$ \hv{} retention}
-\end{subfigure}
-
-\vspace{1.5ex}
-
-\begin{subfigure}{\linewidth}
-  \hspace{-0.55cm}
+\end{subfigure}%
+\begin{subfigure}{0.91\linewidth}
+  \hspace{-0.25cm}
   \begin{tikzpicture}
 
     % ---------- first (left) plot ----------
@@ -190,7 +187,8 @@
 \caption{\footnotesize time course of buffer layout; time from bottom to top}
 \label{fig:hanoi-intuition:buffer-layout}
 
-\end{subfigure}
+\end{subfigure}%
+
 % \begin{minipage}[]{1.42\linewidth}
 % \noindent\fcolorbox{white!100}{white!100}{%
 % \begin{minipage}[b][0.2cm]{0.02\linewidth}
