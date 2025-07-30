@@ -55,8 +55,8 @@
         \node[inner sep=2pt,right] at ($(imgA.east)+(-0.35,-0.80)$) {\small \; $4\times \boxnum{C0}{0}$};
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}]
               ($(imgA.east)+(-0.15,1.50)$) -- ($(imgA.east)+(0.6,1.50)$)
-              node[midway,anchor=south,yshift=0.19cm,align=center,xshift=-2.9cm]%
-              {\Large Keep up to $4$ most recent items of each \hv{}\\(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
+              node[midway,anchor=south,yshift=0.19cm,align=center,xshift=-2.65cm]%
+              {\Large Keep $4$ most recent items of each \hv{}\\(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
       \end{tikzpicture}
       \hspace*{\fill}%
     \end{minipage}}\\[-1ex]
@@ -88,8 +88,8 @@
         \node[inner sep=2pt,right] at ($(imgB.east)+(-0.35,-0.80)$) {\small \; $8\times \boxnum{C0}{0}$};
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}]
               ($(imgB.east)+(-0.15,1.10)$) -- ($(imgB.east)+(0.6,1.10)$)
-              node[midway,anchor=south,yshift=0.19cm,align=center,xshift=-2.9cm]%
-              {\Large Keep up to $8$ most recent items of each \hv{}\\(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
+              node[midway,anchor=south,yshift=0.19cm,align=center,xshift=-2.65cm]%
+              {\Large Keep $8$ most recent items of each \hv{}\\(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
       \end{tikzpicture}
       \vspace{-0.7cm}
       \hspace*{\fill}%
@@ -130,13 +130,13 @@
                        rectangle ($(X.south east) - (0.7cm, 0) + (0.6cm, 1.2cm)$);
 
       % annotation rows
-      \node[text width=2in] at ($(X.south west) - (0.6cm, 0) + (4.56cm, 7.8cm)$) {%
-      $1 \times \boxnum{C15}{15}\; \boxnum{C14}{14}\; \boxnum{C13}{13}\;  \boxnum{C12}{12}\; \boxnum{C11}{11}\; \boxnum{C10}{10}\;\;\;\;\;\rightarrow$
+      \node[text width=2in] at ($(X.south west) - (0.6cm, 0) + (4.37cm, 7.8cm)$) {%
+      $1 \times \boxnum{C15}{15}\; \boxnum{C14}{14}\; \boxnum{C13}{13}\;  \boxnum{C12}{12}\; \boxnum{C11}{11}\; \boxnum{C10}{10}\;\boxnum{C9}{9}\;\rightarrow$
 
-      $\;\;\;\;\;\;\boxnum{C9}{9}\; \boxnum{C8}{8}\; \boxnum{C7}{7}\; \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\; \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}$};
+      $\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \boxnum{C8}{8}\; \boxnum{C7}{7}\; \boxnum{C6}{6}\; \boxnum{C5}{5}\; \boxnum{C4}{4}\; \boxnum{C3}{3}\; \boxnum{C2}{2}\; \boxnum{C1}{1}\; \boxnum{C0}{0}$};
 
-      \node[text width=1.5in] at ($(X.south west) - (0.6cm, 0) + (4.1cm, 6.73cm)$) {%
-      \Large Keep last $1$ seen item of each \hv{}
+      \node[text width=1.5in] at ($(X.south west) - (0.6cm, 0) + (4.1cm, 6.88cm)$) {%
+      \Large Keep $1$ most recent item of each \hv{}
       };
 
       \node[text width=2in] at ($(X.south west) - (0.55cm, 0) + (4.16cm, 3.05cm)$) {%
@@ -147,7 +147,7 @@
                  \boxnum{C0}{0}\;\rightarrow$};
 
       \node[text width=1.5in] at ($(X.south west) - (0.6cm, 0) + (4.1cm, 2.1cm)$) {%
-      \Large Keep up to $2$ most recent items of each \hv{} \small (Keep all \hv{} items, if fewer.)
+      \Large Keep $2$ most recent items of each \hv{}\\ \small (Keep all \hv{} items, if fewer.)
       };
 
       \node[text width=2in] at ($(X.south west) - (0.6cm, 0) + (4.65cm, 0.9cm)$) {%
