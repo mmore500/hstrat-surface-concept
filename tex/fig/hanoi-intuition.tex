@@ -36,32 +36,23 @@
   \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
   % purple panel – picture + automatic purple fill on the right
   \fcolorbox{purple!5}{purple!5}{%
-    \begin{minipage}[c][1.30in][c]{0.90\linewidth}
-      %--- image with tikz arrows ---%
+    \begin{minipage}[c][1.30in][c]{0.44\linewidth}
       \begin{tikzpicture}[>=Stealth,decoration={brace}]
         \node[inner sep=0pt] (imgA) {\includegraphics[trim={0 0.69cm 0 0},clip,height=1.30in]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-after+x=index+y=hanoi-value+ext=.pdf}};
-        % -- individual arrows (left‑pointing) with text boxes on the right --
-        \draw[->] ($(imgA.east)+(0.65,1.20)$) -- ($(imgA.east)+(-0.34,1.20)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,1.20)$) {\small \; $1\times \boxnum{C5}{5}$};
-        % Arrow 0
-        \draw[->] ($(imgA.east)+(0.65,0.80)$) -- ($(imgA.east)+(-0.34,0.80)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0.80)$) {\small \; $1\times \boxnum{C4}{4}$};
-        % Arrow 1
-        \draw[->] ($(imgA.east)+(0.65,0.40)$) -- ($(imgA.east)+(-0.34,0.40)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0.40)$) {\small \; $2\times \boxnum{C3}{3}$};
-        % Arrow 2 (middle)
-        \draw[->] ($(imgA.east)+(0.65,0)$) -- ($(imgA.east)+(-0.34,0)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,0)$) {\small \; $4\times \boxnum{C2}{2}$};
-        % Arrow 3
-        \draw[->] ($(imgA.east)+(0.65,-0.40)$) -- ($(imgA.east)+(-0.34,-0.40)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,-0.40)$) {\small \; $4\times \boxnum{C1}{1}$};
-        % Arrow 4 (bottom)
-        \draw[->] ($(imgA.east)+(0.65,-0.80)$) -- ($(imgA.east)+(-0.34,-0.80)$);
-        \node[inner sep=2pt,right] at ($(imgA.east)+(0.65,-0.80)$) {\small \; $4\times \boxnum{C0}{0}$};
-
-        % --- vertical brace (opens left) grouping arrows ---
-        \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgA.east)+(1.7,1.30)$) -- ($(imgA.east)+(1.7,-0.90)$)
-          node[midway,anchor=west,xshift=0.34cm,align=center] {\Large Keep up to $4$ most recent items of each \hv{}\\(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
+        \draw[->] ($(imgA.east)+(0.15,1.20)$) -- ($(imgA.east)+(-0.34,1.20)$);
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.15,1.20)$) {\small \; $1\times \boxnum{C5}{5}$};
+        \draw[->] ($(imgA.east)+(0.15,0.80)$) -- ($(imgA.east)+(-0.34,0.80)$);
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.15,0.80)$) {\small \; $1\times \boxnum{C4}{4}$};
+        \draw[->] ($(imgA.east)+(0.15,0.40)$) -- ($(imgA.east)+(-0.34,0.40)$);
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.15,0.40)$) {\small \; $2\times \boxnum{C3}{3}$};
+        \draw[->] ($(imgA.east)+(0.15,0)$) -- ($(imgA.east)+(-0.34,0)$);
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.15,0)$) {\small \; $4\times \boxnum{C2}{2}$};
+        \draw[->] ($(imgA.east)+(0.15,-0.40)$) -- ($(imgA.east)+(-0.34,-0.40)$);
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.15,-0.40)$) {\small \; $4\times \boxnum{C1}{1}$};
+        \draw[->] ($(imgA.east)+(0.15,-0.80)$) -- ($(imgA.east)+(-0.34,-0.80)$);
+        \node[inner sep=2pt,right] at ($(imgA.east)+(0.15,-0.80)$) {\small \; $4\times \boxnum{C0}{0}$};
+        \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgA.east)+(0.3,1.40)$) -- ($(imgA.east)+(1.15,1.40)$)
+          node[midway,anchor=south,yshift=0.19cm,align=center,xshift=-2.8cm] {\Large Keep up to $4$ most recent items of each \hv{}\\(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
       \end{tikzpicture}
       \hspace*{\fill}%
     \end{minipage}}\\[-1ex]
@@ -75,31 +66,22 @@
     \end{minipage}}%
   \hspace{-0.8ex}{\vrule width 1pt}\hspace{-0.8ex}%
   \fcolorbox{purple!11}{purple!11}{%
-    \begin{minipage}[c][1.48in][c]{0.90\linewidth}
-      %--- image with tikz arrows ---%
+    \begin{minipage}[c][1.48in][c]{0.44\linewidth}
       \vspace{-1.3cm}
       \begin{tikzpicture}[>=Stealth,decoration={brace}]
         \node[inner sep=0pt] (imgB) {\includegraphics[trim={0 0.75cm 0 0},height=1.30in]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}};
-        % -- individual arrows (left‑pointing) with text boxes on the right --
-        % Arrow 0 (top)
-        \draw[->] ($(imgB.east)+(0.65,0.80)$) -- ($(imgB.east)+(-2.77,0.80)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0.80)$) {\small \; $1\times \boxnum{C4}{4}$};
-        % Arrow 1
-        \draw[->] ($(imgB.east)+(0.65,0.40)$) -- ($(imgB.east)+(-2.77,0.40)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0.40)$) {\small \; $1\times \boxnum{C3}{3}$};
-        % Arrow 2
-        \draw[->] ($(imgB.east)+(0.65,0)$) -- ($(imgB.east)+(-2.77,0)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,0)$) {\small \; $2\times \boxnum{C2}{2}$};
-        % Arrow 3
-        \draw[->] ($(imgB.east)+(0.65,-0.40)$) -- ($(imgB.east)+(-2.77,-0.40)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,-0.40)$) {\small \; $4\times \boxnum{C1}{1}$};
-        % Arrow 4 (bottom)
-        \draw[->] ($(imgB.east)+(0.65,-0.80)$) -- ($(imgB.east)+(-2.77,-0.80)$);
-        \node[inner sep=2pt,right] at ($(imgB.east)+(0.65,-0.80)$) {\small \; $8\times \boxnum{C0}{0}$};
-
-        % --- vertical brace (opens left) grouping arrows ---
-        \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgB.east)+(1.7,0.90)$) -- ($(imgB.east)+(1.7,-0.90)$)
-          node[midway,anchor=west,xshift=0.34cm,align=center] {\Large Keep up to $8$ most recent items of each \hv{}\\(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
+        \draw[->] ($(imgB.east)+(0.15,0.80)$) -- ($(imgB.east)+(-2.77,0.80)$);
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.15,0.80)$) {\small \; $1\times \boxnum{C4}{4}$};
+        \draw[->] ($(imgB.east)+(0.15,0.40)$) -- ($(imgB.east)+(-2.77,0.40)$);
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.15,0.40)$) {\small \; $1\times \boxnum{C3}{3}$};
+        \draw[->] ($(imgB.east)+(0.15,0)$) -- ($(imgB.east)+(-2.77,0)$);
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.15,0)$) {\small \; $2\times \boxnum{C2}{2}$};
+        \draw[->] ($(imgB.east)+(0.15,-0.40)$) -- ($(imgB.east)+(-2.77,-0.40)$);
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.15,-0.40)$) {\small \; $4\times \boxnum{C1}{1}$};
+        \draw[->] ($(imgB.east)+(0.15,-0.80)$) -- ($(imgB.east)+(-2.77,-0.80)$);
+        \node[inner sep=2pt,right] at ($(imgB.east)+(0.15,-0.80)$) {\small \; $8\times \boxnum{C0}{0}$};
+        \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}] ($(imgB.east)+(0.3,1.00)$) -- ($(imgB.east)+(1.15,1.00)$)
+          node[midway,anchor=south,yshift=0.19cm,align=center,xshift=-2.8cm] {\Large Keep up to $8$ most recent items of each \hv{}\\(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
       \end{tikzpicture}
       \vspace{-0.7cm}
       \hspace*{\fill}%
