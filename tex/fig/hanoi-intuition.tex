@@ -26,11 +26,11 @@
 \begin{subfigure}{\linewidth}
 
   \fcolorbox{gray!3}{gray!3}{%
-    \begin{minipage}[c][0.15in][c]{0.4\linewidth}\centering
-      Meta-epoch $\colortau = 1$ (@ Time $\colorT = 32$)
+    \begin{minipage}[c][0.15in][c]{0.355\linewidth}\centering
+      \Large Meta-epoch $\colortau = 1$ \normalsize (@ Time $\colorT = 32$)
     \end{minipage}}\\[-0.25ex]
   \fcolorbox{purple!5}{purple!5}{%
-    \begin{minipage}[c][2.4in][c]{0.4\linewidth}
+    \begin{minipage}[c][2.4in][c]{0.355\linewidth}
       \hspace{-2ex}\vspace{-3ex}
       \begin{tikzpicture}[decoration={brace}]
         \node[inner sep=0pt] (imgA)
@@ -53,14 +53,14 @@
           ($(imgA.east)+(-4.21,3.20)$)--($(imgA.east)+(-0.37,3.20)$)
           node[anchor=south east,yshift=0.19cm,align=center]{\Large Keep $4$ most recent items of each \hv{}\\\small(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
         \end{scope}
-      \end{tikzpicture}\hspace*{\fill}\end{minipage}}\\[1.1em]
+      \end{tikzpicture}\hspace*{\fill}\end{minipage}}\\[0.2em]
 
   \fcolorbox{gray!11}{gray!11}{%
-    \begin{minipage}[c][0.15in][c]{0.4\linewidth}\centering
-      Meta-epoch $\colortau = 0$ (@ Time $\colorT = 16$)
+    \begin{minipage}[c][0.15in][c]{0.355\linewidth}\centering
+      \Large Meta-epoch $\colortau = 0$ \normalsize (@ Time $\colorT = 16$)
     \end{minipage}}\\[-0.25ex]
   \fcolorbox{purple!11}{purple!11}{%
-    \begin{minipage}[c][2.4in][c]{0.4\linewidth}
+    \begin{minipage}[c][2.4in][c]{0.355\linewidth}
       \vspace{-1.3cm}\hspace{-2ex}\vspace{-4ex}
       \begin{tikzpicture}[decoration={brace}]
         \node[inner sep=0pt] (imgB)
@@ -81,7 +81,7 @@
           \node at ($(imgB.east)+(\X,\BoxY)$)  {\small $\boxnum{\col}{\num}$};}
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}]
           ($(imgB.east)+(-4.78,2.70)$)--($(imgB.east)+(-2.88,2.70)$);
-        \node[anchor=south west,align=center] at ($(imgB.east)+(-4.78,2.70)+(0,0.19)$)
+        \node[anchor=south west,align=center] at ($(imgB.east)+(-6.28,2.70)+(0,0.19)$)
               {\Large Keep $8$ most recent items of each \hv{}\\\small(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
         \end{scope}
       \end{tikzpicture}\vspace{-0.7cm}\hspace*{\fill}\end{minipage}}
