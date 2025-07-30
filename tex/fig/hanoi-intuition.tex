@@ -31,7 +31,7 @@
     \end{minipage}}\\[-0.25ex]
   \fcolorbox{purple!5}{purple!5}{%
     \begin{minipage}[c][2.4in][c]{0.355\linewidth}
-      \hspace{-2ex}\vspace{-3ex}
+      \hspace{-2ex}\vspace{0ex}
       \begin{tikzpicture}[decoration={brace}]
         \node[inner sep=0pt] (imgA)
           {\includegraphics[trim={0 0.69cm 0 0},clip,height=1.30in]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-after+x=index+y=hanoi-value+ext=.pdf}};
@@ -51,40 +51,44 @@
           \node at ($(imgA.east)+(\X,\BoxY)$)  {\small $\boxnum{\col}{\num}$};}
         \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}]
           ($(imgA.east)+(-4.21,3.20)$)--($(imgA.east)+(-0.37,3.20)$)
-          node[anchor=south east,yshift=0.19cm,align=center]{\Large Keep $4$ most recent items of each \hv{}\\\small(If $<4$ items of \hv{} seen, keep all \hv{} items.)};
+          node[anchor=south east,yshift=0.19cm,align=center]{\Large Keep $4$ most recent items of each \hv{}\\\normalsize (If $<4$ items of \hv{} seen, keep all \hv{} items.)};
         \end{scope}
       \end{tikzpicture}\hspace*{\fill}\end{minipage}}\\[0.2em]
 
-  \fcolorbox{gray!11}{gray!11}{%
-    \begin{minipage}[c][0.15in][c]{0.355\linewidth}\centering
-      \Large Meta-epoch $\colortau = 0$ \normalsize (@ Time $\colorT = 16$)
-    \end{minipage}}\\[-0.25ex]
-  \fcolorbox{purple!11}{purple!11}{%
-    \begin{minipage}[c][2.4in][c]{0.355\linewidth}
-      \vspace{-1.3cm}\hspace{-2ex}\vspace{-4ex}
-      \begin{tikzpicture}[decoration={brace}]
-        \node[inner sep=0pt] (imgB)
-          {\includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}};
-        \begin{scope}[yshift=0.05cm]
-        \foreach \i/\mult/\col/\num in {0/1×/{C4}/4,1/1×/{C3}/3,2/2×/{C2}/2,
-                                        3/4×/{C1}/1,4/8×/{C0}/0}{
-          \pgfmathsetmacro\X{-4.584+0.351*\i}
-          \pgfmathsetmacro\BoxY{2.03-0.12*\i}
-          \pgfmathsetmacro\MultY{\BoxY+0.34}
-          \pgfmathsetmacro\Top{\BoxY-0.05}
-          \pgfmathsetmacro\NewBot{0.80-0.40*\i+0.15}
-          \draw[whitevert]($(imgB.east)+(\X,\Top)$)--($(imgB.east)+(\X,\NewBot)$);
-          \draw[whitebar] ($(imgB.east)+(\X,\NewBot)$)++(-0.105,0)--++(0.21,0);
-          \draw[\col,colorvert]($(imgB.east)+(\X,\Top)$)--($(imgB.east)+(\X,\NewBot)$);
-          \draw[\col,colorbar] ($(imgB.east)+(\X,\NewBot)$)++(-0.085,0)--++(0.17,0);
-          \node at ($(imgB.east)+(\X,\MultY)$) {\normalsize \mult};
-          \node at ($(imgB.east)+(\X,\BoxY)$)  {\small $\boxnum{\col}{\num}$};}
-        \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}]
-          ($(imgB.east)+(-4.78,2.70)$)--($(imgB.east)+(-2.88,2.70)$);
-        \node[anchor=south west,align=center] at ($(imgB.east)+(-6.28,2.70)+(0,0.19)$)
-              {\Large Keep $8$ most recent items of each \hv{}\\\small(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
-        \end{scope}
-      \end{tikzpicture}\vspace{-0.7cm}\hspace*{\fill}\end{minipage}}
+      \newsavebox{\bindertrim}
+      \sbox{\bindertrim}{\includegraphics[trim={0 0.75cm 0 0},clip,height=1.30in]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}}
+      \newsavebox{\binderfull}
+      \sbox{\binderfull}{\includegraphics[trim={0 0 0 0},clip,width=\wd\bindertrim]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}}
+      \def\Shift{0.29}
+
+      \fcolorbox{gray!11}{gray!11}{%
+        \begin{minipage}[c][0.15in][c]{0.355\linewidth}\centering
+          \Large Meta-epoch $\colortau = 0$ \normalsize (@ Time $\colorT = 16$)
+        \end{minipage}}\\[-0.25ex]
+      \fcolorbox{purple!11}{purple!11}{%
+        \begin{minipage}[c][2.3in][c]{0.355\linewidth}
+          \vspace{-1.3cm}\hspace{-2ex}\vspace{-6ex}
+          \begin{tikzpicture}[decoration={brace}]
+            \node[inner sep=0pt] (imgB)
+              {\includegraphics[trim={0 0 0 0},clip,width=\wd\bindertrim]{binder-hanoi-strategy-small-epoch/binder/teeplots/hanoi-strategy-small-epoch/font.family=serif+hue=hanoi-value+viz=lolliplot+what=last-n-before+x=index+xlim=32+y=hanoi-value+ext=.pdf}};
+            \foreach \i/\mult/\col/\num in {0/1×/{C4}/4,1/1×/{C3}/3,2/2×/{C2}/2,
+                                            3/4×/{C1}/1,4/8×/{C0}/0}{
+              \pgfmathsetmacro\X{-4.584+0.351*\i}
+              \pgfmathsetmacro\BoxY{2.03-0.12*\i+\Shift}
+              \pgfmathsetmacro\MultY{\BoxY+0.34}
+              \pgfmathsetmacro\Top{\BoxY-0.05}
+              \pgfmathsetmacro\NewBot{0.95-0.40*\i+\Shift}
+              \draw[whitevert]($(imgB.east)+(\X,\Top)$)--($(imgB.east)+(\X,\NewBot)$);
+              \draw[whitebar] ($(imgB.east)+(\X,\NewBot)$)++(-0.105,0)--++(0.21,0);
+              \draw[\col,colorvert]($(imgB.east)+(\X,\Top)$)--($(imgB.east)+(\X,\NewBot)$);
+              \draw[\col,colorbar] ($(imgB.east)+(\X,\NewBot)$)++(-0.085,0)--++(0.17,0);
+              \node at ($(imgB.east)+(\X,\MultY)$) {\normalsize \mult};
+              \node at ($(imgB.east)+(\X,\BoxY)$)  {\small $\boxnum{\col}{\num}$};}
+            \draw[line width=1.4pt,decorate,decoration={brace,amplitude=4pt}]
+              ($(imgB.east)+(-4.78,3.45 - 0.45)$)--($(imgB.east)+(-2.88,3.45 - 0.45)$);
+            \node[anchor=south west,align=center] at ($(imgB.east)+(-6.28,3.45 - 0.45)+(0,0.19)$)
+                  {\Large Keep $8$ most recent items of each \hv{}\\\normalsize(If $<8$ items of \hv{} seen, keep all \hv{} items.)};
+          \end{tikzpicture}\vspace{-0.7cm}\hspace*{\fill}\end{minipage}}
 
   \caption{\footnotesize last-$n$ \hv{} retention}
 \end{subfigure}
