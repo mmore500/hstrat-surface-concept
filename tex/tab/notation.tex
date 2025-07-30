@@ -28,9 +28,9 @@ $\colortausetofT$ & {\footnotesize\hspace{2em}\textbf{Def.} $\{\colorT^{\prime} 
 
 \rowcolor{gray!20}\multicolumn{2}{c}{\textbf{Layout}} \\
 \multirow[t]{2}{*}{$\colorh = \colorHcal_{\colort}(\colork)$} & Hanoi Value Reserved at Site \\
-& {\footnotesize\hspace{2em}\textbf{Def.} algorithm-defined; \texttt{int} $\in [0 \twodots \colorS)$} \\
+& {\footnotesize\hspace{2em}\textbf{Def.} Algorithm \ref{alg:tilted-time-lookup}; \texttt{int} $\in [0 \twodots \colorS)$} \\
 \multirow[t]{2}{*}{$\colorK(\colorT)$} & Storage Site Selected for Data Item \\
-& {\footnotesize\hspace{2em}\textbf{Def.} algorithm-defined; \texttt{int} $\in [0 \twodots \colorS) \cup \{\nullval\}$} \\
+& {\footnotesize\hspace{2em}\textbf{Def.} Algorithm \ref{alg:tilted-site-selection}; \texttt{int} $\in [0 \twodots \colorS) \cup \{\nullval\}$} \\
 \multirow[t]{3}{*}{$\colorL(\colorT)$} & Ingest Times of Stored Data Items by Site \\
 & {\footnotesize\hspace{2em}\textbf{Def.} $\max\{\colorTbar \in [0 \twodots \colorT) : \colorK(\colorTbar) = \colork\}$ for $\colork \in [0 \twodots \colorS)$;} \\
 & {\footnotesize\hspace{2em} \texttt{seq} $\subseteq [0 \twodots \colorT) \cup \{\nullval\}$} \\
@@ -41,7 +41,7 @@ $\colortausetofT$ & {\footnotesize\hspace{2em}\textbf{Def.} $\{\colorT^{\prime} 
 
 \rowcolor{gray!20}\multicolumn{2}{c}{\textbf{Curation Quality}} \\
 \multirow[t]{2}{*}{$\colorB_{\colorT}$} & Retained Data Items \\
-& {\footnotesize\hspace{2em}\textbf{Def.} algorithm-consequent; \texttt{set} $\subseteq [0\twodots\colorT)$} \\
+& {\footnotesize\hspace{2em}\textbf{Def.} Algorithm \ref{alg:tilted-time-lookup}; \texttt{set} $\subseteq [0\twodots\colorT)$} \\
 \multirow[t]{2}{*}{$\colorBnot_{\colorT}$} & Discarded Data Items \\
 & {\footnotesize\hspace{2em}\textbf{Def.} $[0\twodots\colorT) \setminus \colorB_{\colorT}$; \texttt{set} $\subseteq [0\twodots\colorT)$} \\
 \multirow[t]{2}{*}{$\colorg = \colorG_{\colorT}(\colorTbar)$} & Gap Size in Curated Collection \\
