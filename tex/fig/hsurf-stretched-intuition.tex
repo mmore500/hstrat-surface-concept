@@ -1,7 +1,7 @@
-\newcommand{\X}{1.26}        % overall uniform scale (images + TikZ width)
-\newcommand{\Y}{0.85}          % extra vertical stretch for TikZ (1 = unchanged)
+\newcommand{\X}{0.86}        % overall uniform scale (images + TikZ width)
+\newcommand{\Y}{1}          % extra vertical stretch for TikZ (1 = unchanged)
 
-\begin{figure*}[htbp!]
+\begin{figure}[htbp!]
 
   \begin{flushleft}
   \scalebox{\X}{%
@@ -10,8 +10,8 @@
   }%
   \end{flushleft}
 
-\begin{subfigure}{\linewidth}
-\begin{tikzpicture}[xscale=\X*\linewidth/50cm, yscale=\X*\Y*\linewidth/50cm]
+\begin{subfigure}{\textwidth}
+\begin{tikzpicture}[xscale=\X*\textwidth/50cm, yscale=\X*\Y*\textwidth/50cm]
   \begin{scope}
     % Grid
     % \draw[lightgray,step=1] (0,0) grid (50,4);
@@ -20,24 +20,24 @@
     % \foreach \x in {1,5,...,49} { \node [below] at (\x,0) {\x}; }
     % \foreach \y in {0,1,...,4} { \node [left] at (0,\y) {\y}; }
 
-\node[anchor=west, text=black!100] (texta) at (24.5, 3.5) {Bunch $r=1$};
-\node[anchor=west, text=black!70] (textb) at (24.5, 2.5) {Bunch $r=2$};
-\node[anchor=west, text=black!50] (textc) at (24.5, 1.5) {Bunch $r=3$};
-\node[anchor=west, text=black!30] (textd) at (24.5, 0.5) {Bunch $r=5$};
+\node[anchor=west, text=black!100] (texta) at (24.5, 3.5) {$r=1$};
+\node[anchor=west, text=black!70] (textb) at (24.5, 2.5) {$r=2$};
+\node[anchor=west, text=black!50] (textc) at (21.5, 1.5) {Bunch $r=3$};
+\node[anchor=west, text=black!30] (textd) at (21.5, 0.5) {Bunch $r=5$};
 
-\node[anchor=center,font={\footnotesize}] (textx) at (29.2, 4.5) {\textit{Num Segs.}};
-\node[anchor=center,font={\footnotesize}] (textax) at (29.2, 3.5) {\textit{4}};
-\node[anchor=center,font={\footnotesize}] (textbx) at (29.2, 2.5) {\textit{2}};
-\node[anchor=center,font={\footnotesize}] (textcx) at (29.2, 1.5) {\textit{1}};
-\node[anchor=center,font={\footnotesize}] (textdx) at (29.2, 0.5) {\textit{1}};
+% \node[anchor=center,font={\footnotesize}] (textx) at (29.2, 4.5) {\textit{Num Segs.}};
+% \node[anchor=center,font={\footnotesize}] (textax) at (29.2, 3.5) {\textit{4}};
+% \node[anchor=center,font={\footnotesize}] (textbx) at (29.2, 2.5) {\textit{2}};
+% \node[anchor=center,font={\footnotesize}] (textcx) at (29.2, 1.5) {\textit{1}};
+% \node[anchor=center,font={\footnotesize}] (textdx) at (29.2, 0.5) {\textit{1}};
 
-\node[anchor=center,font={\footnotesize}] (textay) at (31.5, 3.5) {\textit{filled last}};
-\node[anchor=center,font={\footnotesize}] (textdy) at (31.5, 0.5) {\textit{filled first}};
-\draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!40](textdy.north) -- (textay.south);
+% \node[anchor=center,font={\footnotesize}] (textay) at (31.5, 3.5) {\textit{filled last}};
+% \node[anchor=center,font={\footnotesize}] (textdy) at (31.5, 0.5) {\textit{filled first}};
+% \draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!40](textdy.north) -- (textay.south);
 
-\node[anchor=center,font={\footnotesize}] (textay2) at (34.5, 3.5) {\textit{invaded first}};
-\node[anchor=center,font={\footnotesize}] (textdy2) at (34.5, 0.5) {\textit{invaded last}};
-\draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!45](textay2.south) -- (textdy2.north);
+% \node[anchor=center,font={\footnotesize}] (textay2) at (34.5, 3.5) {\textit{invaded first}};
+% \node[anchor=center,font={\footnotesize}] (textdy2) at (34.5, 0.5) {\textit{invaded last}};
+% \draw[-{stealth[scale=0.2]},shorten >=-1mm, shorten <=-0mm, line width=3pt,draw=MidnightBlue!45](textay2.south) -- (textdy2.north);
 
 % Triangles
 \filldraw[draw=white,ultra thick,fill=black!100] (8.5,5) -- ++(0.5,-1) -- ++(0.5,1) -- cycle;
@@ -124,4 +124,4 @@
     Because the segment sizes $r$ mirror the hanoi sequence, expansion of invading segments by one site per epoch ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$ (see Figure \ref{fig:hanoi-intuition}).
   }
   \label{fig:hsurf-stretched-intuition}
-\end{figure*}
+\end{figure}
