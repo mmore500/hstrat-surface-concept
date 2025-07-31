@@ -150,7 +150,7 @@ binder-20a-tilted-eulerian-surface/binder/teeplots/20a/font.family=serif+num-gen
   Top panel \ref{fig:hsurf-tilted-implementation-site-selection} enumerates storage site selection on a 16-site buffer for $\colorT=0 \ldots 40$.
   Bottom panel \ref{fig:hsurf-tilted-implementation-schematic} depicts time course of stored data items, color-coded by data items' hanoi values $\colorH(\colorTbar)$.
   Time progresses from bottom to top.
-  Between $\colorT=0$ and $\colorT=63$, time is segmented into epochs $\colort=0$, $\colort=1$, $\colort=2$, and $\colort=3$; strips before each epoch show hanoi values assigned to each buffer site during that epoch.
+  Between $\colorT=0$ and $\colorT=127$, time is segmented into epochs $\colort=0$, $\colort=1$, $\colort=2$, and $\colort=3$; strips before each epoch show hanoi values assigned to each buffer site during that epoch.
   Rectangles with small white ``$\blkhorzoval$'' symbol denote storage of ingested data item.
   In epoch 0, all sites are filled with a first data item.
   Then, in subsequent epochs, low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{} (ensuring most recent data items corresponding to that \hv{} are retained).
