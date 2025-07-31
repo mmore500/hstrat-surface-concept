@@ -1,0 +1,144 @@
+\begin{figure*}[htbp!]
+  \centering
+
+\begin{minipage}{\textwidth}
+  \scriptsize
+  \setlength{\tabcolsep}{2.5pt}
+  \begin{tabularx}{\textwidth}{
+    r
+    Y|Y|Y|Y|Y|Y|Y|Y|
+    Y|Y|Y|Y|Y Y Y|Y
+    |Y|Y|Y|Y|Y|Y|Y
+    |Y|Y|Y|Y Y
+    }
+     { Time $\colorT$} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7}
+    & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} %& 13 & 14 & 15
+    % & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23
+    &  \ldots
+    & \textbf{28} & \textbf{29} & \textbf{30} & \textbf{31}
+    & \textbf{32} & \textbf{33} & \textbf{34} & \textbf{35}
+    & \textbf{36} & \textbf{37} & \textbf{38} & \textbf{39} & \textbf{40}
+    & \ldots \\ \hline
+   { Epoch $\colort$} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+    & 0 & 0 & 0 & 0 & 0 %& 13 & 14 & 15
+    % & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23
+    &  \ldots
+    & 0 & 0 & 0 & 0
+    & 1 & 1 & 1 & 1
+    & 1 & 1 & 1 & 1 & 1
+    & \ldots \\
+     \rowcolor{lightgray!30}
+   { Meta-epoch $\colortau$} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+    & 0 & 0 & 0 & 0 & 0 %& 13 & 14 & 15
+    % & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23
+    &  \ldots
+    & 0 & 0 & 0 & 0
+    & 1 & 1 & 1 & 1
+    & 1 & 1 & 1 & 1 & 1
+    & \ldots \\
+    { \scriptsize Hanoi value $\colorH(\colorT)$} & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 3
+    & 0 & 1 & 0 & 2 & 0 %& 13 & 14 & 15
+    % & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23
+    &  \ldots
+    & 0 & 1 & 0 & 5
+    & 0 & 1 & 0 & 2
+    & 0 & 1 & 0 & 3 & 0
+    & \ldots \\ \hline
+     { \scriptsize Buffer site $\colorK(\colorT)$} & \textbf{0} & \textbf{1} & \textbf{17} & \textbf{2} & \textbf{10} & \textbf{18} & \textbf{25} & \textbf{3}
+     & \textbf{7} & \textbf{11} & \textbf{14} & \textbf{19} & \textbf{22} & \ldots
+ & \textbf{28} & \textbf{30} & \textbf{31} & \textbf{5} & \textbf{0}
+ & \textbf{1} & \textbf{17} & \textbf{9} & \textbf{10}
+ & \textbf{18} & \textbf{25} & \textbf{13} & \textbf{7}  &\ldots
+  \end{tabularx}
+\vspace{-2ex}
+\end{minipage}
+\begin{subfigure}{\textwidth}
+\caption{\footnotesize Site selection $\colorK(\colorT)$ for buffer size $\colorS=32$.}
+\label{fig:hsurf-tilted-implementation-site-selection32}
+\end{subfigure}
+\vspace{-3ex}
+
+\begin{subfigure}[b]{\linewidth}
+\includegraphics[width=\linewidth]{
+binder-20a-tilted-eulerian-surface/binder/teeplots/20a/font.family=serif+num-generations=128+strip-plotter=site_reservation_at_rank_stripped_heatmap+surface-size=32+viz=site-reservation-by-rank-spliced-at-heatmap+ext=.pdf}
+\vspace{-4.5ex}\caption{\footnotesize
+  Buffer composition over time from bottom to top, split by epoch with data items color-coded by \hv{} $\colorH(\colorTbar)$.
+  Animated version at \url{https://hopth.ru/dz}.
+}
+\label{fig:hsurf-tilted-implementation-schematic32}
+\end{subfigure}
+
+% \vspace{0.5ex}
+% \begin{minipage}[]{\textwidth}
+%  \vspace{-2pt}
+%   \begin{subfigure}[t]{0.65\linewidth}
+%     \vspace{0pt}
+%     \centering
+%   \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/cnorm=log+num-generations=4096+surface-size=256+viz=site-ingest-depth-by-rank-heatmap+ynorm=linear+ext=.png}  % pdf cbar is scrambled
+%   \end{subfigure}%
+%   \begin{subfigure}[t]{0.35\linewidth}
+%   \vspace{-2pt}
+%   \caption{%
+%     \footnotesize
+%     Stored data item age across buffer sites for buffer size $\colorS=256$ from $\colorT=0$ to 4,096.
+%   }
+%   \label{fig:hsurf-tilted-implementation-heatmap32}
+% \end{subfigure}
+% \end{minipage}
+
+%   \vspace{-0.5ex}
+%    \begin{minipage}[]{\textwidth}
+%    \vspace{-2pt}
+%   \begin{subfigure}[t]{0.65\linewidth}
+%   \vspace{0pt}
+%     \centering
+%     \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/num-generations=262144+surface-size=64+viz=stratum-persistence-dripplot+ext=.pdf}
+%   \end{subfigure}%
+%   \begin{subfigure}[t]{0.35\linewidth}
+%   \vspace{-2pt}
+%   \caption{%
+%     \footnotesize
+%     Data item retention time spans by ingestion time point for buffer size $\colorS=64$ from $\colorT=0$ to 3,000.
+%   }
+%   \label{fig:hsurf-tilted-implementation-dripplot32}
+%   \end{subfigure}
+%   \end{minipage}
+
+%   \vspace{-0.5ex}
+%  \begin{minipage}[]{\textwidth}
+%  \vspace{-2pt}
+% \begin{subfigure}[t]{0.65\linewidth}
+% \vspace{0pt}
+%   \centering
+%   \includegraphics[width=0.88\linewidth,clip]{binder/teeplots/20/hue=kind+surface-size=16+viz=criterion-satisfaction-lineplot+x=rank+y=tilted-criterion+ext=.pdf}
+% \end{subfigure}%
+% \begin{subfigure}[t]{0.35\linewidth}
+% \vspace{-2pt}
+% \caption{%
+%   \footnotesize
+%   Tilted criterion satisfaction across time points for buffer size $\colorS=16$.
+% }
+% \label{fig:hsurf-tilted-implementation-satisfaction32}
+% \end{subfigure}
+% \end{minipage}
+
+\vspace{-2ex}\caption{%
+  \textbf{Example tilted-generalized ring buffer behavior.}
+  \footnotesize
+  Top panel \ref{fig:hsurf-tilted-implementation-site-selection} enumerates storage site selection on a 32-site buffer for $\colorT=0 \ldots 12, \; 28 \ldots 40$.
+  Bottom panel \ref{fig:hsurf-tilted-implementation-schematic} depicts time course of stored data items, color-coded by data items' hanoi values $\colorH(\colorTbar)$.
+  Time progresses from bottom to top.
+  Between $\colorT=0$ and $\colorT=127$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$; strips before each epoch show hanoi values assigned to each buffer site during that epoch.
+  Rectangles with small white ``$\blkhorzoval$'' symbol denote storage of ingested data item.
+  In epoch 0, all sites are filled with a first data item.
+  Then, in subsequent epochs, low \hv{} data items for which a newly-allocated reservation site is not available ``cycle'' within sites reserved for that \hv{} (ensuring most recent data items corresponding to that \hv{} are retained).
+  % Heatmap panel \ref{fig:hsurf-tilted-implementation-heatmap} shows evolution of data item age at buffer sites.
+  % Dripplot panel \ref{fig:hsurf-tilted-implementation-dripplot} shows retention spans for 3,000 ingested time points.
+  % Vertical lines span durations between ingestion and elimination for data items from successive time points.
+  % Time points previously eliminated are marked in red.
+  % Lineplot panel \ref{fig:hsurf-tilted-implementation-satisfaction} shows tilted criterion satisfaction on a 16-bit surface over $2^{16}$ timepoints.
+  % Lower and upper shaded areas are best- and worst-case bounds, respectively.
+}
+\label{fig:hsurf-tilted-implementation32}
+
+\end{figure*}
