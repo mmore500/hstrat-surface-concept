@@ -264,7 +264,8 @@
   Lower panel shows epoch-by-epoch storage layout of sites ``reserved'' to store items of each \hv{} set, for buffer size $\colorS=16$.
   (For within-epoch detail of individual data items, see Figure \ref{fig:hsurf-tilted-implementation}.)
   In each successive ``meta-epoch'' $n$ is halved across low \hv{} 's in a rolling fashion to store newly-arrived high-\hv items.
-  Note nested composition of consecutive-\hv ``segments'' (solid lines); design is described in Figure \ref{fig:hsurf-stretched-intuition}.
+  Note nested composition of consecutive-\hv ``segments'' (solid lines); buffer layout design is described in Figure \ref{fig:hsurf-stretched-intuition}.
+  Section \ref{sec:restrictions} describes behavior beyond meta-epoch $\colortau=3$.
   }
 \label{fig:hanoi-intuition}
 \end{figure*}
