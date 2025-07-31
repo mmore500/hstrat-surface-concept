@@ -124,11 +124,15 @@
     \textbf{Tilted-generalized ring buffer storage layout detail.}
     \footnotesize
     Epoch-by-epoch storage layout of \hv{} reservation ``segments''  for buffer size $S=16$, shown as contiguous horizontal regions divided by solid black line; time from bottom to top.
-    Segments are categorized into ``bunches'' according to their initial size $r$.
+    Each segment is as a region of consecutive buffer sites initially storing \hv's $[0..r)$ (see Figure \ref{fig:hanoi-intuition:buffer-layout}), where $r$ is initial segment size.
+    Segments are classified into ``bunches'' according to their initial size $r$.
     Inverted triangles schematize the layout of segment bunches, which are nested and discontiguous.
-    As epochs elapse, segments grow from initial size $r$ to mature size $R$ and are then ``invaded'' to elimination by growth of their left neighbor.
+    As epochs $t$ elapse, segments incrementally grow from \textit{initial size} $r$ to \textit{mature size} $R$.
+    Members of a bunch reaching that bunch's mature size $R$ defines the end of a meta-epoch $\colortau$.
+    Past mature size $R$, they stop growing are ``invaded'' to elimination by growth of their left neighbor.
     (For bunch $r=1$, $R=1$; for bunch $r=2$, $R=3$, etc.)
-    Because the segment sizes $r$ mirror the hanoi sequence, expansion of invading segments by one site per epoch ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$ (see Figure \ref{fig:hanoi-intuition}).
+    Ultimately, the goal of this scheme is to provide space to store the last-$n$ data items from all encountered \hv{}s, taking into account the fact that few data items have been encountered for the highest \hv{}s.
+    Because the segment sizes $r$ mirror the hanoi sequence (in right-to-left order), expansion of invading segments by one site per epoch ensures buffer space for instances of high \hv{} as they are encountered at later $\colorT$ (see e.g., Figure \ref{fig:hanoi-intuition:last-n}).
   }
   \label{fig:hsurf-stretched-intuition}
 \end{figure}
