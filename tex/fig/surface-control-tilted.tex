@@ -30,8 +30,9 @@
 \footnotesize
 Vertical segments correspond to duration between data item arrival (green bar) and deletion (red bar); time from bottom to top.
 The naive doubling algorithm purges every other stored item when buffer space fills.
-The pyramidal bucket algorithm stores items in buckets of progressively doubling size (annotated), consolidating the most recent pair of same-size buckets at each time step.
-The saturating bucket algorithm fills available space, divided among similarly-doubling buckets (color-coded by size).
+The pyramidal bucket algorithm organizes history into ``buckets'' of progressively doubling size (annotated), storing one item per bucket.
+Each time step, the most recent pair of same-size buckets are merged.
+The saturating bucket algorithm fills available space, divided among similarly-doubling ``buckets'' (color-coded by size).
 The number of buckets within each size class (annotated) determines consolidation, which targets the most recent class more abundant than its successor.
 }
 \label{fig:surface-control-tilted}
