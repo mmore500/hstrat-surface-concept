@@ -2,13 +2,13 @@
 
 
 \begin{subfigure}{\linewidth}
-\includegraphics[width=\linewidth, clip, trim={0 7.2cm 0 0}]{binder-downstream-benchmark/binder/teeplots/2025-06-30-cpp-bench-speed-tilted/col=data-type+font.family=serif+hue=algorithm+kind=line+row=platform+style=algorithm+viz=relplot+x=buffer-size-s+y=per-item-walltime-ns+ext=.pdf}
+\includegraphics[width=\linewidth, clip, trim={0 7.2cm 0 0}]{binder-2025-06-30-cpp-bench-speed-tilted/binder/teeplots/2025-06-30-cpp-bench-speed-tilted/col=data-type+errorbar=se+font.family=serif+hue=algorithm+kind=line+row=platform+style=algorithm+viz=relplot+x=buffer-size-s+y=per-item-walltime-ns+ext=.pdf}
 \caption{\small x86 workstation}
 \label{fig:speed:thinkpad}
 \end{subfigure}
 
 \begin{subfigure}{\linewidth}
-\includegraphics[width=\linewidth, clip, trim={0 0 0 9cm}]{binder-downstream-benchmark/binder/teeplots/2025-06-30-cpp-bench-speed-tilted/col=data-type+font.family=serif+hue=algorithm+kind=line+row=platform+style=algorithm+viz=relplot+x=buffer-size-s+y=per-item-walltime-ns+ext=.pdf}
+\includegraphics[width=\linewidth, clip, trim={0 0 0 9cm}]{binder-2025-06-30-cpp-bench-speed-tilted/binder/teeplots/2025-06-30-cpp-bench-speed-tilted/col=data-type+errorbar=se+font.family=serif+hue=algorithm+kind=line+row=platform+style=algorithm+viz=relplot+x=buffer-size-s+y=per-item-walltime-ns+ext=.pdf}
 \caption{\small ARM embedded device}
 \label{fig:speed:pi}
 \end{subfigure}
@@ -16,6 +16,7 @@
 \caption{%
 \textbf{Performance comparison for tilted curation approaches.}
 \small
+Shaded bands indicate standard error over $n=10$ trials.
 Results for byte and word dtypes were similar to double word dtype; shown in Supplemental Figure \ref{fig:speed-supp}.
 Likewise, results for ARM workstation were similar to x86 workstation; also shown in Supplemental Figure \ref{fig:speed-supp}.
 Table \ref{tab:algorithms} overviews compared treatments.

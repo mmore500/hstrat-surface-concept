@@ -46,3 +46,8 @@
 	url = https://github.com/mmore500/downstream-benchmark.git
 	branch = binder-2025-07-06-qos-dstream-tilted.ipynb
 	shallow = true
+[submodule "tex/binder-2025-06-30-cpp-bench-speed-tilted"]
+	path = tex/binder-2025-06-30-cpp-bench-speed-tilted
+	url = https://github.com/mmore500/downstream-benchmark.git
+	branch = binder-2025-06-30-cpp-bench-speed-tilted.ipynb
+	shallow = true
