@@ -4,47 +4,47 @@
 \renewcommand{\arraystretch}{1.1}
 \begin{tabularx}{\linewidth}{r@{\hspace{10pt}}|@{\hspace{10pt}}X}
 \rowcolor{gray!20}\multicolumn{2}{c}{\textbf{Space}} \\
-\multirow[t]{2}{*}{$\colorS$} & Buffer Size \\
+\multirow[t]{2}{*}{$\colorS$} & {\textit{Buffer Size}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} user-defined; \texttt{int} $\in \{2^{\mathbb{N}}\}$} \\
-\multirow[t]{2}{*}{$\colors$} & Log Buffer Size \\
+\multirow[t]{2}{*}{$\colors$} & {\textit{Log Buffer Size}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} $\log_2 \colorS$; \texttt{int} $\in \mathbb{N}$} \\
-\multirow[t]{2}{*}{$\colork$} & Buffer Site \\
+\multirow[t]{2}{*}{$\colork$} & {\textit{Buffer Site}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} index position in buffer; \texttt{int} $\in [0\twodots\colorS)$} \\
 
 \rowcolor{gray!20}\multicolumn{2}{c}{\textbf{Time}} \\
-\multirow[t]{2}{*}{$\colorT$} & Current Time \\
+\multirow[t]{2}{*}{$\colorT$} & {\textit{Current Time}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} num elapsed data item ingests; \texttt{int} $\in [0 \twodots 2^{\colorS - 1})$} \\
-\multirow[t]{2}{*}{$\colorTbar$} & Data Item Ingest Time \\
+\multirow[t]{2}{*}{$\colorTbar$} & {\textit{Data Item Ingest Time}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} num ingests preceding data item; \texttt{int} $\in [0 \twodots \colorT)$} \\
-\multirow[t]{2}{*}{$\colorh = \colorH(\colorT)$} & Hanoi Value (\hv{}) of Time \\
+\multirow[t]{2}{*}{$\colorh = \colorH(\colorT)$} & {\textit{Hanoi Value (\hv{}) of Time}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Formula \ref{eqn:hanoi-defn}; \texttt{int} $\in [0 \twodots \colorS)$} \\
-\multirow[b]{2}{*}{$\colort = \mathit{f}_{\mathrm{t}}(\colorT)$} & Time Epoch \\
+\multirow[b]{2}{*}{$\colort = \mathit{f}_{\mathrm{t}}(\colorT)$} & {\textit{Time Epoch}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Formula \ref{eqn:epoch-defn}; \texttt{int} $\in [0 \twodots \colorS - \colors)$} \\
 $\colortsetofT$ & {\footnotesize\hspace{2em}\textbf{Def.} $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\mathrm{t}}(\colorT^{\prime}) = \colort \}$; \texttt{set} $\subseteq [\colorT' \twodots \colorT' + n]$} \\
-\multirow[b]{2}{*}{$\colortau = \mathit{f}_{\tau}(\colort)$} & Time Meta-epoch \\
+\multirow[b]{2}{*}{$\colortau = \mathit{f}_{\tau}(\colort)$} & {\textit{Time Meta-epoch}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Formula \ref{eqn:meta-epoch-defn}; \texttt{int} $\in [0 \twodots \colors)$} \\
 $\colortausetoft$ & {\footnotesize\hspace{2em}\textbf{Def.} $\{\colort^{\prime} \in \mathbb{N} : \mathit{f}_{\tau}(\colort^{\prime}) = \colortau \}$; \texttt{set} $\subseteq [\colort' \twodots \colort' + n]$} \\
 $\colortausetofT$ & {\footnotesize\hspace{2em}\textbf{Def.} $\{\colorT^{\prime} \in \mathbb{N} : \mathit{f}_{\tau} \circ \mathit{f}_{\mathrm{t}}(\colorT^{\prime}) = \colortau \}$; \texttt{set} $\subseteq [\colorT' \twodots \colorT' + n]$} \\
 
 \rowcolor{gray!20}\multicolumn{2}{c}{\textbf{Layout}} \\
-\multirow[t]{2}{*}{$\colorh = \colorHcal_{\colort}(\colork)$} & Hanoi Value Reserved at Site \\
+\multirow[t]{2}{*}{$\colorh = \colorHcal_{\colort}(\colork)$} & {\textit{Hanoi Value Reserved at Site}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Algorithm \ref{alg:tilted-time-lookup}; \texttt{int} $\in [0 \twodots \colorS)$} \\
-\multirow[t]{2}{*}{$\colorK(\colorT)$} & Storage Site Selected for Data Item \\
+\multirow[t]{2}{*}{$\colorK(\colorT)$} & {\textit{Storage Site Selected for Data Item}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Algorithm \ref{alg:tilted-site-selection}; \texttt{int} $\in [0 \twodots \colorS) \cup \{\nullval\}$} \\
-\multirow[t]{3}{*}{$\colorL(\colorT)$} & Ingest Times of Stored Data Items by Site \\
+\multirow[t]{3}{*}{$\colorL(\colorT)$} & {\textit{Ingest Times of Stored Data Items by Site}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} $\max\{\colorTbar \in [0 \twodots \colorT) : \colorK(\colorTbar) = \colork\}$ for $\colork \in [0 \twodots \colorS)$;} \\
 & {\footnotesize\hspace{2em} \texttt{seq} $\subseteq [0 \twodots \colorT) \cup \{\nullval\}$} \\
-\multirow[t]{2}{*}{$r$} & Initial Reservation Segment Size \\
+\multirow[t]{2}{*}{$r$} & {\textit{Initial Reservation Segment Size}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Formula \ref{eqn:stretched-segment-sizes}; \texttt{int} $\in [1 \twodots \colors]$} \\
-\multirow[t]{2}{*}{$R(r)$} & Mature Reservation Segment Size \\
+\multirow[t]{2}{*}{$R(r)$} & {\textit{Mature Reservation Segment Size}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} $2^{r} - 1$ (Lemma \ref{thm:stretched-meta-epoch}); \texttt{int} $\in [1 \twodots \colorS]$} \\
 
 \rowcolor{gray!20}\multicolumn{2}{c}{\textbf{Curation Quality}} \\
-\multirow[t]{2}{*}{$\colorB_{\colorT}$} & Retained Data Items \\
+\multirow[t]{2}{*}{$\colorB_{\colorT}$} & {\textit{Retained Data Items}} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Algorithm \ref{alg:tilted-time-lookup}; \texttt{set} $\subseteq [0\twodots\colorT)$} \\
-\multirow[t]{2}{*}{$\colorBnot_{\colorT}$} & Discarded Data Items \\
+\multirow[t]{2}{*}{$\colorBnot_{\colorT}$} & \textit{Discarded Data Items} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} $[0\twodots\colorT) \setminus \colorB_{\colorT}$; \texttt{set} $\subseteq [0\twodots\colorT)$} \\
-\multirow[t]{2}{*}{$\colorg = \colorG_{\colorT}(\colorTbar)$} & Gap Size in Curated Collection \\
+\multirow[t]{2}{*}{$\colorg = \colorG_{\colorT}(\colorTbar)$} & \textit{Gap Size in Curated Collection} \\
 & {\footnotesize\hspace{2em}\textbf{Def.} Formula \ref{eqn:gap-size-defn}; \texttt{int} $\in [0 \twodots \colorT)$} \\
 \end{tabularx}
 \caption{Summary of notation used.}
