@@ -3,11 +3,12 @@
 The tilted criterion favors recent data items, mandating a record spaced proportionally to time elapsed since ingest, $\colorT - 1 - \colorTbar$.
 This is opposite to the stretched criterion, which favors early data items.
 As given in Equation \ref{eqn:tilted-cost} in Section \ref{sec:stream-curation-problem}, the tilted criterion's cost function is the largest ratio of gap size to ingest time,
-\begin{align*}
+\begin{align}
 \mathsf{cost\_tilted}(\colorT)
 &=
 \max\Big\{\frac{\colorG_{\colorT}(\colorTbar)}{\colorT - 1 - \colorTbar} : \colorTbar \in [0 \twodots \colorT-1)\Big\}.
-\end{align*}
+  \label{eqn:cost-tilted}
+\end{align}
 
 The approximate lower bound on best-case gap size ratio provided in Equation \ref{eqn:approx-gap-bound} for the stretched curation can also be applied to tilted curation, as can the strict bound on best-case gap size ratio accounting for discretization effects established in Theorem \ref{thm:stretched-ideal-strict}.
 In this section, we present a stream curation algorithm tailored to the tilted criterion, achieving maximum gap size ratio no worse than
