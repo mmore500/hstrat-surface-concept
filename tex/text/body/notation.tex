@@ -139,7 +139,7 @@ Denote site $\colork$'s \textbf{hanoi value reservation} during epoch $\colort$ 
 A careful reader may wonder if the notation for site $\colork$'s hanoi value reservation $\colorHcal_{\colort}(\colork)$ should also be qualified by overall buffer size $\colorS$ as $\colorHcal_{\colort,\colorS}(\colork)$, in addition to current epoch $\colort$.
 Although omitted from our notation for brevity, this is indeed the case.
 }
-Note that a data item $\colorTbar \not\in \colortsetofT$ may occupy site $\colork$ during epoch $\colort$ with $\colorHcal_{\colort}(\colork) \neq \colorH(\colorTbar)$, having been held over from the previous epoch $\colort - 1$ before being overwriten with an instance of \hv{} $\colorh = \colorHcal_{\colort}(\colork)$ during the current epoch $\colort$.
+Note that a data item $\colorTbar \not\in \colortsetofT$ may occupy site $\colork$ during epoch $\colort$ with $\colorHcal_{\colort}(\colork) \neq \colorH(\colorTbar)$, having been held over from the previous epoch $\colort - 1$ before being overwritten with an instance of \hv{} $\colorh = \colorHcal_{\colort}(\colork)$ during the current epoch $\colort$.
 
 A substantial fraction of implementation for presented algorithms relates to how hanoi value reservations $\colorHcal_{\colort}$ are arranged over buffer space $\colork \in [0\twodots\colorS)$ as epochs $\colort$ elapse.
 Each algorithm organizes buffer space into contiguous \textbf{reservation segments}.
@@ -190,7 +190,7 @@ As such, we leave behavior for stretched and tilted curation past $2^{\colorS} -
 
 For convenience in exposition, note that we formally define and characterize the stretched and tilted algorithms only for $\colorT \in [0 \twodots 2^{\colorS - 1})$.
 However, in practice, extension to $\colorT \in [0 \twodots 2^{\colorS} - 1)$ that respects established guarantees on curation quality is straightforward.
-All algorithm psuedocode and reference implementations support this extended domain.
+All algorithm pseudocode and reference implementations support this extended domain.
 
 Restricting logical time $\colorT < 2^{\colorS - 1}$ bounds time epoch $\colort$ below
 \begin{align*}
