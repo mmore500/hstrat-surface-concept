@@ -34,7 +34,7 @@ Analogously, our sequence of most recent \hv{} instances adds new items at the f
 When an invasion occurs and half of ring buffer sites are reassigned, the snake's body of $2^{\colors - 1 - \colortau}$ sites is stretched across the reassigned half of the ring buffer.
 In other words, our snake is laid out entirely within the \textit{danger zone}!
 
-At the point when an invasion epoch $\colort$ begins, our snake containing $2^{\colors - 1 - \colortau}$ items will be chased into the preserved half of the ring buffer as overwrites enchroach at its rear.
+At the point when an invasion epoch $\colort$ begins, our snake containing $2^{\colors - 1 - \colortau}$ items will be chased into the preserved half of the ring buffer as overwrites encroach at its rear.
 The two desiderata described above ensure that the snake (1) pulls ahead and (2) stays ahead of invading overwrites to keep $2^{\colors - 1 - \colortau}$ body segments intact.
 Mixing metaphors, the snake slithers head then tail to safety as the rickety bridge of reassigned but not-yet-overwritten sites it had been occupying collapses behind it.
 After escaping the reassigned $2^{\colors - 1 - \colortau}$ ring buffer sites, the snake of recent \hv{} instances happily crawls in circles around its $2^{\colors - 1 - \colortau}$ reserved sites --- at least, until invaded again.
@@ -58,7 +58,7 @@ Hence,
 With $3 \times 2^{\colorh} - 1 < 2^{\colorh + 2} - 1 = \min\{\colorT : \colorH(\colorT) = \colorh + 2\}$, we have our result.
 
 \begin{proofpart}[Overwrite cadence slower than invaded \hv{} cadence]
-The cadence of a \hv{} $\colorh$, after first occuring at time $\colorT=2^{\colorh} - 1$ is to recur every $2^{\colorh + 1}$ ingests, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
+The cadence of a \hv{} $\colorh$, after first occurring at time $\colorT=2^{\colorh} - 1$ is to recur every $2^{\colorh + 1}$ ingests, where $\colorT \bmod 2^{\colorh + 1} = 2^{\colorh} - 1$.
 Ingests with \hv{} $\colorH(\colorT) \geq \colorh$ occur twice as frequently, where $\colorT \bmod 2^{\colorh} = 2^{\colorh} - 1$.
 
 Again, by Lemma \ref{thm:tilted-invader-minus-invaded}, for \hv{} $\colorHcal_{\colort}(\colork)$ invaded by \hv{} $\colorHcal_{\colort + 1}(\colork)$ (i.e., $\colorHcal_{\colort}(\colork) \neq \colorHcal_{\colort + 1}(\colork)$), we have $\colorHcal_{\colort + 1}(\colork) \geq \colorHcal_{\colort}(\colork) + 2$.
