@@ -15,12 +15,12 @@ By specification, ``invaded'' segments are always those of smallest remaining si
 Owing to the recursively nested structure of segment layout, smallest-remaining segments are always interspersed every second and always constitute half of active segments.
 
 Because invading segments grow by exactly one buffer site per epoch, the number of epochs $\colort$ it takes for a reservation segment to be invaded to elimination corresponds exactly to the invaded segment's reservation size at invasion outset.
-Our proof objective can thus be recast as determining the maximal ``mature''' size $R(r)$ reached by segments initialized size $r$ at epoch $\colort=0$ before frozen for elimination.
+Our proof objective can thus be recast as determining the maximal ``mature'' size $R(r)$ reached by segments initialized size $r$ at epoch $\colort=0$ before being frozen for elimination.
 
 Recall from Section \ref{sec:notation-metaepoch} that the duration of meta-epoch $\tau$, $|\colort \in \colortausetoft|$, is $2^{\colortau} - 1$.
 For reservation segments with $r=1$ (which are invaded in epoch $\colort=1$ and meta-epoch $\colortau = 1$), our goal is therefore to show $|\colort \in \colortausetoft| = 2^{\colortau} - 1$ matches $R(r)$ by showing $R(r) = 2^{r} - 1$.
 As already mentioned, initialized-singleton $r=1$ segments are always invaded first, in epoch $\colort=1$.
-Trivially, these segments also have $R(1) = 1$. on account of never having the opportunity to act as an invader.
+Trivially, these segments also have $R(1) = 1$, on account of never having the opportunity to act as an invader.
 Segments initialized at size $r=2$ are invaded next.
 These segments acted as invader during epoch $\colort=1$, and so grew to size $R(2) = 3$.
 Note that $R(1) \stackrel{\checkmark}{=} 2^1 - 1$ and $R(2) \stackrel{\checkmark}{=} 2^2 - 1$.
