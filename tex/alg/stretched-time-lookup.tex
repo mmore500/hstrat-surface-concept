@@ -34,7 +34,7 @@
         \Statex
         \State $\texttt{uint\_t} ~ ~ \colorh' \gets 0$ \Comment{Reserved hanoi value at site $\colork=0$}
         \State $\texttt{uint\_t} ~ ~ m_p \gets 0$ \Comment{Physical segment index at site $\colork=0$ (i.e., left-to-right position)}
-        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate overall buffer sites}
+        \ForAll{$\colork \in [0\twodots \colorS)$} \Comment{Iterate over all buffer sites}
         \State $\texttt{uint\_t} ~ ~ b_l \gets \Call{CountTrailingZeros}{M + m_p}$ \Comment{Logical bunch index in reverse fill order\ldots}
         \State \Comment{\dots (i.e., decreasing nestedness/increasing initial size $r$)}
         \State $\texttt{uint\_t} ~ ~ \epsilon_w \gets \Call{I}{m_p = 0}$ \Comment{Correction factor for segment size}
