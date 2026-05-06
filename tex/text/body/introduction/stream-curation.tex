@@ -17,7 +17,7 @@ We define three cost functions on the timepoints of discarded data items:\begin{
 Analysis of these cost functions, including best-case lower bounds on cost, accompanies presentation of steady, stretched, and tilted algorithms targeting each in Sections \cref{sec:steady,sec:stretched,sec:tilted}.
 
 Formally, our objective is to maintain cost function $\mathsf{cost}(\colorT)$ below an upper bound $\mathsf{bound}(\colorT)$ across logical time $\colorT$.
-We specify $\mathsf{bound}(\colorT)$ on a per-algorithm basis,
+We specify $\mathsf{bound}(\colorT)$ on a per-algorithm basis.
 We assume curation as an online process where new items are ingested on an ongoing basis, and a properly curated archive is needed at all times.
 In practice, such fully online curation can be necessary when either (a) stream records are consulted frequently or (b) time point(s) for which stream records are needed are not known \textit{a priori} (i.e., query- or trigger-driven events).
 
