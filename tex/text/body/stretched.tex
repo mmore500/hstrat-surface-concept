@@ -49,7 +49,7 @@ This section proposes a stream curation algorithm tailored to the stretched crit
 \end{align}
 over supported epochs $\colort \in [0\twodots\colorS - \colors)$.
 This bound ensures $\mathsf{cost\_stretched}(\colorT) \leq 1$.
-More generally, guarantees gap size ratio can be shown guaranteed within a factor of $(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times the optimal bound established in Equation \ref{eqn:stretched-best}.
+More generally, gap size ratio can be shown guaranteed within a factor of $(1 + 1/\colorS)\times\min(2\colort + 2\colors, \;\; 4\colort, \;\; 2^{\colortau + 1})$ times the optimal bound established in Equation \ref{eqn:stretched-best}.
 
 % (X/S) / (1 / (1 + S))
 % X(1 + 1/S)
@@ -62,7 +62,7 @@ However, instead of keeping just the $m$ highest \hv{}'s encountered, we approxi
 Figure \ref{fig:hanoi-intuition-stretched} shows how keeping the first $n$ instances of each \hv{} approximates stretched distribution.
 
 To respect fixed buffer capacity, per-\hv{} capacity $n$ must degrade as we encounter new \hv{}'s.
-We thus set out to maintain -- for a declining threshold $n(\colorT)$ --- the set of data items,
+We thus set out to maintain --- for a declining threshold $n(\colorT)$ --- the set of data items,
 \begin{align*}
 \mathsf{goal\_stretched}
 &\coloneq
