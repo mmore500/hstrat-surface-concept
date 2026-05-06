@@ -122,9 +122,9 @@ binder/teeplots/12/num-generations=128+reservation-mode=steady-full+surface-size
   \footnotesize
   Top panel \ref{fig:hsurf-steady-implementation-site-selection} enumerates initial steady policy site selection on a 32-site buffer.
   Panel \ref{fig:hsurf-steady-implementation-schematic} summarizes how data items are ingested and retained over time within a 32-site buffer, color-coded by data items' hanoi values $\colorH(\colorT)$.
-  Between $\colorT=0$ and $\colorT=126$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$; strips before  each epoch show hanoi values assigned to each buffer site during that epoch.
+  Between $\colorT=0$ and $\colorT=126$, time is segmented into epochs $\colort=0$, $\colort=1$, and $\colort=2$; strips before each epoch show hanoi values assigned to each buffer site during that epoch.
   Time increases along the $y$ axis.
-  Rectangles with small white ``$\blkhorzoval$'' symbol denote buffer site where the ingested data item from each timestep $\colorT$ is placed.
+  Rectangles with small white ``$\blkhorzoval$'' symbol denote the buffer site where the ingested data item from each timestep $\colorT$ is placed.
   Buffer space is split into ``reservation segments.''
   Reservation segments occur in five ``bunches'' --- (1) one 6-site segment, (2) one 4-site segment, (3) two 3-site segments, (4) four 2-site segments, and (5) eight 1-site segments.
   At each epoch, data items are filled into sites newly assigned for their ingestion-order hanoi value from left to right.
